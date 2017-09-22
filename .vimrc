@@ -1,91 +1,179 @@
-set nocompatible              " be iMproved, required
-filetype off                  " required
+" Note: Skip initialization for vim-tiny or vim-small.
+if 0 | endif
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-" " alternatively, pass a path where Vundle should install plugins
-" "call vundle#begin('~/some/path/here')
-"
-" " let Vundle manage Vundle, required
-Plugin 'VundleVim/Vundle.vim'
-"
-" " The following are examples of different formats supported.
-" " Keep Plugin commands between vundle#begin/end.
-" " plugin on GitHub repo
-Plugin 'tpope/vim-fugitive'
-"Plugin 'airblade/vim-gitgutter'
-" " plugin from http://vim-scripts.org/vim/scripts.html
-Plugin 'L9'
-Plugin 'pangloss/vim-javascript'
-"Plugin 'isRuslan/vim-es6'
-"Plugin 'jelera/vim-javascript-syntax'
-Plugin 'scrooloose/nerdtree'
-Plugin 'w0rp/ale'
-Plugin 'elzr/vim-json'
-"Plugin 'scrooloose/syntastic'
-"Plugin 'ervandew/supertab'
-Plugin 'kien/ctrlp.vim'
-"Plugin 'bling/vim-airline'
-Plugin 'glench/vim-jinja2-syntax'
-Plugin 'tpope/vim-surround'
-"Plugin 'scrooloose/nerdcommenter'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'majutsushi/tagbar'
-"Plugin 'shougo/neocomplete.vim'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'andrewradev/inline_edit.vim' " open proxy buffer from html script tag with :InlineEdit
-"Plugin 'easymotion/vim-easymotion'
-"Plugin 'yggdroot/indentline'
-Plugin 'cakebaker/scss-syntax.vim'
-"Plugin 'gregsexton/matchtag'
-Plugin 'othree/html5.vim'
-"Plugin 'heavenshell/vim-jsdoc'
-Plugin 'chriskempson/base16-vim'
-Plugin 'tpope/vim-vinegar'
-Plugin 'Valloric/MatchTagAlways'
-" Bundle 'nikvdp/ejs-syntax'
+if &compatible
+  set nocompatible               " Be iMproved
+endif
 
-" UI
-" Plugin 'terryma/vim-smooth-scroll'
+" Required:
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 
-" Snippet
-Plugin 'Sirver/ultisnips'
-" Plugin 'webdesus/polymer-ide.vim'
-Plugin 'jordwalke/JSDocSnippets'
-Plugin 'alexbyk/vim-ultisnips-js-testing'
-" END Snippet
-"
-"Plugin 'davidhalter/jedi-vim' " for python auto completion
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-Plugin 'itchyny/lightline.vim'
+" Required:
+call neobundle#begin(expand('~/.vim/bundle/'))
 
-Plugin 'vimwiki/vimwiki'
-" Plugin 'tbabej/taskwiki'
+" Let NeoBundle manage NeoBundle
+" Required:
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-Plugin 'gcmt/taboo.vim'
-" Plugin 'xolox/vim-notes'
-" Plugin 'xolox/vim-misc'
+" My Bundles here:
+" Refer to |:NeoBundle-examples|.
+" Note: You don't set neobundle setting in .gvimrc!
 
-"" Git plugin not hosted on GitHub
-" Plugin 'git://git.wincent.com/command-t.git'
-" " git repos on your local machine (i.e. when working on your own plugin)
-" Plugin 'file:///home/gmarik/path/to/plugin'
-" " The sparkup vim script is in a subdirectory of this repo called vim.
-" " Pass the path to set the runtimepath properly.
-" Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-" " Install L9 and avoid a Naming conflict if you've already installed a
-" " different version somewhere else.
-" Plugin 'ascenator/L9', {'name': 'newL9'}
-"
-" " All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-" " To ignore plugin indent changes, instead use:
- filetype plugin on
+NeoBundle 'othree/html5.vim'
+
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'tpope/vim-fugitive'
+
+NeoBundle 'w0rp/ale'
+NeoBundle 'elzr/vim-json'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'glench/vim-jinja2-syntax'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tomtom/tcomment_vim'
+
+" syntax highlight
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'plasticboy/vim-markdown'
+
+" align
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'junegunn/rainbow_parentheses.vim'
+
+
+" python
+NeoBundle 'davidhalter/jedi-vim'
+
+" snippet
+NeoBundle 'Sirver/ultisnips'
+NeoBundle 'isRuslan/vim-es6'
+NeoBundle 'alexbyk/vim-ultisnips-js-testing'
+
+NeoBundle 'heavenshell/vim-jsdoc'
+
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'marijnh/tern_for_vim'
+
+NeoBundle 'OmniSharp/omnisharp-vim'
+NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'honza/vim-snippets'
+
+
+" typescript
+NeoBundle 'leafgarland/typescript-vim'
+NeoBundle 'Quramy/tsuquyomi'
+NeoBundle 'Quramy/vim-js-pretty-template'
+NeoBundle 'Shougo/vimproc.vim', {
+    \ 'build' : {
+    \     'windows' : 'tools\\update-dll-mingw',
+    \     'cygwin' : 'make -f make_cygwin.mak',
+    \     'mac' : 'make -f make_mac.mak',
+    \     'linux' : 'make',
+    \     'unix' : 'gmake',
+    \    },
+    \ }
+
+" ycm
+NeoBundle 'Valloric/YouCompleteMe', {
+     \ 'build' : {
+     \     'mac' : './install.sh --tern-completer --clang-completer --system-libclang --omnisharp-completer',
+     \     'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+     \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
+     \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+     \    }
+     \ }
+
+" ui
+NeoBundle 'itchyny/lightline.vim'
+
+call neobundle#end()
+
+" Required:
+filetype plugin indent on
+
+" If there are uninstalled bundles found on startup,
+" this will conveniently prompt you to install them.
+NeoBundleCheck
+" " set the runtime path to include Vundle and initialize
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" " " alternatively, pass a path where Vundle should install plugins
+" " "call vundle#begin('~/some/path/here')
 " "
+" " " let Vundle manage Vundle, required
+" Plugin 'VundleVim/Vundle.vim'
+" "
+" " " The following are examples of different formats supported.
+"
+" Plugin 'sbdchd/neoformat'
+" " " Keep Plugin commands between vundle#begin/end.
+" " " plugin on GitHub repo
+" Plugin 'tpope/vim-fugitive'
+" "Plugin 'airblade/vim-gitgutter'
+" " " plugin from http://vim-scripts.org/vim/scripts.html
+" Plugin 'L9'
+" Plugin 'pangloss/vim-javascript'
+" Plugin 'scrooloose/nerdtree'
+" Plugin 'w0rp/ale'
+" Plugin 'elzr/vim-json'
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'glench/vim-jinja2-syntax'
+" Plugin 'tpope/vim-surround'
+" Plugin 'tomtom/tcomment_vim'
+" Plugin 'majutsushi/tagbar'
+" "Plugin 'shougo/neocomplete.vim'
+" Plugin 'marijnh/tern_for_vim'
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'andrewradev/inline_edit.vim' " open proxy buffer from html script tag with :InlineEdit
+" "Plugin 'easymotion/vim-easymotion'
+" "Plugin 'yggdroot/indentline'
+" Plugin 'cakebaker/scss-syntax.vim'
+"
+" " typescript
+" Plugin 'Shougo/vimproc.vim'
+" Plugin 'leafgarland/typescript-vim'
+" Plugin 'quramy/tsuquyomi'
+"
+" "Plugin 'gregsexton/matchtag'
+" Plugin 'othree/html5.vim'
+" "Plugin 'heavenshell/vim-jsdoc'
+" Plugin 'chriskempson/base16-vim'
+" Plugin 'tpope/vim-vinegar'
+" Plugin 'Valloric/MatchTagAlways'
+"
+"
+" " Snippet
+" Plugin 'Sirver/ultisnips'
+" " Plugin 'webdesus/polymer-ide.vim', { 'do': 'npm install' }
+" Plugin 'jordwalke/JSDocSnippets'
+" Plugin 'alexbyk/vim-ultisnips-js-testing'
+" " END Snippet
+" "
+" "Plugin 'davidhalter/jedi-vim' " for python auto completion
+" " Plugin 'vim-airline/vim-airline'
+" " Plugin 'vim-airline/vim-airline-themes'
+" Plugin 'itchyny/lightline.vim'
+"
+" Plugin 'vimwiki/vimwiki'
+" Plugin 'tbabej/taskwiki'
+"
+"
+" "" Git plugin not hosted on GitHub
+" " Plugin 'git://git.wincent.com/command-t.git'
+" " " git repos on your local machine (i.e. when working on your own plugin)
+" " Plugin 'file:///home/gmarik/path/to/plugin'
+" " " The sparkup vim script is in a subdirectory of this repo called vim.
+" " " Pass the path to set the runtimepath properly.
+" " Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+" " " Install L9 and avoid a Naming conflict if you've already installed a
+" " " different version somewhere else.
+" " Plugin 'ascenator/L9', {'name': 'newL9'}
+" "
+" " " All of your Plugins must be added before the following line
+" call vundle#end()            " required
+" filetype plugin indent on    " required
+" " " To ignore plugin indent changes, instead use:
+"  filetype plugin on
+" " "
 " " Brief help
 " " :PluginList       - lists configured plugins
 " " :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
@@ -123,20 +211,36 @@ filetype plugin indent on    " required
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" ejs filetype change
-au BufNewFile,BufRead *.ejs set filetype=html
+" prettier
+" autocmd BufWritePre *.js Neoformat
+" function! neoformat#formatters#javascript#prettiereslint() abort
+"   return {
+"         \ 'exe': 'eslint',
+"         \ 'args': ['--fix'],
+"         \ }
+" endfunction
 
+" window management
+:nnoremap <leader>vs :vs<cr>
+:nnoremap <leader>sp :sp<cr>
+
+
+" projectionist
+
+" read workds
+nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
 " vim wiki config
 let wiki = {}
+let wiki.path = '~/my_wiki/'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
 let g:vimwiki_list = [wiki]
 
 " force load syntax from the start of the page,
 " does fix syntax losing issue, but lose performance
-autocmd BufEnter * :syntax sync fromstart
+" autocmd BufEnter * :syntax sync fromstart
 
 " fix vim losing syntax
-autocmd BufEnter * :syntax sync fromstart
+" autocmd BufEnter * :syntax sync fromstart
 
 " insert current time in insert mode
 :inoremap <F5> <C-R>=strftime("%c")<CR>
@@ -197,7 +301,7 @@ let g:ale_linter_aliases = {'jinja': 'html'}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
-\   'html': [ 'htmlhint', 'eslint'],
+\   'html': [],
 \   'css': [ 'stylelint'],
 \   'scss': [ 'stylelint'],
 \   'jinja': [ 'htmlhint'],
@@ -215,11 +319,14 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+nmap <silent> <C-n> <Plug>(ale_previous_wrap)
+nmap <silent> <C-N> <Plug>(ale_next_wrap)
 " vim slow fix
 set ttyfast
 " Fugitive shortcut config
 set previewheight=25
 nmap <leader>gs :Gstatus<cr>
+nmap <leader>go :!git open<cr>
 nmap <leader>gc :Gcommit<cr>
 nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
@@ -228,6 +335,8 @@ nmap <leader>gd :Gdiff<cr>
 " YouCompleteMe and UltiSnips compatibility.
 "   tern
 autocmd FileType javascript setlocal omnifunc=tern#Complete
+autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType jinja setlocal omnifunc=htmlcomplete#CompleteTags
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
@@ -241,21 +350,26 @@ if has('autocmd')
     autocmd! User UltiSnipsEnterFirstSnippet
     "autocmd User UltiSnipsEnterFirstSnippet call autocomplete#setup_mappings()
     autocmd! User UltiSnipsExitLastSnippet
-    "autocmd User UltiSnipsExitLastSnippet call autocomplete#teardown_mappings()
-    Plugin 'honza/vim-snippets'
   augroup END
 endif
 
+
+" MARK: JEDI VIM
+let g:jedi#auto_initialization = 0
+let g:jedi#use_splits_not_buffers = "left"
+
 " MARK: Plugins/YouCompleteMe
-let g:ycm_auto_trigger = 1
+" for typescript
+
+let g:ycm_auto_trigger = 100
 " let g:ycm_path_to_python_interpreter =  '/usr/local/bin/python'
 " the next line help setup python virtual env autocomplete (w/ Jedi) it ensures
 " to use the current python file. (note: wait for a bit for Jedi to kickin
 let g:ycm_python_binary_path = 'python'
 let g:ycm_goto_buffer_command = 'vertical-split'
-let g:ycm_server_keep_logfiles = 1
+" let g:ycm_server_keep_logfiles = 1
 let g:ycm_server_use_vim_stdout = 1
-let g:ycm_server_log_level = 'debug'
+" let g:ycm_server_log_level = 'debug'
 let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
 let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
 let g:ycm_key_list_accept_completion = ['<C-y>']
@@ -277,7 +391,7 @@ let g:ycm_key_list_accept_completion = ['<C-y>']
 " Additional YouCompleteMe config.
 let g:ycm_complete_in_comments = 1
 "let g:ycm_collect_identifiers_from_comments_and_strings = 1
-let g:ycm_seed_identifiers_with_syntax = 1
+" let g:ycm_seed_identifiers_with_syntax = 1
 nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 "let g:ycm_extra_conf_globlist = ['~/code/masochist-pages/*']
@@ -290,7 +404,6 @@ nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
       "\   'javascript': 1,
       "\   'ruby': 1
       "\ }
-
 let g:ycm_semantic_triggers = {
       \   'haskell': [
       \     '.',
@@ -298,6 +411,7 @@ let g:ycm_semantic_triggers = {
       \     ',',
       \     ', '
       \   ],
+      \   "typescript": ['.'],
       \   'mail': [
       \     're!^Bcc:(.*, ?| ?)',
       \     're!^Cc:(.*, ?| ?)',
@@ -312,7 +426,6 @@ let g:ycm_semantic_triggers = {
       \     're!^\s{4}',
       \      're!:\s+'
       \   ],
-      \   'html': ['<', '"', '</', ' '],
       \   'jinja': ['<', '"', '</', ' '],
       \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
       \   'scss': [ 're!^\s{4}', 're!:\s+' ],
@@ -355,12 +468,16 @@ set omnifunc=syntaxcomplete#Complete
 let g:javascript_plugin_jsdoc = 1
 
 "ctrlp ignore file
-let g:ctrlp_custom_ignore = '\v[\/](static|.Trash|.sass-cache|temp|build|lib|bower_components|node_modules|target|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
+let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
 let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_working_path_mode='ra'
 nmap <f8> :TagbarToggle<cr>
 let g:tagbar_autofocus=1
 set pastetoggle=<F2>
+
+" force highlight from start
+noremap <F12> <Esc>:syntax sync fromstart<CR>
+inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 " MARK: Normal mode settings
 " Avoid unintentional switches to Ex mode.
@@ -432,11 +549,17 @@ set smartcase
 nnoremap <leader>c<Space> :TComment <CR>
 
 
+" MARK: Typescript tsuquyomi
+" let g:tsuquyomi_completion_detail = 1
+" let g:tsuquyomi_completion_detail = 1
+autocmd FileType typescript setlocal completeopt+=menu,preview
+
+
 
 " MARK: NERDTree
 let g:NERDTreeMouseMode=2
 let NERDTreeShowHidden=1
-let NERDTreeChDirMode=2
+" let NERDTreeChDirMode=2
 let g:ctrlp_dont_split = 'nerdtree'
 let g:ctrlp_show_hidden = 1
 nmap <leader>ne :NERDTreeToggle<cr>
@@ -540,7 +663,7 @@ endif
 
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 "set guifont=Source\ Code\ Pro\ Light:h13
-set guifont=Inconsolata\ for\ Powerline:h15
+set guifont=Inconsolata\ for\ Powerline:h16
 
 set guioptions-=T                     " don't show toolbar
 set guioptions= 
@@ -854,10 +977,10 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-"map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+" map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
