@@ -1,6 +1,12 @@
 .PHONY: install
 
 install:
-	ln -sfn .vimrc ~/.vimrc
-	ln -sfn .spacemacs ~/.spacemacs
-	ln -sfn .tmux.conf ~/.tmux.conf
+	ln -s .vimrc ~/.vimrc
+	ln -s .spacemacs ~/.spacemacs
+	ln -s .tmux.conf ~/.tmux.conf
+
+uninstall: 
+	rm ~/.vimrc
+	rm ~/.spacemacs
+	rm ~/.tmux.conf
+
