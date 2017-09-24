@@ -51,7 +51,11 @@ NeoBundle 'alexbyk/vim-ultisnips-js-testing'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'marijnh/tern_for_vim'
+NeoBundle 'marijnh/tern_for_vim', {
+          \ 'build': {
+          \ 'mac': 'npm install'
+          \ }
+          \ }
 
 NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
