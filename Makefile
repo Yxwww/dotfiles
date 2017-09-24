@@ -1,12 +1,13 @@
 .PHONY: install
 
 install:
-	ln -s .vimrc ~/.vimrc
-	ln -s .spacemacs ~/.spacemacs
-	ln -s .tmux.conf ~/.tmux.conf
+	bin/dfm install
 
-uninstall: 
-	rm ~/.vimrc
-	rm ~/.spacemacs
-	rm ~/.tmux.conf
 
+.PHONY: sync-notes
+
+upload-notes:
+	cp -rf ~/.vim/bundle/vim-notes/misc/notes/user/ ~/Google\ Drive/vim_notes
+
+download-notes:
+	cp -rf ~/Google\ Drive/vim_notes ~/.vim/bundle/vim-notes/misc/notes/user/
