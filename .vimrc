@@ -305,10 +305,10 @@ let g:ale_linter_aliases = {'jinja': 'html'}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
 \   'python': ['flake8'],
-\   'html': [],
+\   'html': [''],
 \   'css': [ 'stylelint'],
-\   'scss': [ 'stylelint'],
-\   'jinja': [ 'htmlhint'],
+\   'scss': [ 'sass-lint'],
+\   'jinja': [''],
 \}
 " alias ale linter to html
 let g:ale_sign_column_always = 1
