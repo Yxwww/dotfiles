@@ -19,21 +19,24 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
 
-NeoBundle 'othree/html5.vim'
+" NeoBundle 'othree/html5.vim'
 
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'w0rp/ale'
 NeoBundle 'elzr/vim-json'
-NeoBundle 'kien/ctrlp.vim'
+" NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'junegunn/fzf.vim'
+NeoBundle 'mileszs/ack.vim'
 NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tomtom/tcomment_vim'
 
 " syntax highlight
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'plasticboy/vim-markdown'
+" NeoBundle 'pangloss/vim-javascript'
+NeoBundle "sheerun/vim-polyglot"
+" NeoBundle 'plasticboy/vim-markdown'
 
 " align
 NeoBundle 'godlygeek/tabular'
@@ -89,6 +92,8 @@ NeoBundle 'Valloric/YouCompleteMe', {
 " ui
 NeoBundle 'itchyny/lightline.vim'
 
+" misc
+NeoBundle 'ashisha/image.vim'
 call neobundle#end()
 
 " Required:
@@ -471,9 +476,25 @@ set omnifunc=syntaxcomplete#Complete
 " vim-javascript config
 let g:javascript_plugin_jsdoc = 1
 
+"ack config
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+" nmap <M-k>    :Ack! "\b<cword>\b" <CR>
+nmap <C-f>   :Ack! "\b<cword>\b" <CR>
+nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
+" nmap <Esc>K   :Ggrep! "\b<cword>\b" <CR>
+
+"fzf
+set rtp+=/usr/local/opt/fzf " If installed using Homebrew
+nmap ; :Buffers<CR>
+" nmap <Leader>j :Files<CR>
+" nmap <Leader>r :Tags<CR>
+nmap <C-p> :Files<CR>
+
 "ctrlp ignore file
-let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
-let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
+" let g:ctrlp_map = '<c-p>'
 "let g:ctrlp_working_path_mode='ra'
 nmap <f8> :TagbarToggle<cr>
 let g:tagbar_autofocus=1
@@ -554,7 +575,8 @@ nnoremap <leader>c<Space> :TComment <CR>
 
 
 " MARK: Typescript tsuquyomi
-" let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_use_vimproc=1
+let g:tsuquyomi_completion_detail = 1
 " let g:tsuquyomi_completion_detail = 1
 autocmd FileType typescript setlocal completeopt+=menu,preview
 
