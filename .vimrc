@@ -418,7 +418,8 @@ let g:ycm_semantic_triggers = {
       \     '.',
       \     '(',
       \     ',',
-      \     ', '
+      \     ', ',
+      \     're!.',
       \   ],
       \   "typescript": ['.'],
       \   'mail': [
@@ -436,6 +437,7 @@ let g:ycm_semantic_triggers = {
       \      're!:\s+'
       \   ],
       \   'jinja': ['<', '"', '</', ' '],
+      \   'html': ['<', '"', '</', ' '],
       \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
       \   'scss': [ 're!^\s{4}', 're!:\s+' ],
       \   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
@@ -575,9 +577,8 @@ nnoremap <leader>c<Space> :TComment <CR>
 
 
 " MARK: Typescript tsuquyomi
-let g:tsuquyomi_use_vimproc=1
+let g:tsuquyomi_use_vimproc=1 " required fix save on crash
 let g:tsuquyomi_completion_detail = 1
-" let g:tsuquyomi_completion_detail = 1
 autocmd FileType typescript setlocal completeopt+=menu,preview
 
 
