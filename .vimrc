@@ -62,6 +62,7 @@ NeoBundle 'marijnh/tern_for_vim', {
 
 NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
+NeoBundle 'tomasr/molokai'
 NeoBundle 'honza/vim-snippets'
 
 
@@ -270,22 +271,45 @@ syntax enable
 ":set noswapfile
 
 " enable 256 colors palette in gnome terminal
-if $colorterm == 'gnome-terminal'
-    set t_co=256
-endif
-
+" if $colorterm == 'gnome-terminal'
+"     set t_co=256
+" endif
+"
+" set background=dark
+"
+" if filereadable(expand("~/.vimrc_background"))
+"     let base16colorspace=256
+"     source ~/.vimrc_background
+" endif
+"
+" try
+"     colorscheme base16-tomorrow-night
+" catch
+"     echo "unable to find theme"
+" endtry
 set background=dark
-
-if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
+let g:rehash256 = 1 " Something to do with Molokai?
+colorscheme molokai
+if !has('gui_running')
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
+  elseif has("terminfo")
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%p1%dm
+    set t_Sb=[4%p1%dm
+  else
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+  endif
+  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
+  if $TMUX != ""
+    set t_ut=
+  endif
 endif
-
-try
-    colorscheme base16-tomorrow-night
-catch
-    echo "unable to find theme"
-endtry
+syntax on
 
 
 " hybrid line number
