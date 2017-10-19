@@ -903,6 +903,8 @@ endif
 "       \ }
 
 " Lightline
+" thanks to statico vimrc: https://github.com/statico
+" https://statico.github.io/vim3.html#lightline-powerline-airline-and-status-bars
 let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
