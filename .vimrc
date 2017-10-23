@@ -35,8 +35,9 @@ NeoBundle 'tomtom/tcomment_vim'
 
 " syntax highlight
 " NeoBundle 'pangloss/vim-javascript'
-NeoBundle "sheerun/vim-polyglot"
-" NeoBundle 'plasticboy/vim-markdown'
+" NeoBundle "sheerun/vim-polyglot"
+NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'plasticboy/vim-markdown'
 
 " align
 NeoBundle 'godlygeek/tabular'
@@ -425,18 +426,20 @@ let g:ycm_key_list_accept_completion = ['<C-y>']
 let g:ycm_complete_in_comments = 1
 "let g:ycm_collect_identifiers_from_comments_and_strings = 1
 " let g:ycm_seed_identifiers_with_syntax = 1
-nnoremap <leader>gt :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>e :YcmCompleter RefactorRename
 
 "let g:ycm_extra_conf_globlist = ['~/code/masochist-pages/*']
 
 " Disable unhelpful semantic completions.
-"let g:ycm_filetype_specific_completion_to_disable = {
-      "\   'c': 1,
-      "\   'gitcommit': 1,
-      "\   'haskell': 1,
-      "\   'javascript': 1,
-      "\   'ruby': 1
-      "\ }
+" let g:ycm_filetype_specific_completion_to_disable = {
+"       \   'c': 1,
+"       \   'gitcommit': 1,
+"       \   'haskell': 1,
+"       \   'javascript': 1,
+"       \   'ruby': 1
+"       \ }
+
 let g:ycm_semantic_triggers = {
       \   'haskell': [
       \     '.',
@@ -476,6 +479,8 @@ let g:ycm_filetype_blacklist = {
       \   'qf': 1,
       \   'vimwiki': 1,
       \   'infolog': 1,
+      \   'markdown': 1,
+      \   'gitcommit': 1,
       \ }
 
 "call defer#packadd('YouCompleteMe', 'youcompleteme.vim')
@@ -604,6 +609,7 @@ nnoremap <leader>c<Space> :TComment <CR>
 let g:tsuquyomi_use_vimproc=1 " required fix save on crash
 let g:tsuquyomi_completion_detail = 1
 autocmd FileType typescript setlocal completeopt+=menu,preview
+
 
 
 
@@ -932,10 +938,12 @@ endif
 let g:lightline = {
     \ 'colorscheme': 'wombat',
     \ 'active': {
-    \   'left': [['mode', 'paste'], ['filename', 'modified']],
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
     \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
     \ },
     \ 'component_expand': {
+    \   'fugitive': 'MyFugitive',
     \   'linter_warnings': 'LightlineLinterWarnings',
     \   'linter_errors': 'LightlineLinterErrors',
     \   'linter_ok': 'LightlineLinterOK'
