@@ -510,6 +510,7 @@ let g:javascript_plugin_jsdoc = 1
 "ack config
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
+  " let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 " nmap <M-k>    :Ack! "\b<cword>\b" <CR>
 nmap <C-f>   :Ack! "\b<cword>\b" <CR>
@@ -517,11 +518,18 @@ nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
 " nmap <Esc>K   :Ggrep! "\b<cword>\b" <CR>
 
 "fzf
+fun! s:fzf_root()
+    let path = finddir(".git", expand("%:p:h").";")
+    return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
+endfun
+
 set rtp+=/usr/local/opt/fzf " If installed using Homebrew
+" let $FZF_DEFAULT_COMMAND = 'ag -a'
 nmap ; :Buffers<CR>
 " nmap <Leader>j :Files<CR>
 " nmap <Leader>r :Tags<CR>
-nmap <C-p> :Files<CR>
+" nmap <C-p> :Files<CR>
+nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
 
 "ctrlp ignore file
 " let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
