@@ -26,12 +26,15 @@ NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'w0rp/ale'
 NeoBundle 'elzr/vim-json'
-" NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tomtom/tcomment_vim'
+
+" QoL
+NeoBundle 'vimwiki/vimwiki'
 
 " syntax highlight
 " NeoBundle 'pangloss/vim-javascript'
@@ -244,6 +247,9 @@ nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
 let wiki = {}
 let wiki.path = '~/my_wiki/'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
+let wiki.template_default = 'default'
+let wiki.custom_wiki2html = 'vimwiki_markdown'
+let wiki.template_ext = '.tpl'
 let g:vimwiki_list = [wiki]
 
 " force load syntax from the start of the page,
@@ -428,6 +434,8 @@ let g:ycm_complete_in_comments = 1
 " let g:ycm_seed_identifiers_with_syntax = 1
 nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>e :YcmCompleter RefactorRename
+" nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
+nnoremap <f2> :set :YcmCompleter RefactorRename
 
 "let g:ycm_extra_conf_globlist = ['~/code/masochist-pages/*']
 
@@ -522,19 +530,20 @@ fun! s:fzf_root()
     let path = finddir(".git", expand("%:p:h").";")
     return fnamemodify(substitute(path, ".git", "", ""), ":p:h")
 endfun
-
 set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 " let $FZF_DEFAULT_COMMAND = 'ag -a'
 nmap ; :Buffers<CR>
+nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
 " nmap <Leader>j :Files<CR>
 " nmap <Leader>r :Tags<CR>
 " nmap <C-p> :Files<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "ctrlp ignore file
-" let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
-" let g:ctrlp_map = '<c-p>'
-"let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode='ra'
 nmap <f8> :TagbarToggle<cr>
 let g:tagbar_autofocus=1
 set pastetoggle=<F2>
@@ -729,7 +738,8 @@ endif
 
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 "set guifont=Source\ Code\ Pro\ Light:h13
-set guifont=Inconsolata\ for\ Powerline:h16
+" set guifont=Inconsolata\ for\ Powerline:h16
+set guifont=Fira\ Mono:h14
 
 set guioptions-=T                     " don't show toolbar
 set guioptions= 
@@ -1143,3 +1153,8 @@ if has("multi_byte")
   "setglobal bomb
   set fileencodings=ucs-bom,utf-8,latin1
 endif
+
+" Abbreviation
+ab spaital spatial
+ab bouding bounding
+ab funciton function
