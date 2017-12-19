@@ -41,6 +41,9 @@ NeoBundle 'vimwiki/vimwiki'
 " NeoBundle "sheerun/vim-polyglot"
 NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'plasticboy/vim-markdown'
+NeoBundle 'posva/vim-vue'
+NeoBundle 'mhartington/oceanic-next'
+
 
 " align
 NeoBundle 'godlygeek/tabular'
@@ -296,7 +299,10 @@ syntax enable
 " endtry
 set background=dark
 let g:rehash256 = 1 " Something to do with Molokai?
-colorscheme molokai
+if (has("termguicolors"))
+  set termguicolors
+endif
+colorscheme OceanicNext
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
