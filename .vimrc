@@ -29,7 +29,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'mileszs/ack.vim'
-NeoBundle 'glench/vim-jinja2-syntax'
+" NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tomtom/tcomment_vim'
 
@@ -37,9 +37,9 @@ NeoBundle 'tomtom/tcomment_vim'
 NeoBundle 'vimwiki/vimwiki'
 
 " syntax highlight
-" NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'pangloss/vim-javascript'
 " NeoBundle "sheerun/vim-polyglot"
-NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'posva/vim-vue'
 NeoBundle 'mhartington/oceanic-next'
@@ -71,6 +71,7 @@ NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'honza/vim-snippets'
+NeoBundle 'prettier/vim-prettier'
 
 
 " typescript
@@ -90,10 +91,10 @@ NeoBundle 'Shougo/vimproc.vim', {
 " ycm
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build' : {
-     \     'mac' : './install.sh --tern-completer --clang-completer --system-libclang --omnisharp-completer',
-     \     'unix' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-     \     'windows' : './install.sh --clang-completer --system-libclang --omnisharp-completer',
-     \     'cygwin' : './install.sh --clang-completer --system-libclang --omnisharp-completer'
+     \     'mac' : './install.sh --tern-completer --clang-completer --system-libclang',
+     \     'unix' : './install.sh --clang-completer --system-libclang',
+     \     'windows' : './install.sh --clang-completer --system-libclang',
+     \     'cygwin' : './install.sh --clang-completer --system-libclang'
      \    }
      \ }
 
@@ -229,6 +230,9 @@ NeoBundleCheck
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prettier
+nmap <Leader>py <Plug>(Prettier)
+autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --stdin
+" autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
 " autocmd BufWritePre *.js Neoformat
 " function! neoformat#formatters#javascript#prettiereslint() abort
 "   return {
@@ -302,7 +306,8 @@ let g:rehash256 = 1 " Something to do with Molokai?
 if (has("termguicolors"))
   set termguicolors
 endif
-colorscheme OceanicNext
+set t_Co=256
+colorscheme Civic
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
@@ -346,8 +351,9 @@ let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\
 let g:ale_linter_aliases = {'jinja': 'html'}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
 \   'python': ['flake8'],
-\   'html': [''],
+\   'html': ['eslint'],
 \   'css': [ 'stylelint'],
 \   'scss': [ 'sass-lint'],
 \   'jinja': [''],
@@ -365,6 +371,10 @@ let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_change_sign_column_color = 0
+let g:ale_sign_column_always = 0
+highlight SignColumn guibg=#383942
+" highlight clear SignColumn
 nmap <silent> <C-n> <Plug>(ale_previous_wrap)
 nmap <silent> <C-N> <Plug>(ale_next_wrap)
 " vim slow fix
@@ -377,6 +387,8 @@ nmap <leader>gc :Gcommit<cr>
 nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
+nmap <leader>vs :vs<cr>
+nmap <leader>sp :sp<cr>
 " Snippet
 " YouCompleteMe and UltiSnips compatibility.
 "   tern
@@ -440,6 +452,7 @@ let g:ycm_complete_in_comments = 1
 " let g:ycm_seed_identifiers_with_syntax = 1
 nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>e :YcmCompleter RefactorRename
+nnoremap <leader>i :TsuImport <CR>
 " nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
 nnoremap <f2> :set :YcmCompleter RefactorRename
 
@@ -735,7 +748,7 @@ if has('folding')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
   endif
   set foldmethod=syntax               " not as cool as syntax, but faster
-  set foldlevelstart=99               " start unfolded
+  set foldlevelstart=1               " start unfolded
 endif
 
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -826,7 +839,7 @@ set tabstop=2                         " spaces per tab
 
 if has('termguicolors')
   set termguicolors                   " use guifg/guibg instead of ctermfg/ctermbg in terminal
-  hi Search guibg=darkGrey guifg=darkGreen
+  " hi Search guibg=darkGrey guifg=darkGreen
 endif
 
 set textwidth=0                      " automatically hard wrap at 80 columns
@@ -1162,5 +1175,7 @@ endif
 
 " Abbreviation
 ab spaital spatial
+ab spatail spatial
 ab bouding bounding
 ab funciton function
+ab annotaion annotation
