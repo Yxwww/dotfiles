@@ -307,7 +307,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
-colorscheme Civic
+colorscheme OceanicNext
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
@@ -644,6 +644,7 @@ nnoremap <leader>c<Space> :TComment <CR>
 " MARK: Typescript tsuquyomi
 let g:tsuquyomi_use_vimproc=1 " required fix save on crash
 let g:tsuquyomi_completion_detail = 1
+autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
 autocmd FileType typescript setlocal completeopt+=menu,preview
 
 
@@ -733,6 +734,7 @@ endif
 
 set cursorline                        " highlight current line
 
+" swp file directory
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
 else
@@ -846,6 +848,7 @@ set textwidth=0                      " automatically hard wrap at 80 columns
 set wrapmargin=0
 " let &colorcolumn="80,".join(range(120,255),"," )
 
+" undo file directory
 if has('persistent_undo')
   if exists('$SUDO_USER')
     set noundofile                    " don't create root-owned files

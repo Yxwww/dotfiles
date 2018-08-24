@@ -1,5 +1,6 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "breadcrumbs.enabled": true,
     "editor.fontFamily": "Consolas,Menlo, Monaco, 'Courier New', monospace",
     "editor.fontSize": 16,
     "editor.fontLigatures": true,
@@ -28,6 +29,17 @@
     "vim.useCtrlKeys": true,
     "vim.hlsearch": true,
     "vim.visualstar": true,
+    "vim.otherModesKeyBindingsNonRecursive": [
+        {
+            "before":["F3"],
+            "after":[],
+            "commands": [
+                {
+                    "command": ":nohl"
+                }
+            ]
+        }
+    ],
     "vim.insertModeKeyBindings": [
         {
             "before": [
@@ -71,6 +83,20 @@
             "commands": [
                 {
                     "command": "editor.action.goToDeclaration"
+                }
+            ]
+        },
+        {
+            "before": [
+                "m",
+                "a",
+            ],
+            "after": [
+
+            ],
+            "commands": [
+                {
+                    "command": "bookmarks.toggle"
                 }
             ]
         },
@@ -197,5 +223,13 @@
         "ylim"
     ],
     "workbench.colorTheme": "Default Light+",
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.showSuggestionsAsSnippets": true,
+    "editor.snippetSuggestions": "top",
+    "emmet.includeLanguages": {
+        "javascript": "javascriptreact",
+        "vue-html": "html",
+        "plaintext": "jade"
+    },
 }
 
