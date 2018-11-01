@@ -38,6 +38,7 @@ NeoBundle 'vimwiki/vimwiki'
 
 " syntax highlight
 NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'mxw/vim-jsx'
 " NeoBundle "sheerun/vim-polyglot"
 " NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
 NeoBundle 'plasticboy/vim-markdown'
@@ -71,8 +72,6 @@ NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
 NeoBundle 'tomasr/molokai'
 NeoBundle 'honza/vim-snippets'
-NeoBundle 'prettier/vim-prettier'
-
 
 " typescript
 NeoBundle 'leafgarland/typescript-vim'
@@ -88,7 +87,8 @@ NeoBundle 'Shougo/vimproc.vim', {
     \    },
     \ }
 
-" ycm
+" autocompletion
+NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build' : {
      \     'mac' : './install.sh --tern-completer --clang-completer --system-libclang',
@@ -246,7 +246,13 @@ autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --std
 :nnoremap <leader>sp :sp<cr>
 
 
-" projectionist
+" MARK: emmet config
+let g:user_emmet_leader_key='<Tab>'
+let g:user_emmet_settings = {
+  \  'javascript.jsx' : {
+    \      'extends' : 'jsx',
+    \  },
+  \}
 
 " read workds
 nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
@@ -348,6 +354,11 @@ endif
 "let g:syntastic_warning_symbol = '!'
 "let g:syntastic_style_warning_symbol = '💩'
 let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
+let g:ale_fixers = {
+\   'javascript': ['eslint'],
+\   'css': ['prettier'],
+\}
+let g:ale_fix_on_save = 0
 let g:ale_linter_aliases = {'jinja': 'html'}
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -360,8 +371,9 @@ let g:ale_linters = {
 \}
 " alias ale linter to html
 let g:ale_sign_column_always = 1
-let g:ale_sign_error = '❌'
-let g:ale_sign_warning = '⚠️'
+let g:ale_sign_error = '●' " Less aggressive than the default '>>'
+let g:ale_sign_warning = '.'
+let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
 highlight clear ALEErrorSign
 highlight clear ALEWarningSign
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
@@ -381,6 +393,7 @@ nmap <silent> <C-N> <Plug>(ale_next_wrap)
 set ttyfast
 " Fugitive shortcut config
 set previewheight=25
+nmap <leader>f :ALEFix<cr>
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>go :!git open<cr>
 nmap <leader>gc :Gcommit<cr>
@@ -643,8 +656,8 @@ nnoremap <leader>c<Space> :TComment <CR>
 
 " MARK: Typescript tsuquyomi
 let g:tsuquyomi_use_vimproc=1 " required fix save on crash
-let g:tsuquyomi_completion_detail = 1
-autocmd FileType typescript nmap <buffer> <Leader>t : <C-u>echo tsuquyomi#hint()<CR>
+" let g:tsuquyomi_completion_detail = 1
+let g:tsuquyomi_disable_quickfix = 1
 autocmd FileType typescript setlocal completeopt+=menu,preview
 
 
