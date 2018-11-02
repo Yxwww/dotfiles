@@ -38,9 +38,7 @@ NeoBundle 'vimwiki/vimwiki'
 
 " syntax highlight
 NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'mxw/vim-jsx'
-" NeoBundle "sheerun/vim-polyglot"
-" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+NeoBundle 'maxmellon/vim-jsx-pretty'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'posva/vim-vue'
 NeoBundle 'mhartington/oceanic-next'
