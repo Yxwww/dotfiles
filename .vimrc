@@ -233,10 +233,6 @@ if has("gui_macvim")
 endif
 
 " ale
-"let g:syntastic_error_symbol = '❌'
-"let g:syntastic_style_error_symbol = '!?'
-"let g:syntastic_warning_symbol = '!'
-"let g:syntastic_style_warning_symbol = '💩'
 let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
 let g:ale_fixers = {
 \   'javascript': ['eslint'],
@@ -476,6 +472,7 @@ nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(ex
 nnoremap K <nop>
 nnoremap <Tab> za
 
+" MARK: buffer movement
 nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
