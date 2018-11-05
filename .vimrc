@@ -652,9 +652,12 @@ if v:version > 703 || v:version == 703 && has('patch541')
 endif
 
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
-"set guifont=Source\ Code\ Pro\ Light:h13
-" set guifont=Inconsolata\ for\ Powerline:h16
-set guifont=Fira\ Mono:h14
+if has("gui_macvim")                  " turn on ligatures with gui macvim and using Fira Code
+  set macligatures
+  set guifont=Fira\ Code:h14
+else                                  " if not on macvim use Fira Mono 
+  set guifont=Fira\ Mono:h14
+endif
 
 set guioptions-=T                     " don't show toolbar
 set guioptions= 
