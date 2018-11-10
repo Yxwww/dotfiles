@@ -145,7 +145,8 @@ if [ -e ~/.fzf ]; then
 fi
 
 # fzf + ag configuration
-if _has fzf && _has ag; then
+if type fzf && type ag; then
+  echo 'fzf & ag exists'
   export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
