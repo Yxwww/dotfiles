@@ -140,13 +140,16 @@ let g:user_emmet_settings = {
 
 " read workds
 nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
-" vim wiki config
+"
+" vimwiki/vimwiki config
 let wiki = {}
 let wiki.path = '~/my_wiki/'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
 let wiki.template_default = 'default'
 let wiki.custom_wiki2html = 'vimwiki_markdown'
 let wiki.template_ext = '.tpl'
+let wiki.syntax = 'markdown'
+let wiki.ext = '.md'
 let g:vimwiki_list = [wiki]
 
 " force load syntax from the start of the page,
