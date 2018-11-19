@@ -130,6 +130,8 @@ autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --std
 :nnoremap <leader>vs :vs<cr>
 :nnoremap <leader>sp :sp<cr>
 
+" MARK: jsx config
+let g:jsx_ext_required = 1
 
 " MARK: emmet config
 let g:user_emmet_leader_key='<Tab>'
@@ -149,7 +151,7 @@ nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
 "
 " vimwiki/vimwiki config
 let wiki = {}
-let wiki.path = '~/my_wiki/'
+let wiki.path = '~/my-wiki/'
 let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
 let wiki.template_default = 'default'
 let wiki.custom_wiki2html = 'vimwiki_markdown'
