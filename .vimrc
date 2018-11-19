@@ -31,6 +31,7 @@ NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'mileszs/ack.vim'
 " NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
 
 " QoL
@@ -133,10 +134,15 @@ autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --std
 " MARK: emmet config
 let g:user_emmet_leader_key='<Tab>'
 let g:user_emmet_settings = {
-  \  'javascript.jsx' : {
-    \      'extends' : 'jsx',
-    \  },
-  \}
+\  'javascript' : {
+\      'extends' : 'jsx',
+\  },
+\}
+" let g:user_emmet_settings = {
+"   \  'javascript.jsx' : {
+"     \      'extends' : 'jsx',
+"     \  },
+"   \}
 
 " read workds
 nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
