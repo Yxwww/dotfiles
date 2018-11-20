@@ -21,7 +21,10 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 NeoBundle 'othree/html5.vim'
 
+" file explorer
 NeoBundle 'scrooloose/nerdtree'
+
+" git
 NeoBundle 'tpope/vim-fugitive'
 
 NeoBundle 'w0rp/ale'
@@ -64,11 +67,6 @@ NeoBundle 'alexbyk/vim-ultisnips-js-testing'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 NeoBundle 'majutsushi/tagbar'
-" NeoBundle 'marijnh/tern_for_vim', {
-"           \ 'build': {
-"           \ 'mac': 'npm install'
-"           \ }
-"           \ }
 
 NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
@@ -299,7 +297,6 @@ nmap <leader>sp :sp<cr>
 " Snippet
 " YouCompleteMe and UltiSnips compatibility.
 "   tern
-" autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType jinja setlocal omnifunc=htmlcomplete#CompleteTags
 let g:UltiSnipsExpandTrigger = '<tab>'
