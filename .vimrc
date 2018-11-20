@@ -64,11 +64,11 @@ NeoBundle 'alexbyk/vim-ultisnips-js-testing'
 NeoBundle 'heavenshell/vim-jsdoc'
 
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'marijnh/tern_for_vim', {
-          \ 'build': {
-          \ 'mac': 'npm install'
-          \ }
-          \ }
+" NeoBundle 'marijnh/tern_for_vim', {
+"           \ 'build': {
+"           \ 'mac': 'npm install'
+"           \ }
+"           \ }
 
 NeoBundle 'OmniSharp/omnisharp-vim'
 NeoBundle 'chriskempson/base16-vim'
@@ -93,7 +93,7 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'mattn/emmet-vim'
 NeoBundle 'Valloric/YouCompleteMe', {
      \ 'build' : {
-     \     'mac' : './install.sh --tern-completer --clang-completer --system-libclang',
+     \     'mac' : './install.sh --clang-completer --system-libclang',
      \     'unix' : './install.sh --clang-completer --system-libclang',
      \     'windows' : './install.sh --clang-completer --system-libclang',
      \     'cygwin' : './install.sh --clang-completer --system-libclang'
@@ -279,7 +279,7 @@ let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_change_sign_column_color = 0
 let g:ale_sign_column_always = 0
-highlight SignColumn guibg=#383942
+" highlight SignColumn guibg=#383942
 " highlight clear SignColumn
 nmap <silent> <C-n> <Plug>(ale_previous_wrap)
 nmap <silent> <C-N> <Plug>(ale_next_wrap)
@@ -299,7 +299,7 @@ nmap <leader>sp :sp<cr>
 " Snippet
 " YouCompleteMe and UltiSnips compatibility.
 "   tern
-autocmd FileType javascript setlocal omnifunc=tern#Complete
+" autocmd FileType javascript setlocal omnifunc=tern#Complete
 autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType jinja setlocal omnifunc=htmlcomplete#CompleteTags
 let g:UltiSnipsExpandTrigger = '<tab>'
