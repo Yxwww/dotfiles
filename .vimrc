@@ -29,7 +29,7 @@ NeoBundle 'elzr/vim-json'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'mileszs/ack.vim'
-" NeoBundle 'glench/vim-jinja2-syntax'
+NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
@@ -42,7 +42,10 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'maxmellon/vim-jsx-pretty'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'posva/vim-vue'
+" themes
 NeoBundle 'mhartington/oceanic-next'
+NeoBundle 'NLKNguyen/papercolor-theme'
+
 
 
 " align
@@ -202,13 +205,13 @@ syntax enable
 " catch
 "     echo "unable to find theme"
 " endtry
-set background=dark
+set background=light
 let g:rehash256 = 1 " Something to do with Molokai?
 if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
-colorscheme OceanicNext
+colorscheme PaperColor
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
@@ -585,8 +588,10 @@ set autoread
 
 
 " MARK: Leader mapping
-" fast saving
+" recommended fast saving
 nmap <leader>w :w!<cr>
+noremap <Leader>s :update<CR>
+
 nnoremap <Leader>x :xit<CR>j
 " Leader mappings.
 
@@ -884,7 +889,7 @@ endif
 " thanks to statico vimrc: https://github.com/statico
 " https://statico.github.io/vim3.html#lightline-powerline-airline-and-status-bars
 let g:lightline = {
-    \ 'colorscheme': 'wombat',
+    \ 'colorscheme': 'PaperColor',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
