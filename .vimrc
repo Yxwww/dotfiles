@@ -536,7 +536,7 @@ map <Space> /
 set hlsearch!
 nnoremap <f3> :set hlsearch!<cr>
 nnoremap <expr> <F9> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+" nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 set completeopt-=preview
 set incsearch
 set ignorecase

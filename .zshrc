@@ -91,6 +91,10 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 
 plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
 
+JIRA_RAPID_BOARD=true
+export ZSH=~/.oh-my-zsh
+source $ZSH/oh-my-zsh.sh
+
 # Add env.sh
 #source ~/Projects/config/env.sh
 
