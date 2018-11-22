@@ -160,3 +160,5 @@ if type fzf && type ag; then
   '
 fi
 
+# Enable vim bindings
+bindkey -v
