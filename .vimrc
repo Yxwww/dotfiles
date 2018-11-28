@@ -61,8 +61,7 @@ NeoBundle 'davidhalter/jedi-vim'
 
 " snippet
 NeoBundle 'Sirver/ultisnips'
-NeoBundle 'isRuslan/vim-es6'
-NeoBundle 'alexbyk/vim-ultisnips-js-testing'
+NeoBundle 'joaohkfaria/vim-jest-snippets'
 
 NeoBundle 'heavenshell/vim-jsdoc'
 
