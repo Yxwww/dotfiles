@@ -294,16 +294,13 @@ nmap <leader>gd :Gdiff<cr>
 nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
 " Snippet
+
 " YouCompleteMe and UltiSnips compatibility.
-"   tern
 autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType jinja setlocal omnifunc=htmlcomplete#CompleteTags
 let g:UltiSnipsExpandTrigger = '<tab>'
 let g:UltiSnipsJumpForwardTrigger = '<tab>'
 let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-
-" Prevent UltiSnips from removing our carefully-crafted mappings.
-let g:UltiSnipsMappingsToIgnore = ['autocomplete']
 
 if has('autocmd')
   augroup WincentAutocomplete
@@ -314,106 +311,12 @@ if has('autocmd')
   augroup END
 endif
 
-
-" MARK: JEDI VIM
-let g:jedi#auto_initialization = 0
-let g:jedi#use_splits_not_buffers = "left"
-
-" MARK: Plugins/YouCompleteMe
-" for typescript
-
-let g:ycm_auto_trigger = 100
-" let g:ycm_path_to_python_interpreter =  '/usr/local/bin/python'
-" the next line help setup python virtual env autocomplete (w/ Jedi) it ensures
-" to use the current python file. (note: wait for a bit for Jedi to kickin
-let g:ycm_python_binary_path = 'python'
-let g:ycm_goto_buffer_command = 'vertical-split'
-" let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_use_vim_stdout = 1
-" let g:ycm_server_log_level = 'debug'
-let g:ycm_key_list_select_completion = ['<C-j>', '<Down>']
-let g:ycm_key_list_previous_completion = ['<C-k>', '<Up>']
-let g:ycm_key_list_accept_completion = ['<C-y>']
-" these are the tweaks i apply to ycm's config, you don't need them but they might help.
-" " ycm gives you popups and splits by default that some people might not like, so these should tidy it up a bit for you.
- let g:ycm_add_preview_to_completeopt=0
- let g:ycm_confirm_extra_conf=0
- let g:ycm_autoclose_preview_window_after_completion=1
-
-
-
 " Additional UltiSnips config.
-"let g:UltiSnipsSnippetsDir = $HOME . '/.vim/ultisnips'
-"let g:UltiSnipsSnippetDirectories = [
-      "\ $HOME . '/.vim/ultisnips',
-      "\ $HOME . '/.vim/ultisnips-private'
-      "\ ]
-
-" Additional YouCompleteMe config.
-let g:ycm_complete_in_comments = 1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-" let g:ycm_seed_identifiers_with_syntax = 1
-nnoremap <leader>gt :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>e :YcmCompleter RefactorRename
-nnoremap <leader>i :TsuImport <CR>
-" nnoremap <leader>gd :YcmCompleter GoToDefinition<CR>
-nnoremap <f2> :set :YcmCompleter RefactorRename
-
-"let g:ycm_extra_conf_globlist = ['~/code/masochist-pages/*']
-
-" Disable unhelpful semantic completions.
-" let g:ycm_filetype_specific_completion_to_disable = {
-"       \   'c': 1,
-"       \   'gitcommit': 1,
-"       \   'haskell': 1,
-"       \   'javascript': 1,
-"       \   'ruby': 1
-"       \ }
-
-let g:ycm_semantic_triggers = {
-      \   'haskell': [
-      \     '.',
-      \     '(',
-      \     ',',
-      \     ', ',
-      \     're!.',
-      \   ],
-      \   "typescript": ['.'],
-      \   'mail': [
-      \     're!^Bcc:(.*, ?| ?)',
-      \     're!^Cc:(.*, ?| ?)',
-      \     're!^From:(.*, ?| ?)',
-      \     're!^Reply-To:(.*, ?| ?)',
-      \     're!^To:(.*, ?| ?)'
-      \   ],
-      \   'markdown': [
-      \     ']('
-      \   ],
-      \  'css': [
-      \     're!^\s{4}',
-      \      're!:\s+'
-      \   ],
-      \   'jinja': ['<', '"', '</', ' '],
-      \   'html': ['<', '"', '</', ' '],
-      \   'vim' : ['re![_a-za-z]+[_\w]*\.'],
-      \   'scss': [ 're!^\s{4}', 're!:\s+' ],
-      \   'cs,java,javascript,d,python,perl6,scala,vb,elixir,go' : ['.'],
-      \ }
-
-" Same as default, but with "mail", "markdown" and "text" removed.
-let g:ycm_filetype_blacklist = {
-      \   'notes': 1,
-      \   'unite': 1,
-      \   'tagbar': 1,
-      \   'pandoc': 1,
-      \   'qf': 1,
-      \   'vimwiki': 1,
-      \   'infolog': 1,
-      \   'markdown': 1,
-      \   'gitcommit': 1,
-      \ }
-
-"call defer#packadd('YouCompleteMe', 'youcompleteme.vim')
+let g:UltiSnipsSnippetsDir = $HOME . '/.vim/ultisnips'
+let g:UltiSnipsSnippetDirectories = [
+      \ $HOME . '/.vim/ultisnips',
+      \ $HOME . '/.vim/ultisnips-private'
+      \ ]
 
 " autoload when .vimrc saved , 'nested' will keep powerline color
 autocmd! BufWritePost vimrc nested :source ~/.vimrc
