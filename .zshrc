@@ -98,8 +98,13 @@ source $ZSH/oh-my-zsh.sh
 # Add env.sh
 #source ~/Projects/config/env.sh
 
-# from .bash_profile
+# PATH
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+# Vim config
+if type nvim > /dev/null 2>&1; then
+  alias vim="nvim"
+fi
 alias vi="vim"
 alias ctags="`brew --prefix`/bin/ctags"
 
@@ -130,11 +135,7 @@ alias tmux="TERM=screen-256color-bce tmux"
 # zsh ag config
 # Ensure user-installed binaries take precedence
 export PATH=/usr/local/bin:$PATH
-# # Load .bashrc if it exists
-# test -f ~/.bashrc && source ~/.bashrc
-source ~/.bash_profile
-# export PATH=/usr/local/bin:$PATH
-
+#
 # fzf via Homebrew
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/key-bindings.zsh
@@ -160,5 +161,6 @@ if type fzf && type ag; then
   '
 fi
 
-# Enable vim bindings
-bindkey -v
+
+# Source bash_profile
+source ~/.bash_profile

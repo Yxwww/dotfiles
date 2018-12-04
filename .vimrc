@@ -97,15 +97,6 @@ else
 endif
 let g:deoplete#enable_at_startup = 1
 
-" NeoBundle 'Valloric/YouCompleteMe', {
-"      \ 'build' : {
-"      \     'mac' : './install.sh --clang-completer --system-libclang',
-"      \     'unix' : './install.sh --clang-completer --system-libclang',
-"      \     'windows' : './install.sh --clang-completer --system-libclang',
-"      \     'cygwin' : './install.sh --clang-completer --system-libclang'
-"      \    }
-"      \ }
-
 " ui
 NeoBundle 'itchyny/lightline.vim'
 
@@ -593,6 +584,10 @@ set autoread
 
 
 " MARK: Leader mapping
+
+" open messages
+nmap <leader>mo :messages<cr>
+
 " recommended fast saving
 nmap <leader>w :w!<cr>
 noremap <Leader>s :update<CR>
@@ -684,12 +679,13 @@ set guioptions-=T                     " don't show toolbar
 set guioptions= 
 
 set hidden                            " allows you to hide buffers with unsaved changes without being prompted
-if has('nvim')
-else
+
+if !has('nvim')
   set highlight+=@:ColorColumn          " ~/@ at end of window, 'showbreak'
   " set highlight+=N:DiffText             " make current line number stand out a little
   set highlight+=c:LineNr               " blend vertical separators with line numbers
 endif
+
 set laststatus=2                      " always show status line
 set lazyredraw                        " don't bother updating screen during macro playback
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
