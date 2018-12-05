@@ -66,11 +66,11 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='mvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -103,6 +103,8 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Vim config
 if type nvim > /dev/null 2>&1; then
+  alias vim="mvim -v"
+elif type nvim > /dev/null 2>&1; then
   alias vim="nvim"
 fi
 alias vi="vim"
