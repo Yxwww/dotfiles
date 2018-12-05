@@ -164,3 +164,7 @@ fi
 
 # Source bash_profile
 source ~/.bash_profile
+
+# Settle python and pip (hopefully)
+alias pip='python2 -m pip'
+alias pip3='python3 -m pip'
