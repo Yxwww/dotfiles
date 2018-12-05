@@ -312,12 +312,7 @@ if has('autocmd')
 endif
 
 " Additional UltiSnips config.
-let g:UltiSnipsSnippetsDir = $HOME . '/.vim/ultisnips'
-let g:UltiSnipsSnippetDirectories = [
-      \ $HOME . '/.vim/ultisnips',
-      \ $HOME . '/.vim/ultisnips-private'
-      \ ]
-
+"
 " autoload when .vimrc saved , 'nested' will keep powerline color
 autocmd! BufWritePost vimrc nested :source ~/.vimrc
 :nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
