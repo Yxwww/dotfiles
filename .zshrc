@@ -102,7 +102,7 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Vim config
-if type nvim > /dev/null 2>&1; then
+if type mvim > /dev/null 2>&1; then
   alias vim="mvim -v"
 elif type nvim > /dev/null 2>&1; then
   alias vim="nvim"
