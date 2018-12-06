@@ -286,6 +286,7 @@ set ttyfast
 set previewheight=25
 nmap <leader>f :ALEFix<cr>
 nmap <leader>gs :Gstatus<cr>
+nmap <leader>gp! :Gpush<cr>
 nmap <leader>go :!git open<cr>
 nmap <leader>gc :Gcommit<cr>
 nmap <leader>ga :Gwrite<cr>
