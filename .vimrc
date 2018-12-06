@@ -320,8 +320,6 @@ let g:UltiSnipsSnippetDirectories = [
 
 " autoload when .vimrc saved , 'nested' will keep powerline color
 autocmd! BufWritePost vimrc nested :source ~/.vimrc
-:nnoremap <silent> <F5> :let _s=@/ <Bar> :%s/\s\+$//e <Bar> :let @/=_s <Bar> :nohl <Bar> :unlet _s <CR>
-"autocmd BufWritePre * %s/\s\+$//e
 " open my vimrc file
 :nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " yank works with clipboard
@@ -347,7 +345,7 @@ if executable('ag')
 endif
 " nmap <M-k>    :Ack! "\b<cword>\b" <CR>
 nmap <C-f>   :Ack! "\b<cword>\b" <CR>
-nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
+" nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
 " nmap <Esc>K   :Ggrep! "\b<cword>\b" <CR>
 
 "fzf
@@ -390,6 +388,13 @@ nnoremap <c-j> <c-w><c-j>
 nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
+
+" MARK: All mode mappings
+
+:imap jj <Esc>
+:unmap <Esc-j>
+:unmap <Esc-k>
+
 
 " MARK: Visual mode mappings.
 """"""""""""""""""""""""""""""
@@ -489,10 +494,10 @@ set autoread
 " MARK: Leader mapping
 
 " open messages
-nmap <leader>mo :messages<cr>
+nmap <leader>m :messages<cr>
 
 " recommended fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>sw :w!<cr>
 noremap <Leader>s :update<CR>
 
 nnoremap <Leader>x :xit<CR>j
