@@ -34,6 +34,7 @@ NeoBundle 'junegunn/fzf.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'glench/vim-jinja2-syntax'
 NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tomtom/tcomment_vim'
 
@@ -49,11 +50,6 @@ NeoBundle 'posva/vim-vue'
 NeoBundle 'mhartington/oceanic-next'
 NeoBundle 'NLKNguyen/papercolor-theme'
 
-
-
-" align
-NeoBundle 'godlygeek/tabular'
-NeoBundle 'junegunn/rainbow_parentheses.vim'
 
 
 " python
@@ -111,7 +107,7 @@ filetype plugin indent on
 " this will conveniently prompt you to install them.
 NeoBundleCheck
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " prettier
@@ -324,7 +320,7 @@ autocmd! BufWritePost vimrc nested :source ~/.vimrc
 set clipboard=unnamed
 "set mouse=a
 
-
+"
 " Turn cursor into line for iTerm-2
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -370,7 +366,7 @@ let g:tagbar_autofocus=1
 set pastetoggle=<F2>
 
 " force highlight from start
-noremap <F12> <Esc>:syntax sync fromstart<CR>
+" noremap <F12> <Esc>:syntax sync fromstart<CR>
 inoremap <F12> <C-o>:syntax sync fromstart<CR>
 
 " MARK: Normal mode settings
@@ -408,26 +404,26 @@ xnoremap <C-l> <C-w>l
 map 0 ^
 
 " Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" nmap <M-j> mz:m+<cr>`z
+" nmap <M-k> mz:m-2<cr>`z
+" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
+" if has("mac") || has("macunix")
+"   nmap <D-j> <M-j>
+"   nmap <D-k> <M-k>
+"   vmap <D-j> <M-j>
+"   vmap <D-k> <M-k>
+" endif
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.js :call DeleteTrailingWS()
+" func! DeleteTrailingWS()
+"   exe "normal mz"
+"   %s/\s\+$//ge
+"   exe "normal `z"
+" endfunc
+" autocmd BufWrite *.py :call DeleteTrailingWS()
+" autocmd BufWrite *.js :call DeleteTrailingWS()
 
 " MARK: searches
 map <Space> /
