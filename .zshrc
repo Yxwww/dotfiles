@@ -48,12 +48,6 @@ ZSH_THEME="robbyrussell"
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
-
 source $ZSH/oh-my-zsh.sh
 source ~/dev/utils/google-cloud-sdk/path.zsh.inc
 source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
@@ -89,7 +83,7 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 
 #ZSH_THEME=pygmalion
 
-plugins=(git colored-man colorize github jira vagrant virtualenv pip python brew osx zsh-syntax-highlighting)
+plugins=(git)
 
 JIRA_RAPID_BOARD=true
 export ZSH=~/.oh-my-zsh
@@ -102,7 +96,9 @@ source $ZSH/oh-my-zsh.sh
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Vim config
-if type nvim > /dev/null 2>&1; then
+if type mvim > /dev/null 2>&1; then
+  alias vim="mvim -v"
+elif type nvim > /dev/null 2>&1; then
   alias vim="nvim"
 fi
 alias vi="vim"
@@ -164,3 +160,7 @@ fi
 
 # Source bash_profile
 source ~/.bash_profile
+
+# Settle python and pip (hopefully)
+alias pip='python2 -m pip'
+alias pip3='python3 -m pip'

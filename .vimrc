@@ -286,6 +286,7 @@ set ttyfast
 set previewheight=25
 nmap <leader>f :ALEFix<cr>
 nmap <leader>gs :Gstatus<cr>
+nmap <leader>gp! :Gpush<cr>
 nmap <leader>go :!git open<cr>
 nmap <leader>gc :Gcommit<cr>
 nmap <leader>ga :Gwrite<cr>
@@ -312,12 +313,7 @@ if has('autocmd')
 endif
 
 " Additional UltiSnips config.
-let g:UltiSnipsSnippetsDir = $HOME . '/.vim/ultisnips'
-let g:UltiSnipsSnippetDirectories = [
-      \ $HOME . '/.vim/ultisnips',
-      \ $HOME . '/.vim/ultisnips-private'
-      \ ]
-
+"
 " autoload when .vimrc saved , 'nested' will keep powerline color
 autocmd! BufWritePost vimrc nested :source ~/.vimrc
 " open my vimrc file
