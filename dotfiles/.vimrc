@@ -43,14 +43,13 @@ NeoBundle 'vimwiki/vimwiki'
 
 " syntax highlight
 NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 NeoBundle 'maxmellon/vim-jsx-pretty'
 NeoBundle 'plasticboy/vim-markdown'
 NeoBundle 'posva/vim-vue'
 " themes
 NeoBundle 'mhartington/oceanic-next'
 NeoBundle 'NLKNguyen/papercolor-theme'
-
-
 
 " python
 NeoBundle 'davidhalter/jedi-vim'
@@ -86,6 +85,9 @@ NeoBundle 'Shougo/vimproc.vim', {
 NeoBundle 'mattn/emmet-vim'
 if has('nvim')
   NeoBundle 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+
+  " Languages
+  NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
 else
   NeoBundle 'Shougo/deoplete.nvim'
   NeoBundle 'roxma/nvim-yarp'
@@ -462,7 +464,7 @@ let NERDTreeIgnore = []
 for suffix in split(&suffixes, ',')
     let NERDTreeIgnore += [ escape(suffix, '.~') . '$' ]
 endfor
-let NERDTreeIgnore += ['^\.DS_Store$', '^\.pyc$','^\.bundle$', '^\.bzr$', '^\.git$', '^\.hg$', '^\.sass-cache$', '^\.svn$', '^\.$', '^\.\.$', '^Thumbs\.db$']
+let NERDTreeIgnore += ['^\.DS_Store$', '^\.pyc$','^\.bundle$', '^\.bzr$', '^\.git$', '^\.hg$', '^\.sass-cache$', '^\.svn$', '^\.$', '^\.\.$', '^Thumbs\.db$', '^\..next$']
 
 
 " sets how many lines of history vim has to remember
@@ -912,6 +914,9 @@ endfunction
 " Close the current buffer
 " map <leader>bd :Bclose<cr>:tabclose<cr>gT
 
+" build
+map <C-b> :make <cr>
+
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
@@ -986,9 +991,7 @@ if has("multi_byte")
   set fileencodings=ucs-bom,utf-8,latin1
 endif
 
-" Abbreviation
-ab spaital spatial
-ab spatail spatial
-ab bouding bounding
-ab funciton function
-ab annotaion annotation
+if filereadable(expand("~/.config/dotfiles/abbreviation.vim"))
+  source ~/.config/dotfiles/abbreviation.vim
+endif
+
