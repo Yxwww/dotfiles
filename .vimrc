@@ -381,13 +381,6 @@ nnoremap <c-k> <c-w><c-k>
 nnoremap <c-l> <c-w><c-l>
 nnoremap <c-h> <c-w><c-h>
 
-" MARK: All mode mappings
-
-:imap jj <Esc>
-:unmap <Esc-j>
-:unmap <Esc-k>
-
-
 " MARK: Visual mode mappings.
 """"""""""""""""""""""""""""""
 " => Visual mode related
