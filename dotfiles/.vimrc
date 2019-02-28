@@ -451,6 +451,7 @@ autocmd FileType typescript setlocal completeopt+=menu,preview
 
 " MARK: NERDTree
 let g:NERDTreeMouseMode=2
+let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 " let NERDTreeChDirMode=2
 let g:ctrlp_dont_split = 'nerdtree'
@@ -516,6 +517,8 @@ if exists('$SUDO_USER')
   set nobackup                        " don't create root-owned files
   set nowritebackup                   " don't create root-owned files
 else
+  let vimtmp = $HOME . '/.vim/tmp/' . 'backup'
+  silent! call mkdir(vimtmp, "p", 0700)
   set backupdir=~/local/.vim/tmp/backup
   set backupdir+=~/.vim/tmp/backup    " keep backup files out of the way
   set backupdir+=.
@@ -665,6 +668,8 @@ if has('persistent_undo')
   if exists('$SUDO_USER')
     set noundofile                    " don't create root-owned files
   else
+    let vimtmp = $HOME . '/.vim/tmp/' . 'undo'
+    silent! call mkdir(vimtmp, "p", 0700)
     set undodir=~/local/.vim/tmp/undo
     set undodir+=~/.vim/tmp/undo      " keep undo files out of the way
     set undodir+=.
