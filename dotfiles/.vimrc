@@ -55,7 +55,7 @@ filetype plugin indent on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Open vimrc into a split window
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+noremap <Leader>ev :vsplit $MYVIMRC<cr>
 
 " System clipboard copy paste
 noremap <Leader>y "*y
