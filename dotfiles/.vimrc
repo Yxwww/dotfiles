@@ -1,117 +1,69 @@
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
-if &compatible
-  set nocompatible               " Be iMproved
-endif
 
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-NeoBundle 'othree/html5.vim'
+Plug 'othree/html5.vim'
 
 " file explorer
-NeoBundle 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " git
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
-NeoBundle 'w0rp/ale'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'junegunn/fzf.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'glench/vim-jinja2-syntax'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tomtom/tcomment_vim'
+Plug 'w0rp/ale'
+Plug 'elzr/vim-json'
+Plug 'kien/ctrlp.vim'
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'mileszs/ack.vim'
+Plug 'glench/vim-jinja2-syntax'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
+Plug 'tomtom/tcomment_vim'
 
 " QoL
-NeoBundle 'vimwiki/vimwiki'
+Plug 'vimwiki/vimwiki'
 
 " syntax highlight
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-NeoBundle 'maxmellon/vim-jsx-pretty'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'posva/vim-vue'
+Plug 'pangloss/vim-javascript'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'plasticboy/vim-markdown'
+Plug 'posva/vim-vue'
+"
 " themes
-NeoBundle 'mhartington/oceanic-next'
-NeoBundle 'NLKNguyen/papercolor-theme'
-
-" python
-NeoBundle 'davidhalter/jedi-vim'
-
-" snippet
-NeoBundle 'Sirver/ultisnips'
-NeoBundle 'joaohkfaria/vim-jest-snippets'
-
-NeoBundle 'heavenshell/vim-jsdoc'
-
-NeoBundle 'majutsushi/tagbar'
-
-NeoBundle 'OmniSharp/omnisharp-vim'
-NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'honza/vim-snippets'
-
-" typescript
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'Quramy/tsuquyomi'
-NeoBundle 'Quramy/vim-js-pretty-template'
-NeoBundle 'Shougo/vimproc.vim', {
-    \ 'build' : {
-    \     'windows' : 'tools\\update-dll-mingw',
-    \     'cygwin' : 'make -f make_cygwin.mak',
-    \     'mac' : 'make -f make_mac.mak',
-    \     'linux' : 'make',
-    \     'unix' : 'gmake',
-    \    },
-    \ }
+Plug 'NLKNguyen/papercolor-theme'
 
 " autocompletion
-NeoBundle 'mattn/emmet-vim'
-if has('nvim')
-  NeoBundle 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-  " Languages
-  NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
-else
-  NeoBundle 'Shougo/deoplete.nvim'
-  NeoBundle 'roxma/nvim-yarp'
-  NeoBundle 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 
 " ui
-NeoBundle 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " misc
-NeoBundle 'ashisha/image.vim'
-call neobundle#end()
+Plug 'ashisha/image.vim'
+
+" Initialize plugin system
+call plug#end()
 
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" System clipboard copy paste
+noremap <Leader>y "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
+
 " prettier
 nmap <Leader>py <Plug>(Prettier)
 autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --stdin
@@ -546,8 +498,10 @@ set cursorline                        " highlight current line
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
 else
-  set directory=~/local/.vim/tmp/swap//
-  set directory+=~/.vim/tmp/swap//    " keep swap files out of the way
+  let vimtmp = $HOME . '/.vim/tmp/' . 'swap'
+  silent! call mkdir(vimtmp, "p", 0700)
+  set directory=~/local/.vim/tmp/swap/
+  set directory+=~/.vim/tmp/swap/    " keep swap files out of the way
   set directory+=.
 endif
 
