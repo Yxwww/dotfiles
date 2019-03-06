@@ -1,0 +1,5 @@
+version: 0.1.0
+repos:
+	omz-git .oh-my-zsh/custom/plugins/omz-git git@github.com:tnwinc/omz-git.git
+states:
+	omz-git master 8f42b07bf6881a76767bb855c75978c3926d642e
