@@ -83,7 +83,7 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 
 #ZSH_THEME=pygmalion
 
-plugins=(git)
+plugins=(git, omz-git)
 
 JIRA_RAPID_BOARD=true
 export ZSH=~/.oh-my-zsh
