@@ -36,7 +36,7 @@ Plug 'posva/vim-vue'
 Plug 'NLKNguyen/papercolor-theme'
 
 " autocompletion
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " ui
 Plug 'itchyny/lightline.vim'
