@@ -114,8 +114,6 @@ BASE16_SHELL=$HOME/.config/base16-shell/
 base16_tomorrow-night
 alias tmux="TERM=screen-256color-bce tmux"
 
-. $HOME/.shellrc.load
-
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
 
