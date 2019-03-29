@@ -250,5 +250,9 @@ alias gsu='git submodule update'
 alias gts='git tag -s'
 alias gtv='git tag | sort -V'
 
+
+# zsh config
+setopt auto_cd
+
 # Enable debug
 # zprof
