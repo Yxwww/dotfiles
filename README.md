@@ -1,5 +1,9 @@
-## Install
+## Setup Environment
 ```bash
-./godotfiles
+./setup.sh
 ```
-## Run
+
+## link dotfiles
+```bash
+./linkdotfiles.sh
+```
