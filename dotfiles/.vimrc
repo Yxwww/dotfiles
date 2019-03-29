@@ -10,6 +10,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 
 " Plug 'w0rp/ale'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'elzr/vim-json'
 Plug 'kien/ctrlp.vim'
 
@@ -59,22 +60,10 @@ noremap <Leader>ev :vsplit $MYVIMRC<cr>
 
 " System clipboard copy paste
 noremap <Leader>y "*y
+vnoremap <C-c> "*y
 noremap <Leader>p "*p
 noremap <Leader>Y "+y
 noremap <Leader>P "+p
-
-" prettier
-nmap <Leader>py <Plug>(Prettier)
-autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --stdin
-" autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-" autocmd BufWritePre *.js Neoformat
-" function! neoformat#formatters#javascript#prettiereslint() abort
-"   return {
-"         \ 'exe': 'eslint',
-"         \ 'args': ['--fix'],
-"         \ }
-" endfunction
-
 " window management
 :nnoremap <leader>vs :vs<cr>
 :nnoremap <leader>sp :sp<cr>
@@ -233,7 +222,6 @@ nmap <silent> <C-N> <Plug>(ale_next_wrap)
 set ttyfast
 " Fugitive shortcut config
 set previewheight=25
-nmap <leader>f :ALEFix<cr>
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>gp! :Gpush<cr>
 nmap <leader>go :!git open<cr>
@@ -246,7 +234,6 @@ nmap <leader>sp :sp<cr>
 
 " coc
 let g:coc_force_debug = 1
-
 
 imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
@@ -331,8 +318,8 @@ augroup mygroup
 augroup end
 
 " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" vmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -393,9 +380,6 @@ set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 " let $FZF_DEFAULT_COMMAND = 'ag -a'
 nmap ; :Buffers<CR>
 nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
-" nmap <Leader>j :Files<CR>
-" nmap <Leader>r :Tags<CR>
-" nmap <C-p> :Files<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
@@ -434,7 +418,7 @@ nnoremap <c-h> <c-w><c-h>
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
+" vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
 
 " xnoremap <C-h> <C-w>h
 " xnoremap <C-j> <C-w>j
@@ -477,10 +461,6 @@ set completeopt-=preview
 set incsearch
 set ignorecase
 set smartcase
-
-" TComment config
-nnoremap <leader>c<Space> :TComment <CR>
-
 
 " MARK: Typescript tsuquyomi
 let g:tsuquyomi_use_vimproc=1 " required fix save on crash
@@ -540,7 +520,7 @@ nnoremap <Leader>o :only<CR>
 
 " <Leader>p -- Show the path of the current file (mnemonic: path; useful when
 " you have a lot of splits and the status line gets truncated).
-nnoremap <Leader>p :echo expand('%')<CR>
+nnoremap <Leader>pc :echo expand('%')<CR>
 
 " <Leader>pp -- Like <Leader>p, but additionally yanks the filename and sends it
 " off to Clipper.
@@ -613,7 +593,7 @@ if has("gui_macvim")                  " turn on ligatures with gui macvim and us
   set macligatures
   set guifont=Fira\ Code:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Fira\ Mono:h14
+  set guifont=Menlo:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
@@ -957,10 +937,6 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose
 map <leader>tm :tabmove
-map <leader>tl :tabnext<cr>
-map <leader>a :tabnext<cr>
-map <leader>d :tabprevious<cr>
-map <leader>th :tabprevious<cr>
 
 map <c-1> :1gt
 

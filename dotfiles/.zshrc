@@ -1,3 +1,6 @@
+# Enable profiling require zprof at EoF
+# zmodload zsh/zprof
+
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -83,7 +86,7 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 
 #ZSH_THEME=pygmalion
 
-plugins=(git, omz-git)
+plugins=(git)
 
 JIRA_RAPID_BOARD=true
 export ZSH=~/.oh-my-zsh
@@ -141,13 +144,18 @@ fi
 
 # fzf via local installation
 if [ -e ~/.fzf ]; then
-  _append_to_path ~/.fzf/bin
+  path+=('~/.fzf/bin')
+  # _append_to_path ~/.fzf/bin
   source ~/.fzf/shell/key-bindings.zsh
   source ~/.fzf/shell/completion.zsh
 fi
 
 # fzf + ag configuration
-if type fzf && type ag; then
+if ! type "$fzf" > /dev/null; then
+  # install foobar here
+fi
+
+if type foobar &> /dev/null && type ag &> /dev/null; then
   echo 'fzf & ag exists'
   export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore --hidden -g ""'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -165,3 +173,6 @@ source ~/.bash_profile
 # Settle python and pip (hopefully)
 alias pip='python2 -m pip'
 alias pip3='python3 -m pip'
+
+# Enable debug
+# zprof
