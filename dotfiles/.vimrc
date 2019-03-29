@@ -1,129 +1,69 @@
-" Note: Skip initialization for vim-tiny or vim-small.
-if 0 | endif
-
-if &compatible
-  set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=~/.vim/bundle/neobundle.vim/
-
-" Required:
-call neobundle#begin(expand('~/.vim/bundle/'))
-
-" Let NeoBundle manage NeoBundle
-" Required:
-NeoBundleFetch 'Shougo/neobundle.vim'
-
-" My Bundles here:
-" Refer to |:NeoBundle-examples|.
-" Note: You don't set neobundle setting in .gvimrc!
-
-NeoBundle 'othree/html5.vim'
+" Specify a directory for plugins
+" - For Neovim: ~/.local/share/nvim/plugged
+" - Avoid using standard Vim directory names like 'plugin'
+call plug#begin('~/.vim/plugged')
 
 " file explorer
-NeoBundle 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree'
 
 " git
-NeoBundle 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive'
 
-NeoBundle 'w0rp/ale'
-NeoBundle 'elzr/vim-json'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'junegunn/fzf.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'glench/vim-jinja2-syntax'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-sensible'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tomtom/tcomment_vim'
+" Plug 'w0rp/ale'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'elzr/vim-json'
+Plug 'kien/ctrlp.vim'
 
-" QoL
-NeoBundle 'vimwiki/vimwiki'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+Plug 'mileszs/ack.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-repeat'
+Plug 'tomtom/tcomment_vim'
+
+" Life
+Plug 'vimwiki/vimwiki'
 
 " syntax highlight
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-NeoBundle 'maxmellon/vim-jsx-pretty'
-NeoBundle 'plasticboy/vim-markdown'
-NeoBundle 'posva/vim-vue'
+Plug 'pangloss/vim-javascript'
+Plug 'maxmellon/vim-jsx-pretty'
+Plug 'leafgarland/typescript-vim'
+Plug 'plasticboy/vim-markdown'
+Plug 'posva/vim-vue'
+"
 " themes
-NeoBundle 'mhartington/oceanic-next'
-NeoBundle 'NLKNguyen/papercolor-theme'
-
-" python
-NeoBundle 'davidhalter/jedi-vim'
-
-" snippet
-NeoBundle 'Sirver/ultisnips'
-NeoBundle 'joaohkfaria/vim-jest-snippets'
-
-NeoBundle 'heavenshell/vim-jsdoc'
-
-NeoBundle 'majutsushi/tagbar'
-
-NeoBundle 'OmniSharp/omnisharp-vim'
-NeoBundle 'chriskempson/base16-vim'
-NeoBundle 'tomasr/molokai'
-NeoBundle 'honza/vim-snippets'
-
-" typescript
-NeoBundle 'leafgarland/typescript-vim'
-NeoBundle 'Quramy/tsuquyomi'
-NeoBundle 'Quramy/vim-js-pretty-template'
-NeoBundle 'Shougo/vimproc.vim', {
-    \ 'build' : {
-    \     'windows' : 'tools\\update-dll-mingw',
-    \     'cygwin' : 'make -f make_cygwin.mak',
-    \     'mac' : 'make -f make_mac.mak',
-    \     'linux' : 'make',
-    \     'unix' : 'gmake',
-    \    },
-    \ }
+Plug 'NLKNguyen/papercolor-theme'
 
 " autocompletion
-NeoBundle 'mattn/emmet-vim'
-if has('nvim')
-  NeoBundle 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-
-  " Languages
-  NeoBundle 'zchee/deoplete-go', {'build': {'unix': 'make'}}
-else
-  NeoBundle 'Shougo/deoplete.nvim'
-  NeoBundle 'roxma/nvim-yarp'
-  NeoBundle 'roxma/vim-hug-neovim-rpc'
-endif
-let g:deoplete#enable_at_startup = 1
+Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " ui
-NeoBundle 'itchyny/lightline.vim'
+Plug 'itchyny/lightline.vim'
 
 " misc
-NeoBundle 'ashisha/image.vim'
-call neobundle#end()
+Plug 'ashisha/image.vim'
+
+" Initialize plugin system
+call plug#end()
 
 " Required:
 filetype plugin indent on
 
-" If there are uninstalled bundles found on startup,
-" this will conveniently prompt you to install them.
-NeoBundleCheck
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" prettier
-nmap <Leader>py <Plug>(Prettier)
-autocmd FileType javascript,typescript set formatprg=npx\ prettier-eslint\ --stdin
-" autocmd FileType javascript set formatprg=prettier-eslint\ --stdin
-" autocmd BufWritePre *.js Neoformat
-" function! neoformat#formatters#javascript#prettiereslint() abort
-"   return {
-"         \ 'exe': 'eslint',
-"         \ 'args': ['--fix'],
-"         \ }
-" endfunction
 
+" Open vimrc into a split window
+noremap <Leader>ev :vsplit $MYVIMRC<cr>
+
+" System clipboard copy paste
+noremap <Leader>y "*y
+vnoremap <C-c> "*y
+noremap <Leader>p "*p
+noremap <Leader>Y "+y
+noremap <Leader>P "+p
 " window management
 :nnoremap <leader>vs :vs<cr>
 :nnoremap <leader>sp :sp<cr>
@@ -282,7 +222,6 @@ nmap <silent> <C-N> <Plug>(ale_next_wrap)
 set ttyfast
 " Fugitive shortcut config
 set previewheight=25
-nmap <leader>f :ALEFix<cr>
 nmap <leader>gs :Gstatus<cr>
 nmap <leader>gp! :Gpush<cr>
 nmap <leader>go :!git open<cr>
@@ -292,35 +231,125 @@ nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
 nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
-" Snippet
 
-" YouCompleteMe and UltiSnips compatibility.
-autocmd FileType html setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType jinja setlocal omnifunc=htmlcomplete#CompleteTags
-let g:UltiSnipsExpandTrigger = '<tab>'
-let g:UltiSnipsJumpForwardTrigger = '<tab>'
-let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+" coc
+let g:coc_force_debug = 1
 
-if has('autocmd')
-  augroup WincentAutocomplete
-    autocmd!
-    autocmd! User UltiSnipsEnterFirstSnippet
-    "autocmd User UltiSnipsEnterFirstSnippet call autocomplete#setup_mappings()
-    autocmd! User UltiSnipsExitLastSnippet
-  augroup END
-endif
+imap <C-l> <Plug>(coc-snippets-expand)
+" Use <C-j> to select text for visual text of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+" Use <C-j> to jump to forward placeholder, which is default
+let g:coc_snippet_next = '<c-j>'
+" Use <C-k> to jump to backward placeholder, which is default
+let g:coc_snippet_prev = '<c-k>'
 
-" Additional UltiSnips config.
-"
-" autoload when .vimrc saved , 'nested' will keep powerline color
-autocmd! BufWritePost vimrc nested :source ~/.vimrc
-" open my vimrc file
-:nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-" yank works with clipboard
-set clipboard=unnamed
-"set mouse=a
+" if hidden not set, TextEdit might fail.
+set hidden
 
-"
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" vmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use `:Format` for format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Using CocList
+" " Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
 " Turn cursor into line for iTerm-2
 let &t_SI = "\<Esc>]50;CursorShape=1\x7"
 let &t_SR = "\<Esc>]50;CursorShape=2\x7"
@@ -351,9 +380,6 @@ set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 " let $FZF_DEFAULT_COMMAND = 'ag -a'
 nmap ; :Buffers<CR>
 nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
-" nmap <Leader>j :Files<CR>
-" nmap <Leader>r :Tags<CR>
-" nmap <C-p> :Files<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
 imap <c-x><c-l> <plug>(fzf-complete-line)
 
@@ -392,12 +418,12 @@ nnoremap <c-h> <c-w><c-h>
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
+" vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
 
-xnoremap <C-h> <C-w>h
-xnoremap <C-j> <C-w>j
-xnoremap <C-k> <C-w>k
-xnoremap <C-l> <C-w>l
+" xnoremap <C-h> <C-w>h
+" xnoremap <C-j> <C-w>j
+" xnoremap <C-k> <C-w>k
+" xnoremap <C-l> <C-w>l
 
 " MARK: editing mappings
 " Remap VIM 0 to first non-blank character
@@ -426,7 +452,7 @@ map 0 ^
 " autocmd BufWrite *.js :call DeleteTrailingWS()
 
 " MARK: searches
-map <Space> /
+map <space> /
 set hlsearch!
 nnoremap <f3> :set hlsearch!<cr>
 nnoremap <expr> <F9> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
@@ -435,10 +461,6 @@ set completeopt-=preview
 set incsearch
 set ignorecase
 set smartcase
-
-" TComment config
-nnoremap <leader>c<Space> :TComment <CR>
-
 
 " MARK: Typescript tsuquyomi
 let g:tsuquyomi_use_vimproc=1 " required fix save on crash
@@ -498,14 +520,13 @@ nnoremap <Leader>o :only<CR>
 
 " <Leader>p -- Show the path of the current file (mnemonic: path; useful when
 " you have a lot of splits and the status line gets truncated).
-nnoremap <Leader>p :echo expand('%')<CR>
+nnoremap <Leader>pc :echo expand('%')<CR>
 
 " <Leader>pp -- Like <Leader>p, but additionally yanks the filename and sends it
 " off to Clipper.
 nnoremap <Leader>pp :let @0=expand('%') <Bar> :Clip<CR> :echo expand('%')<CR>
 
 nnoremap <Leader>q :quit<CR>
-
 " MARK: vim settings from winston
 scriptencoding utf-8
 
@@ -546,8 +567,10 @@ set cursorline                        " highlight current line
 if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
 else
-  set directory=~/local/.vim/tmp/swap//
-  set directory+=~/.vim/tmp/swap//    " keep swap files out of the way
+  let vimtmp = $HOME . '/.vim/tmp/' . 'swap'
+  silent! call mkdir(vimtmp, "p", 0700)
+  set directory=~/local/.vim/tmp/swap/
+  set directory+=~/.vim/tmp/swap/    " keep swap files out of the way
   set directory+=.
 endif
 
@@ -570,7 +593,7 @@ if has("gui_macvim")                  " turn on ligatures with gui macvim and us
   set macligatures
   set guifont=Fira\ Code:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Fira\ Mono:h14
+  set guifont=Menlo:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
@@ -773,25 +796,6 @@ if !has('nvim')
   set ttymouse=xterm2
 endif
 
-" MARK: lightline config
-" let g:lightline = {
-"       \ 'colorscheme': 'wombat',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'fugitive': 'MyFugitive',
-"       \   'readonly': 'MyReadonly',
-"       \   'filename': 'MyFilename',
-"       \ },
-"       \ 'separator': { 'left': '>', 'right': '<' },
-"       \ 'subseparator': { 'left': '>', 'right': '<' }
-"       \ }
-
-" Lightline
-" thanks to statico vimrc: https://github.com/statico
-" https://statico.github.io/vim3.html#lightline-powerline-airline-and-status-bars
 let g:lightline = {
     \ 'colorscheme': 'PaperColor',
     \ 'active': {
@@ -933,10 +937,6 @@ map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose
 map <leader>tm :tabmove
-map <leader>tl :tabnext<cr>
-map <leader>a :tabnext<cr>
-map <leader>d :tabprevious<cr>
-map <leader>th :tabprevious<cr>
 
 map <c-1> :1gt
 
