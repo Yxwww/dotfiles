@@ -55,19 +55,6 @@ filetype plugin indent on
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Open vimrc into a split window
-noremap <leader>ev :vsplit $MYVIMRC<cr>
-
-" System clipboard copy paste
-noremap <leader>y "*y
-vnoremap <C-c> "*y
-noremap <leader>p "*p
-noremap <leader>Y "+y
-noremap <leader>P "+p
-" window management
-:nnoremap <leader>vs :vs<cr>
-:nnoremap <leader>sp :sp<cr>
-
 " MARK: jsx config
 let g:jsx_ext_required = 1
 
@@ -462,15 +449,6 @@ set incsearch
 set ignorecase
 set smartcase
 
-" MARK: Typescript tsuquyomi
-let g:tsuquyomi_use_vimproc=1 " required fix save on crash
-" let g:tsuquyomi_completion_detail = 1
-let g:tsuquyomi_disable_quickfix = 1
-autocmd FileType typescript setlocal completeopt+=menu,preview
-
-
-
-
 " MARK: NERDTree
 let g:NERDTreeMouseMode=2
 let g:NERDTreeNodeDelimiter = "\u00a0"
@@ -502,6 +480,17 @@ set autoread
 
 
 " MARK: Leader mapping
+" Open vimrc into a split window
+noremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" System clipboard copy paste
+noremap <leader>y "*y
+noremap <leader>p "*p
+noremap <leader>Y "+y
+noremap <leader>P "+p
+" window management
+nnoremap <leader>vs :vs<cr>
+nnoremap <leader>sp :sp<cr>
 
 " open messages
 nmap <leader>m :messages<cr>
