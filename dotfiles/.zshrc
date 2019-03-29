@@ -1,17 +1,16 @@
-# Enable profiling require zprof at EoF
+# enable profiling require zprof at eof
 # zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH=~/.oh-my-zsh
+# export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="nebirhos"
+ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -51,9 +50,9 @@ export ZSH=~/.oh-my-zsh
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-source $ZSH/oh-my-zsh.sh
-source ~/dev/utils/google-cloud-sdk/path.zsh.inc
-source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
+# source $ZSH/oh-my-zsh.sh
+# source ~/dev/utils/google-cloud-sdk/path.zsh.inc
+# source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 
 # User configuration
 
@@ -87,10 +86,6 @@ source ~/dev/utils/google-cloud-sdk/completion.zsh.inc
 #ZSH_THEME=pygmalion
 
 plugins=(git)
-
-JIRA_RAPID_BOARD=true
-export ZSH=~/.oh-my-zsh
-source $ZSH/oh-my-zsh.sh
 
 # Add env.sh
 #source ~/Projects/config/env.sh
@@ -173,6 +168,87 @@ source ~/.bash_profile
 # Settle python and pip (hopefully)
 alias pip='python2 -m pip'
 alias pip3='python3 -m pip'
+
+
+  # Set Spaceship ZSH as a prompt
+  autoload -U promptinit; promptinit
+  prompt spaceship
+
+
+# git aliases
+alias ga='git add'
+alias gaa='git add --all'
+alias gapa='git add --patch'
+alias gau='git add --update'
+alias gav='git add --verbose'
+alias gap='git apply'
+
+alias gb='git branch'
+alias gba='git branch -a'
+alias gbd='git branch -d'
+alias gbda='git branch --no-color --merged | command grep -vE "^(\*|\s*(master|develop|dev)\s*$)" | command xargs -n 1 git branch -d'
+alias gbD='git branch -D'
+alias gbl='git blame -b -w'
+alias gbnm='git branch --no-merged'
+alias gbr='git branch --remote'
+alias gbs='git bisect'
+alias gbsb='git bisect bad'
+alias gbsg='git bisect good'
+alias gbsr='git bisect reset'
+alias gbss='git bisect start'
+
+alias gc='git commit -v'
+alias gc!='git commit -v --amend'
+alias gcn!='git commit -v --no-edit --amend'
+alias gca='git commit -v -a'
+alias gca!='git commit -v -a --amend'
+alias gcan!='git commit -v -a --no-edit --amend'
+alias gcans!='git commit -v -a -s --no-edit --amend'
+alias gcam='git commit -a -m'
+alias gcsm='git commit -s -m'
+alias gcb='git checkout -b'
+alias gcf='git config --list'
+alias gcl='git clone --recurse-submodules'
+alias gclean='git clean -fd'
+alias gpristine='git reset --hard && git clean -dfx'
+alias gcm='git checkout master'
+alias gcd='git checkout develop'
+alias gcmsg='git commit -m'
+alias gco='git checkout'
+alias gcount='git shortlog -sn'
+alias gcp='git cherry-pick'
+alias gcpa='git cherry-pick --abort'
+alias gcpc='git cherry-pick --continue'
+alias gcs='git commit -S'
+
+alias gd='git diff'
+alias gdca='git diff --cached'
+alias gdcw='git diff --cached --word-diff'
+alias gdct='git describe --tags `git rev-list --tags --max-count=1`'
+alias gds='git diff --staged'
+alias gdt='git diff-tree --no-commit-id --name-only -r'
+alias gdw='git diff --word-diff'
+
+alias gf='git fetch'
+alias gfa='git fetch --all --prune'
+alias gfo='git fetch origin'
+
+alias grh='git reset'
+alias grhh='git reset --hard'
+
+alias gst='git status'
+alias gsta='git stash save'
+alias gstaa='git stash apply'
+alias gstc='git stash clear'
+alias gstd='git stash drop'
+alias gstl='git stash list'
+alias gstp='git stash pop'
+alias gsts='git stash show --text'
+alias gstall='git stash --all'
+alias gsu='git submodule update'
+
+alias gts='git tag -s'
+alias gtv='git tag | sort -V'
 
 # Enable debug
 # zprof
