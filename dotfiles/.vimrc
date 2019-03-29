@@ -814,6 +814,9 @@ let g:lightline = {
     \   'linter_warnings': 'warning',
     \   'linter_errors': 'error'
     \ },
+    \ 'component_function': {
+    \   'cocstatus': 'coc#status'
+    \ },
     \ }
 
 function! LightlineLinterWarnings() abort
