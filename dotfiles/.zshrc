@@ -252,5 +252,15 @@ alias gtv='git tag | sort -V'
 # zsh config
 setopt auto_cd
 
+bindkey '^[[Z' reverse-menu-complete # make Shift-tab go to previous completion
+
+autoload history-search-end
+zle -N history-beginning-search-backward-end history-search-end
+zle -N history-beginning-search-forward-end history-search-end
+bindkey "\e[A" history-beginning-search-backward-end  # cursor up
+bindkey "\e[B" history-beginning-search-forward-end   # cursor down
+
+
+
 # Enable debug
 # zprof
