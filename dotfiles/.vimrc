@@ -13,8 +13,6 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 
 " Plug 'w0rp/ale'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'elzr/vim-json'
 Plug 'kien/ctrlp.vim'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,12 +28,17 @@ Plug 'tomtom/tcomment_vim'
 Plug 'vimwiki/vimwiki'
 
 " syntax highlight
+Plug 'NLKNguyen/c-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'plasticboy/vim-markdown'
 Plug 'posva/vim-vue'
-"
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'elzr/vim-json'
+Plug 'hdima/python-syntax'
+
+
 " themes
 Plug 'NLKNguyen/papercolor-theme'
 
