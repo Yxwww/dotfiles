@@ -6,6 +6,9 @@ call plug#begin('~/.vim/plugged')
 " file explorer
 Plug 'scrooloose/nerdtree'
 
+" Tmux
+Plug 'christoomey/vim-tmux-navigator'
+
 " git
 Plug 'tpope/vim-fugitive'
 
@@ -54,6 +57,15 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" MARK: Tmux Config
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-l> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
 
 " MARK: jsx config
 let g:jsx_ext_required = 1
@@ -128,32 +140,12 @@ syntax enable
 "     echo "unable to find theme"
 " endtry
 set background=light
-let g:rehash256 = 1 " Something to do with Molokai?
 if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
 colorscheme PaperColor
-if !has('gui_running')
-  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256
-  elseif has("terminfo")
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%p1%dm
-    set t_Sb=[4%p1%dm
-  else
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
-  endif
-  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
-  if $TMUX != ""
-    set t_ut=
-  endif
-endif
-syntax on
+" syntax on
 
 
 " hybrid line number
@@ -511,7 +503,7 @@ nnoremap <Leader>o :only<CR>
 " you have a lot of splits and the status line gets truncated).
 nnoremap <Leader>pc :echo expand('%')<CR>
 
-" <Leader>pp -- Like <Leader>p, but additionally yanks the filename and sends it
+" <Leader>pp -- Like <Leader>pc, but additionally yanks the filename and sends it
 " off to Clipper.
 nnoremap <Leader>pp :let @0=expand('%') <Bar> :Clip<CR> :echo expand('%')<CR>
 
@@ -582,7 +574,7 @@ if has("gui_macvim")                  " turn on ligatures with gui macvim and us
   set macligatures
   set guifont=Fira\ Code:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Menlo:h14
+  set guifont=Fira\ Code:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
@@ -730,57 +722,6 @@ if has('wildmenu')
 endif
 set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
 
-" MARK: Autocommands
-if has('autocmd')
-  augroup WincentAutocmds
-    autocmd!
-
-    " autocmd VimResized * execute "normal! \<c-w>="
-
-    " http://vim.wikia.com/wiki/Detect_window_creation_with_WinEnter
-    autocmd VimEnter * autocmd WinEnter * let w:created=1
-    autocmd VimEnter * let w:created=1
-
-    " Disable paste mode on leaving insert mode.
-    autocmd InsertLeave * set nopaste
-
-    if has('folding')
-      " Like the autocmd described in `:h last-position-jump` but we add `:foldopen!`.
-      autocmd BufWinEnter * if line("'\"") > 1 && line("'\"") <= line('$') | execute "normal! g`\"" | execute 'silent! ' . line("'\"") . 'foldopen!' | endif
-    else
-      autocmd BufWinEnter * if line("'\"") > 1 && line("'\"") <= line('$') | execute "normal! g`\"" | endif
-    endif
-
-    autocmd BufWritePost */spell/*.add silent! :mkspell! %
-  augroup END
-endif
-
-
-" MARK: virtual env
-" Function to activate a virtualenv in the embedded interpreter for
-" omnicomplete and other things like that.
-" function LoadVirtualEnv(path)
-"     let activate_this = a:path . '/bin/activate_this.py'
-"     if getftype(a:path) == "dir" && filereadable(activate_this)
-"         python << EOF
-" import vim
-" activate_this = vim.eval('l:activate_this')
-" execfile(activate_this, dict(__file__=activate_this))
-" EOF
-"     endif
-" endfunction
-"
-" " Load up a 'stable' virtualenv if one exists in ~/.virtualenv
-" let defaultvirtualenv = $HOME . "~/git/projects/splash/webstuff"
-"
-" " Only attempt to load this virtualenv if the defaultvirtualenv
-" " actually exists, and we aren't running with a virtualenv active.
-" if has("python")
-"     if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
-"         call LoadVirtualEnv(defaultvirtualenv)
-"     endif
-"   endif
-
 if !has('nvim')
   set ttymouse=xterm2
 endif
@@ -829,19 +770,12 @@ function! LightlineLinterOK() abort
   return l:counts.total == 0 ? '✓ ' : ''
 endfunction
 
-autocmd User ALELint call s:MaybeUpdateLightline()
-
 " Update and show lightline but only if it's visible (e.g., not in Goyo)
 function! s:MaybeUpdateLightline()
   if exists('#lightline')
     call lightline#update()
   end
 endfunction
-
-augroup AutoSyntastic
-  autocmd!
-  autocmd BufWritePost *.c,*.cpp call s:syntastic()
-augroup END
 
 function! MyReadonly()
   if &filetype == "help"
