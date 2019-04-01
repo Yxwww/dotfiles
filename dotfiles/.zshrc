@@ -260,7 +260,8 @@ zle -N history-beginning-search-forward-end history-search-end
 bindkey "\e[A" history-beginning-search-backward-end  # cursor up
 bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 
-
+# clipper config
+alias clip="nc -U ~/.clipper.sock"
 
 # Enable debug
 # zprof

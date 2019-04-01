@@ -492,7 +492,10 @@ set autoread
 noremap <leader>ev :vsplit $MYVIMRC<cr>
 
 " System clipboard copy paste
-noremap <leader>y "*y
+" noremap <leader>y "*y
+" clipper config
+let g:ClipperAddress='~/.clipper.sock'
+noremap <leader>y :call system('nc -U ~/.clipper.sock', @0)<CR>
 noremap <leader>p "*p
 noremap <leader>Y "+y
 noremap <leader>P "+p
