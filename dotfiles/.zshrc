@@ -103,15 +103,6 @@ fi
 alias vi="vim"
 alias ctags="`brew --prefix`/bin/ctags"
 
-#git auto conmpletion
-#source ~/.git-completion.bash
-#GIT_PS1_SHOWDIRTYSTATE=true
-#export PS1='[\u@mbp \w$(__git_ps1)]\$ '
-
-BASE16_SHELL=$HOME/.config/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-
-base16_tomorrow-night
 alias tmux="TERM=screen-256color-bce tmux"
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -119,11 +110,6 @@ if [ -f '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc' ]; then source '/Use
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc'; fi
-alias tmux="TERM=screen-256color-bce tmux"
-
-# export PATH="/Users/yx/anaconda/bin:$PATH"
-# export PYTHONPATH="/Users/Yx/anaconda/bin:/Users/Yx/git/python_symlinks"
-
 
 # zsh ag config
 # Ensure user-installed binaries take precedence
