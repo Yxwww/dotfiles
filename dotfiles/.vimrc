@@ -28,6 +28,7 @@ Plug 'tomtom/tcomment_vim'
 Plug 'vimwiki/vimwiki'
 
 " syntax highlight
+Plug 'rust-lang/rust.vim'
 Plug 'NLKNguyen/c-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
