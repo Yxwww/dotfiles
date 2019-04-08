@@ -234,7 +234,9 @@ nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
 
 " coc
-let g:coc_force_debug = 1
+" force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
+" Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
+let g:coc_force_debug = 0
 
 imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
