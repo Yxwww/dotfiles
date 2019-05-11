@@ -39,5 +39,6 @@ setup_cpp_dev() {
   ln -sf ./configs/coc-settings.json ~/.vim/
   brew install ccls
   brew install ctags
+  brew install ninja
   # if missing system headers run: open /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14. pkg
 }
