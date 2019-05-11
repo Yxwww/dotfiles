@@ -255,6 +255,8 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 # clipper config
 alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
+bindkey '^ ' autosuggest-accept
 
 # Enable debug
 # zprof
