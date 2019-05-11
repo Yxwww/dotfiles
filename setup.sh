@@ -34,3 +34,9 @@ setup_clipper() {
 setup_zsh_autosuggestions() {
   git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 }
+
+setup_cpp_dev() {
+  ln -sf ./configs/coc-settings.json ~/.vim/
+  brew install ccls
+  brew install ctags
+}
