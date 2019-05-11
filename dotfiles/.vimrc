@@ -15,10 +15,10 @@ Plug 'tpope/vim-fugitive'
 " Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
-Plug 'mileszs/ack.vim'
+Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
@@ -509,7 +509,7 @@ noremap <leader>P "+p
 " window management
 nnoremap <leader>vs :vs<cr>
 nnoremap <leader>sp :sp<cr>
-
+"
 " open messages
 nmap <leader>m :messages<cr>
 
@@ -679,7 +679,7 @@ if has('vertsplit')
 endif
 
 " goto right most window
-:nmap <C-\> <C-w>200l
+nmap <C-\> <C-w>200l
 
 set switchbuf=usetab                  " try to reuse windows/tabs when switching buffers
 set tabstop=2                         " spaces per tab

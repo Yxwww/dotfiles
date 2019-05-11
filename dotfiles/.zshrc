@@ -10,7 +10,7 @@
 # Set name of the theme to load. Optionally, if you set this to "random"
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="spaceship"
+# ZSH_THEME="spaceship"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -254,6 +254,7 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 
 # clipper config
 alias clip="nc -U ~/.clipper.sock"
+source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # Enable debug
 # zprof
