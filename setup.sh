@@ -30,3 +30,7 @@ setup_clipper() {
   brew services start clipper
 }
 
+
+setup_zsh_autosuggestions() {
+  git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+}
