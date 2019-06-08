@@ -5,3 +5,6 @@ ln -sf "$(pwd)"/dotfiles/{*,.[^.],.??*} ~/
 GIT_CONFIG_DIR=~/.config/git
 mkdir -p $GIT_CONFIG_DIR
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
+
+# coc-settings
+ln -sf "$(pwd)"/configs/coc-settings.json ~/.config/nvim/
