@@ -17,6 +17,9 @@ Plug 'kien/ctrlp.vim'
 
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
+Plug 'wincent/ferret'
+Plug 'wincent/vcs-jump'
+
 
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'

@@ -11,6 +11,10 @@
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 # ZSH_THEME="spaceship"
+BASE16_SHELL="$HOME/.config/base16-shell/"
+[ -n "$PS1" ] && \
+    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+        eval "$("$BASE16_SHELL/profile_helper.sh")"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -154,9 +158,11 @@ alias pip='python2 -m pip'
 alias pip3='python3 -m pip'
 
 
-  # Set Spaceship ZSH as a prompt
-  autoload -U promptinit; promptinit
-  prompt spaceship
+# Set Spaceship ZSH as a prompt
+autoload -U promptinit; promptinit
+prompt spaceship
+
+base16_google-light
 
 
 # git aliases
@@ -257,6 +263,8 @@ alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 bindkey '^ ' autosuggest-accept
+
+fpath=(~/.zsh/zsh-completions/src $fpath)
 
 # Enable debug
 # zprof
