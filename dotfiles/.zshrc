@@ -1,5 +1,33 @@
+## MARK: Vim Mode Config
+# enable vim mode
+bindkey -v
+# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+export KEYTIMEOUT=1
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word 
+bindkey "^H" backward-delete-char      # Control-h also deletes the previous char
+bindkey "^U" backward-kill-line  
+
+# Updates editor information when the keymap changes.
+function zle-keymap-select() {
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-keymap-select
+
+function vi_mode_prompt_info() {
+  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
+}
+
+# define right prompt, regardless of whether the theme defined it
+RPS1='$(vi_mode_prompt_info)'
+RPS2=$RPS1
+
+## MARK: THEME CONFIG
+#
 # enable profiling require zprof at eof
-# zmodload zsh/zprof
+; zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
