@@ -459,7 +459,7 @@ map 0 ^
 
 " MARK: searches
 map <space> /
-set hlsearch!
+set hlsearch
 
 " Backslash invokes ack.vim
 nnoremap \ :Ag<SPACE>
@@ -521,7 +521,7 @@ nnoremap <leader>sp :sp<cr>
 nmap <leader>m :messages<cr>
 
 " recommended fast saving
-" noremap <Leader>s :update<CR>
+noremap <Leader>s :update<CR>
 
 nnoremap <Leader>x :xit<CR>j
 " Leader mappings.
