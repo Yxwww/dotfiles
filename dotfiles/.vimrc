@@ -337,7 +337,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocCommand('1')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -778,7 +778,8 @@ let g:lightline = {
     \   'linter_errors': 'error'
     \ },
     \ 'component_function': {
-    \   'cocstatus': 'coc#status'
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction'
     \ },
     \ }
 

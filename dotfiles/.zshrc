@@ -1,3 +1,5 @@
+## zsh-autocomplete
+
 ## MARK: Vim Mode Config
 # enable vim mode
 bindkey -v
@@ -293,7 +295,7 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 # clipper config
 alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 bindkey '^ ' autosuggest-accept
 
 # MARK: ZSH completions
