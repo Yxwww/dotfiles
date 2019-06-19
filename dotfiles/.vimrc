@@ -19,6 +19,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
 Plug 'wincent/vcs-jump'
+Plug 'wincent/terminus'
 
 
 Plug 'rking/ag.vim'
@@ -32,16 +33,16 @@ Plug 'vimwiki/vimwiki'
 
 " syntax highlight
 Plug 'tikhomirov/vim-glsl'
-Plug 'rust-lang/rust.vim'
-Plug 'NLKNguyen/c-syntax.vim'
+" Plug 'rust-lang/rust.vim'
+" Plug 'NLKNguyen/c-syntax.vim'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'plasticboy/vim-markdown'
-Plug 'posva/vim-vue'
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+" Plug 'posva/vim-vue'
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 Plug 'elzr/vim-json'
-Plug 'hdima/python-syntax'
+" Plug 'hdima/python-syntax'
 
 
 " themes
@@ -54,7 +55,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'itchyny/lightline.vim'
 
 " misc
-Plug 'ashisha/image.vim'
+" Plug 'ashisha/image.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -372,9 +373,9 @@ if executable('ag')
   " let g:ackprg = 'ag --nogroup --nocolor --column'
 endif
 " nmap <M-k>    :Ack! "\b<cword>\b" <CR>
-nmap <C-f>   :Ack! "\b<cword>\b" <CR>
-" nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
-" nmap <Esc>K   :Ggrep! "\b<cword>\b" <CR>
+" nmap <C-f> :Ack "\b<cword>\b" <CR>
+nmap <Leader>gg  :Ggrep! "\b<cword>\b" <CR>
+nmap <C-f>  :Ggrep! "\b<cword>\b" <CR>
 
 "fzf
 fun! s:fzf_root()
@@ -458,10 +459,13 @@ map 0 ^
 
 " MARK: searches
 map <space> /
-set hlsearch!
+set hlsearch
+
+" Backslash invokes ack.vim
+nnoremap \ :Ag<SPACE>
+
 nnoremap <f3> :set hlsearch!<cr>
 nnoremap <expr> <F9> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
-" nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 set completeopt-=preview
 set incsearch
 set ignorecase
@@ -517,7 +521,6 @@ nnoremap <leader>sp :sp<cr>
 nmap <leader>m :messages<cr>
 
 " recommended fast saving
-nmap <leader>sw :w!<cr>
 noremap <Leader>s :update<CR>
 
 nnoremap <Leader>x :xit<CR>j
@@ -591,7 +594,8 @@ if has('folding')
     set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
   endif
   set foldmethod=syntax               " not as cool as syntax, but faster
-  set foldlevelstart=1               " start unfolded
+  set foldlevelstart=99               " start unfolded
+  set foldtext=wincent#settings#foldtext()
 endif
 
 if v:version > 703 || v:version == 703 && has('patch541')
@@ -906,7 +910,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
 " Switch CWD to the directory of the open buffer
-" map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -919,37 +923,6 @@ endtry
 " autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-
-" Don't close window, when deleting a buffer
-command! Bclose call <SID>BufcloseCloseIt()
-function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
-
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
-
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
-
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
-endfunction
-
-if has("multi_byte")
-  if &termencoding == ""
-    let &termencoding = &encoding
-  endif
-  set encoding=utf-8
-  setglobal fileencoding=utf-8
-  "setglobal bomb
-  set fileencodings=ucs-bom,utf-8,latin1
-endif
 
 if filereadable(expand("./abbreviation.vim"))
   source ./abbreviation.vim
