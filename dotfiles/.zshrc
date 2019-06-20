@@ -1,5 +1,33 @@
+## MARK: Vim Mode Config
+# enable vim mode
+bindkey -v
+# Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
+export KEYTIMEOUT=1
+bindkey "^?" backward-delete-char
+bindkey "^W" backward-kill-word 
+bindkey "^H" backward-delete-char      # Control-h also deletes the previous char
+bindkey "^U" backward-kill-line  
+
+# Updates editor information when the keymap changes.
+function zle-keymap-select() {
+  zle reset-prompt
+  zle -R
+}
+
+zle -N zle-keymap-select
+
+function vi_mode_prompt_info() {
+  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
+}
+
+# define right prompt, regardless of whether the theme defined it
+RPS1='$(vi_mode_prompt_info)'
+RPS2=$RPS1
+
+## MARK: THEME CONFIG
+#
 # enable profiling require zprof at eof
-# zmodload zsh/zprof
+; zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -165,6 +193,10 @@ prompt spaceship
 base16_google-light
 
 
+# common aliases
+alias l='ls -lFhG'
+alias ls='ls -G'
+
 # git aliases
 alias ga='git add'
 alias gaa='git add --all'
@@ -264,7 +296,13 @@ source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
 bindkey '^ ' autosuggest-accept
 
+# MARK: ZSH completions
 fpath=(~/.zsh/zsh-completions/src $fpath)
+
+# MARK: ls coloring, requires `ls -G` G flag enabled.
+LS_COLORS="di=34;40:ln=35;40:so=32;40:pi=33;40:ex=31;40:bd=31;40:cd=31;40:su=31;40:sg=31;40:tw=31;40:ow=31;40:"
+export LS_COLORS
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Enable debug
 # zprof
