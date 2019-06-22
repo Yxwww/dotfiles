@@ -771,15 +771,10 @@ let g:lightline = {
     \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
     \ },
     \ 'component_expand': {
-    \   'fugitive': 'MyFugitive',
-    \   'linter_warnings': 'LightlineLinterWarnings',
-    \   'linter_errors': 'LightlineLinterErrors',
-    \   'linter_ok': 'LightlineLinterOK'
+    \   'fugitive': 'MyFugitive'
     \ },
     \ 'component_type': {
-    \   'readonly': 'error',
-    \   'linter_warnings': 'warning',
-    \   'linter_errors': 'error'
+    \   'readonly': 'error'
     \ },
     \ 'component_function': {
     \   'cocstatus': 'coc#status'
