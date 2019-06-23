@@ -53,7 +53,7 @@ setup_cpp_dev() {
   ##
 }
 
-install_eslint_prettier {
+install_eslint_prettier() {
   yarn global install eslint prettier
   cd ~ && yarn
 }
