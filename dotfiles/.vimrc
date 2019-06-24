@@ -323,8 +323,12 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
+" creates :CE command to call eslint.executeAutofix. map <leader>ef to :CE
+command! -nargs=0 CE :CocCommand eslint.executeAutofix
+nmap <leader>ef  :CE<cr>
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
 
 augroup mygroup
   autocmd!
@@ -774,15 +778,10 @@ let g:lightline = {
     \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
     \ },
     \ 'component_expand': {
-    \   'fugitive': 'MyFugitive',
-    \   'linter_warnings': 'LightlineLinterWarnings',
-    \   'linter_errors': 'LightlineLinterErrors',
-    \   'linter_ok': 'LightlineLinterOK'
+    \   'fugitive': 'MyFugitive'
     \ },
     \ 'component_type': {
-    \   'readonly': 'error',
-    \   'linter_warnings': 'warning',
-    \   'linter_errors': 'error'
+    \   'readonly': 'error'
     \ },
     \ 'component_function': {
     \   'cocstatus': 'coc#status',
