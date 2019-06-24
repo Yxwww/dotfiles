@@ -31,6 +31,10 @@ Plug 'tomtom/tcomment_vim'
 " Life
 Plug 'vimwiki/vimwiki'
 
+"Snippet
+Plug 'honza/vim-snippets'
+Plug 'joaohkfaria/vim-jest-snippets'
+
 " syntax highlight
 Plug 'tikhomirov/vim-glsl'
 " Plug 'rust-lang/rust.vim'
@@ -240,14 +244,17 @@ nmap <leader>gd :Gdiff<cr>
 nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
 
+nmap <leader>co :copen<cr>
+nmap <leader>cn :cnext<cr>
+
 " coc
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
 
-imap <C-l> <Plug>(coc-snippets-expand)
+imap <tab> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-b> <Plug>(coc-snippets-select)
 " Use <C-j> to jump to forward placeholder, which is default
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> to jump to backward placeholder, which is default
