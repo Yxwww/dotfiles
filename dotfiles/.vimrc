@@ -42,6 +42,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 Plug 'plasticboy/vim-markdown'
 " Plug 'posva/vim-vue'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
