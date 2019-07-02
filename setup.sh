@@ -5,6 +5,7 @@
 setup_zsh_spaceship() {
   brew install zsh
   yarn global add spaceship-prompt
+  git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
 setup_js() {
@@ -51,3 +52,9 @@ setup_cpp_dev() {
   #exec /path/to/ccls/Release/ccls -init='{"clang":{"extraArgs":["-isystem", "/Library/Developer/CommandLineTools/usr/include/c++/v1"]}}' "$@"
   ##
 }
+
+install_eslint_prettier() {
+  yarn global install eslint prettier
+  cd ~ && yarn
+}
+

@@ -31,6 +31,10 @@ Plug 'tomtom/tcomment_vim'
 " Life
 Plug 'vimwiki/vimwiki'
 
+"Snippet
+Plug 'honza/vim-snippets'
+Plug 'joaohkfaria/vim-jest-snippets'
+
 " syntax highlight
 Plug 'tikhomirov/vim-glsl'
 " Plug 'rust-lang/rust.vim'
@@ -38,6 +42,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
 Plug 'plasticboy/vim-markdown'
 " Plug 'posva/vim-vue'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -240,14 +245,17 @@ nmap <leader>gd :Gdiff<cr>
 nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
 
+nmap <leader>co :copen<cr>
+nmap <leader>cn :cnext<cr>
+
 " coc
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
 
-imap <C-l> <Plug>(coc-snippets-expand)
+imap <tab> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-b> <Plug>(coc-snippets-select)
 " Use <C-j> to jump to forward placeholder, which is default
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> to jump to backward placeholder, which is default
@@ -316,8 +324,12 @@ endfunction
 nmap <leader>rn <Plug>(coc-rename)
 
 " Remap for format selected region
+" creates :CE command to call eslint.executeAutofix. map <leader>ef to :CE
+command! -nargs=0 CE :CocCommand eslint.executeAutofix
+nmap <leader>ef  :CE<cr>
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
 
 augroup mygroup
   autocmd!
@@ -337,7 +349,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocCommand('1')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -767,18 +779,14 @@ let g:lightline = {
     \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
     \ },
     \ 'component_expand': {
-    \   'fugitive': 'MyFugitive',
-    \   'linter_warnings': 'LightlineLinterWarnings',
-    \   'linter_errors': 'LightlineLinterErrors',
-    \   'linter_ok': 'LightlineLinterOK'
+    \   'fugitive': 'MyFugitive'
     \ },
     \ 'component_type': {
-    \   'readonly': 'error',
-    \   'linter_warnings': 'warning',
-    \   'linter_errors': 'error'
+    \   'readonly': 'error'
     \ },
     \ 'component_function': {
-    \   'cocstatus': 'coc#status'
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction'
     \ },
     \ }
 
