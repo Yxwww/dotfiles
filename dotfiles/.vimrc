@@ -43,6 +43,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'ianks/vim-tsx'
+
 Plug 'plasticboy/vim-markdown'
 " Plug 'posva/vim-vue'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -71,6 +72,8 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+
 
 " MARK: Cursor Config
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
