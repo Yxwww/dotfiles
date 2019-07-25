@@ -192,7 +192,7 @@ alias pip3='python3 -m pip'
 autoload -U promptinit; promptinit
 prompt spaceship
 
-base16_google-light
+base16_onedark
 
 
 # common aliases
