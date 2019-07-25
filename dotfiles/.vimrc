@@ -622,9 +622,9 @@ endif
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 if has("gui_macvim")                  " turn on ligatures with gui macvim and using Fira Code
   set macligatures
-  set guifont=Fira\ Code:h14
+  set guifont=Inconsolata:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Fira\ Code:h14
+  set guifont=Inconsolata:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
