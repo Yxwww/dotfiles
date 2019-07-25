@@ -1,3 +1,5 @@
+## zsh-autocomplete
+
 ## MARK: Vim Mode Config
 # enable vim mode
 bindkey -v
@@ -190,7 +192,7 @@ alias pip3='python3 -m pip'
 autoload -U promptinit; promptinit
 prompt spaceship
 
-base16_google-light
+base16_onedark
 
 
 # common aliases
@@ -293,7 +295,7 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 # clipper config
 alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=59'
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
 bindkey '^ ' autosuggest-accept
 
 # MARK: ZSH completions

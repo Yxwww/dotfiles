@@ -31,6 +31,10 @@ Plug 'tomtom/tcomment_vim'
 " Life
 Plug 'vimwiki/vimwiki'
 
+"Snippet
+Plug 'honza/vim-snippets'
+Plug 'joaohkfaria/vim-jest-snippets'
+
 " syntax highlight
 Plug 'tikhomirov/vim-glsl'
 " Plug 'rust-lang/rust.vim'
@@ -38,6 +42,8 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'pangloss/vim-javascript'
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
+Plug 'ianks/vim-tsx'
+
 Plug 'plasticboy/vim-markdown'
 " Plug 'posva/vim-vue'
 " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
@@ -47,6 +53,8 @@ Plug 'elzr/vim-json'
 
 " themes
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'joshdick/onedark.vim'
+Plug 'sheerun/vim-polyglot'
 
 " autocompletion
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -66,6 +74,8 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+
 
 " MARK: Cursor Config
 " tmux will only forward escape sequences to the terminal if surrounded by a DCS sequence
@@ -173,7 +183,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
-colorscheme PaperColor
+colorscheme onedark
 " syntax on
 
 
@@ -240,14 +250,17 @@ nmap <leader>gd :Gdiff<cr>
 nmap <leader>vs :vs<cr>
 nmap <leader>sp :sp<cr>
 
+nmap <leader>co :copen<cr>
+nmap <leader>cn :cnext<cr>
+
 " coc
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
 
-imap <C-l> <Plug>(coc-snippets-expand)
+imap <tab> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
-vmap <C-j> <Plug>(coc-snippets-select)
+vmap <C-b> <Plug>(coc-snippets-select)
 " Use <C-j> to jump to forward placeholder, which is default
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> to jump to backward placeholder, which is default
@@ -341,7 +354,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Use `:Format` for format current buffer
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocCommand('1')
 
 " Use `:Fold` for fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
@@ -777,7 +790,8 @@ let g:lightline = {
     \   'readonly': 'error'
     \ },
     \ 'component_function': {
-    \   'cocstatus': 'coc#status'
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction'
     \ },
     \ }
 
@@ -925,5 +939,21 @@ endtry
 
 if filereadable(expand("./abbreviation.vim"))
   source ./abbreviation.vim
+endif
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
 
