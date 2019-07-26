@@ -14,12 +14,10 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'kien/ctrlp.vim'
 
-Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
 Plug 'wincent/vcs-jump'
 Plug 'wincent/terminus'
-
 
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'
@@ -81,7 +79,7 @@ endif
 " MARK: Tmux Config
 let g:tmux_navigator_no_mappings = 1
 
-nnoremap <silent> <C-l> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
@@ -236,7 +234,6 @@ set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 nmap ; :Buffers<CR>
 nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "ctrlp ignore file
 let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
@@ -253,12 +250,6 @@ nmap Q q
 noremap Y y$
 nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap K <nop>
-
-" MARK: buffer movement
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
 
 " MARK: Visual mode mappings.
 """"""""""""""""""""""""""""""
