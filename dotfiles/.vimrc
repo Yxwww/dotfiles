@@ -676,27 +676,18 @@ map <c-1> :1gt
 " au TabLeave * let g:lasttab = tabpagenr()
 
 
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-" map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
 " Switch CWD to the directory of the open buffer
 " map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
 " Return to last edit position when opening files (You want this!)
-" autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
 
-if filereadable(expand("./abbreviation.vim"))
-  source ./abbreviation.vim
+let config_dir = '~/.vim/config'
+if filereadable(expand("~/abbreviation.vim"))
+  echo "loaded abbreviation files"
+  source config_dir . '/abbreviation.vim'
 endif
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
