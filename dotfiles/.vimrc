@@ -5,7 +5,7 @@ call plug#begin('~/.vim/plugged')
 
 " file explorer
 Plug 'scrooloose/nerdtree'
-
+"
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -38,7 +38,6 @@ Plug 'joaohkfaria/vim-jest-snippets'
 Plug 'sheerun/vim-polyglot'
 
 " themes
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
 
 " autocompletion
@@ -151,6 +150,11 @@ nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
 
 " MARK: coc config
+"
+let g:coc_global_extensions = ['coc-prettier',
+      \ 'coc-eslint', 'coc-json', 'coc-tsserver',
+      \ 'coc-html', 'coc-css', 'coc-python', 
+      \ 'coc-highlight']
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
