@@ -98,20 +98,6 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" read works
-nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
-"
-" vimwiki/vimwiki config
-let wiki = {}
-let wiki.path = '~/my-wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
-let wiki.template_default = 'default'
-let wiki.custom_wiki2html = 'vimwiki_markdown'
-let wiki.template_ext = '.tpl'
-let wiki.syntax = 'markdown'
-let wiki.ext = '.md'
-let g:vimwiki_list = [wiki]
-
 " force load syntax from the start of the page,
 " does fix syntax losing issue, but lose performance
 " autocmd BufEnter * :syntax sync fromstart
@@ -126,15 +112,6 @@ let g:vimwiki_list = [wiki]
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-
-" enable syntax highlighting
-syntax enable
-set background=light
-if (has("termguicolors"))
-  set termguicolors
-endif
-set t_Co=256
-colorscheme onedark
 " syntax on
 
 " vim slow fix
@@ -687,12 +664,28 @@ map <c-1> :1gt
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+" MARK: Soucing depdendencies
+
+function! SourceIfExists(path) 
+  if filereadable(expand(a:path))
+    exec 'source ' . a:path
+  endif
+endfunction
 
 let config_dir = '~/.vim/config'
-if filereadable(expand("~/abbreviation.vim"))
-  echo "loaded abbreviation files"
-  source config_dir . '/abbreviation.vim'
-endif
+let abbreviation = config_dir . '/abbreviation.vim'
+call SourceIfExists(abbreviation)
+
+let theme = config_dir . '/theme.vim'
+call SourceIfExists(theme)
+
+let wiki = config_dir . '/wiki.vim'
+call SourceIfExists(wiki)
+
+" if filereadable(expand(abbreviation))
+"   echo "loaded abbreviation files"
+"   source abbreviation
+" endif
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
@@ -709,4 +702,5 @@ if (empty($TMUX))
     set termguicolors
   endif
 endif
+
 
