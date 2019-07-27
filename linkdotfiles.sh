@@ -9,5 +9,5 @@ ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 # coc-settings
 ln -sf "$(pwd)"/configs/coc-settings.json ~/.config/nvim/
 
-# vim srcs
+# vim deps
 ln -snf "$(pwd)"/vim ~/.vim/config

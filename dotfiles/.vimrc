@@ -14,12 +14,10 @@ Plug 'tpope/vim-fugitive'
 
 Plug 'kien/ctrlp.vim'
 
-Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
 Plug 'wincent/vcs-jump'
 Plug 'wincent/terminus'
-
 
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'
@@ -81,7 +79,7 @@ endif
 " MARK: Tmux Config
 let g:tmux_navigator_no_mappings = 1
 
-nnoremap <silent> <C-l> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
@@ -98,20 +96,6 @@ let g:user_emmet_settings = {
 \  },
 \}
 
-" read works
-nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
-"
-" vimwiki/vimwiki config
-let wiki = {}
-let wiki.path = '~/my-wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
-let wiki.template_default = 'default'
-let wiki.custom_wiki2html = 'vimwiki_markdown'
-let wiki.template_ext = '.tpl'
-let wiki.syntax = 'markdown'
-let wiki.ext = '.md'
-let g:vimwiki_list = [wiki]
-
 " force load syntax from the start of the page,
 " does fix syntax losing issue, but lose performance
 " autocmd BufEnter * :syntax sync fromstart
@@ -124,17 +108,8 @@ let g:vimwiki_list = [wiki]
 
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" enable syntax highlighting
-syntax enable
-set background=light
-if (has("termguicolors"))
-  set termguicolors
-endif
-set t_Co=256
-colorscheme onedark
+" let mapleader = ","
+" let g:mapleader = ","
 " syntax on
 
 " vim slow fix
@@ -259,7 +234,6 @@ set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 nmap ; :Buffers<CR>
 nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "ctrlp ignore file
 let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
@@ -277,12 +251,6 @@ noremap Y y$
 nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap K <nop>
 
-" MARK: buffer movement
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
-
 " MARK: Visual mode mappings.
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -291,15 +259,9 @@ nnoremap <c-h> <c-w><c-h>
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-" When you press <leader>r you can search and replace the selected text
-" vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
 
 " MARK: searches
-map <space> /
 set hlsearch
-
-" Backslash invokes ack.vim
-nnoremap \ :Ag<SPACE>
 
 nnoremap <f3> :set hlsearch!<cr>
 nnoremap <expr> <F9> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
@@ -363,6 +325,7 @@ nnoremap <Leader>q :quit<CR>
 " MARK: vim settings from winston
 scriptencoding utf-8
 
+" MARK: indent
 set smartindent
 set autoindent                        " maintain indent of current line
 set backspace=indent,start,eol        " allow unrestricted backspacing in insert mode
@@ -660,13 +623,6 @@ endfunction
 " build
 map <C-b> :make <cr>
 
-" Close all the buffers
-" map <leader>ba :bufdo bd<cr>
-"
-" map <leader>l :bnext<cr>
-" map <leader>h :bprevious<cr>
-
-" Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose
@@ -674,39 +630,26 @@ map <leader>tm :tabmove
 
 map <c-1> :1gt
 
-" Let 'tl' toggle between this and the last accessed tab
-" let g:lasttab = 1
-" nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-" au TabLeave * let g:lasttab = tabpagenr()
-
-
-" Switch CWD to the directory of the open buffer
-" map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+" MARK: Soucing depdendencies
+
+function! SourceIfExists(path) 
+  if filereadable(expand(a:path))
+    exec 'source ' . a:path
+  endif
+endfunction
 
 let config_dir = '~/.vim/config'
-if filereadable(expand("~/abbreviation.vim"))
-  echo "loaded abbreviation files"
-  source config_dir . '/abbreviation.vim'
-endif
+let abbreviation = config_dir . '/abbreviation.vim'
+call SourceIfExists(abbreviation)
 
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-  endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+let theme = config_dir . '/theme.vim'
+call SourceIfExists(theme)
+
+let wiki = config_dir . '/wiki.vim'
+call SourceIfExists(wiki)
+
 
