@@ -108,8 +108,8 @@ let g:user_emmet_settings = {
 
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
-" let mapleader = ","
-" let g:mapleader = ","
+let mapleader = ","
+let g:mapleader = ","
 " syntax on
 
 " vim slow fix
@@ -129,14 +129,14 @@ nmap <leader>gd :Gdiff<cr>
 let g:coc_global_extensions = ['coc-prettier',
       \ 'coc-eslint', 'coc-json', 'coc-tsserver',
       \ 'coc-html', 'coc-css', 'coc-python', 
-      \ 'coc-highlight']
+      \ 'coc-highlight', 'coc-rls']
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
 
-imap <tab> <Plug>(coc-snippets-expand)
+" imap <tab> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
-vmap <C-b> <Plug>(coc-snippets-select)
+" vmap <C-b> <Plug>(coc-snippets-select)
 " Use <C-j> to jump to forward placeholder, which is default
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> to jump to backward placeholder, which is default
@@ -388,9 +388,9 @@ endif
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 if has("gui_macvim")                  " turn on ligatures with gui macvim and using Fira Code
   set macligatures
-  set guifont=Inconsolata:h14
+  set guifont=Fira\ Code:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Inconsolata:h14
+  set guifont=Fira\ Code:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
