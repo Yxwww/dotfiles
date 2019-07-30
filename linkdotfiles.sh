@@ -10,4 +10,5 @@ ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 ln -sf "$(pwd)"/configs/coc-settings.json ~/.config/nvim/
 
 # vim deps
-ln -snf "$(pwd)"/vim ~/.vim/config
+ln -snf "$(pwd)"/vim/config ~/.vim/config
+ln -snf "$(pwd)"/vim/ftplugin ~/.vim/ftplugin
