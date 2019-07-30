@@ -160,6 +160,8 @@ set signcolumn=yes
 " Use <c-space> for trigger completion.
 " inoremap <silent><expr> <c-space> coc#refresh()
 
+nnoremap <space> /
+
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -271,17 +273,18 @@ set ignorecase
 set smartcase
 
 " MARK: NERDTree
+let g:NERDTreeWinSize=40
 let g:NERDTreeMouseMode=2
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 " let NERDTreeChDirMode=2
 let g:ctrlp_dont_split = 'nerdtree'
 let g:ctrlp_show_hidden = 1
-nmap <leader>ne :NERDTreeToggle<cr>
-nmap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>ne :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeCreatePrefix='silent keepalt keepjumps'
-nmap <buffer> <expr> - g:NERDTreeMapUpdir
+" nnoremap <buffer> <expr> - g:NERDTreeMapUpdir
 let NERDTreeIgnore = []
 for suffix in split(&suffixes, ',')
     let NERDTreeIgnore += [ escape(suffix, '.~') . '$' ]

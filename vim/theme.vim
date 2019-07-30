@@ -1,6 +1,6 @@
 " enable syntax highlighting
 syntax enable
-set background=light
+set background=dark
 if (has("termguicolors"))
   set termguicolors
 endif
