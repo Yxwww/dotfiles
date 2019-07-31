@@ -34,6 +34,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'sheerun/vim-polyglot'
+Plug 'tikhomirov/vim-glsl'
 
 " themes
 Plug 'joshdick/onedark.vim'
