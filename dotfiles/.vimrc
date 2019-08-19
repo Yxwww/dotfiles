@@ -5,22 +5,19 @@ call plug#begin('~/.vim/plugged')
 
 " file explorer
 Plug 'scrooloose/nerdtree'
-
+"
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 
 " git
 Plug 'tpope/vim-fugitive'
 
-" Plug 'w0rp/ale'
 Plug 'kien/ctrlp.vim'
 
-Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'wincent/ferret'
 Plug 'wincent/vcs-jump'
 Plug 'wincent/terminus'
-
 
 Plug 'rking/ag.vim'
 Plug 'tpope/vim-surround'
@@ -36,34 +33,17 @@ Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
+Plug 'sheerun/vim-polyglot'
 Plug 'tikhomirov/vim-glsl'
-" Plug 'rust-lang/rust.vim'
-" Plug 'NLKNguyen/c-syntax.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'leafgarland/typescript-vim'
-Plug 'ianks/vim-tsx'
-
-Plug 'plasticboy/vim-markdown'
-" Plug 'posva/vim-vue'
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-Plug 'elzr/vim-json'
-" Plug 'hdima/python-syntax'
-
 
 " themes
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'joshdick/onedark.vim'
-Plug 'sheerun/vim-polyglot'
 
 " autocompletion
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 " ui
 Plug 'itchyny/lightline.vim'
-
-" misc
-" Plug 'ashisha/image.vim'
 
 " Initialize plugin system
 call plug#end()
@@ -100,7 +80,7 @@ endif
 " MARK: Tmux Config
 let g:tmux_navigator_no_mappings = 1
 
-nnoremap <silent> <C-l> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
@@ -116,25 +96,6 @@ let g:user_emmet_settings = {
 \      'extends' : 'jsx',
 \  },
 \}
-" let g:user_emmet_settings = {
-"   \  'javascript.jsx' : {
-"     \      'extends' : 'jsx',
-"     \  },
-"   \}
-
-" read workds
-nnoremap <silent> <key> :<C-u>call system('say ' . expand('<cword>'))<CR>
-"
-" vimwiki/vimwiki config
-let wiki = {}
-let wiki.path = '~/my-wiki/'
-let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'javascript': 'javascript'}
-let wiki.template_default = 'default'
-let wiki.custom_wiki2html = 'vimwiki_markdown'
-let wiki.template_ext = '.tpl'
-let wiki.syntax = 'markdown'
-let wiki.ext = '.md'
-let g:vimwiki_list = [wiki]
 
 " force load syntax from the start of the page,
 " does fix syntax losing issue, but lose performance
@@ -146,96 +107,12 @@ let g:vimwiki_list = [wiki]
 " insert current time in insert mode
 :inoremap <F5> <C-R>=strftime("%c")<CR>
 
-" matchtagalways % go to other end of tag
-nnoremap <leader>% :MtaJumpToOtherTag<cr>
 " with a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
-
-" enable syntax highlighting
-syntax enable
-
-" disable undo file
-":set noundofile
-" disable swp file
-":set noswapfile
-
-" enable 256 colors palette in gnome terminal
-" if $colorterm == 'gnome-terminal'
-"     set t_co=256
-" endif
-"
-" set background=dark
-"
-" if filereadable(expand("~/.vimrc_background"))
-"     let base16colorspace=256
-"     source ~/.vimrc_background
-" endif
-"
-" try
-"     colorscheme base16-tomorrow-night
-" catch
-"     echo "unable to find theme"
-" endtry
-set background=light
-if (has("termguicolors"))
-  set termguicolors
-endif
-set t_Co=256
-colorscheme onedark
 " syntax on
 
-
-" hybrid line number
-set number
-set relativenumber
-" JSDoc Snippet mapping
-let g:JSDocSnippetsMapping='<D-C>' " this allow us to cmd-shift-c on top of a function in Insert mode to generate JSDOC
-" Config on mac vim
-if has("gui_macvim")
-    set guioptions-=r
-    set guioptions-=L
-    set guioptions=
-endif
-
-" ale
-let g:ale_python_pylint_options = "--init-hook='import sys; sys.path.append(\".\")'"
-let g:ale_fixers = {
-\   'javascript': ['eslint'],
-\   'css': ['prettier'],
-\}
-let g:ale_fix_on_save = 0
-let g:ale_linter_aliases = {'jinja': 'html'}
-let g:ale_linters = {
-\   'javascript': ['eslint'],
-\   'typescript': ['eslint'],
-\   'python': ['flake8'],
-\   'html': ['eslint'],
-\   'css': [ 'stylelint'],
-\   'scss': [ 'sass-lint'],
-\   'jinja': [''],
-\}
-" alias ale linter to html
-let g:ale_sign_column_always = 1
-let g:ale_sign_error = '●' " Less aggressive than the default '>>'
-let g:ale_sign_warning = '.'
-let g:ale_lint_on_enter = 0 " Less distracting when opening a new file
-highlight clear ALEErrorSign
-highlight clear ALEWarningSign
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-let g:ale_change_sign_column_color = 0
-let g:ale_sign_column_always = 0
-" highlight SignColumn guibg=#383942
-" highlight clear SignColumn
-nmap <silent> <C-n> <Plug>(ale_previous_wrap)
-nmap <silent> <C-N> <Plug>(ale_next_wrap)
 " vim slow fix
 set ttyfast
 " Fugitive shortcut config
@@ -247,20 +124,20 @@ nmap <leader>gc :Gcommit<cr>
 nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
-nmap <leader>vs :vs<cr>
-nmap <leader>sp :sp<cr>
 
-nmap <leader>co :copen<cr>
-nmap <leader>cn :cnext<cr>
-
-" coc
+" MARK: coc config
+"
+let g:coc_global_extensions = ['coc-prettier',
+      \ 'coc-eslint', 'coc-json', 'coc-tsserver',
+      \ 'coc-html', 'coc-css', 'coc-python', 
+      \ 'coc-highlight', 'coc-rls']
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
 let g:coc_force_debug = 0
 
-imap <tab> <Plug>(coc-snippets-expand)
+" imap <tab> <Plug>(coc-snippets-expand)
 " Use <C-j> to select text for visual text of snippet.
-vmap <C-b> <Plug>(coc-snippets-select)
+" vmap <C-b> <Plug>(coc-snippets-select)
 " Use <C-j> to jump to forward placeholder, which is default
 let g:coc_snippet_next = '<c-j>'
 " Use <C-k> to jump to backward placeholder, which is default
@@ -281,21 +158,10 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
 " Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
+
+nnoremap <space> /
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -344,39 +210,6 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" vmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Use `:Format` for format current buffer
-" command! -nargs=0 Format :call CocCommand('1')
-
-" Use `:Fold` for fold current buffer
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Using CocList
-" " Show all diagnostics
-" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
-" " Manage extensions
-" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
-" " Show commands
-" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
-" " Find symbol of current document
-" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
-" " Search workspace symbols
-" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
-" " Do default action for next item.
-" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
-" " Do default action for previous item.
-" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
-" " Resume latest coc list
-" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-
 " enable omini function
 filetype plugin on
 set omnifunc=syntaxcomplete#Complete
@@ -404,15 +237,11 @@ set rtp+=/usr/local/opt/fzf " If installed using Homebrew
 nmap ; :Buffers<CR>
 nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "ctrlp ignore file
 let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode='ra'
-nmap <f8> :TagbarToggle<cr>
-let g:tagbar_autofocus=1
-set pastetoggle=<F2>
 
 " force highlight from start
 " noremap <F12> <Esc>:syntax sync fromstart<CR>
@@ -424,13 +253,6 @@ nmap Q q
 noremap Y y$
 nnoremap <silent> - :silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 nnoremap K <nop>
-nnoremap <Tab> za
-
-" MARK: buffer movement
-nnoremap <c-j> <c-w><c-j>
-nnoremap <c-k> <c-w><c-k>
-nnoremap <c-l> <c-w><c-l>
-nnoremap <c-h> <c-w><c-h>
 
 " MARK: Visual mode mappings.
 """"""""""""""""""""""""""""""
@@ -440,46 +262,9 @@ nnoremap <c-h> <c-w><c-h>
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
 vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-" When you press <leader>r you can search and replace the selected text
-" vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR> 
-
-" xnoremap <C-h> <C-w>h
-" xnoremap <C-j> <C-w>j
-" xnoremap <C-k> <C-w>k
-" xnoremap <C-l> <C-w>l
-
-" MARK: editing mappings
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-" nmap <M-j> mz:m+<cr>`z
-" nmap <M-k> mz:m-2<cr>`z
-" vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-" vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-" if has("mac") || has("macunix")
-"   nmap <D-j> <M-j>
-"   nmap <D-k> <M-k>
-"   vmap <D-j> <M-j>
-"   vmap <D-k> <M-k>
-" endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-" func! DeleteTrailingWS()
-"   exe "normal mz"
-"   %s/\s\+$//ge
-"   exe "normal `z"
-" endfunc
-" autocmd BufWrite *.py :call DeleteTrailingWS()
-" autocmd BufWrite *.js :call DeleteTrailingWS()
 
 " MARK: searches
-map <space> /
 set hlsearch
-
-" Backslash invokes ack.vim
-nnoremap \ :Ag<SPACE>
 
 nnoremap <f3> :set hlsearch!<cr>
 nnoremap <expr> <F9> ':%s/\<'.expand('<cword>').'\>/<&>/g<CR>'
@@ -489,17 +274,18 @@ set ignorecase
 set smartcase
 
 " MARK: NERDTree
+let g:NERDTreeWinSize=40
 let g:NERDTreeMouseMode=2
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 " let NERDTreeChDirMode=2
 let g:ctrlp_dont_split = 'nerdtree'
 let g:ctrlp_show_hidden = 1
-nmap <leader>ne :NERDTreeToggle<cr>
-nmap <leader>nf :NERDTreeFind<CR>
+nnoremap <leader>ne :NERDTreeToggle<cr>
+nnoremap <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeMinimalUI=1
 let g:NERDTreeCreatePrefix='silent keepalt keepjumps'
-nmap <buffer> <expr> - g:NERDTreeMapUpdir
+" nnoremap <buffer> <expr> - g:NERDTreeMapUpdir
 let NERDTreeIgnore = []
 for suffix in split(&suffixes, ',')
     let NERDTreeIgnore += [ escape(suffix, '.~') . '$' ]
@@ -530,9 +316,6 @@ noremap <leader>y :call system('nc -U ~/.clipper.sock', @0)<CR>
 noremap <leader>p "*p
 noremap <leader>Y "+y
 noremap <leader>P "+p
-" window management
-nnoremap <leader>vs :vs<cr>
-nnoremap <leader>sp :sp<cr>
 "
 " open messages
 nmap <leader>m :messages<cr>
@@ -541,25 +324,12 @@ nmap <leader>m :messages<cr>
 noremap <Leader>s :update<CR>
 
 nnoremap <Leader>x :xit<CR>j
-" Leader mappings.
-
-" <Leader><Leader> -- Open last buffer.
-nnoremap <Leader><Leader> <C-^>
-
-nnoremap <Leader>o :only<CR>
-
-" <Leader>pc -- Show the path of the current file (mnemonic: path; useful when
-" you have a lot of splits and the status line gets truncated).
-nnoremap <Leader>pc :echo expand('%')<CR>
-
-" <Leader>pp -- Like <Leader>pc, but additionally yanks the filename and sends it
-" off to Clipper.
-nnoremap <Leader>pp :let @0=expand('%') <Bar> :Clip<CR> :echo expand('%')<CR>
 
 nnoremap <Leader>q :quit<CR>
 " MARK: vim settings from winston
 scriptencoding utf-8
 
+" MARK: indent
 set smartindent
 set autoindent                        " maintain indent of current line
 set backspace=indent,start,eol        " allow unrestricted backspacing in insert mode
@@ -622,9 +392,9 @@ endif
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 if has("gui_macvim")                  " turn on ligatures with gui macvim and using Fira Code
   set macligatures
-  set guifont=Inconsolata:h14
+  set guifont=Fira\ Code:h14
 else                                  " if not on macvim use Fira Mono 
-  set guifont=Inconsolata:h14
+  set guifont=Fira\ Code:h14
 endif
 
 set guioptions-=T                     " don't show toolbar
@@ -650,15 +420,15 @@ endif
 
 set list                              " show whitespace
 set listchars=nbsp:⦸                  " CIRCLED REVERSE SOLIDUS (U+29B8, UTF-8: E2 A6 B8)
-set listchars+=tab:▷┅                 " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
-                                      " + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
+set listchars+=tab:>•                " WHITE RIGHT-POINTING TRIANGLE (U+25B7, UTF-8: E2 96 B7)
+                                       " + BOX DRAWINGS HEAVY TRIPLE DASH HORIZONTAL (U+2505, UTF-8: E2 94 85)
 set listchars+=extends:»              " RIGHT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00BB, UTF-8: C2 BB)
 set listchars+=precedes:«             " LEFT-POINTING DOUBLE ANGLE QUOTATION MARK (U+00AB, UTF-8: C2 AB)
 set listchars+=trail:•                " BULLET (U+2022, UTF-8: E2 80 A2)
 set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
 set noshowmatch                       " don't jump between matching brackets
-set number                            " show line numbers in gutter
 
+set number
 if exists('+relativenumber')
   set relativenumber                  " show relative numbers in gutter
 endif
@@ -795,44 +565,7 @@ let g:lightline = {
     \ },
     \ }
 
-function! LightlineLinterWarnings() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
-endfunction
-
-function! LightlineLinterErrors() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
-endfunction
-
-function! LightlineLinterOK() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-  return l:counts.total == 0 ? '✓ ' : ''
-endfunction
-
 " Update and show lightline but only if it's visible (e.g., not in Goyo)
-function! s:MaybeUpdateLightline()
-  if exists('#lightline')
-    call lightline#update()
-  end
-endfunction
-
-function! MyReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "l "
-  else
-    return ""
-  endif
-endfunction
-
 function! MyFugitive()
   if exists("*fugitive#head")
     let _ = fugitive#head()
@@ -841,10 +574,6 @@ function! MyFugitive()
   return ''
 endfunction
 
-function! MyFilename()
-  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
-       \ ('' != expand('%') ? expand('%') : '[NoName]')
-endfunction
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -898,13 +627,6 @@ endfunction
 " build
 map <C-b> :make <cr>
 
-" Close all the buffers
-map <leader>ba :bufdo bd<cr>
-
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-
-" Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose
@@ -912,48 +634,26 @@ map <leader>tm :tabmove
 
 map <c-1> :1gt
 
-" Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
-au TabLeave * let g:lasttab = tabpagenr()
-
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
 " Return to last edit position when opening files (You want this!)
-" autocmd BufWritePost $MYVIMRC source $MYVIMRC
-" au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+autocmd BufWritePost $MYVIMRC source $MYVIMRC
 
+" MARK: Soucing depdendencies
 
-if filereadable(expand("./abbreviation.vim"))
-  source ./abbreviation.vim
-endif
-
-"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
-"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
-"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
-if (empty($TMUX))
-  if (has("nvim"))
-    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+function! SourceIfExists(path) 
+  if filereadable(expand(a:path))
+    exec 'source ' . a:path
   endif
-  "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
-  "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
-  " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
-  if (has("termguicolors"))
-    set termguicolors
-  endif
-endif
+endfunction
+
+let config_dir = '~/.vim/config'
+let abbreviation = config_dir . '/abbreviation.vim'
+call SourceIfExists(abbreviation)
+
+let theme = config_dir . '/theme.vim'
+call SourceIfExists(theme)
+
+let wiki = config_dir . '/wiki.vim'
+call SourceIfExists(wiki)
+
 

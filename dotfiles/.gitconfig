@@ -1,0 +1,9 @@
+[user]
+	name = Yuxi Wang
+	email = yuxi.wangcd@gmail.com
+[core]
+	editor = nvim
+[push]
+	default = current
+[alias]
+    set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
