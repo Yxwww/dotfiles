@@ -40,7 +40,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'joshdick/onedark.vim'
 
 " autocompletion
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " ui
 Plug 'itchyny/lightline.vim'
@@ -54,6 +54,8 @@ filetype plugin indent on
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Svelte config
 autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 
 
@@ -62,7 +64,6 @@ autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 " http://sourceforge.net/mailarchive/forum.php?thread_name=AANLkTinkbdoZ8eNR1X2UobLTeww1jFrvfJxTMfKSq-L%2B%40mail.gmail.com&forum_name=tmux-users
 " NOTE: cursor chagne on mode switching is a terminal feature. MacOS
 " terminal does not support cursor change
-
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
   \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
   \,sm:block-blinkwait175-blinkoff150-blinkon175
@@ -78,7 +79,7 @@ else
 endif
 
 " MARK: Tmux Config
-let g:tmux_navigator_no_mappings = 1
+" let g:tmux_navigator_no_mappings = 1
 
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
@@ -114,7 +115,7 @@ let g:mapleader = ","
 " syntax on
 
 " vim slow fix
-set ttyfast
+" set ttyfast
 " Fugitive shortcut config
 set previewheight=25
 nmap <leader>gs :Gstatus<cr>
@@ -126,30 +127,23 @@ nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
 
 " MARK: coc config
-"
 let g:coc_global_extensions = ['coc-prettier',
       \ 'coc-eslint', 'coc-json', 'coc-tsserver',
       \ 'coc-html', 'coc-css', 'coc-python', 
-      \ 'coc-highlight', 'coc-rls']
-" force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
-" Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
-let g:coc_force_debug = 0
+      \ 'coc-highlight', 'coc-rls',
+      \ 'coc-emmet' ]
 
-" imap <tab> <Plug>(coc-snippets-expand)
-" Use <C-j> to select text for visual text of snippet.
-" vmap <C-b> <Plug>(coc-snippets-select)
-" Use <C-j> to jump to forward placeholder, which is default
-let g:coc_snippet_next = '<c-j>'
-" Use <C-k> to jump to backward placeholder, which is default
-let g:coc_snippet_prev = '<c-k>'
-
-" if hidden not set, TextEdit might fail.
+" if hidden is not set, TextEdit might fail.
 set hidden
+
+" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
 
 " Better display for messages
 set cmdheight=2
 
-" Smaller updatetime for CursorHold & CursorHoldI
+" You will have bad experience for diagnostic messages when it's default 4000.
 set updatetime=300
 
 " don't give |ins-completion-menu| messages.
@@ -158,16 +152,27 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-" Use <c-space> for trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-nnoremap <space> /
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-" Use `[c` and `]c` for navigate diagnostics
+" Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
 nmap <silent> ]c <Plug>(coc-diagnostic-next)
 
@@ -177,11 +182,11 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" Use K to show documentation in preview window
+nnoremap <silent> <leader>gk :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
-  if &filetype == 'vim'
+  if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
     call CocAction('doHover')
@@ -189,18 +194,14 @@ function! s:show_documentation()
 endfunction
 
 " Highlight symbol under cursor on CursorHold
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+nmap <leader>e <Plug>(coc-rename)
 
 " Remap for format selected region
-" creates :CE command to call eslint.executeAutofix. map <leader>ef to :CE
-command! -nargs=0 CE :CocCommand eslint.executeAutofix
-nmap <leader>ef  :CE<cr>
-vmap <leader>f  <Plug>(coc-format-selected)
+xmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
-
 
 augroup mygroup
   autocmd!
@@ -210,8 +211,53 @@ augroup mygroup
   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
 augroup end
 
-" enable omini function
-filetype plugin on
+" " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+" TODO: find better plugin for the lines below
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" Fix autofix problem of current line
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Use <tab> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <S-TAB> <Plug>(coc-range-select-backword)
+
+" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` to fold current buffer
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" use `:OR` for organize import of current buffer
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add status line support, for integration with other plugin, checkout `:h coc-status`
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Using CocList
+" Show all diagnostics
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" Show commands
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document
+nnoremap <silent> <leader>cp  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <leader>cs  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
+" MARK: enable omini function
 set omnifunc=syntaxcomplete#Complete
 
 " vim-javascript config
@@ -239,7 +285,7 @@ nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
 nnoremap <silent> <C-p> :exe 'Files ' . <SID>fzf_root()<CR>
 
 "ctrlp ignore file
-let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
+let g:ctrlp_custom_ignore = '\v[\/](.next|.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode='ra'
 
@@ -296,9 +342,6 @@ let NERDTreeIgnore += ['^\.DS_Store$', '^\.pyc$','^\.bundle$', '^\.bzr$', '^\.gi
 " sets how many lines of history vim has to remember
 set history=500
 
-" enable filetype plugins
-filetype plugin on
-filetype indent on
 
 " set to auto read when a file is changed from the outside
 set autoread
@@ -546,8 +589,12 @@ if !has('nvim')
   set ttymouse=xterm2
 endif
 
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
+
 let g:lightline = {
-    \ 'colorscheme': 'PaperColor',
+    \ 'colorscheme': 'one',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
@@ -582,7 +629,7 @@ endfunction
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " Helperfunctions
 function! CmdLine(str)
