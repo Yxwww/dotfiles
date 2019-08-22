@@ -4,8 +4,6 @@ let g:NERDTreeMouseMode=2
 let g:NERDTreeNodeDelimiter = "\u00a0"
 let NERDTreeShowHidden=1
 " let NERDTreeChDirMode=2
-let g:ctrlp_dont_split = 'nerdtree'
-let g:ctrlp_show_hidden = 1
 nnoremap <leader>ne :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeMinimalUI=1
@@ -111,3 +109,13 @@ let g:lightline = {
 
 " MARK: Fugitive 
 set previewheight=20 " set the hight of the preview window to 25
+
+
+" MARK: ctrlp
+"ctrlp ignore file
+let g:ctrlp_dont_split = 'nerdtree'
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|target|.storage|dist)|(\.(DS_STORE|pyc|swp|ico|git|svn|un\~))$'
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_working_path_mode='ra'
+
