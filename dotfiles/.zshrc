@@ -162,13 +162,9 @@ if [ -e ~/.fzf ]; then
 fi
 
 # fzf + ag configuration
-if ! type "$fzf" > /dev/null; then
-  # install foobar here
-fi
-
-if type foobar &> /dev/null && type ag &> /dev/null; then
-  echo 'fzf & ag exists'
-  export FZF_DEFAULT_COMMAND='ag --path-to-ignore ~/.ignore --hidden -g ""'
+if type fzf &> /dev/null && type rg &> /dev/null; then
+  echo 'fzf & rg exists'
+  export FZF_DEFAULT_COMMAND='rg --files --no-ignore-vcs --hidden'
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_DEFAULT_OPTS='

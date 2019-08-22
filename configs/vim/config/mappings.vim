@@ -1,3 +1,5 @@
+nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
+"
 map <C-b> :make <cr>
 
 " open messages
@@ -35,8 +37,7 @@ map <leader>tm :tabmove
 " MARK: fzf
 nmap ; :Buffers<CR>
 nmap ' :Files<CR>
-nmap <leader>z :GFiles<CR>
-nnoremap <silent> <Leader>' :Files <C-R>=expand('%:h')<CR><CR>
+nnoremap <C-g> :Rg<Cr>
 
 " Mark: Clipper
 let g:ClipperAddress='~/.clipper.sock'
@@ -45,5 +46,26 @@ noremap <leader>p "*p
 noremap <leader>Y "+y
 noremap <leader>P "+p
 
+" MARK: coc
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+command! -nargs=0 CE :CocCommand eslint.executeAutofix
+nmap <leader>ef  :CE<cr>
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 

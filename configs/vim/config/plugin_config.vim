@@ -34,25 +34,6 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-" Use <c-space> for trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
-
-nnoremap <space> /
-
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-
 " Use K for show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
 
@@ -66,16 +47,7 @@ endfunction
 
 " Highlight symbol under cursor on CursorHold
 " autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
 " creates :CE command to call eslint.executeAutofix. map <leader>ef to :CE
-command! -nargs=0 CE :CocCommand eslint.executeAutofix
-nmap <leader>ef  :CE<cr>
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
 
 " MARK: lightline 
 
@@ -87,11 +59,14 @@ function! MyFugitive()
 	endif
 	return ''
 endfunction
+function! CocCurrentFunction()
+    return get(b:, 'coc_current_function', '')
+endfunction
 let g:lightline = {
     \ 'colorscheme': 'PaperColor',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive', 'readonly', 'filename', 'modified' ] ],
+    \             [ 'cocstatus','fugitive', 'filename', 'modified' ] ],
     \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
     \ },
     \ 'component_expand': {
@@ -119,3 +94,9 @@ let g:ctrlp_custom_ignore = '\v[\/](.Trash|.sass-cache|temp|build|node_modules|t
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_working_path_mode='ra'
 
+" MARK: emmet config
+let g:user_emmet_settings = {
+      \  'javascript' : {
+      \      'extends' : 'jsx',
+      \  },
+      \}

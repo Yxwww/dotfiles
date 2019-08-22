@@ -9,6 +9,9 @@ set switchbuf=usetab                  " try to reuse windows/tabs when switching
 
 if !has('nvim')
 	set ttymouse=xterm2
+	set highlight+=@:ColorColumn          " ~/@ at end of window, 'showbreak'
+	set highlight+=N:DiffText             " make current line number stand out a little
+	set highlight+=c:LineNr               " blend vertical separators with line numbers<Paste>
 endif
 
 if has('termguicolors')
@@ -64,6 +67,17 @@ else
   set directory=~/local/.vim/tmp/swap/
   set directory+=~/.vim/tmp/swap/    " keep swap files out of the way
   set directory+=.
+endif
+
+if exists('$SUDO_USER')
+	set nobackup                        " don't create root-owned files
+	set nowritebackup                   " don't create root-owned files
+else
+	let vimtmp = $HOME . '/.vim/tmp/' . 'backup'
+	silent! call mkdir(vimtmp, "p", 0700)
+	set backupdir=~/local/.vim/tmp/backup
+	set backupdir+=~/.vim/tmp/backup    " keep backup files out of the way
+	set backupdir+=.
 endif
 
 set expandtab                         " always use spaces instead of tabs

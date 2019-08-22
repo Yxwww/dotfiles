@@ -54,17 +54,10 @@ endfunction
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config']
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
+      \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
-
 autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
-
-" MARK: emmet config
-let g:user_emmet_settings = {
-      \  'javascript' : {
-      \      'extends' : 'jsx',
-      \  },
-      \}
