@@ -110,4 +110,4 @@ let g:lightline = {
 
 
 " MARK: Fugitive 
-" set previewheight=25
+set previewheight=20 " set the hight of the preview window to 25
