@@ -1,3 +1,5 @@
+map <C-b> :make <cr>
+
 " open messages
 nmap <leader>m :messages<cr>
 nnoremap <Leader>ve :e $MYVIMRC<CR>
@@ -23,6 +25,24 @@ nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
 
+" MARK: tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose
+map <leader>tm :tabmove
+
+
 " MARK: fzf
 nmap ; :Buffers<CR>
-nmap ' :exe 'Files ' . <SID>fzf_root()<CR>
+nmap ' :Files<CR>
+nmap <leader>z :GFiles<CR>
+
+" Mark: Clipper
+let g:ClipperAddress='~/.clipper.sock'
+noremap <leader>y :call system('nc -U ~/.clipper.sock', @0)<CR>
+noremap <leader>p "*p
+noremap <leader>Y "+y
+noremap <leader>P "+p
+
+
+

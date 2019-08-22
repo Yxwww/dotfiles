@@ -109,9 +109,5 @@ let g:lightline = {
     \ }
 
 
-" Mark: Clipper
-let g:ClipperAddress='~/.clipper.sock'
-noremap <leader>y :call system('nc -U ~/.clipper.sock', @0)<CR>
-noremap <leader>p "*p
-noremap <leader>Y "+y
-noremap <leader>P "+p
+" MARK: Fugitive 
+" set previewheight=25

@@ -1,6 +1,32 @@
+set laststatus=2                      " always show status line
+set lazyredraw                        " don't bother updating screen during macro playback
+set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 " sets how many lines of history vim has to remember
 set history=500
 set autoread 			       " set to auto read when a file is changed from the outside
+
+set switchbuf=usetab                  " try to reuse windows/tabs when switching buffers
+
+if !has('nvim')
+	set ttymouse=xterm2
+endif
+
+if has('termguicolors')
+  set termguicolors                   " use guifg/guibg instead of ctermfg/ctermbg in terminal
+  " hi Search guibg=darkGrey guifg=darkGreen
+endif
+
+if v:progname !=# 'vi'
+  set softtabstop=-1                  " use 'shiftwidth' for tab/bs at end of line
+endif
+
+if has('windows')
+  set splitbelow                      " open horizontal splits below current window
+endif
+
+if has('vertsplit')
+  set splitright                      " open vertical splits to the right of the current window
+endif
 
 if exists('$SUDO_USER')
   set nobackup                        " don't create root-owned files
