@@ -36,6 +36,7 @@ map <leader>tm :tabmove
 nmap ; :Buffers<CR>
 nmap ' :Files<CR>
 nmap <leader>z :GFiles<CR>
+nnoremap <silent> <Leader>' :Files <C-R>=expand('%:h')<CR><CR>
 
 " Mark: Clipper
 let g:ClipperAddress='~/.clipper.sock'
