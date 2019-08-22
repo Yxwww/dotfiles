@@ -46,13 +46,15 @@ let g:mapleader = ","
 function! SourceIfExists(path) 
   if filereadable(expand(a:path))
     exec 'source ' . a:path
+  else
+    echo 'depdendency ' . a:path . ' not found'
   endif
 endfunction
 
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'fzf_config']
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
