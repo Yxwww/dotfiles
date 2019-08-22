@@ -52,7 +52,7 @@ endfunction
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config.vim']
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'fzf_config']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
