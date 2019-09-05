@@ -1,6 +1,8 @@
 nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
-"
-map <C-b> :make <cr>
+
+" MARK: Makefile
+nnoremap <C-b> :make build <cr>
+nnoremap <C-r> :make run <cr>
 
 " open messages
 nmap <leader>m :messages<cr>
