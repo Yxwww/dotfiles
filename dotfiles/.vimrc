@@ -29,6 +29,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'sheerun/vim-polyglot'
+Plug 'mxw/vim-jsx'
 Plug 'tikhomirov/vim-glsl'
 
 " ui

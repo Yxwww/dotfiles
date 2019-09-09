@@ -1,6 +1,8 @@
 nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
-"
-map <C-b> :make <cr>
+
+" MARK: Makefile
+nnoremap <C-b> :make build <cr>
+nnoremap <C-r> :make run <cr>
 
 " open messages
 nmap <leader>m :messages<cr>
@@ -69,3 +71,8 @@ nmap <leader>ef  :CE<cr>
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
 
+" MARK: visual mode
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
