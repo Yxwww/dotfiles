@@ -19,7 +19,7 @@ Plug 'vimwiki/vimwiki'
 
 Plug 'joshdick/onedark.vim'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
 Plug 'tomtom/tcomment_vim'
 
