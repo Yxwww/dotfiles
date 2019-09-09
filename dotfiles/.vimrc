@@ -19,7 +19,22 @@ Plug 'vimwiki/vimwiki'
 
 Plug 'joshdick/onedark.vim'
 
-" Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Plug 'dense-analysis/ale'
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" Deoplete
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
+let g:deoplete#enable_at_startup = 1
 
 Plug 'tomtom/tcomment_vim'
 
@@ -55,7 +70,7 @@ endfunction
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/languageclient', 'plugins/fzf_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)

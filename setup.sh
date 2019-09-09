@@ -58,3 +58,8 @@ install_eslint_prettier() {
   cd ~ && yarn
 }
 
+install_language_servers() {
+  yarn global add typescript-language-server
+  yarn global add javascript-typescript-langserver
+}
+
