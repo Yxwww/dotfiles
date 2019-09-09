@@ -34,7 +34,7 @@ set signcolumn=yes
 " Use <c-space> for trigger completion.
 " inoremap <silent><expr> <c-space> coc#refresh()
 
-nnoremap <space> /
+" nnoremap <space> /
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
@@ -73,6 +73,11 @@ command! -nargs=0 CE :CocCommand eslint.executeAutofix
 nmap <leader>ef  :CE<cr>
 vmap <leader>f  <Plug>(coc-format-selected)
 nmap <leader>f  <Plug>(coc-format-selected)
+
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 
 
 augroup mygroup
