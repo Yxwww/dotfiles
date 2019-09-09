@@ -2,11 +2,7 @@
 set hidden
 
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'], 
-      \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-      \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-      \ 'python': ['/usr/local/bin/pyls'],
-      \ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
+      \ 'rust': ['rustup', 'run', 'stable', 'rls']
       \ }
 
 function! s:Config()
@@ -16,13 +12,10 @@ function! s:Config()
     setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
     " <Leader>f -- Format buffer.
     nnoremap <buffer> <silent> <Leader>f :call LanguageClient_textDocument_formatting()<CR>
-
     " gd -- go to definition
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-
     " K -- lookup keyword
     nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-
     if exists('+signcolumn')
       setlocal signcolumn=yes
     endif
@@ -49,7 +42,7 @@ let g:LanguageClient_diagnosticsDisplay = {
       \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
       \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
       \ }
-
+"
 
 " what kind of source code to 
 let g:LanguageClient_rootMarkers = {
@@ -72,9 +65,6 @@ let s:js_filetypes=[
       \ ]
 
 let g:LanguageClient_diagnosticsList='Location'
-
-
-let g:LanguageClient_serverCommands = {}
 
 if executable('typescript-language-server')
   " ie. via `npm install -g typescript-language-server`
