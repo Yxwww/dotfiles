@@ -2,7 +2,8 @@
 set hidden
 
 let g:LanguageClient_serverCommands = {
-      \ 'rust': ['rustup', 'run', 'stable', 'rls']
+      \ 'rust': ['rustup', 'run', 'stable', 'rls'],
+      \ 'python': ['/usr/local/bin/pyls']
       \ }
 
 function! s:Config()
