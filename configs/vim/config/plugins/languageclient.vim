@@ -17,6 +17,10 @@ function! s:Config()
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
     " K -- lookup keyword
     nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+    " space-s look up symbol under workspace
+    nnoremap <buffer> <silent> <Space>s :call LanguageClient#workspace_symbol()<CR>
+    " space-r look up symbol under file
+    nnoremap <buffer> <silent> <Space>r :call LanguageClient#textDocument_documentSymbol()<CR>
     if exists('+signcolumn')
       setlocal signcolumn=yes
     endif
