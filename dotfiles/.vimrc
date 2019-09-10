@@ -33,8 +33,12 @@ else
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
 endif
-
 let g:deoplete#enable_at_startup = 1
+let g:LanguageClient_devel = 1 " Use rust debug build
+let g:LanguageClient_loggingLevel = 'DEBUG' " Use highest logging level
+Plug 'Shougo/neosnippet.vim'
+Plug 'Shougo/neosnippet-snippets'
+
 
 Plug 'tomtom/tcomment_vim'
 

@@ -15,6 +15,8 @@ function! s:Config()
     nnoremap <buffer> <silent> <Leader>f :call LanguageClient_textDocument_formatting()<CR>
     " gd -- go to definition
     nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+    " gr -- find references
+    nnoremap <buffer> <silent> gr :call LanguageClient#textDocument_references()<CR>
     " K -- lookup keyword
     nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
     " space-s look up symbol under workspace
