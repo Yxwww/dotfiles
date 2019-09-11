@@ -11,6 +11,8 @@ function! s:Config()
     " To use the language server with Vim's formatting operator |gq|, set
     " 'formatexpr': >
     setlocal formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+    " <Leader>rn to rename symbol
+    nnoremap <silent> <leader>rn :call LanguageClient#textDocument_rename()<CR>
     " <Leader>f -- Format buffer.
     nnoremap <buffer> <silent> <Leader>f :call LanguageClient_textDocument_formatting()<CR>
     " gd -- go to definition
