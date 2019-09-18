@@ -2,7 +2,7 @@ nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:
 
 " MARK: Makefile
 nnoremap <C-b> :make build <cr>
-nnoremap <C-r> :make run <cr>
+" nnoremap <C-r> :make run <cr>
 
 " open messages
 nmap <leader>m :messages<cr>
