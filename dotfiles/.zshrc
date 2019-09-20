@@ -308,3 +308,5 @@ alias tmux='tmux -u'  # to get rid of unicode rendering problem
 
 # Enable debug
 # zprof
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
