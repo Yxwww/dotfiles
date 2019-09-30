@@ -18,6 +18,7 @@ Plug 'tpope/vim-repeat'
 Plug 'vimwiki/vimwiki'
 
 Plug 'joshdick/onedark.vim'
+Plug 'NLKNguyen/papercolor-theme'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
