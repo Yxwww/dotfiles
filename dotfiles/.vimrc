@@ -30,6 +30,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'pangloss/vim-javascript'
+Plug 'tpop/vim-markdown'
 Plug 'mxw/vim-jsx'
 Plug 'tikhomirov/vim-glsl'
 

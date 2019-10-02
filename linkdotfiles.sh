@@ -12,3 +12,5 @@ ln -sf "$(pwd)"/configs/vim/coc-settings.json ~/.config/nvim/
 # vim deps
 ln -snf "$(pwd)"/configs/vim/config ~/.vim/config
 ln -snf "$(pwd)"/configs/vim/ftplugin ~/.vim/ftplugin
+
+ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
