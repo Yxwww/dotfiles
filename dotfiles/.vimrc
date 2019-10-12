@@ -29,12 +29,7 @@ Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
-Plug 'pangloss/vim-javascript'
-Plug 'leafgarland/typescript-vim'
-Plug 'peitalin/vim-jsx-typescript'
-Plug 'tpop/vim-markdown'
-Plug 'mxw/vim-jsx'
-Plug 'tikhomirov/vim-glsl'
+Plug 'sheerun/vim-polyglot'
 
 " ui
 Plug 'itchyny/lightline.vim'
