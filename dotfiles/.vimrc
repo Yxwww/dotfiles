@@ -6,6 +6,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'scrooloose/nerdtree'
 
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 
 Plug 'kien/ctrlp.vim'
 Plug '/usr/local/opt/fzf'
