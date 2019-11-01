@@ -312,5 +312,6 @@ alias tmux='tmux -u'  # to get rid of unicode rendering problem
 # handles LSOpenURLsWithRole() failed with error -600 for th
 # https://apple.stackexchange.com/questions/167753/lsopenurlswithrole-failed-with-error-10810-in-iterm2-running-tmux-on-yosemite?rq=1
 alias open='reattach-to-user-namespace open'
+export MYVIMRC=~/.vimrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
