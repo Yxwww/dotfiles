@@ -1,11 +1,13 @@
 " MARK: plugged
 call plug#begin('~/.vim/plugged')
 
+" Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'scrooloose/nerdtree'
 
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 
 Plug 'kien/ctrlp.vim'
 Plug '/usr/local/opt/fzf'
