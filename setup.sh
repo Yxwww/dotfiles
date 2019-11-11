@@ -58,3 +58,7 @@ install_eslint_prettier() {
   cd ~ && yarn
 }
 
+zshrcDeps() {
+  brew install reattach-to-user-namespace
+}
+
