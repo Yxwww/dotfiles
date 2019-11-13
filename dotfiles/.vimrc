@@ -35,8 +35,8 @@ Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
-Plug 'sheerun/vim-polyglot'
-
+" Plug 'sheerun/vim-polyglot'
+Plug 'HerringtonDarkholme/yats.vim'
 " ui
 Plug 'itchyny/lightline.vim'
 
@@ -67,3 +67,4 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
 endfor
 
 autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact

@@ -32,6 +32,7 @@ if has('vertsplit')
 endif
 
 if exists('$SUDO_USER')
+  ;cho 'SUDO USER!'
   set nobackup                        " don't create root-owned files
   set nowritebackup                   " don't create root-owned files
 else
