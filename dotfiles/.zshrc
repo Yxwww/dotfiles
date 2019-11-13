@@ -17,15 +17,6 @@ function zle-keymap-select() {
 }
 
 zle -N zle-keymap-select
-
-function vi_mode_prompt_info() {
-  echo "${${KEYMAP/vicmd/[% NORMAL]%}/(main|viins)/[% INSERT]%}"
-}
-
-# define right prompt, regardless of whether the theme defined it
-RPS1='$(vi_mode_prompt_info)'
-RPS2=$RPS1
-
 ## MARK: THEME CONFIG
 #
 # enable profiling require zprof at eof
@@ -45,6 +36,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         eval "$("$BASE16_SHELL/profile_helper.sh")"
+eval "$(starship init zsh)"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -183,7 +175,7 @@ alias pip3='python3 -m pip'
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
-prompt spaceship
+# prompt spaceship
 
 base16_onedark
 

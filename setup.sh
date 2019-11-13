@@ -2,9 +2,9 @@
 
 # setup spaceship-prompt https://github.com/denysdovhan/spaceship-prompt
 # Faster startup than oh-my-zsh: 70ms vs 400ms
-setup_zsh_spaceship() {
+setup_zsh_prompt() {
   brew install zsh
-  yarn global add spaceship-prompt
+  brew install starship
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
