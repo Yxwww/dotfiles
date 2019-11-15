@@ -14,3 +14,7 @@ ln -snf "$(pwd)"/configs/vim/config ~/.vim/config
 ln -snf "$(pwd)"/configs/vim/ftplugin ~/.vim/ftplugin
 
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
+
+# node
+ln -sf "$(pwd)"/configs/node/package.json ~/.config/yarn/
+ln -sf "$(pwd)"/configs/node/yarn.lock ~/.config/yarn/
