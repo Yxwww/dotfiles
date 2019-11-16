@@ -1,3 +1,17 @@
+# profiling tool: https://esham.io/2018/02/zsh-profiling
+# uncomnment: next 6 lines
+ENABLE_ZSH_PROFILING=true
+
+if (ENABLE_ZSH_PROFILING==true) {
+  zmodload zsh/datetime
+  setopt PROMPT_SUBST
+  PS4='+$EPOCHREALTIME %N:%i> '
+  logfile=$(mktemp zsh_profile.XXXXXXXX)
+  echo "Logging to $logfile"
+  exec 3>&2 2>$logfile
+  setopt XTRACE
+}
+
 ## zsh-autocomplete
 
 ## MARK: Vim Mode Config
@@ -19,8 +33,6 @@ function zle-keymap-select() {
 zle -N zle-keymap-select
 ## MARK: THEME CONFIG
 #
-# enable profiling require zprof at eof
-; zmodload zsh/zprof
 
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
@@ -29,8 +41,6 @@ zle -N zle-keymap-select
 # export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
-# it'll load a random theme each time that oh-my-zsh is loaded.
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
@@ -129,7 +139,7 @@ alias vi="vim"
 alias ctags="`brew --prefix`/bin/ctags"
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/yx/dev/utils/Google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc'; fi
@@ -305,3 +315,10 @@ alias open='reattach-to-user-namespace open'
 export MYVIMRC=~/.vimrc
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# profiling uncomnment next 2 lines
+#
+if(ENABLE_ZSH_PROFILING) {
+  unsetopt XTRACE
+  exec 2>&3 3>&-
+}

@@ -4,3 +4,4 @@ build
 coverage
 yarn-error.log
 dist/*
+zsh_profile.*
