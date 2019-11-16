@@ -1,16 +1,18 @@
 # profiling tool: https://esham.io/2018/02/zsh-profiling
-# uncomnment: next 6 lines
 ENABLE_ZSH_PROFILING=true
 
-if (ENABLE_ZSH_PROFILING==true) {
+if [ "$ENABLE_ZSH_PROFILING" = true ] ; then
   zmodload zsh/datetime
   setopt PROMPT_SUBST
   PS4='+$EPOCHREALTIME %N:%i> '
+
   logfile=$(mktemp zsh_profile.XXXXXXXX)
   echo "Logging to $logfile"
   exec 3>&2 2>$logfile
+
   setopt XTRACE
-}
+fi
+
 
 ## zsh-autocomplete
 
@@ -136,7 +138,6 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 alias vi="vim"
-alias ctags="`brew --prefix`/bin/ctags"
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/yx/dev/utils/Google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
@@ -318,7 +319,7 @@ export MYVIMRC=~/.vimrc
 
 # profiling uncomnment next 2 lines
 #
-if(ENABLE_ZSH_PROFILING) {
+if [ "$ENABLE_ZSH_PROFILING" = true ] ; then
   unsetopt XTRACE
   exec 2>&3 3>&-
-}
+fi
