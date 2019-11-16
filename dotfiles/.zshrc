@@ -1,6 +1,5 @@
 # profiling tool: https://esham.io/2018/02/zsh-profiling
-ENABLE_ZSH_PROFILING=true
-
+ENABLE_ZSH_PROFILING=false
 if [ "$ENABLE_ZSH_PROFILING" = true ] ; then
   zmodload zsh/datetime
   setopt PROMPT_SUBST
