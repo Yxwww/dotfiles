@@ -35,8 +35,8 @@ Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
-" Plug 'sheerun/vim-polyglot'
-Plug 'HerringtonDarkholme/yats.vim'
+Plug 'sheerun/vim-polyglot'
+" Plug 'HerringtonDarkholme/yats.vim'
 " ui
 Plug 'itchyny/lightline.vim'
 
