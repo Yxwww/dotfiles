@@ -96,3 +96,6 @@ if v:version > 703 || v:version == 703 && has('patch541')
   set formatoptions+=j                " remove comment leader when joining comment lines
 endif
 
+" MARK: search config
+set ignorecase " set default to case insensitive search. Use: \C at the end of search to enable case sensitivity
+
