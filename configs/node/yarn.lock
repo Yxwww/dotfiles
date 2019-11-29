@@ -416,10 +416,10 @@ negotiator@0.6.2:
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.2.tgz#feacf7ccf525a77ae9634436a64883ffeca346fb"
   integrity sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
 
-now@^16.5.2:
-  version "16.5.2"
-  resolved "https://registry.yarnpkg.com/now/-/now-16.5.2.tgz#0c19c2d1197dcd2aed2dc08fd9610383fcea96a7"
-  integrity sha512-Pv8HMpeTaiLLoNh93Poy5GbiM0oc/CPo1ZXa+o70Nd/ospRaLg7gaFtpZH+My/vS9+xWTDq7hmHjXPCXPtD/pg==
+now@^16.6.0:
+  version "16.6.0"
+  resolved "https://registry.yarnpkg.com/now/-/now-16.6.0.tgz#09c7752eacfe6a2f571b8be378a685b2b066a9fc"
+  integrity sha512-OHWgh7QOgXi7IDI68yJ7SBTcQZr8rFGdM4w2W5CdOyCoISletVhb1+KO4g4iBQGVFVNp1W6hv4qJGAOODmib5Q==
 
 npm-run-path@^2.0.0:
   version "2.0.2"
@@ -427,6 +427,11 @@ npm-run-path@^2.0.0:
   integrity sha1-NakjLfo11wZ7TLLd8jV7GHFTbF8=
   dependencies:
     path-key "^2.0.0"
+
+npmrc@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/npmrc/-/npmrc-1.1.1.tgz#281ba93ade85c4de2b04611031f2ff2f24e621dd"
+  integrity sha1-KBupOt6FxN4rBGEQMfL/LyTmId0=
 
 on-headers@~1.0.1:
   version "1.0.2"
@@ -464,6 +469,11 @@ path-to-regexp@2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/path-to-regexp/-/path-to-regexp-2.2.1.tgz#90b617025a16381a879bc82a38d4e8bdeb2bcf45"
   integrity sha512-gu9bD6Ta5bwGrrU8muHzVOBFFREpp2iRkVfhBJahwJ6p6Xw20SjT0MxLnwkjOibQmGSYhiUnf2FLe7k+jcFmGQ==
+
+pnpm@^4.3.0:
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-4.3.0.tgz#afd02df622069fee56671e688e76f493e5b0b4cd"
+  integrity sha512-dra2MDyO1Kj2iJSMt/ApS5q2+to/EWFwmY0/RwA12IX9U+xlOrRPx3yop2RAl4G47pZTvSGddEcXJAHCnG4BXA==
 
 pseudomap@^1.0.2:
   version "1.0.2"
