@@ -36,6 +36,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'sheerun/vim-polyglot'
+Plug 'evanleck/vim-svelte'
 " Plug 'HerringtonDarkholme/yats.vim'
 " ui
 Plug 'itchyny/lightline.vim'
@@ -66,5 +67,5 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+" autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
