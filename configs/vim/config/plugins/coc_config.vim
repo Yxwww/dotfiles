@@ -1,5 +1,9 @@
 " MARK: coc config
 "
+
+" autocmd BufNew,BufEnter *.json,*.vim,*.lua,*.frag,*.vert,*.glsl execute "silent! CocDisable"
+" autocmd BufLeave *.json,*.vim,*.lua,*.frag,*.vert,*.glsl execute "silent! CocEnable"
+
 let g:coc_global_extensions = ['coc-prettier',
       \ 'coc-eslint', 'coc-json', 'coc-tsserver',
       \ 'coc-html', 'coc-css', 'coc-python', 
