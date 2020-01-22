@@ -82,9 +82,9 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>591 539 796 486 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 0 3440 1417 0 0 3440 1417 </string>
+	<string>0 79 3058 1338 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
-	<string>0 0 3440 1440 0 0 3440 1440 </string>
+	<string>297 436 730 498 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 2</key>
 	<string>233 575 570 452 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -616,7 +616,7 @@
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>FiraCode-Retina 14</string>
+			<string>JetBrainsMono-Regular 14</string>
 			<key>Option Key Sends</key>
 			<integer>0</integer>
 			<key>Prompt Before Closing 2</key>
@@ -788,13 +788,14 @@
 	<key>NoSyncBFPRecents</key>
 	<array>
 		<string>Fira Code</string>
+		<string>JetBrains Mono</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
 		<key>screenFrame</key>
 		<string>{{0, 0}, {3440, 1440}}</string>
 		<key>topLeft</key>
-		<string>{1397, 1133}</string>
+		<string>{1396, 1133}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -805,7 +806,7 @@
 	<key>NoSyncLastTipTime</key>
 	<real>596394883.06994796</real>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>4</integer>
+	<integer>17</integer>
 	<key>NoSyncNextAnnoyanceTime</key>
 	<real>587056797.02288103</real>
 	<key>NoSyncOnboardingWindowHasBeenShown</key>
@@ -1658,7 +1659,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2019-11-22T21:44:50Z</date>
+	<date>2020-01-21T16:42:13Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>SUUpdateRelaunchingMarker</key>
