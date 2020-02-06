@@ -12,10 +12,10 @@ module.exports = {
     fontSize: 18,
 
     // font family with optional fallbacks
-    fontFamily: 'Jetbrains Mono',
+    fontFamily: 'JetBrains Mono',
 
     // default font weight: 'normal' or 'bold'
-    fontWeight: 'normal',
+    fontWeight: 'bold',
 
     // font weight for bold characters: 'normal' or 'bold'
     fontWeightBold: 'bold',
@@ -146,7 +146,7 @@ module.exports = {
   //   `hyperpower`
   //   `@company/project`
   //   `project#1.0.1`
-  plugins: ["hyperpower", "hyper-one-dark", "hyper-search"],
+  plugins: ["hyper-one-dark", "hyper-search", "hyperpower"],
 
   // in development, you can create a directory under
   // `~/.hyper_plugins/local/` and include it here
