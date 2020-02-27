@@ -4,7 +4,7 @@ if (has("termguicolors"))
   set termguicolors
 endif
 set t_Co=256
-set background=dark
+set background=light
 colorscheme gruvbox
 " set background=light
 " colorscheme PaperColor
