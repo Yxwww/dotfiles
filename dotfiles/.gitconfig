@@ -7,6 +7,7 @@
 	default = current
 [alias]
     set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+    stash-unstaged = !git stash -k
     # list files which have changed since REVIEW_BASE
     # (REVIEW_BASE defaults to 'master' in my zshrc)
     files = !git diff --name-only $(git merge-base HEAD \"$REVIEW_BASE\")
