@@ -16,12 +16,6 @@ endfor
 let NERDTreeIgnore += ['^\.DS_Store$', '^\.pyc$','^\.bundle$', '^\.bzr$', '^\.git$', '^\.hg$', '^\.sass-cache$', '^\.svn$', '^\.$', '^\.\.$', '^Thumbs\.db$', '^\..next$']
 
 
-" MARK: coc config
-let g:coc_global_extensions = ['coc-prettier',
-      \ 'coc-eslint', 'coc-json', 'coc-tsserver',
-      \ 'coc-html', 'coc-css', 'coc-python', 
-      \ 'coc-highlight', 'coc-rls']
-
 " Better display for messages
 set cmdheight=2
 
