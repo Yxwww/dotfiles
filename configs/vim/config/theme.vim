@@ -3,9 +3,10 @@ syntax enable
 if (has("termguicolors"))
   set termguicolors
 endif
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set t_Co=256
 set background=dark
-colorscheme gruvbox
+colorscheme night-owl
 " set background=light
 " colorscheme PaperColor
 

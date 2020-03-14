@@ -313,6 +313,7 @@ alias tmux='tmux -u'  # to get rid of unicode rendering problem
 # https://apple.stackexchange.com/questions/167753/lsopenurlswithrole-failed-with-error-10810-in-iterm2-running-tmux-on-yosemite?rq=1
 alias open='reattach-to-user-namespace open'
 export MYVIMRC=~/.vimrc
+export EDITOR='nvim'
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -327,3 +328,5 @@ alias ifconfigdefault='ipconfig getifaddr en0'
 
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

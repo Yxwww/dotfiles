@@ -57,7 +57,7 @@ function! CocCurrentFunction()
     return get(b:, 'coc_current_function', '')
 endfunction
 let g:lightline = {
-    \ 'colorscheme': 'PaperColor',
+    \ 'colorscheme': 'nightowl',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'cocstatus','fugitive', 'filename', 'modified' ] ],
