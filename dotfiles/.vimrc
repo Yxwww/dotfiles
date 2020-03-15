@@ -24,7 +24,8 @@ Plug 'vimwiki/vimwiki'
 " Plug 'joshdick/onedark.vim'
 " Plug 'vim-scripts/wombat256.vim'
 " Plug 'NLKNguyen/papercolor-theme'
-Plug 'morhetz/gruvbox'
+" Plug 'morhetz/gruvbox'
+Plug 'haishanh/night-owl.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 
