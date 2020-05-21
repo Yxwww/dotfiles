@@ -1,9 +1,14 @@
 {
   "dependencies": {
     "degit": "^2.1.4",
-    "now": "^17.0.4",
+    "eslint": "^7.0.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-standard": "^4.0.1",
+    "now": "^18.0.0",
     "npmrc": "^1.1.1",
-    "pnpm": "^4.3.0",
+    "pnpm": "^4.14.0",
+    "prettier": "^2.0.5",
+    "rollup": "^2.3.4",
     "serve": "^11.3.0"
   }
 }

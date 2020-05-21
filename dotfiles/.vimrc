@@ -5,8 +5,14 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'scrooloose/nerdtree'
+" Plug 'justinmk/vim-dirvish'
+"
+" Plug 'kristijanhusak/vim-dirvish-git'
+" Plug 'fsharpasharp/vim-dirvinist'
+" let g:dirvish_mode = 1
 
 Plug 'tpope/vim-fugitive'
+" Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
 Plug 'rbong/vim-flog'
 
@@ -24,7 +30,8 @@ Plug 'vimwiki/vimwiki'
 " Plug 'joshdick/onedark.vim'
 " Plug 'vim-scripts/wombat256.vim'
 " Plug 'NLKNguyen/papercolor-theme'
-" Plug 'morhetz/gruvbox'
+Plug 'morhetz/gruvbox'
+Plug 'ayu-theme/ayu-vim'
 Plug 'haishanh/night-owl.vim'
 
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -37,7 +44,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'sheerun/vim-polyglot'
-Plug 'evanleck/vim-svelte'
+" Plug 'evanleck/vim-svelte'
 " Plug 'HerringtonDarkholme/yats.vim'
 " ui
 Plug 'itchyny/lightline.vim'
@@ -68,5 +75,15 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-" autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
+
+" Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
+" Go to last file(s) if invoked without arguments.
+autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+    \ call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+
+autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+    \ execute "source " . $HOME . "/.vim/Session.vim"

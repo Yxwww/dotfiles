@@ -39,6 +39,7 @@ map <leader>tm :tabmove
 " MARK: fzf
 nmap ; :Buffers<CR>
 nmap ' :Files<CR>
+nmap <leader>fs :GFiles?<CR>
 nnoremap <C-g> :Rg<Cr>
 
 " Mark: Clipper

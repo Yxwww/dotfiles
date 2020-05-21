@@ -121,6 +121,7 @@ eval "$(starship init zsh)"
 
 #ZSH_THEME=pygmalion
 
+
 plugins=(git)
 
 # Add env.sh
@@ -303,8 +304,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 if [ "$TERM" = "xterm" ]; then
   export TERM=xterm-256color
 fi
-alias tmux='tmux -2'  # for 256color
-alias tmux='tmux -u'  # to get rid of unicode rendering problem
+alias yanr='yarn'  # yeah ...
 
 # Enable debug
 # zprof
