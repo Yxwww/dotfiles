@@ -43,6 +43,7 @@ Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
+Plug 'rhysd/vim-wasm'
 Plug 'sheerun/vim-polyglot'
 " Plug 'evanleck/vim-svelte'
 " Plug 'HerringtonDarkholme/yats.vim'

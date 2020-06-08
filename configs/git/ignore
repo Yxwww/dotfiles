@@ -6,3 +6,4 @@ yarn-error.log
 dist/*
 zsh_profile.*
 .eslintcache
+pnpm-debug.log
