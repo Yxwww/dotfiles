@@ -30,3 +30,5 @@
     reviewone = !vim -p +\"tabdo Gdiff $REVIEW_BASE\" +\"let g:gitgutter_diff_base = '$REVIEW_BASE'\"
 
     recent = !git branch --sort=-committerdate
+[pull]
+	rebase = false
