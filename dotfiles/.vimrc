@@ -19,6 +19,7 @@ Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 
