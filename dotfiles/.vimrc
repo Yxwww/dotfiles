@@ -1,7 +1,6 @@
 " MARK: plugged
 call plug#begin('~/.vim/plugged')
 
-" Plug 'glacambre/firenvim', { 'do': function('firenvim#install') }
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'scrooloose/nerdtree'
@@ -14,7 +13,6 @@ Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-fugitive'
 " Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
-Plug 'rbong/vim-flog'
 
 Plug 'kien/ctrlp.vim'
 Plug '/usr/local/opt/fzf'
@@ -45,7 +43,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 " syntax highlight
 Plug 'rhysd/vim-wasm'
 Plug 'sheerun/vim-polyglot'
-" Plug 'evanleck/vim-svelte'
+Plug 'evanleck/vim-svelte'
 " Plug 'HerringtonDarkholme/yats.vim'
 " ui
 Plug 'itchyny/lightline.vim'
@@ -76,7 +74,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+" autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
 
 " Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
@@ -88,3 +86,8 @@ autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
 
 autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
     \ execute "source " . $HOME . "/.vim/Session.vim"
+
+
+if !has('nvim')
+  finish
+endif
