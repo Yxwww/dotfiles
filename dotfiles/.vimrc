@@ -76,7 +76,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
+" autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
 autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
 
 " Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
