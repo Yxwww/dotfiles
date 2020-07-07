@@ -25,6 +25,14 @@ bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char      # Control-h also deletes the previous char
 bindkey "^U" backward-kill-line  
 
+
+## fzf git completion
+function _gcof {
+  git recent | fzf | xargs git checkout
+}
+zle -N _gcof
+bindkey "^b" _gcof
+
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
   zle reset-prompt
@@ -120,7 +128,6 @@ eval "$(starship init zsh)"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 #ZSH_THEME=pygmalion
-
 
 plugins=(git)
 
@@ -228,6 +235,7 @@ alias gcm='git checkout master'
 alias gcd='git checkout develop'
 alias gcmsg='git commit -m'
 alias gco='git checkout'
+alias gcof='git cofzf'
 alias gcount='git shortlog -sn'
 alias gcp='git cherry-pick'
 alias gcpa='git cherry-pick --abort'
