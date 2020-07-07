@@ -7,3 +7,5 @@ dist/*
 zsh_profile.*
 .eslintcache
 pnpm-debug.log
+target
+.next
