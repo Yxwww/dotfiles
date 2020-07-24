@@ -25,7 +25,7 @@
     {
         "key": "o",
         "command": "list.toggleExpand",
-        "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+        "when": "explorerViewletVisible && filesExplorerFocus &&!inputFocus"
     },
     {
         "key": "ctrl+`",
@@ -35,18 +35,6 @@
         "key": "ctrl+`",
         "command": "workbench.action.terminal.focus",
         "when": "!terminalFocus"
-    },
-    {
-        "key": "ctrl+shift+v",
-        "command": [
-            "editor.action.clipboardPasteAction",
-            "editor.action.format"
-        ]
-    },
-    {
-        "key": "cmd+h",
-        "command": "HookyQR.beautify",
-        "when": "editorFocus"
     },
     {
         "key": "ctrl+l",
@@ -83,4 +71,4 @@
         "command": "workbench.action.terminal.focusPrevious",
         "when": "terminalFocus"
     }
-]
+] 
