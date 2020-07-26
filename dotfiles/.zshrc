@@ -201,8 +201,8 @@ base16_onedark
 
 # common aliases
 # alias l='ls -lFhG'
-alias l='exa --long --header'
-alias ls='ls -G'
+alias l='exa --classify --all --long --header'
+alias ls='exa'
 
 # git aliases
 alias ga='git add'
