@@ -19,6 +19,7 @@
     "vim-language-server": "^1.9.0"
   },
   "devDependencies": {
-    "eslint-config-prettier": "^6.11.0"
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-react": "^7.20.3"
   }
 }
