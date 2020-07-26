@@ -200,7 +200,8 @@ base16_onedark
 
 
 # common aliases
-alias l='ls -lFhG'
+# alias l='ls -lFhG'
+alias l='exa --long --header'
 alias ls='ls -G'
 
 # git aliases
