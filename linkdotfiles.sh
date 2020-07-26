@@ -22,3 +22,7 @@ ln -sf "$(pwd)"/configs/node/yarn.lock ~/.config/yarn/global/
 # node
 ln -sf "$(pwd)"/configs/node/package.json ~/
 ln -sf "$(pwd)"/configs/node/yarn.lock ~/
+
+
+# alacritty
+ln -sf "$(pwd)"/configs/alacritty ~/.config

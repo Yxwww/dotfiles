@@ -2,9 +2,10 @@ module.exports = {
   env: {
     browser: true,
     es6: true,
+    node: true,
   },
   plugins: ['@typescript-eslint'],
-  extends: ['eslint:recommended', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', ],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', ],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -19,5 +20,14 @@ module.exports = {
   //     processor: 'svelte3/svelte3'
   //   }
   // ],
-  rules: {},
+  rules: {
+    'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
+  },
+  overrides: [{
+    "files": ["*.js", "*.jsx"],
+    "rules": {
+      "@typescript-eslint/explicit-module-boundary-types": "off",
+    }
+  }]
 }

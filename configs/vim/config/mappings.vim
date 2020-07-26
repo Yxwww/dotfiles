@@ -42,12 +42,11 @@ nmap ' :Files<CR>
 nmap <leader>fs :GFiles?<CR>
 nnoremap <C-g> :Rg<Cr>
 
-" Mark: Clipper
-let g:ClipperAddress='~/.clipper.sock'
-noremap <leader>y :call system('nc -U ~/.clipper.sock', @0)<CR>
-noremap <leader>p "*p
-noremap <leader>Y "+y
-noremap <leader>P "+p
+" MARK: Copy & Paste
+noremap <leader>y "*y <CR>
+noremap <leader>p "*p <CR>
+noremap <leader>Y "+y <CR>
+noremap <leader>P "+p <CR>
 
 " MARK: coc
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.

@@ -23,15 +23,6 @@ link_dotfiles() {
   ./linkdotfiles.sh
 }
 
-
-# Tmux setup
-## Clipper setup
-setup_clipper() {
-  brew install clipper
-  brew services start clipper
-}
-
-
 setup_zsh_autosuggestions() {
   git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
 }

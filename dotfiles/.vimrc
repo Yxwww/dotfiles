@@ -33,7 +33,8 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'haishanh/night-owl.vim'
 
-Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+" Use release branch (recommend)
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 
 Plug 'tomtom/tcomment_vim'
 
