@@ -6,7 +6,7 @@
 
 let g:coc_global_extensions = ['coc-prettier',
       \ 'coc-eslint', 'coc-json', 'coc-tsserver',
-      \ 'coc-svelte', 'coc-html', 'coc-stylelint', 'coc-python', 
+      \ 'coc-svelte', 'coc-html', 'coc-python', 
       \ 'coc-highlight', 'coc-emmet', 'coc-snippets', 'coc-rust-analyzer']
 " force_debug forces coc to use local built libray instead of prebuild library that fetched from server.
 " Usually when using coc we are using the prebuild one from server with `./install.sh nightly`. However, if we turn this on (set it to 1). This will cause "compiled javascript file not found!" error if we call coc#util#install without running "yarn install" in coc directory first.
