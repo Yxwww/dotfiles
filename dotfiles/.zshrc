@@ -222,6 +222,7 @@ base16_onedark
 # alias l='ls -lFhG'
 alias l='exa --classify --all --long --header'
 alias cat='bat'
+export BAT_THEME='OneHalfLight'
 alias ls='exa'
 
 # git aliases
@@ -367,3 +368,4 @@ export PATH="$HOME/.deno/bin:$PATH"
 source /Users/yxw/.config/broot/launcher/bash/br
 
 
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
