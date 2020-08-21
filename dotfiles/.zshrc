@@ -38,8 +38,27 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
-zle -N fbr
-bindkey "^b" fbr
+# fco - checkout git branch/tag
+fco() {
+  local tags branches target branchname
+  branches=$(
+    git --no-pager branch --all --sort=-committerdate \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi) || return
+
+  branchname=$(awk '{print $2}' <<<"$target" )
+  echo $branchname | pbcopy
+  echo "switching to $branchname (copied to clipboard)"
+  git checkout "$branchname"
+}
+zle -N fco
+bindkey "^b" fco
 
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
@@ -202,6 +221,7 @@ base16_onedark
 # common aliases
 # alias l='ls -lFhG'
 alias l='exa --classify --all --long --header'
+alias cat='bat'
 alias ls='exa'
 
 # git aliases
@@ -343,3 +363,7 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
+
+source /Users/yxw/.config/broot/launcher/bash/br
+
+
