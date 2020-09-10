@@ -222,7 +222,7 @@ base16_onedark
 # alias l='ls -lFhG'
 alias l='exa --classify --all --long --header'
 alias cat='bat'
-export BAT_THEME='OneHalfLight'
+export BAT_THEME='Monokai Extended Origin'
 alias ls='exa'
 
 # git aliases
