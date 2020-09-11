@@ -365,7 +365,4 @@ export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || pr
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
-source /Users/yxw/.config/broot/launcher/bash/br
-
-
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
