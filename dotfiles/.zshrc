@@ -288,6 +288,7 @@ alias grh='git reset'
 alias grhh='git reset --hard'
 
 alias gst='git status'
+alias gui='gitui'
 alias gsta='git stash save'
 alias gstaa='git stash apply'
 alias gstc='git stash clear'
