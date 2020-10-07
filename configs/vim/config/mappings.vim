@@ -37,7 +37,7 @@ map <leader>tm :tabmove
 
 
 " MARK: fzf
-nmap ; :Buffers<CR>
+nmap <leader>b :Buffers<CR>
 nmap <leader>ff :Files<CR>
 nmap <leader>fs :GFiles?<CR>
 nnoremap <C-g> :Rg<Cr>
