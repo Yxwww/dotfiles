@@ -4,14 +4,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'christoomey/vim-tmux-navigator'
 
 Plug 'scrooloose/nerdtree'
-" Plug 'justinmk/vim-dirvish'
-"
-" Plug 'kristijanhusak/vim-dirvish-git'
-" Plug 'fsharpasharp/vim-dirvinist'
-" let g:dirvish_mode = 1
 
 Plug 'tpope/vim-fugitive'
-" Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'kien/ctrlp.vim'
@@ -33,21 +27,31 @@ Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'haishanh/night-owl.vim'
 
+" MARK: LSP
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+"
+if has('nvim')
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  Plug 'Shougo/deoplete-lsp'
+endif
+let g:deoplete#enable_at_startup = 1
+set omnifunc=v:lua.vim.lsp.omnifunc
+
 
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
-Plug 'honza/vim-snippets'
-Plug 'joaohkfaria/vim-jest-snippets'
+" Plug 'honza/vim-snippets'
+" Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'rhysd/vim-wasm'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
-Plug 'kristijanhusak/vim-carbon-now-sh'
+" Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " ui
 Plug 'itchyny/lightline.vim'
@@ -72,7 +76,7 @@ endfunction
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
@@ -92,6 +96,30 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.
     \ execute "source " . $HOME . "/.vim/Session.vim"
 
 
+
+
 if !has('nvim')
   finish
 endif
+
+sign define LspDiagnosticsErrorSign text=✖
+sign define LspDiagnosticsWarningSign text=⚠
+sign define LspDiagnosticsInformationSign text=ℹ
+sign define LspDiagnosticsHintSign text=➤
+
+lua <<EOF
+require'nvim_lsp'.tsserver.setup{}
+EOF
+
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> <space>o    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> <space>s    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.definition()<CR>
+
+
+
