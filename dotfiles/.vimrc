@@ -44,9 +44,11 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'rhysd/vim-wasm'
-Plug 'sheerun/vim-polyglot'
+Plug 'HerringtonDarkholme/yats.vim'
+Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
-" Plug 'HerringtonDarkholme/yats.vim'
+Plug 'kristijanhusak/vim-carbon-now-sh'
+
 " ui
 Plug 'itchyny/lightline.vim'
 
@@ -77,7 +79,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
 endfor
 
 " autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
-autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
+" autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
 
 " Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
 " Go to last file(s) if invoked without arguments.
