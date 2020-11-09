@@ -47,6 +47,7 @@ Plug 'rhysd/vim-wasm'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
+Plug 'pangloss/vim-javascript'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 
 " ui
