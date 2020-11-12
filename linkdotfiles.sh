@@ -26,3 +26,6 @@ ln -sf "$(pwd)"/configs/node/yarn.lock ~/
 
 # alacritty
 ln -sf "$(pwd)"/configs/alacritty ~/.config
+
+# starship
+ln -sf "$(pwd)"/configs/starship.toml ~/.config

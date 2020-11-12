@@ -49,6 +49,7 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
 Plug 'pangloss/vim-javascript'
 Plug 'kristijanhusak/vim-carbon-now-sh'
+Plug 'rust-lang/rust.vim'
 
 " ui
 Plug 'itchyny/lightline.vim'
