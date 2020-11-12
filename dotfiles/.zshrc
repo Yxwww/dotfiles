@@ -222,7 +222,7 @@ base16_onedark
 # alias l='ls -lFhG'
 alias l='exa --classify --all --long --header'
 alias cat='bat'
-export BAT_THEME='OneHalfLight'
+export BAT_THEME='Nord'
 alias ls='exa'
 
 # git aliases
@@ -288,6 +288,7 @@ alias grh='git reset'
 alias grhh='git reset --hard'
 
 alias gst='git status'
+alias gui='gitui'
 alias gsta='git stash save'
 alias gstaa='git stash apply'
 alias gstc='git stash clear'
