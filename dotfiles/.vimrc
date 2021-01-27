@@ -97,3 +97,7 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.
 if !has('nvim')
   finish
 endif
+
+if executable("rg")
+  set grepprg=rg\ --vimgrep
+endif
