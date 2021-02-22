@@ -22,7 +22,7 @@ set hlsearch
 nnoremap <f3> :set hlsearch!<cr>
 
 nmap <leader>gs :Gstatus<cr>
-nmap <leader>gp! :Gpush<cr>
+nmap <leader>gp! :Git push<cr>
 nmap <leader>go :!hub browse<cr>
 nmap <leader>gc :Git commit<cr>
 nmap <leader>ga :Gwrite<cr>
