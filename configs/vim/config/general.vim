@@ -70,17 +70,6 @@ else
   set directory+=.
 endif
 
-if exists('$SUDO_USER')
-	set nobackup                        " don't create root-owned files
-	set nowritebackup                   " don't create root-owned files
-else
-	let vimtmp = $HOME . '/.vim/tmp/' . 'backup'
-	silent! call mkdir(vimtmp, "p", 0700)
-	set backupdir=~/local/.vim/tmp/backup
-	set backupdir+=~/.vim/tmp/backup    " keep backup files out of the way
-	set backupdir+=.
-endif
-
 set expandtab                         " always use spaces instead of tabs
 
 if has('folding')

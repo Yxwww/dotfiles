@@ -7,8 +7,8 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set t_Co=256
 " set background=light
 " colorscheme night-owl
-set background=light
-let ayucolor="light"
+set background=dark
+let ayucolor="dark"
 colorscheme ayu
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.

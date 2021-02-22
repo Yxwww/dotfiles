@@ -25,10 +25,6 @@ Plug 'tpope/vim-repeat'
 
 Plug 'vimwiki/vimwiki'
 
-" Plug 'chriskempson/base16-vim'
-" Plug 'joshdick/onedark.vim'
-" Plug 'vim-scripts/wombat256.vim'
-" Plug 'NLKNguyen/papercolor-theme'
 Plug 'morhetz/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'haishanh/night-owl.vim'
@@ -94,11 +90,12 @@ autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
 autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
     \ execute "source " . $HOME . "/.vim/Session.vim"
 
+if executable("rg")
+  set grepprg=rg\ --vimgrep
+endif
 
 if !has('nvim')
   finish
 endif
 
-if executable("rg")
-  set grepprg=rg\ --vimgrep
-endif
+
