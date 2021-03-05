@@ -25,8 +25,7 @@ Plug 'tpope/vim-repeat'
 
 Plug 'vimwiki/vimwiki'
 
-Plug 'morhetz/gruvbox'
-Plug 'ayu-theme/ayu-vim'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
 
 " Use release branch (recommend)

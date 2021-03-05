@@ -39,6 +39,6 @@
     "typescript",
     "typescriptreact"
   ],
-  "coc.preferences.formatOnSaveFiletypes": ["svelte"],
+  "coc.preferences.formatOnSaveFiletypes": ["svelte", "typescript"],
   "eslint.autoFixOnSave": true
 }
