@@ -25,6 +25,7 @@ Plug 'tpope/vim-repeat'
 
 Plug 'vimwiki/vimwiki'
 
+Plug 'rakr/vim-one'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
 
