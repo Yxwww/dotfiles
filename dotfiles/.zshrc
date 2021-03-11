@@ -64,7 +64,7 @@ viewPR() {
   gh pr list | fzf --preview "gh pr view {+1}" | awk '{print $1}' | xargs gh pr view --web
 }
 zle -N viewPR
-bindkey "^pr" viewPR
+bindkey "^p" viewPR
 
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
