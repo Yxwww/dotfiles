@@ -30,7 +30,26 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
 
 " Use release branch (recommend)
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+
+
+Plug 'neovim/nvim-lspconfig'
+Plug 'hrsh7th/nvim-compe'
+
+" LSP config (the mappings used in the default file don't quite work right)
+nnoremap <silent> gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <silent> <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+" auto-format
+autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 
 Plug 'tomtom/tcomment_vim'
 
@@ -68,6 +87,14 @@ function! SourceIfExists(path)
   endif
 endfunction
 
+function! SourceIfExistsLua(path) 
+  if filereadable(expand(a:path))
+    exec 'luafile ' . a:path
+  else
+    echo 'lua depdendency ' . a:path . ' not found'
+  endif
+endfunction
+
 let config_dir = '~/.vim/config'
 
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
@@ -75,6 +102,11 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
+endfor
+
+for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp']
+  let sourceFullDir = config_dir . '/' . depFile . '.lua'
+  call SourceIfExistsLua(sourceFullDir)
 endfor
 
 " autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
