@@ -40,6 +40,7 @@ nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
@@ -47,6 +48,8 @@ nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
 
 " auto-format
 autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
 autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 
@@ -103,13 +106,10 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp']
+for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
-
-" autocmd BufNewFile,BufRead *.svelte set syntax=html ft=html
-" autocmd BufNewFile,BufRead *.tsx set syntax=typescript.jsx ft=typescriptreact
 
 " Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
 " Go to last file(s) if invoked without arguments.
