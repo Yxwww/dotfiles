@@ -41,6 +41,8 @@ nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
 nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
+" tsserver code action supports auto import
+nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
@@ -56,7 +58,7 @@ autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
-Plug 'honza/vim-snippets'
+Plug 'norcalli/snippets.nvim'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
@@ -106,7 +108,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp']
+for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
