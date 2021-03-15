@@ -28,22 +28,9 @@ set shortmess+=c
 " always show signcolumns
 set signcolumn=yes
 
-" Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
-
 " Highlight symbol under cursor on CursorHold
 " autocmd CursorHold * silent call CocActionAsync('highlight')
 " creates :CE command to call eslint.executeAutofix. map <leader>ef to :CE
-
-" MARK: lightline 
 
 " Update and show lightline but only if it's visible (e.g., not in Goyo)
 function! MyFugitive()
@@ -78,9 +65,8 @@ let g:lightline = {
     \ }
 
 
-" MARK: Fugitive 
+" MARK: Fugitive
 set previewheight=20 " set the hight of the preview window to 25
-
 
 " MARK: ctrlp
 "ctrlp ignore file
