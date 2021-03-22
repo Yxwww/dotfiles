@@ -14,11 +14,6 @@ if !has('nvim')
 	set highlight+=c:LineNr               " blend vertical separators with line numbers<Paste>
 endif
 
-if has('termguicolors')
-  set termguicolors                   " use guifg/guibg instead of ctermfg/ctermbg in terminal
-  " hi Search guibg=darkGrey guifg=darkGreen
-endif
-
 if v:progname !=# 'vi'
   set softtabstop=-1                  " use 'shiftwidth' for tab/bs at end of line
 endif

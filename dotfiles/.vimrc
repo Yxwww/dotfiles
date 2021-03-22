@@ -28,6 +28,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'rakr/vim-one'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
+Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 " Use release branch (recommend)
 " Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
@@ -47,6 +48,14 @@ nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+highlight link CompeDocumentation NormalFloat
 
 " auto-format
 autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
@@ -72,7 +81,10 @@ Plug 'rust-lang/rust.vim'
 Plug 'mxw/vim-jsx'
 
 " ui
-Plug 'itchyny/lightline.vim'
+Plug 'hoob3rt/lualine.nvim'
+" If you want to have icons in your statusline choose one of these
+Plug 'kyazdani42/nvim-web-devicons'
+
 
 call plug#end()
 
@@ -108,7 +120,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets']
+for depFile in ['lualine','web-icon', 'compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor

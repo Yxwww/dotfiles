@@ -46,7 +46,7 @@ function! CocCurrentFunction()
 endfunction
 
 let g:lightline = {
-    \ 'colorscheme': 'nightowl',
+    \ 'colorscheme': 'spaceduck',
     \ 'active': {
     \   'left': [ [ 'mode', 'paste' ],
     \             [ 'cocstatus','fugitive', 'filename', 'modified' ] ],
