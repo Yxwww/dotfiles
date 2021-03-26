@@ -68,7 +68,9 @@ autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
-Plug 'norcalli/snippets.nvim'
+" Plug 'norcalli/snippets.nvim'
+Plug 'hrsh7th/vim-vsnip'
+Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
