@@ -45,6 +45,7 @@ nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
 " tsserver code action supports auto import
 nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap L <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
