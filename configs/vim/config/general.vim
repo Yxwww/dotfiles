@@ -63,6 +63,7 @@ else
   set directory=~/local/.vim/tmp/swap/
   set directory+=~/.vim/tmp/swap/    " keep swap files out of the way
   set directory+=.
+  set swapfile
 endif
 
 set expandtab                         " always use spaces instead of tabs

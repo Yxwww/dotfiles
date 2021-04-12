@@ -1,17 +1,21 @@
 " MARK: plugged
 call plug#begin('~/.vim/plugged')
 
-Plug 'christoomey/vim-tmux-navigator'
+" base
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
 
+
+" MARK: Status line
+Plug 'hoob3rt/lualine.nvim'
+" ui
 Plug 'scrooloose/nerdtree'
-" Plug 'justinmk/vim-dirvish'
-"
-" Plug 'kristijanhusak/vim-dirvish-git'
-" Plug 'fsharpasharp/vim-dirvinist'
-" let g:dirvish_mode = 1
+" Plug 'kyazdani42/nvim-web-devicons'
 
+" MARK: TMUX
+Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-" Plug 'jreybert/vimagit'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'kien/ctrlp.vim'
@@ -30,11 +34,10 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
-" Use release branch (recommend)
-" Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
-
+" lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
+Plug 'onsails/lspkind-nvim'
 
 " LSP config (the mappings used in the default file don't quite work right)
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
@@ -70,8 +73,8 @@ Plug 'tomtom/tcomment_vim'
 
 "Snippet
 " Plug 'norcalli/snippets.nvim'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
@@ -83,11 +86,6 @@ Plug 'pangloss/vim-javascript'
 Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'rust-lang/rust.vim'
 Plug 'mxw/vim-jsx'
-
-" ui
-Plug 'hoob3rt/lualine.nvim'
-" If you want to have icons in your statusline choose one of these
-Plug 'kyazdani42/nvim-web-devicons'
 
 
 call plug#end()
@@ -124,7 +122,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine','web-icon', 'compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'ccls', 'cssls']
+for depFile in ['lualine','compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'ccls', 'cssls']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
@@ -146,5 +144,3 @@ endif
 if !has('nvim')
   finish
 endif
-
-
