@@ -21,7 +21,7 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 set hlsearch
 nnoremap <f3> :set hlsearch!<cr>
 
-nmap <leader>gs :Gstatus<cr>
+nmap <leader>gs :Git<cr>
 nmap <leader>gp! :Git push<cr>
 nmap <leader>go :!hub browse<cr>
 nmap <leader>gc :Git commit<cr>
