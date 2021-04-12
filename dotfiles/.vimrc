@@ -39,6 +39,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'hrsh7th/nvim-compe'
 Plug 'onsails/lspkind-nvim'
 
+" colourizer
+Plug 'norcalli/nvim-colorizer.lua'
+
 " LSP config (the mappings used in the default file don't quite work right)
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
@@ -122,7 +125,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine','compe-config', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'ccls', 'cssls']
+for depFile in ['lualine','compe-config', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'ccls', 'cssls']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
