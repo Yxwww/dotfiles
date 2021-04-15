@@ -1,6 +1,8 @@
 " MARK: plugged
 call plug#begin('~/.vim/plugged')
 
+filetype plugin on
+
 " base
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
@@ -75,7 +77,6 @@ autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
-" Plug 'norcalli/snippets.nvim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'joaohkfaria/vim-jest-snippets'
