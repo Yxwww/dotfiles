@@ -14,9 +14,13 @@ if exists('+termguicolors')
   set termguicolors 
 endif
 
+let g:tokyonight_style = 'night' " available: night, storm
+let g:tokyonight_enable_italic = 1
 if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    colorscheme spaceduck
-    set background=dark
+    let g:tokyonight_style = 'night' " available: night, storm
+    let g:tokyonight_enable_italic = 1
+
+    colorscheme tokyonight
 else
   "True Color Support
   "Credit joshdick
@@ -33,10 +37,13 @@ else
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
   endif
 
-    let g:airline_theme='one'
-    set background=light
-    let g:one_allow_italics = 1
-    colorscheme one
+    " let g:airline_theme='one'
+    " set background=light
+    " let g:one_allow_italics = 1
+    let g:tokyonight_style = 'night' " available: night, storm
+    let g:tokyonight_enable_italic = 1
+
+    colorscheme tokyonight
 endif
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
