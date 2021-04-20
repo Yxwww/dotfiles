@@ -32,6 +32,7 @@ Plug 'tpope/vim-repeat'
 Plug 'vimwiki/vimwiki'
 
 Plug 'rakr/vim-one'
+Plug 'ghifarit53/tokyonight-vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'haishanh/night-owl.vim'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
