@@ -9,7 +9,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 
 " MARK: Status line
-Plug 'hoob3rt/lualine.nvim'
+Plug 'hoob3rt/lualine.nvim', {'commit': '82f68c42df9d11e52edb52c86113d0eba5be798d'} " use older version of lualine instad of updating neovim https://www.reddit.com/r/neovim/comments/mq2dfi/lualine_load_error/gydzgx8?utm_source=share&utm_medium=web2x&context=3
 " ui
 Plug 'scrooloose/nerdtree'
 " Plug 'kyazdani42/nvim-web-devicons'
