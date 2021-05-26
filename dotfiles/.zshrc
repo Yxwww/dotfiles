@@ -330,7 +330,7 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
-bindkey '^ ' autosuggest-accept
+bindkey '^o' autosuggest-clear
 
 # MARK: ZSH completions
 fpath=(~/.zsh/zsh-completions/src $fpath)

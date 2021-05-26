@@ -4,8 +4,8 @@ call plug#begin('~/.vim/plugged')
 filetype plugin on
 
 " base
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
 
 
 " MARK: Status line
@@ -127,7 +127,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine','compe-config', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
+for depFile in ['lualine', 'compe-config', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
