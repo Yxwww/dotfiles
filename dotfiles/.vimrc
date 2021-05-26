@@ -40,7 +40,7 @@ Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 " lsp
 Plug 'neovim/nvim-lspconfig'
 " Plug 'hrsh7th/nvim-compe'
-Plug 'onsails/lspkind-nvim'
+" Plug 'onsails/lspkind-nvim'
 Plug 'nvim-lua/completion-nvim'
 
 " colourizer
@@ -121,14 +121,14 @@ endfunction
 
 let config_dir = '~/.vim/config'
 
-for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
+for depFile in ['theme', 'completion-nvim', 'wiki', 'abbreviation', 'plugin_config', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'ts-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
+for depFile in ['lualine', 'lsp/all-lsp', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
