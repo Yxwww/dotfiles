@@ -64,3 +64,36 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+
+" MARK: LSP config (the mappings used in the default file don't quite work right)
+nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
+" tsserver code action supports auto import
+nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
+nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap L <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+highlight link CompeDocumentation NormalFloat
+
+" auto-format
+" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
+
+

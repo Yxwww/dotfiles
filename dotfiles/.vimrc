@@ -39,43 +39,11 @@ Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-" Plug 'hrsh7th/nvim-compe'
+Plug 'hrsh7th/nvim-compe'
 " Plug 'onsails/lspkind-nvim'
-Plug 'nvim-lua/completion-nvim'
 
 " colourizer
 Plug 'norcalli/nvim-colorizer.lua'
-
-" LSP config (the mappings used in the default file don't quite work right)
-nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
-" tsserver code action supports auto import
-nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
-nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap L <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
-nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <C-n> <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
-nnoremap <C-p> <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
-
-" inoremap <silent><expr> <C-Space> compe#complete()
-" inoremap <silent><expr> <CR>      compe#confirm('<CR>')
-" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-" inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-" inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
-
-highlight link CompeDocumentation NormalFloat
-
-" auto-format
-" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
-" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
-" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
-" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 100)
-autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
-
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
@@ -121,14 +89,14 @@ endfunction
 
 let config_dir = '~/.vim/config'
 
-for depFile in ['theme', 'completion-nvim', 'wiki', 'abbreviation', 'plugin_config', 
+for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine', 'lsp/all-lsp', 'lua/colourizer', 'bash-lsp', 'python-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
+for depFile in ['lualine', 'compe-config', 'lsp/all-lsp', 'lua/colourizer', 'bash-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
