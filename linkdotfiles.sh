@@ -30,3 +30,7 @@ ln -sf "$(pwd)"/configs/alacritty ~/.config
 
 # starship
 ln -sf "$(pwd)"/configs/starship.toml ~/.config
+
+# code
+ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code/User/
+ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code/User/

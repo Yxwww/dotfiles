@@ -1,221 +1,183 @@
-// Place your settings in this file to overwrite the default settings
 {
-    "typescript.check.tscVersion": true,
-    "workbench.editor.highlightModifiedTabs": true,
-    "breadcrumbs.enabled": true,
-    "editor.fontFamily": "'Fira Code', Consolas,Menlo, Monaco, 'Courier New', monospace",
-    "editor.fontWeight": "400",
-    "editor.autoIndent": true,
-    "editor.insertSpaces": true,
-    "editor.fontLigatures": true,
-    "terminal.integrated.fontSize": 15,
-    "editor.minimap.enabled": false,
-    "editor.renderIndentGuides": false,
-    "python.linting.flake8Enabled": true,
-    "files.insertFinalNewline": true,
-    "window.zoomLevel": 0,
-    // Configure glob patterns for excluding files and folders.
-    "files.exclude": {
-        "**/.git": true,
-        "**/.svn": true,
-        "**/.hg": true,
-        "**/.DS_Store": true,
-        "**/.sass-cashe": true,
-        "**/doc": true,
-        "**/.storage": true
+  "workbench.editor.highlightModifiedTabs": true,
+  "breadcrumbs.enabled": true,
+  "editor.fontFamily": "'Monolisa', Consolas,Menlo, Monaco, 'Courier New', monospace",
+  "editor.fontWeight": "400",
+  "editor.autoIndent": true,
+  "editor.autoFixOnSave": false,
+  "editor.insertSpaces": true,
+  "editor.fontLigatures": true,
+  "terminal.integrated.fontSize": 13,
+  "editor.minimap.enabled": false,
+  "editor.renderIndentGuides": false,
+  "files.insertFinalNewline": true,
+  // Configure glob patterns for excluding files and folders.
+  "files.exclude": {
+    "**/.git": true,
+    "**/.svn": true,
+    "**/.hg": true,
+    "**/.DS_Store": true,
+    "**/.sass-cashe": true,
+    "**/doc": true,
+    "**/.storage": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "vim.easymotion": true,
+  "vim.incsearch": true,
+  "vim.useSystemClipboard": true,
+  "vim.useCtrlKeys": true,
+  "vim.hlsearch": true,
+  "vim.visualstar": true,
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": [
+        "leader",
+        "d"
+      ],
+      "after": [
+        "d",
+        "d"
+      ]
     },
-    "files.trimTrailingWhitespace": true,
-    "vim.easymotion": true,
-    "vim.sneak": true,
-    "vim.incsearch": true,
-    "vim.useSystemClipboard": true,
-    "vim.useCtrlKeys": true,
-    "vim.hlsearch": true,
-    "vim.visualstar": true,
-    "vim.insertModeKeyBindings": [
+    {
+      "before": [
+        "<C-n>"
+      ],
+      "after": [],
+      "commands": [
         {
-            "before": [
-                "j",
-                "j"
-            ],
-            "after": [
-                "<Esc>"
-            ]
+          "command": ":nohl"
         }
-    ],
-    "vim.otherModesKeyBindingsNonRecursive": [
-        {
-            "before": [
-                "leader",
-                "d"
-            ],
-            "after": [
-                "d",
-                "d"
-            ]
-        },
-        {
-            "before": [
-                "<C-n>"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": ":nohl"
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "g",
-                "t"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "editor.action.goToDeclaration"
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "g",
-                "e"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "editor.action.rename"
-                }
-            ]
-        },
-        {
-            "before": [
-                "leader",
-                "w"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "workbench.action.files.save"
-                }
-            ]
-        },
-        {
-            "before": [
-                "<leader>",
-                "g",
-                "p"
-            ],
-            "after": [],
-            "commands": [
-                {
-                    "command": "editor.action.peekImplementation"
-                }
-            ]
-        },
-        {
-            "before": [
-                "c",
-                "c"
-            ],
-            "after": [
-                "d",
-                "d",
-                "O"
-            ]
-        },
-    ],
-    "vim.leader": ",",
-    "vim.handleKeys": {
-        "<C-a>": false,
-        "<C-f>": false
+      ]
     },
-    // JS
-    // Defines space handling after a comma delimiter
-    "javascript.format.insertSpaceAfterCommaDelimiter": true,
-    // Defines space handling after a semicolon in a for statement
-    "javascript.format.insertSpaceAfterSemicolonInForStatements": true,
-    // Defines space handling after a binary operator
-    "javascript.format.insertSpaceBeforeAndAfterBinaryOperators": true,
-    // Defines space handling after keywords in control flow statement
-    "javascript.format.insertSpaceAfterKeywordsInControlFlowStatements": true,
-    // Defines space handling after function keyword for anonymous functions
-    "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": true,
-    // Defines space handling after opening and before closing non empty parenthesis
-    // "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyParenthesis": true,
-    // Defines space handling after opening and before closing non empty brackets
-    // "javascript.format.insertSpaceAfterOpeningAndBeforeClosingNonemptyBrackets": true,
-    // Defines whether an open brace is put onto a new line for functions or not
-    // "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
-    // Defines whether an open brace is put onto a new line for control blocks or not
-    // "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
-    "javascript.suggest.useCodeSnippetsOnMethodSuggest": true,
-    "eslint.validate": [
-        "javascript",
-        "javascriptreact",
-        "html",
-        "polymer",
-        "typescript"
-    ],
-    "beautify.language": {
-        "js": {
-            "type": [
-                "javascript",
-                "json"
-            ],
-            "filename": [
-                ".jshintrc",
-                ".jsbeautifyrc"
-            ]
-            // "ext": ["js", "json"]
-            // ^^ to set extensions to be beautified using the javascript beautifier
-        },
-        "css": [
-            "css",
-            "scss"
-        ],
-        "html": [
-            "htm",
-            "html",
-            "polymer",
-            "Polymer"
-        ]
-        // ^^ providing just an array sets the VS Code file type
+    {
+      "before": [
+        "leader",
+        "f"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.formatSelection"
+        }
+      ]
     },
-    "markdown-pdf.convertOnSave": true,
-    "gitlens.keymap": "none",
-    "gitlens.advanced.messages": {
-        "suppressShowKeyBindingsNotice": true
+    {
+      "before": [
+        "L",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.showHover",
+          "when": "editorTextFocus"
+        }
+      ]
     },
-    "prettier.eslintIntegration": true,
-    "cSpell.userWords": [
-        "annotation",
-        "be",
-        "colorbar",
-        "colormap",
-        "datamirror",
-        "image",
-        "to",
-        "truthy",
-        "uids",
-        "viridis",
-        "wireframe",
-        "xlim",
-        "xmlhttprequest",
-        "ylim"
-    ],
-    "files.associations": {
-        "*.ejs": "html"
+    {
+      "before": [
+        "ctrl",
+        "n"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.next",
+        }
+      ]
     },
-    "[json]": {
-        "editor.tabSize": 4,
+    {
+      "before": [
+        "ctrl",
+        "p"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.marker.prev",
+        }
+      ]
     },
-    "[html]": {
-        "editor.tabSize": 2,
+    {
+      "before": [
+        "g",
+        "r"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.goToReferences"
+        }
+      ]
     },
-    "workbench.editor.showIcons": false,
-    "material-icon-theme.activeIconPack": "react_redux"
+    {
+      "before": [
+        "leader",
+        "g",
+        "n"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.rename"
+        }
+      ]
+    },
+    {
+      "before": [
+        "g",
+        "p"
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.peekImplementation"
+        }
+      ]
+    },
+    {
+      "before": [
+        "c",
+        "c"
+      ],
+      "after": [
+        "d",
+        "d",
+        "O"
+      ]
+    }
+  ],
+  "vim.leader": ",",
+  "vim.handleKeys": {
+    "<C-a>": false,
+    "<C-f>": false
+  },
+  "files.associations": {
+    "*.ejs": "html"
+  },
+  "[json]": {
+    "editor.tabSize": 4
+  },
+  "[html]": {
+    "editor.tabSize": 2
+  },
+  "workbench.editor.showIcons": false,
+  "material-icon-theme.activeIconPack": "react_redux",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "Night Owl Light",
+  "editor.formatOnSave": false,
+  "window.zoomLevel": 2,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "editor.smoothScrolling": true,
+  "zenMode.hideLineNumbers": false
 }
