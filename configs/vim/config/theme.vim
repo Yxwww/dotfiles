@@ -6,10 +6,15 @@ endif
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set t_Co=256
 " set background=light
-" colorscheme night-owl
-set background=dark
-let ayucolor="dark"
-colorscheme ayu
+" colorscheme ayu
+" dark mode enabled?
+if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
+    colorscheme night-owl
+    set background=dark
+else
+    colorscheme PaperColor
+    set background=light
+endif
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
 "If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
