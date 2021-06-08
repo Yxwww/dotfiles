@@ -53,12 +53,18 @@ fco() {
         --ansi) || return
 
   branchname=$(awk '{print $2}' <<<"$target" )
-  echo $branchname | pbcopy
-  echo "switching to $branchname (copied to clipboard)"
-  git checkout "$branchname"
+  withoutOrigin=${branchname/origin\//}
+  echo "switching to $withoutOrigin  💵"
+  git checkout "$withoutOrigin"
 }
 zle -N fco
 bindkey "^b" fco
+
+viewPR() {
+  gh pr list | fzf --preview "gh pr view {+1}" | awk '{print $1}' | xargs gh pr view --web
+}
+zle -N viewPR
+bindkey "^p" viewPR
 
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
@@ -172,12 +178,6 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 alias vi="vim"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yx/dev/utils/Google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc'; fi
 
 # zsh ag config
 # Ensure user-installed binaries take precedence
@@ -324,7 +324,7 @@ bindkey "\e[B" history-beginning-search-forward-end   # cursor down
 alias clip="nc -U ~/.clipper.sock"
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=180'
-bindkey '^ ' autosuggest-accept
+bindkey '^o' autosuggest-clear
 
 # MARK: ZSH completions
 fpath=(~/.zsh/zsh-completions/src $fpath)
@@ -367,3 +367,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/benimalish/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/benimalish/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/completion.zsh.inc'; fi

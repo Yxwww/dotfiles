@@ -14,11 +14,6 @@ if !has('nvim')
 	set highlight+=c:LineNr               " blend vertical separators with line numbers<Paste>
 endif
 
-if has('termguicolors')
-  set termguicolors                   " use guifg/guibg instead of ctermfg/ctermbg in terminal
-  " hi Search guibg=darkGrey guifg=darkGreen
-endif
-
 if v:progname !=# 'vi'
   set softtabstop=-1                  " use 'shiftwidth' for tab/bs at end of line
 endif
@@ -68,6 +63,7 @@ else
   set directory=~/local/.vim/tmp/swap/
   set directory+=~/.vim/tmp/swap/    " keep swap files out of the way
   set directory+=.
+  set swapfile
 endif
 
 set expandtab                         " always use spaces instead of tabs

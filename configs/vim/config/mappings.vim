@@ -21,7 +21,7 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 set hlsearch
 nnoremap <f3> :set hlsearch!<cr>
 
-nmap <leader>gs :Gstatus<cr>
+nmap <leader>gs :Git<cr>
 nmap <leader>gp! :Git push<cr>
 nmap <leader>go :!hub browse<cr>
 nmap <leader>gc :Git commit<cr>
@@ -51,31 +51,7 @@ noremap <leader>P "+p <CR>
 " MARK: coc
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
-
-" Remap keys for gotos
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-command! -nargs=0 CE :CocCommand eslint.executeAutofix
-nmap <leader>ef  :CE<cr>
-vmap <leader>f  <Plug>(coc-format-selected)
-nmap <leader>f  <Plug>(coc-format-selected)
-
-" MARK: visual mode
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -88,3 +64,51 @@ vnoremap <silent> # :<C-U>
   \gvy?<C-R><C-R>=substitute(
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
+
+
+" MARK: LSP config (the mappings used in the default file don't quite work right)
+nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap <silent> gd <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
+" rename
+nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
+" nnoremap <silent>gr <cmd>lua require('lspsaga.rename').rename()<CR>
+" tsserver code action supports auto import
+nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
+
+" Hover
+nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
+" nnoremap <silent> K <cmd>lua require('lspsaga.hover').render_hover_doc()<CR>
+" scroll up/down hover doc or scroll in definition preview
+" nnoremap <silent> <C-f> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(1)<CR>
+" nnoremap <silent> <C-b> <cmd>lua require('lspsaga.action').smart_scroll_with_saga(-1)<CR>
+
+" Show diagnostic
+nnoremap L <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+" nnoremap <silent>L <cmd>lua require'lspsaga.diagnostic'.show_line_diagnostics()<CR>
+" nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+
+" nnoremap <silent> [e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_prev()<CR>
+" nnoremap <silent> ]e <cmd>lua require'lspsaga.diagnostic'.lsp_jump_diagnostic_next()<CR>
+
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm('<CR>')
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+highlight link CompeDocumentation NormalFloat
+
+" auto-format
+" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 100)
+" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 100)
+autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 100)
+
+" MARK: lsp-saga
+" nnoremap <silent><leader>ca <cmd>lua require('lspsaga.codeaction').code_action()<CR>
+" vnoremap <silent><leader>ca :<C-U>lua require('lspsaga.codeaction').range_code_action()<CR>
