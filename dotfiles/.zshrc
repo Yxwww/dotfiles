@@ -179,12 +179,6 @@ fi
 
 alias vi="vim"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/yx/dev/utils/Google-cloud-sdk/path.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc' ]; then source '/Users/yx/dev/utils/google-cloud-sdk/completion.zsh.inc'; fi
-
 # zsh ag config
 # Ensure user-installed binaries take precedence
 export PATH=/usr/local/bin:$PATH
@@ -373,3 +367,9 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/benimalish/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/path.zsh.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/Users/benimalish/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/completion.zsh.inc'; fi

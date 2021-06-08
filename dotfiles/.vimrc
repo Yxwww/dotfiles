@@ -39,11 +39,12 @@ Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
+" Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-compe'
 " Plug 'onsails/lspkind-nvim'
 
 " colourizer
-Plug 'norcalli/nvim-colorizer.lua'
+" Plug 'norcalli/nvim-colorizer.lua'
 Plug 'tomtom/tcomment_vim'
 
 "Snippet
@@ -53,6 +54,7 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'rhysd/vim-wasm'
+Plug 'dense-analysis/ale'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
@@ -89,14 +91,16 @@ endfunction
 
 let config_dir = '~/.vim/config'
 
+" MARK: viml configs
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config', 'plugins/ale',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
-for depFile in ['lualine', 'compe-config', 'lsp/all-lsp', 'lua/colourizer', 'bash-lsp', 'svelte-lsp', 'snippets', 'cssls', 'lsp/clangd']
+" Mark: Lua configs
+for depFile in ['lualine', 'compe-config', 'lsp/all-lsp', 'bash-lsp', 'svelte-lsp', 'cssls', 'lsp/clangd']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
