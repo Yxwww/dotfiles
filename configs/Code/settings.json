@@ -64,6 +64,18 @@
     },
     {
       "before": [
+        "K",
+      ],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.showHover",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    {
+      "before": [
         "L",
       ],
       "after": [],
@@ -156,7 +168,8 @@
     "*.ejs": "html"
   },
   "[json]": {
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[html]": {
     "editor.tabSize": 2
@@ -174,10 +187,11 @@
   },
   "workbench.colorTheme": "Night Owl Light",
   "editor.formatOnSave": false,
-  "window.zoomLevel": 2,
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "editor.smoothScrolling": true,
-  "zenMode.hideLineNumbers": false
+  "zenMode.hideLineNumbers": false,
+  "window.zoomLevel": 2,
+  "editor.lineNumbers": "relative"
 }
