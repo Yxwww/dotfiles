@@ -5,7 +5,7 @@
   "editor.fontWeight": "400",
   "editor.autoIndent": true,
   "editor.autoFixOnSave": false,
-  "editor.insertSpaces": true,
+  "editor.insertSpaces": false,
   "editor.fontLigatures": true,
   "terminal.integrated.fontSize": 13,
   "editor.minimap.enabled": false,
@@ -167,15 +167,23 @@
   "files.associations": {
     "*.ejs": "html"
   },
+  "workbench.editor.showIcons": false,
+  "material-icon-theme.activeIconPack": "react_redux",
+  "workbench.colorTheme": "Night Owl Light",
+  "editor.formatOnSave": true,
+  "editor.smoothScrolling": true,
+  "zenMode.hideLineNumbers": false,
+  "window.zoomLevel": 2,
+  "editor.lineNumbers": "relative",
+  "editor.tabSize": 8,
+  "editor.cursorStyle": "line",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "editor.wordWrap": "off",
+  // "eslint.codeActionsOnSave.mode": "problems",
   "[json]": {
     "editor.tabSize": 4,
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "[html]": {
-    "editor.tabSize": 2
-  },
-  "workbench.editor.showIcons": false,
-  "material-icon-theme.activeIconPack": "react_redux",
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -185,13 +193,10 @@
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "workbench.colorTheme": "Night Owl Light",
-  "editor.formatOnSave": false,
+  "[html]": {
+    "editor.tabSize": 2
+  },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "editor.smoothScrolling": true,
-  "zenMode.hideLineNumbers": false,
-  "window.zoomLevel": 2,
-  "editor.lineNumbers": "relative"
+  }
 }
