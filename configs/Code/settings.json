@@ -173,9 +173,7 @@
   "editor.formatOnSave": true,
   "editor.smoothScrolling": true,
   "zenMode.hideLineNumbers": false,
-  "window.zoomLevel": 2,
   "editor.lineNumbers": "relative",
-  "editor.tabSize": 8,
   "editor.cursorStyle": "line",
   "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
   "editor.wordWrap": "off",
@@ -198,5 +196,15 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
-  }
+  },
+  "tailwindCSS.colorDecorators":true ,
+  "tailwindCSS.emmetCompletions": true,
+  "tailwindCSS.includeLanguages": {
+    "plaintext": "html",
+    "javascriptreact": "html",
+    "typescriptreact": "html"
+  },
+  "search.useIgnoreFiles": true,
+  "editor.tabSize": 2,
+  "window.zoomLevel": 2,
 }

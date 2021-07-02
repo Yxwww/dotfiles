@@ -9,7 +9,7 @@ filetype plugin on
 
 
 " MARK: Status line
-Plug 'hoob3rt/lualine.nvim', {'commit': '82f68c42df9d11e52edb52c86113d0eba5be798d'} " use older version of lualine instad of updating neovim https://www.reddit.com/r/neovim/comments/mq2dfi/lualine_load_error/gydzgx8?utm_source=share&utm_medium=web2x&context=3
+Plug 'itchyny/lightline.vim'
 " ui
 Plug 'scrooloose/nerdtree'
 " Plug 'kyazdani42/nvim-web-devicons'
@@ -18,9 +18,9 @@ Plug 'scrooloose/nerdtree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
+" Plug 'tpope/vim-rhubarb'
 
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 Plug '/usr/local/opt/fzf'
 Plug 'junegunn/fzf.vim'
 
@@ -47,6 +47,9 @@ Plug 'hrsh7th/nvim-compe'
 " Plug 'norcalli/nvim-colorizer.lua'
 Plug 'tomtom/tcomment_vim'
 
+" Linter
+Plug 'dense-analysis/ale'
+
 "Snippet
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -54,12 +57,10 @@ Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'rhysd/vim-wasm'
-Plug 'dense-analysis/ale'
 Plug 'HerringtonDarkholme/yats.vim'
 Plug 'tikhomirov/vim-glsl'
 Plug 'evanleck/vim-svelte'
 Plug 'pangloss/vim-javascript'
-Plug 'kristijanhusak/vim-carbon-now-sh'
 Plug 'rust-lang/rust.vim'
 Plug 'mxw/vim-jsx'
 
@@ -94,23 +95,17 @@ let config_dir = '~/.vim/config'
 " MARK: viml configs
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config', 'plugins/ale',
-      \ 'misc']
+      \ 'misc', 'lightline']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
 " Mark: Lua configs
-for depFile in ['lualine', 'compe-config', 'lsp/all-lsp', 'bash-lsp', 'svelte-lsp', 'cssls', 'lsp/clangd']
+for depFile in ['compe-config', 'bash-lsp', 'svelte-lsp', 'lsp/all-lsp']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
 
-" Open last opened filee: https://vim.fandom.com/wiki/Open_the_last_edited_file
-" Go to last file(s) if invoked without arguments.
-autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
-    \ call mkdir($HOME . "/.vim") |
-    \ endif |
-    \ execute "mksession! " . $HOME . "/.vim/Session.vim"
 
 autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
     \ execute "source " . $HOME . "/.vim/Session.vim"
