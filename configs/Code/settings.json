@@ -206,5 +206,11 @@
   },
   "search.useIgnoreFiles": true,
   "editor.tabSize": 2,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter.notebook.ipynb"
+  },
+  "workbench.preferredDarkColorTheme": "Night Owl",
+  "editor.inlineSuggest.enabled": true,
+  "window.autoDetectColorScheme": true,
   "window.zoomLevel": 2,
 }

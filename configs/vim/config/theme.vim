@@ -20,7 +20,7 @@ if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     let g:tokyonight_style = 'night' " available: night, storm
     let g:tokyonight_enable_italic = 1
 
-    colorscheme tokyonight
+    colorscheme nord
 else
   "True Color Support
   "Credit joshdick
@@ -43,7 +43,7 @@ else
     let g:tokyonight_style = 'night' " available: night, storm
     let g:tokyonight_enable_italic = 1
 
-    colorscheme tokyonight
+    colorscheme nord
 endif
 
 "Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.

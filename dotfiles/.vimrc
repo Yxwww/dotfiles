@@ -34,6 +34,7 @@ Plug 'vimwiki/vimwiki'
 Plug 'rakr/vim-one'
 Plug 'ghifarit53/tokyonight-vim'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'arcticicestudio/nord-vim'
 Plug 'haishanh/night-owl.vim'
 Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
@@ -48,7 +49,7 @@ Plug 'hrsh7th/nvim-compe'
 Plug 'tomtom/tcomment_vim'
 
 " Linter
-Plug 'dense-analysis/ale'
+" Plug 'dense-analysis/ale'
 
 "Snippet
 Plug 'SirVer/ultisnips'
@@ -94,7 +95,7 @@ let config_dir = '~/.vim/config'
 
 " MARK: viml configs
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config', 'plugins/ale',
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
       \ 'misc', 'lightline']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
