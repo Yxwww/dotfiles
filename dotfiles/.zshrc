@@ -83,10 +83,10 @@ zle -N zle-keymap-select
 # export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load. Optionally, if you set this to "random"
-BASE16_SHELL="$HOME/.config/base16-shell/"
-[ -n "$PS1" ] && \
-    [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        eval "$("$BASE16_SHELL/profile_helper.sh")"
+# BASE16_SHELL="$HOME/.config/base16-shell/"
+# [ -n "$PS1" ] && \
+#     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
+#         eval "$("$BASE16_SHELL/profile_helper.sh")"
 eval "$(starship init zsh)"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -215,7 +215,8 @@ source ~/.bash_profile
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
 
-base16_onedark
+# base16_onedark
+test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors)
 
 
 # common aliases

@@ -209,8 +209,9 @@
   "workbench.editorAssociations": {
     "*.ipynb": "jupyter.notebook.ipynb"
   },
-  "workbench.preferredDarkColorTheme": "Night Owl",
+  "workbench.preferredDarkColorTheme": "Nord",
   "editor.inlineSuggest.enabled": true,
   "window.autoDetectColorScheme": true,
+  "workbench.preferredLightColorTheme": "Night Owl Light",
   "window.zoomLevel": 2,
 }
