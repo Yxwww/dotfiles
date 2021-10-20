@@ -39,3 +39,8 @@ function! HasPaste()
 endfunction
 " Always show the status line
 set laststatus=2
+
+
+autocmd BufWritePre *.{js,ts,tsx,jsx} Neoformat
+let g:neoformat_try_formatprg = 1
+

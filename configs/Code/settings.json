@@ -13,6 +13,7 @@
   "files.insertFinalNewline": true,
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
+    "**/.yalc": true,
     "**/.git": true,
     "**/.svn": true,
     "**/.hg": true,
@@ -169,7 +170,7 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
-  "workbench.colorTheme": "Night Owl Light",
+  "workbench.colorTheme": "Nord",
   "editor.formatOnSave": true,
   "editor.smoothScrolling": true,
   "zenMode.hideLineNumbers": false,
@@ -213,5 +214,6 @@
   "editor.inlineSuggest.enabled": true,
   "window.autoDetectColorScheme": true,
   "workbench.preferredLightColorTheme": "Night Owl Light",
+  "svelte.enable-ts-plugin": true,
   "window.zoomLevel": 2,
 }

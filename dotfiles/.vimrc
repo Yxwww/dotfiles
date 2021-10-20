@@ -18,7 +18,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-" Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-rhubarb'
 
 " Plug 'kien/ctrlp.vim'
 Plug '/usr/local/opt/fzf'
@@ -31,12 +31,12 @@ Plug 'tpope/vim-repeat'
 
 Plug 'vimwiki/vimwiki'
 
-Plug 'rakr/vim-one'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'NLKNguyen/papercolor-theme'
+" Plug 'rakr/vim-one'
+" Plug 'ghifarit53/tokyonight-vim'
+" Plug 'NLKNguyen/papercolor-theme'
 Plug 'arcticicestudio/nord-vim'
-Plug 'haishanh/night-owl.vim'
-Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
+" Plug 'haishanh/night-owl.vim'
+" Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
@@ -64,6 +64,9 @@ Plug 'evanleck/vim-svelte'
 Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'mxw/vim-jsx'
+
+"Formatting
+Plug 'sbdchd/neoformat'
 
 
 call plug#end()
@@ -100,6 +103,7 @@ for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config',
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
+
 
 " Mark: Lua configs
 for depFile in ['compe-config', 'bash-lsp', 'svelte-lsp', 'lsp/all-lsp']
