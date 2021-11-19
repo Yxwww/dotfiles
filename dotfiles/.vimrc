@@ -22,7 +22,7 @@ Plug 'rbong/vim-flog'
 Plug 'tpope/vim-rhubarb'
 
 " Plug 'kien/ctrlp.vim'
-Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 Plug 'tpope/vim-surround'
@@ -69,8 +69,9 @@ Plug 'mxw/vim-jsx'
 "Formatting
 Plug 'sbdchd/neoformat'
 
-
 call plug#end()
+
+set rtp+=~/.fzf
 
 " Required:
 filetype plugin indent on
