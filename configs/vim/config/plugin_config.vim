@@ -3,6 +3,7 @@
 nnoremap <leader>ne :NERDTreeToggle<cr>
 nnoremap <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeMinimalUI=1
+let NERDTreeShowHidden=1
 
 " MARK: completion-nvim
 " Set completeopt to have a better completion experience

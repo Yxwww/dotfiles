@@ -1,5 +1,6 @@
 {
   "workbench.editor.highlightModifiedTabs": true,
+  // Toggle between terminal and editor focus
   "breadcrumbs.enabled": true,
   "editor.fontFamily": "'Monolisa', Consolas,Menlo, Monaco, 'Courier New', monospace",
   "editor.fontWeight": "400",
@@ -31,19 +32,11 @@
   "vim.visualstar": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": [
-        "leader",
-        "d"
-      ],
-      "after": [
-        "d",
-        "d"
-      ]
+      "before": ["leader", "d"],
+      "after": ["d", "d"]
     },
     {
-      "before": [
-        "<C-n>"
-      ],
+      "before": ["<C-n>"],
       "after": [],
       "commands": [
         {
@@ -52,10 +45,7 @@
       ]
     },
     {
-      "before": [
-        "leader",
-        "f"
-      ],
+      "before": ["leader", "f"],
       "after": [],
       "commands": [
         {
@@ -64,9 +54,17 @@
       ]
     },
     {
-      "before": [
-        "K",
-      ],
+      "before": ["K"],
+      "after": [],
+      "commands": [
+        {
+          "command": "editor.action.peekTypeDefinition",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    {
+      "before": ["L"],
       "after": [],
       "commands": [
         {
@@ -76,46 +74,25 @@
       ]
     },
     {
-      "before": [
-        "L",
-      ],
+      "before": ["ctrl", "n"],
       "after": [],
       "commands": [
         {
-          "command": "editor.action.showHover",
-          "when": "editorTextFocus"
+          "command": "editor.action.marker.next"
         }
       ]
     },
     {
-      "before": [
-        "ctrl",
-        "n"
-      ],
+      "before": ["ctrl", "p"],
       "after": [],
       "commands": [
         {
-          "command": "editor.action.marker.next",
+          "command": "editor.action.marker.prev"
         }
       ]
     },
     {
-      "before": [
-        "ctrl",
-        "p"
-      ],
-      "after": [],
-      "commands": [
-        {
-          "command": "editor.action.marker.prev",
-        }
-      ]
-    },
-    {
-      "before": [
-        "g",
-        "r"
-      ],
+      "before": ["g", "r"],
       "after": [],
       "commands": [
         {
@@ -124,11 +101,7 @@
       ]
     },
     {
-      "before": [
-        "leader",
-        "g",
-        "n"
-      ],
+      "before": ["leader", "g", "n"],
       "after": [],
       "commands": [
         {
@@ -137,10 +110,17 @@
       ]
     },
     {
-      "before": [
-        "g",
-        "p"
-      ],
+      "before": ["leader", "n", "f"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.files.action.showActiveFileInExplorer",
+          "when": "editorTextFocus"
+        }
+      ]
+    },
+    {
+      "before": ["g", "p"],
       "after": [],
       "commands": [
         {
@@ -149,15 +129,8 @@
       ]
     },
     {
-      "before": [
-        "c",
-        "c"
-      ],
-      "after": [
-        "d",
-        "d",
-        "O"
-      ]
+      "before": ["c", "c"],
+      "after": ["d", "d", "O"]
     }
   ],
   "vim.leader": ",",
@@ -198,7 +171,7 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "tailwindCSS.colorDecorators":true ,
+  "tailwindCSS.colorDecorators": true,
   "tailwindCSS.emmetCompletions": true,
   "tailwindCSS.includeLanguages": {
     "plaintext": "html",
@@ -216,5 +189,8 @@
   "workbench.preferredLightColorTheme": "Nord",
   "svelte.enable-ts-plugin": true,
   "git.autofetch": true,
-  "window.zoomLevel": 2,
+  "window.zoomLevel": 1,
+  "vim.highlightedyank.enable": true,
+  "terminal.integrated.tabs.enabled": false,
+  "editor.fontSize": 14
 }

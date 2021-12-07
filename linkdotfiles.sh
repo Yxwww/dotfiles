@@ -17,12 +17,12 @@ ln -snf "$(pwd)"/configs/vim/ftplugin ~/.config/nvim/after/ftplugin
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
 
 # node
-ln -sf "$(pwd)"/configs/node/package.json ~/.config/yarn/global/
-ln -sf "$(pwd)"/configs/node/yarn.lock ~/.config/yarn/global/
+# ln -sf "$(pwd)"/configs/node/package.json ~/.config/yarn/global/
+# ln -sf "$(pwd)"/configs/node/yarn.lock ~/.config/yarn/global/
 
 # node
 ln -sf "$(pwd)"/configs/node/package.json ~/
-ln -sf "$(pwd)"/configs/node/yarn.lock ~/
+# ln -sf "$(pwd)"/configs/node/yarn.lock ~/
 
 
 # alacritty

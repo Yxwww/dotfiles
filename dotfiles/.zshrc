@@ -217,8 +217,8 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   '
 fi
 
-
-# Source bash_profile
+# Deps
+source ~/.bashrc
 source ~/.bash_profile
 
 # Set Spaceship ZSH as a prompt
