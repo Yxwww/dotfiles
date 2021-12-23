@@ -385,3 +385,6 @@ if [ -f '/Users/benimalish/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/beni
 # The next line enables shell command completion for gcloud.
 if [ -f '/Users/benimalish/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/completion.zsh.inc'; fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"

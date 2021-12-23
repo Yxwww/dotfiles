@@ -101,6 +101,16 @@
       ]
     },
     {
+      "before": ["leader", "g", "s"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.scm",
+          "when": "workbench.scm.active"
+        }
+      ]
+    },
+    {
       "before": ["leader", "g", "n"],
       "after": [],
       "commands": [
@@ -189,8 +199,11 @@
   "workbench.preferredLightColorTheme": "Nord",
   "svelte.enable-ts-plugin": true,
   "git.autofetch": true,
-  "window.zoomLevel": 1,
   "vim.highlightedyank.enable": true,
   "terminal.integrated.tabs.enabled": false,
-  "editor.fontSize": 14
+  "editor.fontSize": 14,
+  "git.confirmSync": false,
+  "editor.accessibilitySupport": "off",
+  "window.zoomLevel": 1,
+  "redhat.telemetry.enabled": false
 }

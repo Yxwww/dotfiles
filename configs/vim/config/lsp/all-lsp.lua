@@ -26,7 +26,7 @@ if not lspconfig.emmet_ls then
 end
 
 lspconfig.emmet_ls.setup{ capabilities = capabilities; }
--- lspconfig.eslint.setup{}
+lspconfig.eslint.setup{}
 lspconfig.tsserver.setup{ capabilities = capabilities; }
 lspconfig.vimls.setup{}
 lspconfig.pyright.setup{on_attach=on_attach}
