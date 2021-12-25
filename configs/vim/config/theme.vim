@@ -17,9 +17,7 @@ endif
 let g:tokyonight_style = 'night' " available: night, storm
 let g:tokyonight_enable_italic = 1
 if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
-    let g:tokyonight_style = 'night' " available: night, storm
-    let g:tokyonight_enable_italic = 1
-    colorscheme nord
+  colorscheme nord
 else
   "True Color Support
   "Credit joshdick
@@ -35,12 +33,6 @@ else
     "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
     " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
   endif
-
-    " let g:airline_theme='one'
-    " set background=light
-    " let g:one_allow_italics = 1
-    let g:tokyonight_style = 'night' " available: night, storm
-    let g:tokyonight_enable_italic = 1
 
     colorscheme nord
 endif

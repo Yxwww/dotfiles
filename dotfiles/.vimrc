@@ -7,6 +7,9 @@ filetype plugin on
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 
+" telescope
+Plug 'nvim-telescope/telescope.nvim'
+
 
 " MARK: Status line
 Plug 'itchyny/lightline.vim'
