@@ -19,7 +19,6 @@ let g:tokyonight_enable_italic = 1
 if system("defaults read -g AppleInterfaceStyle") =~ '^Dark'
     let g:tokyonight_style = 'night' " available: night, storm
     let g:tokyonight_enable_italic = 1
-
     colorscheme nord
 else
   "True Color Support

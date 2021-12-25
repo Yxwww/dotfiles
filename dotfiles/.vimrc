@@ -51,8 +51,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 
 
 " syntax highlight
-" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-" Plug 'p00f/nvim-ts-rainbow'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'p00f/nvim-ts-rainbow'
 
 "Formatting
 Plug 'sbdchd/neoformat'
