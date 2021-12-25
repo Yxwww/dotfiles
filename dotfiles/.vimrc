@@ -4,15 +4,14 @@ call plug#begin('~/.vim/plugged')
 filetype plugin on
 
 " base
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
 
 
 " MARK: Status line
 Plug 'itchyny/lightline.vim'
 " ui
 Plug 'scrooloose/nerdtree'
-" Plug 'kyazdani42/nvim-web-devicons'
 
 " MARK: TMUX
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -37,6 +36,9 @@ Plug 'vimwiki/vimwiki'
 " Theme
 Plug 'arcticicestudio/nord-vim'
 
+" snippet
+Plug 'L3MON4D3/LuaSnip'
+
 " lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
@@ -49,13 +51,8 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 
 
 " syntax highlight
-Plug 'rhysd/vim-wasm'
-Plug 'HerringtonDarkholme/yats.vim'
-Plug 'tikhomirov/vim-glsl'
-Plug 'evanleck/vim-svelte'
-Plug 'pangloss/vim-javascript'
-Plug 'rust-lang/rust.vim'
-Plug 'mxw/vim-jsx'
+" Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+" Plug 'p00f/nvim-ts-rainbow'
 
 "Formatting
 Plug 'sbdchd/neoformat'
@@ -99,7 +96,7 @@ endfor
 
 
 " Mark: Lua configs
-for depFile in ['lsp/init', 'cmp']
+for depFile in ['lsp/init', 'cmp', 'treesitter']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
