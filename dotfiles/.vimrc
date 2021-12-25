@@ -10,9 +10,9 @@ Plug 'nvim-lua/plenary.nvim'
 " telescope
 Plug 'nvim-telescope/telescope.nvim'
 
-
 " MARK: Status line
-Plug 'itchyny/lightline.vim'
+Plug 'nvim-lualine/lualine.nvim'
+
 " ui
 Plug 'scrooloose/nerdtree'
 
@@ -92,14 +92,14 @@ let config_dir = '~/.vim/config'
 " MARK: viml configs
 for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
-      \ 'misc', 'lightline']
+      \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
 
 " Mark: Lua configs
-for depFile in ['lsp/init', 'cmp', 'treesitter', 'telescope']
+for depFile in ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
