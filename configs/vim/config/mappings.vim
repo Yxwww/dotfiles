@@ -39,7 +39,7 @@ map <leader>tm :tabmove
 " MARK: fzf
 " nmap <leader>b :Buffers<CR>
 " nmap <leader>ff :Files<CR>
-nmap <leader>fs :GFiles?<CR>
+" nmap <leader>fs :GFiles?<CR>
 nnoremap <C-g> :Rg<Cr>
 
 " MARK: telescope
@@ -48,12 +48,12 @@ nnoremap <leader>ff <cmd>Telescope find_files<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>gb <cmd>Telescope git_branches<cr>
+nnoremap <leader>fs <cmd>Telescope git_status<cr>
+nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
+nnoremap <leader>fw <cmd>Telescope lsp_workspace_symbols<cr>
+nnoremap <leader>fd <cmd>Telescope lsp_document_symbols<cr>
 
-" Using Lua functions
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " MARK: Copy & Paste
 noremap <leader>y "*y <CR>

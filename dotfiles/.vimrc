@@ -99,7 +99,7 @@ endfor
 
 
 " Mark: Lua configs
-for depFile in ['lsp/init', 'cmp', 'treesitter']
+for depFile in ['lsp/init', 'cmp', 'treesitter', 'telescope']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
