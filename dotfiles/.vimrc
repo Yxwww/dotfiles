@@ -29,33 +29,24 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
+Plug 'tomtom/tcomment_vim'
 
 Plug 'vimwiki/vimwiki'
 
-" Plug 'rakr/vim-one'
-" Plug 'ghifarit53/tokyonight-vim'
-" Plug 'NLKNguyen/papercolor-theme'
+
+" Theme
 Plug 'arcticicestudio/nord-vim'
-" Plug 'haishanh/night-owl.vim'
-" Plug 'pineapplegiant/spaceduck', { 'branch': 'main' }
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
-" Plug 'glepnir/lspsaga.nvim'
-Plug 'hrsh7th/nvim-compe'
-" Plug 'onsails/lspkind-nvim'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'hrsh7th/nvim-cmp' " The completion 
+Plug 'hrsh7th/cmp-buffer' " buffer completions
+Plug 'hrsh7th/cmp-path' " path completions
+Plug 'hrsh7th/cmp-cmdline' " cmdline completions
+Plug 'saadparwaiz1/cmp_luasnip' " snippet completions
+Plug 'hrsh7th/cmp-nvim-lsp'
 
-" colourizer
-" Plug 'norcalli/nvim-colorizer.lua'
-Plug 'tomtom/tcomment_vim'
-
-" Linter
-" Plug 'dense-analysis/ale'
-
-"Snippet
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'joaohkfaria/vim-jest-snippets'
 
 " syntax highlight
 Plug 'rhysd/vim-wasm'
@@ -108,7 +99,7 @@ endfor
 
 
 " Mark: Lua configs
-for depFile in ['compe-config', 'bash-lsp', 'svelte-lsp', 'lsp/all-lsp']
+for depFile in ['lsp/init', 'cmp']
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
