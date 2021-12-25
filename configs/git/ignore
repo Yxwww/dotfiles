@@ -9,3 +9,4 @@ zsh_profile.*
 pnpm-debug.log
 target
 .next
+.node-version

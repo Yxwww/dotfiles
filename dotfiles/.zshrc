@@ -373,10 +373,6 @@ alias ifconfigdefault='ipconfig getifaddr en0'
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
-
-
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 
 # The next line updates PATH for the Google Cloud SDK.
@@ -388,3 +384,8 @@ if [ -f '/Users/benimalish/google-cloud-sdk/completion.zsh.inc' ]; then . '/User
 
 export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
+eval "$(fnm env)"
+
+fpath+=~/.config/zsh/completions/_fnm
+compinit
