@@ -70,6 +70,16 @@ filetype plugin indent on
 let mapleader = ","
 let g:mapleader = ","
 
+
+let vim_deps = [
+      \ 'theme', 'wiki', 'abbreviation',
+      \ 'plugin_config', 
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
+      \ 'misc']
+
+let lua_deps = ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine']
+
+
 " MARK: Soucing depdendencies
 function! SourceIfExists(path) 
   if filereadable(expand(a:path))
@@ -90,18 +100,14 @@ endfunction
 let config_dir = '~/.vim/config'
 
 " MARK: viml configs
-for depFile in [
-      \ 'theme', 'wiki', 'abbreviation',
-      \ 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
-      \ 'misc']
+for depFile in vim_deps
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
 endfor
 
 
 " Mark: Lua configs
-for depFile in ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine']
+for depFile in lua_deps
   let sourceFullDir = config_dir . '/' . depFile . '.lua'
   call SourceIfExistsLua(sourceFullDir)
 endfor
