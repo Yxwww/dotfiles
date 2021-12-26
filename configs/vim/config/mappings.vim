@@ -51,9 +51,10 @@ nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>gb <cmd>Telescope git_branches<cr>
 nnoremap <leader>fs <cmd>Telescope git_status<cr>
 nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
-nnoremap <leader>fw <cmd>Telescope lsp_workspace_symbols<cr>
-nnoremap <leader>fd <cmd>Telescope lsp_document_symbols<cr>
-nnoremap <leader>fe <cmd>Telescope diagnostic<cr>
+nnoremap gr <cmd>Telescope lsp_references<cr>
+nnoremap <space>s <cmd>Telescope lsp_dynamic_workspace_symbols<cr>
+nnoremap <space>d <cmd>Telescope lsp_document_symbols<cr>
+nnoremap <space>e <cmd>Telescope diagnostics<cr>
 
 
 " MARK: Copy & Paste
@@ -62,28 +63,10 @@ noremap <leader>p "*p <CR>
 noremap <leader>Y "+y <CR>
 noremap <leader>P "+p <CR>
 
-" MARK: coc
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Search for selected text, forwards or backwards.
-vnoremap <silent> * :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy/<C-R><C-R>=substitute(
-  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-vnoremap <silent> # :<C-U>
-  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
-  \gvy?<C-R><C-R>=substitute(
-  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
-  \gV:call setreg('"', old_reg, old_regtype)<CR>
-
-
 " MARK: LSP config (the mappings used in the default file don't quite work right)
 nnoremap gd <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap gD <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap gr <cmd>lua vim.lsp.buf.references()<CR>
 nnoremap gi <cmd>lua vim.lsp.buf.implementation()<CR>
 " rename
 nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
@@ -94,7 +77,4 @@ nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap L <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>
 nnoremap [e <cmd>lua vim.lsp.diagnostic.goto_prev({ border = "rounded" })<CR>
 nnoremap e] <cmd>lua vim.lsp.diagnostic.goto_next({ border = "rounded" })<CR>
-" nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-
-highlight link CompeDocumentation NormalFloat
-
+nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
