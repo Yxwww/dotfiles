@@ -53,6 +53,7 @@ nnoremap <leader>fs <cmd>Telescope git_status<cr>
 nnoremap <leader>fr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>fw <cmd>Telescope lsp_workspace_symbols<cr>
 nnoremap <leader>fd <cmd>Telescope lsp_document_symbols<cr>
+nnoremap <leader>fe <cmd>Telescope diagnostic<cr>
 
 
 " MARK: Copy & Paste
