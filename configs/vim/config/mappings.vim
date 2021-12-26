@@ -93,7 +93,7 @@ nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR>
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap L <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>
 nnoremap [e <cmd>lua vim.lsp.diagnostic.goto_prev({ border = "rounded" })<CR>
-nnoremap e] <cmd>lua vim.lsp.diagnostic.goto_prev({ border = "rounded" })<CR>
+nnoremap e] <cmd>lua vim.lsp.diagnostic.goto_next({ border = "rounded" })<CR>
 " nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
 
 highlight link CompeDocumentation NormalFloat

@@ -84,3 +84,4 @@ endif
 " MARK: search config
 set ignorecase " set default to case insensitive search. Use: \C at the end of search to enable case sensitivity
 
+set signcolumn=yes

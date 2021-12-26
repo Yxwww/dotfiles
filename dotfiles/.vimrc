@@ -17,7 +17,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree'
 
 " MARK: TMUX
-Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
@@ -31,7 +30,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
-Plug 'tomtom/tcomment_vim'
 
 Plug 'vimwiki/vimwiki'
 
@@ -55,6 +53,7 @@ Plug 'hrsh7th/cmp-nvim-lsp'
 
 " syntax highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'numToStr/Comment.nvim'
 Plug 'p00f/nvim-ts-rainbow'
 
 "Formatting
@@ -77,7 +76,7 @@ let vim_deps = [
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 
-let lua_deps = ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine']
+let lua_deps = ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine', 'comment']
 
 
 " MARK: Soucing depdendencies
