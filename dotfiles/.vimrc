@@ -90,8 +90,10 @@ endfunction
 let config_dir = '~/.vim/config'
 
 " MARK: viml configs
-for depFile in ['theme', 'wiki', 'abbreviation', 'plugin_config', 
-      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/coc_config', 'plugins/fzf_config',
+for depFile in [
+      \ 'theme', 'wiki', 'abbreviation',
+      \ 'plugin_config', 
+      \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
   let sourceFullDir = config_dir . '/' . depFile . '.vim'
   call SourceIfExists(sourceFullDir)
