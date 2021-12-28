@@ -37,8 +37,6 @@ Plug 'vimwiki/vimwiki'
 " Theme
 Plug 'arcticicestudio/nord-vim'
 
-" snippet
-Plug 'L3MON4D3/LuaSnip'
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
@@ -50,6 +48,9 @@ Plug 'hrsh7th/cmp-cmdline' " cmdline completions
 Plug 'saadparwaiz1/cmp_luasnip' " snippet completions
 Plug 'hrsh7th/cmp-nvim-lsp'
 
+" snippet
+Plug 'L3MON4D3/LuaSnip'
+Plug 'rafamadriz/friendly-snippets'
 
 " syntax highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
