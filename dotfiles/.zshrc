@@ -346,7 +346,7 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # for VIM and TMUC
 if [ "$TERM" = "xterm" ]; then
-  export TERM=xterm-256color
+  export TERM=xterm-256color-italic
 fi
 alias yanr='yarn'  # yeah ...
 
