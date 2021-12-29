@@ -36,7 +36,7 @@ Plug 'vimwiki/vimwiki'
 
 " Theme
 Plug 'arcticicestudio/nord-vim'
-
+Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 
 " lsp
 Plug 'neovim/nvim-lspconfig'
