@@ -74,6 +74,7 @@ let g:mapleader = ","
 let vim_deps = [
       \ 'theme', 'wiki', 'abbreviation',
       \ 'plugin_config', 
+      \ 'terminal', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 
