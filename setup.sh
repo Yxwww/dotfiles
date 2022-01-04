@@ -53,3 +53,7 @@ zshrcDeps() {
   brew install reattach-to-user-namespace
 }
 
+setup_gh_autocompletion() {
+  gh completion -s zsh > ~/.config/zsh/completions/_gh
+}
+
