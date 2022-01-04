@@ -10,3 +10,4 @@ pnpm-debug.log
 target
 .next
 .node-version
+.git
