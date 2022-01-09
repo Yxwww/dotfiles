@@ -96,7 +96,6 @@ zle -N zle-keymap-select
 # [ -n "$PS1" ] && \
 #     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
 #         eval "$("$BASE16_SHELL/profile_helper.sh")"
-eval "$(starship init zsh)"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -390,3 +389,5 @@ eval "$(fnm env)"
 fpath+=~/.config/zsh/completions/_fnm
 fpath+=~/.config/zsh/completions/_gh
 compinit
+
+eval "$(starship init zsh)"
