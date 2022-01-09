@@ -1,7 +1,7 @@
 nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 
 " MARK: Makefile
-nnoremap <C-b> :make build <cr>
+nnoremap <C-b> :!yarn build <cr>
 " nnoremap <C-r> :make run <cr>
 
 " open messages
@@ -25,6 +25,7 @@ nmap <leader>gs :Git<cr>
 nmap <leader>gp! :Git push<cr>
 nmap <leader>go :!gh repo view --web<cr>
 nmap <leader>gc :Git commit<cr>
+nmap <leader>fy :!yarn lint:format:fixcr>
 nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
