@@ -47,7 +47,7 @@ format = "[$virtualenv]($style) "
 style = "bright-black"
 
 [nodejs]
-format = "via [node($version)]($style)"
+format = "via [n($version)]($style)"
 version_format="$major"
 style = "bright-black"
 
