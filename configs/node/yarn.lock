@@ -2307,10 +2307,10 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
-pnpm@^4.14.0:
-  version "4.14.4"
-  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-4.14.4.tgz#86d416ab942ad6422221a2613ed01fee848f9479"
-  integrity sha512-AH+vcfKJIlfKznH2vZj83utJ9g4vHjBK982OdinnBfWvYpHQ8opEMr9g1evAwlCW0Oim6V0sdolFvmV5AXc3Zw==
+pnpm@^6.15.1:
+  version "6.15.1"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-6.15.1.tgz#2f5983e05ee85c36d1166f6f81dcad1c996f7d10"
+  integrity sha512-hYGK8xlLdMj/sFhOLJ+x8IotsOkBp01c2mdWdLeKlUdA6EOl/RNWRp+7dUWs3Si2E1zgdTiHsEgNGYffv0PyLQ==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
