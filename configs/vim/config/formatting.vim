@@ -48,11 +48,21 @@ set laststatus=2
 
 
 " auto-format
-autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000)
+" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000)
+" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000)
+" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
+" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000)
+"
+" autocmd BufWritePre *.css lua vim.lsp.buf.formatting_sync(nil, 1000)
+" autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+" autocmd BufWritePre *.js <cmd>EslintFixAll<cr>
+autocmd BufWritePre *.ts :EslintFixAll
+autocmd BufWritePre *.tsx :EslintFixAll
+" autocmd BufWritePre *.jsx <cmd>EslintFixAll<cr>
+
+
 autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)

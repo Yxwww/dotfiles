@@ -9,6 +9,7 @@ Plug 'nvim-lua/plenary.nvim'
 
 " telescope
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
 
 " MARK: Status line
 Plug 'nvim-lualine/lualine.nvim'
@@ -17,7 +18,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree'
 
 " MARK: TMUX
-Plug 'christoomey/vim-tmux-navigator'
+" Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'tpope/vim-rhubarb'
@@ -74,7 +75,6 @@ let g:mapleader = ","
 let vim_deps = [
       \ 'theme', 'wiki', 'abbreviation',
       \ 'plugin_config', 
-      \ 'terminal', 
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 

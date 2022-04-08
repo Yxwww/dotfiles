@@ -204,6 +204,9 @@
   "editor.fontSize": 14,
   "git.confirmSync": false,
   "editor.accessibilitySupport": "off",
-  "window.zoomLevel": 1,
-  "redhat.telemetry.enabled": false
+  "redhat.telemetry.enabled": false,
+  "terminal.integrated.env.osx": {
+    "FIG_NEW_SESSION": "1"
+  },
+  "window.zoomLevel": 1
 }

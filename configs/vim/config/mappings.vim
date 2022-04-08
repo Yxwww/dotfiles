@@ -13,10 +13,14 @@ nnoremap <Leader>s :update<CR>
 nnoremap <Leader>x :xit<CR>j
 nnoremap <Leader>q :quit<CR>
 
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+" nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+" nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 set hlsearch
 nnoremap <f3> :set hlsearch!<cr>
@@ -75,7 +79,8 @@ nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
 
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap L <cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>
-nnoremap [e <cmd>lua vim.lsp.diagnostic.goto_prev({ border = "rounded" })<CR>
-nnoremap e] <cmd>lua vim.lsp.diagnostic.goto_next({ border = "rounded" })<CR>
+nnoremap L <cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>
+nnoremap [e <cmd>lua vim.diagnostic.goto_prev()<CR>
+nnoremap e] <cmd>lua vim.diagnostic.goto_next()<CR>
+nnoremap fe <cmd>lua vim.lsp.buf.formatting()<CR>
 nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>

@@ -11,3 +11,17 @@ target
 .next
 .node-version
 .git
+.lintstagedrc
+.husky
+firebase-debug.log
+
+# Yarn v2
+# https://yarnpkg.com/advanced/qa#which-files-should-be-gitignored
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+

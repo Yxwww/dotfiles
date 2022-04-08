@@ -7,6 +7,9 @@ set autoread 			       " set to auto read when a file is changed from the outsid
 
 set switchbuf=usetab                  " try to reuse windows/tabs when switching buffers
 
+set autoindent
+set smartindent
+
 if !has('nvim')
 	set ttymouse=xterm2
 	set highlight+=@:ColorColumn          " ~/@ at end of window, 'showbreak'
@@ -85,3 +88,15 @@ endif
 set ignorecase " set default to case insensitive search. Use: \C at the end of search to enable case sensitivity
 
 set signcolumn=yes
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R>=&ic?'\c':'\C'<CR><C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gVzv:call setreg('"', old_reg, old_regtype)<CR>
