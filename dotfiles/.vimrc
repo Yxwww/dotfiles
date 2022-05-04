@@ -56,7 +56,6 @@ Plug 'rafamadriz/friendly-snippets'
 " syntax highlight
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'numToStr/Comment.nvim'
-Plug 'p00f/nvim-ts-rainbow'
 
 "Formatting
 Plug 'sbdchd/neoformat'
