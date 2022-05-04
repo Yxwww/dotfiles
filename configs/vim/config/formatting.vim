@@ -56,10 +56,10 @@ set laststatus=2
 " autocmd BufWritePre *.css lua vim.lsp.buf.formatting_sync(nil, 1000)
 " autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_sync(nil, 1000)
 
-" autocmd BufWritePre *.js <cmd>EslintFixAll<cr>
+autocmd BufWritePre *.js :EslintFixAll
 autocmd BufWritePre *.ts :EslintFixAll
 autocmd BufWritePre *.tsx :EslintFixAll
-" autocmd BufWritePre *.jsx <cmd>EslintFixAll<cr>
+autocmd BufWritePre *.jsx :EslintFixAll
 
 
 autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
