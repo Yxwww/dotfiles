@@ -373,12 +373,6 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/benimalish/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/path.zsh.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/Users/benimalish/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/benimalish/google-cloud-sdk/completion.zsh.inc'; fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
@@ -391,3 +385,5 @@ fpath+=~/.config/zsh/completions/_gh
 compinit
 
 eval "$(starship init zsh)"
+
+source ~/.zshrc_profile
