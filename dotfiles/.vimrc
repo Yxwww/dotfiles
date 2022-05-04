@@ -77,7 +77,7 @@ let vim_deps = [
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 
-let lua_deps = ['lsp/init', 'cmp', 'treesitter', 'telescope', 'lualine', 'comment']
+let lua_deps = ['cmp', 'lsp/init', 'treesitter', 'telescope', 'lualine', 'comment']
 
 
 " MARK: Soucing depdendencies
