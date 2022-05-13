@@ -22,7 +22,7 @@ cmp.setup({
     { name = 'path' },
     { name = 'nvim_lsp' },
     { name = 'luasnip' }, -- For luasnip users.
-    { name = 'ultisnips' }, -- For ultisnips users.
+    -- { name = 'ultisnips' }, -- For ultisnips users.
   }, {
     { name = 'buffer' },
   })

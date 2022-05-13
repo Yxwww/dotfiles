@@ -52,14 +52,17 @@ set laststatus=2
 " autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000)
 " autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
 " autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
+
 "
 " autocmd BufWritePre *.css lua vim.lsp.buf.formatting_sync(nil, 1000)
 " autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_sync(nil, 1000)
 
-autocmd BufWritePre *.js :EslintFixAll
-autocmd BufWritePre *.ts :EslintFixAll
-autocmd BufWritePre *.tsx :EslintFixAll
-autocmd BufWritePre *.jsx :EslintFixAll
+" autocmd BufWritePre *.js :EslintFixAll
+" autocmd BufWritePre *.ts :EslintFixAll
+" autocmd BufWritePre *.tsx :EslintFixAll
+" autocmd BufWritePre *.jsx :EslintFixAll
 
 
 autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)

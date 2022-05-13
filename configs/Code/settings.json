@@ -4,13 +4,12 @@
   "breadcrumbs.enabled": true,
   "editor.fontFamily": "'Monolisa', Consolas,Menlo, Monaco, 'Courier New', monospace",
   "editor.fontWeight": "400",
-  "editor.autoIndent": true,
+  "editor.autoIndent": "full",
   "editor.autoFixOnSave": false,
   "editor.insertSpaces": false,
   "editor.fontLigatures": true,
   "terminal.integrated.fontSize": 13,
   "editor.minimap.enabled": false,
-  "editor.renderIndentGuides": false,
   "files.insertFinalNewline": true,
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
@@ -153,7 +152,7 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
-  "workbench.colorTheme": "Nord",
+  "workbench.colorTheme": "Night Owl Light",
   "editor.formatOnSave": true,
   "editor.smoothScrolling": true,
   "zenMode.hideLineNumbers": false,
@@ -196,7 +195,7 @@
   "workbench.preferredDarkColorTheme": "Nord",
   "editor.inlineSuggest.enabled": true,
   "window.autoDetectColorScheme": true,
-  "workbench.preferredLightColorTheme": "Nord",
+  "workbench.preferredLightColorTheme": "Night Owl Light",
   "svelte.enable-ts-plugin": true,
   "git.autofetch": true,
   "vim.highlightedyank.enable": true,
@@ -208,5 +207,6 @@
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
+  "editor.guides.indentation": false,
   "window.zoomLevel": 1
 }
