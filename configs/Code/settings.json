@@ -207,6 +207,5 @@
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
-  "editor.guides.indentation": false,
-  "window.zoomLevel": 1
+  "editor.guides.indentation": false
 }
