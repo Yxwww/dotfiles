@@ -18,7 +18,7 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree'
 
 " MARK: TMUX
-" Plug 'christoomey/vim-tmux-navigator'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
 Plug 'tpope/vim-rhubarb'
@@ -42,15 +42,16 @@ Plug 'folke/tokyonight.nvim', { 'branch': 'main' }
 " lsp
 Plug 'neovim/nvim-lspconfig'
 Plug 'williamboman/nvim-lsp-installer'
-Plug 'hrsh7th/nvim-cmp' " The completion 
-Plug 'hrsh7th/cmp-buffer' " buffer completions
-Plug 'hrsh7th/cmp-path' " path completions
-Plug 'hrsh7th/cmp-cmdline' " cmdline completions
-Plug 'saadparwaiz1/cmp_luasnip' " snippet completions
 Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp' " The completion 
+
 
 " snippet
 Plug 'L3MON4D3/LuaSnip'
+Plug 'saadparwaiz1/cmp_luasnip' " snippet completions
 Plug 'rafamadriz/friendly-snippets'
 
 " syntax highlight
