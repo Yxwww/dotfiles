@@ -41,23 +41,9 @@ endfunction
 set laststatus=2
 
 
-" autocmd BufWritePre *.{js,ts,tsx,jsx} Neoformat
-" let g:neoformat_try_formatprg = 1
-" let g:neoformat_verbose = 1
-" let g:neoformat_enabled_typescript = ['prettier']
+autocmd BufWritePre *.{js,ts,tsx,jsx} :EslintFixAll
+autocmd BufWritePre * lua vim.lsp.buf.formatting();
 
-
-" auto-format
-" autocmd BufWritePre *.js lua vim.lsp.buf.formatting_sync(nil, 1000)
-" autocmd BufWritePre *.ts lua vim.lsp.buf.formatting_sync(nil, 1000)
-" autocmd BufWritePre *.tsx lua vim.lsp.buf.formatting_sync(nil, 1000)
-" autocmd BufWritePre *.jsx lua vim.lsp.buf.formatting_sync(nil, 1000)
-
-autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
-
-"
-" autocmd BufWritePre *.css lua vim.lsp.buf.formatting_sync(nil, 1000)
-" autocmd BufWritePre *.scss lua vim.lsp.buf.formatting_sync(nil, 1000)
 
 " autocmd BufWritePre *.js :EslintFixAll
 " autocmd BufWritePre *.ts :EslintFixAll
@@ -65,10 +51,10 @@ autocmd BufWritePre * lua vim.lsp.buf.formatting_sync()
 " autocmd BufWritePre *.jsx :EslintFixAll
 
 
-autocmd BufWritePre *.json lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufWritePre *.json lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.lua lua vim.lsp.buf.formatting()
+autocmd BufWritePre *.py lua vim.lsp.buf.formatting()
 
 autocmd BufRead,BufNewFile */node_modules/* lua vim.diagnostic.disable(0)
 
