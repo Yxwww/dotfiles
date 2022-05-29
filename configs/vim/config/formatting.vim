@@ -70,4 +70,6 @@ autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
 autocmd BufWritePre *.py lua vim.lsp.buf.formatting_sync(nil, 1000)
 
+autocmd BufRead,BufNewFile */node_modules/* lua vim.diagnostic.disable(0)
+
 
