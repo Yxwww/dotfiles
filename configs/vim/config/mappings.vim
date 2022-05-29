@@ -27,7 +27,8 @@ nnoremap <f3> :set hlsearch!<cr>
 
 nmap <leader>gs :Git<cr>
 nmap <leader>gp! :Git push<cr>
-nmap <leader>go :!gh repo view --web<cr>
+" nmap <leader>go :!gh repo view --web<cr>
+nmap <leader>go :GBrowse<cr>
 nmap <leader>gc :Git commit<cr>
 nmap <leader>fy :!yarn lint:format:fixcr>
 nmap <leader>ga :Gwrite<cr>
