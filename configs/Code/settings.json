@@ -9,7 +9,6 @@
   "editor.insertSpaces": false,
   "editor.fontLigatures": true,
   "terminal.integrated.fontSize": 13,
-  "editor.minimap.enabled": false,
   "files.insertFinalNewline": true,
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
@@ -152,8 +151,8 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
-  "workbench.colorTheme": "Night Owl Light",
-  "editor.formatOnSave": true,
+  "workbench.colorTheme": "Tokyo Night",
+  // "editor.formatOnSave": true,
   "editor.smoothScrolling": true,
   "zenMode.hideLineNumbers": false,
   "editor.lineNumbers": "relative",
@@ -195,17 +194,29 @@
   "workbench.preferredDarkColorTheme": "Nord",
   "editor.inlineSuggest.enabled": true,
   "window.autoDetectColorScheme": true,
-  "workbench.preferredLightColorTheme": "Night Owl Light",
+  "workbench.preferredLightColorTheme": "Tokyo Night",
   "svelte.enable-ts-plugin": true,
   "git.autofetch": true,
   "vim.highlightedyank.enable": true,
   "terminal.integrated.tabs.enabled": false,
-  "editor.fontSize": 14,
+  "editor.fontSize": 15,
   "git.confirmSync": false,
   "editor.accessibilitySupport": "off",
   "redhat.telemetry.enabled": false,
   "terminal.integrated.env.osx": {
     "FIG_NEW_SESSION": "1"
   },
-  "editor.guides.indentation": false
+  "editor.guides.indentation": false,
+  "editor.minimap.enabled": false,
+  "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    },
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingDelete": "never",
+    "editor.autoClosingOvertype": "never",
+    "editor.autoClosingQuotes": "never",
+    "html.autoClosingTags": false,
+    "javascript.autoClosingTags": false,
+    "typescript.autoClosingTags": false,
 }

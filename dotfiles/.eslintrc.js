@@ -5,7 +5,7 @@ module.exports = {
     node: true,
   },
   plugins: ['@typescript-eslint'],
-  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint', ],
+  extends: ['eslint:recommended', 'plugin:react/recommended', 'plugin:@typescript-eslint/recommended', 'prettier/@typescript-eslint',],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
