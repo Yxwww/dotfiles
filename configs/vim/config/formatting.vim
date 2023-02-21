@@ -40,22 +40,6 @@ endfunction
 " Always show the status line
 set laststatus=2
 
-
-autocmd BufWritePre *.{js,ts,tsx,jsx} :EslintFixAll
-autocmd BufWritePre * lua vim.lsp.buf.formatting();
-
-
-" autocmd BufWritePre *.js :EslintFixAll
-" autocmd BufWritePre *.ts :EslintFixAll
-" autocmd BufWritePre *.tsx :EslintFixAll
-" autocmd BufWritePre *.jsx :EslintFixAll
-
-
-autocmd BufWritePre *.json lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.svelte lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.lua lua vim.lsp.buf.formatting()
-autocmd BufWritePre *.py lua vim.lsp.buf.formatting()
-
-autocmd BufRead,BufNewFile */node_modules/* lua vim.diagnostic.disable(0)
+autocmd BufRead,BufNewFile **/node_modules/** :LspStop
 
 

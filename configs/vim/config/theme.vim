@@ -41,7 +41,7 @@ else
   endif
 
   try
-    set background=light
+    set background=dark
     colorscheme tokyonight
   catch /^Vim\%((\a\+)\)\=:E185/
     colorscheme default

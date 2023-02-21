@@ -44,7 +44,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
-" Plug 'williamboman/nvim-lsp-installer'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -62,7 +61,7 @@ Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'numToStr/Comment.nvim'
 
 "Formatting
-Plug 'sbdchd/neoformat'
+Plug 'jose-elias-alvarez/null-ls.nvim'
 
 call plug#end()
 
@@ -81,7 +80,7 @@ let vim_deps = [
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 
-let lua_deps = ['cmp', 'lsp/init', 'luasnip' , 'treesitter', 'telescope', 'lualine', 'comment']
+let lua_deps = ['cmp', 'lsp/init', 'lsp/formatting',  'luasnip' , 'treesitter', 'telescope', 'lualine', 'comment']
 
 
 " MARK: Soucing depdendencies
