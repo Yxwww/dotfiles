@@ -1566,9 +1566,9 @@ html-encoding-sniffer@^1.0.2:
     whatwg-encoding "^1.0.1"
 
 http-cache-semantics@^4.0.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.0.tgz#49e91c5cbf36c9b94bcfcd71c23d5249ec74e390"
-  integrity sha512-carPklcUh7ROWRK7Cv27RPtdhYhUsela/ue5/jKzjegVvXDqM2ILE9Q2BGn9JZJh1g87cp56su/FgQSzcWS8cQ==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/http-cache-semantics/-/http-cache-semantics-4.1.1.tgz#abe02fcb2985460bf0323be664436ec3476a6d5a"
+  integrity sha512-er295DKPVsV82j5kw1Gjt+ADA/XYHsajl82cGNQG2eyoPkvgUhX+nDIyelzhIWbbsXP39EHcI6l5tYs2FYqYXQ==
 
 http-signature@~1.2.0:
   version "1.2.0"
@@ -2497,10 +2497,10 @@ pn@^1.1.0:
   resolved "https://registry.yarnpkg.com/pn/-/pn-1.1.0.tgz#e2f4cef0e219f463c179ab37463e4e1ecdccbafb"
   integrity sha512-2qHaIQr2VLRFoxe2nASzsV6ef4yOOH+Fi9FBOVH6cqeSgUnoyySPZkxzLuzd+RYOQTRpROA0ztTMqxROKSb/nA==
 
-pnpm@^4.14.0:
-  version "4.14.4"
-  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-4.14.4.tgz#86d416ab942ad6422221a2613ed01fee848f9479"
-  integrity sha512-AH+vcfKJIlfKznH2vZj83utJ9g4vHjBK982OdinnBfWvYpHQ8opEMr9g1evAwlCW0Oim6V0sdolFvmV5AXc3Zw==
+pnpm@^7.0.0:
+  version "7.27.1"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-7.27.1.tgz#75c15a7a16389531192dab282e45aacdac1ed4c0"
+  integrity sha512-IpBeZ+71slENbuOXwbV4U6yxOMfEWEvlVuT6+ChZ1D80oF0eHyN4h/hc13UrzVXpXI3bf7sPfRWGb8TYkrvJUA==
 
 prelude-ls@~1.1.2:
   version "1.1.2"
