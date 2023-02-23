@@ -20,7 +20,6 @@ Plug 'scrooloose/nerdtree'
 " MARK: TMUX
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
-Plug 'rbong/vim-flog'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'ctrlpvim/ctrlp.vim'
@@ -57,6 +56,7 @@ Plug 'saadparwaiz1/cmp_luasnip' " snippet completions
 Plug 'rafamadriz/friendly-snippets'
 
 " syntax highlight
+Plug 'sheerun/vim-polyglot'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'numToStr/Comment.nvim'
 
