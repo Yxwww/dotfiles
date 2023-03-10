@@ -84,4 +84,4 @@ nnoremap L <cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>
 nnoremap [e <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap e] <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap fe <cmd>lua vim.lsp.buf.formatting()<CR>
-nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+" nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
