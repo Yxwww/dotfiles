@@ -209,14 +209,16 @@
   "editor.guides.indentation": false,
   "editor.minimap.enabled": false,
   "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
-    "editor.codeActionsOnSave": {
-      "source.fixAll.eslint": true
-    },
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingDelete": "never",
-    "editor.autoClosingOvertype": "never",
-    "editor.autoClosingQuotes": "never",
-    "html.autoClosingTags": false,
-    "javascript.autoClosingTags": false,
-    "typescript.autoClosingTags": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "editor.autoClosingBrackets": "never",
+  "editor.autoClosingDelete": "never",
+  "editor.autoClosingOvertype": "never",
+  "editor.autoClosingQuotes": "never",
+  "html.autoClosingTags": false,
+  "javascript.autoClosingTags": false,
+  "typescript.autoClosingTags": false,
+  "editor.formatOnSave": true,
+  "window.zoomLevel": -1
 }

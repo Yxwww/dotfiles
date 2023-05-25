@@ -13,6 +13,12 @@ nnoremap <Leader>s :update<CR>
 nnoremap <Leader>x :xit<CR>j
 nnoremap <Leader>q :quit<CR>
 
+" Remap j,k enables to move between display lines. Easier for editing contents
+nnoremap j gj
+nnoremap k gk
+nnoremap gj j
+nnoremap gk k
+
 nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>

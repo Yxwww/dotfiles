@@ -20,6 +20,7 @@ Plug 'scrooloose/nerdtree'
 " MARK: TMUX
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
+Plug 'rbong/vim-flog'
 Plug 'tpope/vim-rhubarb'
 
 Plug 'ctrlpvim/ctrlp.vim'
