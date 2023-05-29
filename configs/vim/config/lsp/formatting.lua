@@ -32,18 +32,18 @@ local null_ls = require("null-ls")
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local sources = {
   null_ls.builtins.formatting.stylua,
-  -- null_ls.builtins.diagnostics.eslint,
+  null_ls.builtins.diagnostics.eslint,
   -- null_ls.builtins.completion.spell,
   -- null_ls.builtins.formatting.prettier,
-  null_ls.builtins.formatting.eslint_d,
-  -- null_ls.builtins.formatting.prettier.with({
-  --   env = {
-  --     PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.prettierrc.js"),
-  --   },
-  --   filetypes = {
-  --     "javascript", "typescript", "typescriptreact", "css", "scss", "html", "json", "yaml", "markdown", "graphql", "md", "txt",
-  --   },
-  -- }),
+  -- null_ls.builtins.formatting.eslint_d,
+  null_ls.builtins.formatting.prettier.with({
+    env = {
+      PRETTIERD_DEFAULT_CONFIG = vim.fn.expand("~/.prettierrc.js"),
+    },
+    filetypes = {
+      "javascript", "typescript", "typescriptreact", "css", "scss", "html", "json", "yaml", "markdown", "graphql", "md", "txt",
+    },
+  }),
 }
 
 require("null-ls").setup({
