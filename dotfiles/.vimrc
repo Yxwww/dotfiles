@@ -27,12 +27,14 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
+Plug 'windwp/nvim-autopairs'
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-repeat'
 
-Plug 'vimwiki/vimwiki'
+" Plug 'vimwiki/vimwiki'
 
 
 " Theme
@@ -44,6 +46,11 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'williamboman/mason.nvim'
 Plug 'williamboman/mason-lspconfig.nvim'
 Plug 'neovim/nvim-lspconfig'
+Plug 'nvimdev/lspsaga.nvim'
+Plug 'lewis6991/gitsigns.nvim'
+
+
+
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-buffer'
 Plug 'hrsh7th/cmp-path'
@@ -81,8 +88,7 @@ let vim_deps = [
       \ 'mappings', 'general', 'formatting', 'tmux', 'plugins/fzf_config',
       \ 'misc']
 
-let lua_deps = ['cmp', 'lsp/init', 'lsp/formatting',  'luasnip' , 'treesitter', 'telescope', 'lualine', 'comment']
-
+let lua_deps = ['cmp', 'lsp/init', 'lsp/formatting',  'luasnip' , 'treesitter', 'telescope', 'lualine', 'comment', 'common']
 
 " MARK: Soucing depdendencies
 function! SourceIfExists(path) 

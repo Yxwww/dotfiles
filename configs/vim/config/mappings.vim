@@ -1,7 +1,7 @@
 nnoremap <leader>- :edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>
 
 " MARK: Makefile
-nnoremap <C-b> :!yarn build <cr>
+" nnoremap <C-b> :!yarn build <cr>
 " nnoremap <C-r> :make run <cr>
 
 " open messages
@@ -14,19 +14,19 @@ nnoremap <Leader>x :xit<CR>j
 nnoremap <Leader>q :quit<CR>
 
 " Remap j,k enables to move between display lines. Easier for editing contents
-nnoremap j gj
-nnoremap k gk
-nnoremap gj j
-nnoremap gk k
+" nnoremap j gj
+" nnoremap k gk
+" nnoremap gj j
+" nnoremap gk k
 
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-" nnoremap <C-h> <C-w>h
-" nnoremap <C-j> <C-w>j
-" nnoremap <C-k> <C-w>k
-" nnoremap <C-l> <C-w>l
+" nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+" nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+" nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+" nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 set hlsearch
 nnoremap <f3> :set hlsearch!<cr>
@@ -36,7 +36,7 @@ nmap <leader>gp! :Git push<cr>
 " nmap <leader>go :!gh repo view --web<cr>
 nmap <leader>go :GBrowse<cr>
 nmap <leader>gc :Git commit<cr>
-nmap <leader>fy :!yarn lint:format:fixcr>
+nmap <leader>fy :!yarn lint:format:fix<cr>
 nmap <leader>ga :Gwrite<cr>
 nmap <leader>gl :Glog<cr>
 nmap <leader>gd :Gdiff<cr>
@@ -85,9 +85,11 @@ nnoremap rn <cmd>lua vim.lsp.buf.rename()<CR>
 " tsserver code action supports auto import
 nnoremap ca <cmd>lua vim.lsp.buf.code_action()<CR> 
 
+
+nmap <leader>la :Lspsaga code_action<cr>
 nnoremap K <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap L <cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>
 nnoremap [e <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap e] <cmd>lua vim.diagnostic.goto_next()<CR>
-nnoremap fe <cmd>lua vim.lsp.buf.formatting()<CR>
+nnoremap fe <cmd>lua vim.lsp.buf.format()<CR>
 " nnoremap <C-k> <cmd>lua vim.lsp.buf.signature_help()<CR>

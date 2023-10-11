@@ -12,7 +12,6 @@ target
 .node-version
 .git
 .lintstagedrc
-.husky
 firebase-debug.log
 
 # Yarn v2
@@ -26,3 +25,4 @@ firebase-debug.log
 !.yarn/versions
 
 .turbo
+.vercel

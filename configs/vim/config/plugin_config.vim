@@ -5,4 +5,5 @@ nnoremap <leader>nf :NERDTreeFind<CR>
 let g:NERDTreeMinimalUI=1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\.DS_Store$'] " ignore files in nerd tree
+let g:NERDTreeWinPos = "right"
 

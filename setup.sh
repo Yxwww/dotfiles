@@ -8,6 +8,10 @@ setup_zsh_prompt() {
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
+setup_zellij() {
+  ln -sf ~/.config/zellij/config.kdl ./configs/zellij/config.kdl 
+}
+
 setup_js() {
   brew install yarn
 }

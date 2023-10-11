@@ -8,7 +8,6 @@
   "editor.autoFixOnSave": false,
   "editor.insertSpaces": false,
   "editor.fontLigatures": true,
-  "terminal.integrated.fontSize": 13,
   "files.insertFinalNewline": true,
   // Configure glob patterns for excluding files and folders.
   "files.exclude": {
@@ -29,16 +28,40 @@
   "vim.hlsearch": true,
   "vim.visualstar": true,
   "vim.normalModeKeyBindingsNonRecursive": [
+    // add shortcut to focus the global search result list
     {
-      "before": ["leader", "d"],
-      "after": ["d", "d"]
-    },
-    {
-      "before": ["<C-n>"],
+      "before": ["<leader>", "f", "f"],
       "after": [],
       "commands": [
         {
-          "command": ":nohl"
+          // open file search tool like command + p
+          "command": "workbench.action.quickOpen",
+          "when": "editorFocus"
+        }
+      ]
+    },
+    {
+      "before": ["<leader>", "f", "g"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.action.focusActiveEditorGroup",
+          "when": "editorFocus"
+        },
+        {
+          "command": "workbench.action.findInFiles",
+          "when": "editorFocus"
+        }
+      ]
+    },
+
+    {
+      "before": ["leader", "q"],
+      "after": [],
+      "commands": [
+        {
+          // close current tab
+          "command": "workbench.action.closeActiveEditor"
         }
       ]
     },
@@ -72,29 +95,28 @@
       ]
     },
     {
-      "before": ["ctrl", "n"],
-      "after": [],
-      "commands": [
-        {
-          "command": "editor.action.marker.next"
-        }
-      ]
-    },
-    {
-      "before": ["ctrl", "p"],
-      "after": [],
-      "commands": [
-        {
-          "command": "editor.action.marker.prev"
-        }
-      ]
-    },
-    {
       "before": ["g", "r"],
       "after": [],
       "commands": [
         {
-          "command": "editor.action.goToReferences"
+          // open reference list
+          "command": "editor.action.referenceSearch.trigger"
+        }
+      ]
+    },
+
+    // MARK: GIT
+    {
+      "before": ["leader", "g", "c"],
+      "after": [],
+      "commands": [
+        {
+          "command": "workbench.view.scm",
+          "when": "workbench.scm.active"
+        },
+        // focus on the sidebar
+        {
+          "command": "workbench.action.focusSideBar"
         }
       ]
     },
@@ -109,12 +131,26 @@
       ]
     },
     {
-      "before": ["leader", "g", "n"],
+      "before": ["leader", "r", "n"],
       "after": [],
       "commands": [
         {
           "command": "editor.action.rename"
         }
+      ]
+    },
+    {
+      "before": ["leader", "n", "e"],
+      "after": [],
+      "commands": [
+        // toggle the sidebar and focus on it if when the sidebar is open
+        {
+          "command": "workbench.action.toggleSidebarVisibility"
+        }
+        // {
+        //   "command": "workbench.action.focusSideBar",
+        //   "when": "sideBarVisible"
+        // }
       ]
     },
     {
@@ -151,8 +187,11 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
-  "workbench.colorTheme": "Tokyo Night",
-  // "editor.formatOnSave": true,
+  "workbench.colorTheme": "Tokyo Night Light",
+  // change active border color to bright yellow
+  "workbench.colorCustomizations": {
+    "focusBorder": "#f6f65a"
+  },
   "editor.smoothScrolling": true,
   "zenMode.hideLineNumbers": false,
   "editor.lineNumbers": "relative",
@@ -194,7 +233,7 @@
   "workbench.preferredDarkColorTheme": "Nord",
   "editor.inlineSuggest.enabled": true,
   "window.autoDetectColorScheme": true,
-  "workbench.preferredLightColorTheme": "Tokyo Night",
+  "workbench.preferredLightColorTheme": "Tokyo Night Light",
   "svelte.enable-ts-plugin": true,
   "git.autofetch": true,
   "vim.highlightedyank.enable": true,
@@ -220,5 +259,15 @@
   "javascript.autoClosingTags": false,
   "typescript.autoClosingTags": false,
   "editor.formatOnSave": true,
-  "window.zoomLevel": -1
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "terminal.integrated.fontSize": 14,
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false
+  },
+  "gitlens.mode.active": "zen"
 }
