@@ -65,6 +65,7 @@ Plug 'rafamadriz/friendly-snippets'
 
 " syntax highlight
 Plug 'sheerun/vim-polyglot'
+Plug 'imsnif/kdl.vim'
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'numToStr/Comment.nvim'
 
