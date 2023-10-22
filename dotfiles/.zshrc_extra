@@ -1,0 +1,17 @@
+# Write a function to run the right dev script based on whether it's npm, yarn, or pnpm
+function dev() {
+  if [ -f "package.json" ]; then
+    if [ -f "yarn.lock" ]; then
+      yarn dev
+    elif [ -f "pnpm-lock.yaml" ]; then
+      pnpm dev
+    else
+      npm run dev
+    fi
+  else
+    echo "No package.json found"
+  fi
+}
+# alias dev to call the dev function
+alias run_dev=dev
+

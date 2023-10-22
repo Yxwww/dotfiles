@@ -30,9 +30,9 @@ bindkey -M vicmd 'y' vi-yank-xclip
 # Make Vi mode transitions faster (KEYTIMEOUT is in hundredths of a second)
 export KEYTIMEOUT=1
 bindkey "^?" backward-delete-char
-bindkey "^W" backward-kill-word 
+bindkey "^W" backward-kill-word
 bindkey "^H" backward-delete-char      # Control-h also deletes the previous char
-bindkey "^U" backward-kill-line  
+bindkey "^U" backward-kill-line
 
 
 ## fzf git completion
@@ -319,7 +319,7 @@ alias gtv='git tag | sort -V'
 # zsh config
 setopt auto_cd
 
-# richer file/dir name auto complete 
+# richer file/dir name auto complete
 zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 autoload -Uz compinit
@@ -379,7 +379,7 @@ export PATH="$HOME/.deno/bin:$PATH"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
+export PNPM_HOME="/Users/yuxiwang/Library/pnpmnk"
 export PATH="$PNPM_HOME:$PATH"
 
 eval "$(fnm env)"
@@ -391,3 +391,4 @@ compinit
 eval "$(starship init zsh)"
 
 source ~/.zshrc_profile
+source ~/.zshrc_extra
