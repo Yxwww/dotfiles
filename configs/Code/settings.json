@@ -187,6 +187,7 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
+  "workbench.colorTheme": "Nord",
   // change active border color to bright yellow
   "workbench.colorCustomizations": {
     "focusBorder": "#f6f65a"
