@@ -170,7 +170,7 @@ zle -N zle-keymap-select
 
 #ZSH_THEME=pygmalion
 
-plugins=(git)
+plugins=(git, fzf)
 
 # Add env.sh
 #source ~/Projects/config/env.sh
@@ -199,14 +199,6 @@ export PATH=/usr/local/bin:$PATH
 if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/key-bindings.zsh
   source /usr/local/opt/fzf/shell/completion.zsh
-fi
-
-# fzf via local installation
-if [ -e ~/.fzf ]; then
-  path+=('~/.fzf/bin')
-  # _append_to_path ~/.fzf/bin
-  source ~/.fzf/shell/key-bindings.zsh
-  source ~/.fzf/shell/completion.zsh
 fi
 
 # fzf + ag configuration
@@ -382,8 +374,8 @@ export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 
-eval "$(fnm env)"
 
+eval "$(fnm env)"
 fpath+=~/.config/zsh/completions/_fnm
 fpath+=~/.config/zsh/completions/_gh
 compinit
@@ -391,3 +383,11 @@ compinit
 eval "$(starship init zsh)"
 
 source ~/.zshrc_profile
+
+# pnpm
+export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end

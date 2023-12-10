@@ -187,7 +187,6 @@
   },
   "workbench.editor.showIcons": false,
   "material-icon-theme.activeIconPack": "react_redux",
-  "workbench.colorTheme": "Tokyo Night Light",
   // change active border color to bright yellow
   "workbench.colorCustomizations": {
     "focusBorder": "#f6f65a"
@@ -210,13 +209,13 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[html]": {
     "editor.tabSize": 2
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "tailwindCSS.colorDecorators": true,
   "tailwindCSS.emmetCompletions": true,
@@ -238,7 +237,6 @@
   "git.autofetch": true,
   "vim.highlightedyank.enable": true,
   "terminal.integrated.tabs.enabled": false,
-  "editor.fontSize": 15,
   "git.confirmSync": false,
   "editor.accessibilitySupport": "off",
   "redhat.telemetry.enabled": false,
@@ -258,7 +256,6 @@
   "html.autoClosingTags": false,
   "javascript.autoClosingTags": false,
   "typescript.autoClosingTags": false,
-  "editor.formatOnSave": true,
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -269,5 +266,8 @@
     "markdown": false,
     "scminput": false
   },
-  "gitlens.mode.active": "zen"
+  "gitlens.mode.active": "zen",
+  "editor.fontSize": 14,
+  "workbench.colorTheme": "Nord",
+  "git.openRepositoryInParentFolders": "never"
 }

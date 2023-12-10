@@ -7,7 +7,7 @@ mkdir -p $GIT_CONFIG_DIR
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
 # coc-settings
-ln -sf "$(pwd)"/configs/vim/coc-settings.json ~/.config/nvim/
+ln -snf "$(pwd)"/configs/nvim/init.vim ~/.config/nvim/
 
 # vim deps
 ln -snf "$(pwd)"/configs/vim/config ~/.vim/config
@@ -38,5 +38,3 @@ ln -sf "$(pwd)"/configs/starship.toml ~/.config
 ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code/User/
 ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code/User/
 
-ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code\ -\ Insiders/User
-ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code\ -\ Insiders/User/
