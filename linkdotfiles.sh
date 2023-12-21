@@ -6,14 +6,10 @@ GIT_CONFIG_DIR=~/.config/git
 mkdir -p $GIT_CONFIG_DIR
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
-# coc-settings
+# nvim
 ln -snf "$(pwd)"/configs/nvim/init.vim ~/.config/nvim/
 
-# vim deps
-ln -snf "$(pwd)"/configs/vim/config ~/.vim/config
-mkdir -p ~/.config/nvim/after
-ln -snf "$(pwd)"/configs/vim/ftplugin ~/.config/nvim/after/ftplugin
-
+# iterm2
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
 
 # node

@@ -201,7 +201,7 @@
   // "eslint.codeActionsOnSave.mode": "problems",
   "[json]": {
     "editor.tabSize": 4,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -248,7 +248,7 @@
   "editor.minimap.enabled": false,
   "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
+    "source.fixAll.eslint": "explicit"
   },
   "editor.autoClosingBrackets": "never",
   "editor.autoClosingDelete": "never",
@@ -270,5 +270,6 @@
   "gitlens.mode.active": "zen",
   "editor.fontSize": 14,
   "workbench.colorTheme": "Nord",
-  "git.openRepositoryInParentFolders": "never"
+  "git.openRepositoryInParentFolders": "never",
+  "window.zoomLevel": 2
 }
