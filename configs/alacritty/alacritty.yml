@@ -92,8 +92,8 @@ font:
   # Font configuration
   # Normal (roman) font face
   normal:
-    # family: Monolisa
-    family: FiraMono Nerd Font
+    family: Monolisa
+    # family: FiraMono Nerd Font
     # Font family
     #
     # Default:
