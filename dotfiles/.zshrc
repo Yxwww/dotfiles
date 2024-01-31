@@ -375,7 +375,7 @@ export PNPM_HOME="/Users/yuxiwang/Library/pnpmnk"
 export PATH="$PNPM_HOME:$PATH"
 
 
-eval "$(fnm env)"
+eval "$(fnm env --use-on-cd)"
 fpath+=~/.config/zsh/completions/_fnm
 fpath+=~/.config/zsh/completions/_gh
 compinit
