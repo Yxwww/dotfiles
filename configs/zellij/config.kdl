@@ -5,10 +5,14 @@ keybinds clear-defaults=true {
         // bind "Ctrl q" { Quit; }
         bind "Alt p" { GoToPreviousTab; SwitchToMode "Normal"; }
         bind "Alt n" { GoToNextTab; SwitchToMode "Normal"; }
-        bind "Alt h" "Alt Left" { MoveFocus "Left"; }
-        bind "Alt l" "Alt Right" { MoveFocus "Right"; }
-        bind "Alt j" "Alt Down" { MoveFocus "Down"; }
-        bind "Alt k" "Alt Up" { MoveFocus "Up"; }
+        bind "Alt h" { MoveFocus "Left"; }
+        bind "Alt l" { MoveFocus "Right"; }
+        bind "Alt j" { MoveFocus "Down"; }
+        bind "Alt k" { MoveFocus "Up"; }
+        bind "Alt Up" { Resize "Up"; }
+        bind "Alt Down" { Resize "Down"; }
+        bind "Alt Left" { Resize "Left"; }
+        bind "Alt Right" { Resize "Right"; }
         bind "Alt =" "Alt +" { Resize "Increase"; }
         bind "Alt -" { Resize "Decrease"; }
         bind "Alt [" { PreviousSwapLayout; }
