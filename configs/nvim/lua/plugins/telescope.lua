@@ -5,23 +5,24 @@ local actions = require('telescope.actions')require('telescope').setup{
     }
   }
 }
+-- local path_display = require("telescope.builtin").find_files{ path_display = { "truncate" } }
 
-local function filenameFirst(_, path)
-  local tail = vim.fs.basename(path)
-  local parent = vim.fs.dirname(path)
-  if parent == "." then return tail end
-  return string.format("%s\t\t%s", tail, parent)
-end
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "TelescopeResults",
-  callback = function(ctx)
-    vim.api.nvim_buf_call(ctx.buf, function()
-      vim.fn.matchadd("TelescopeParent", "\t\t.*$")
-      vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
-    end)
-  end,
-})
+-- local function filenameFirst(_, path)
+--   local tail = vim.fs.basename(path)
+--   local parent = vim.fs.dirname(path)
+--   if parent == "." then return tail end
+--   return string.format("%s\t\t%s", tail, parent)
+-- end
+--
+-- vim.api.nvim_create_autocmd("FileType", {
+--   pattern = "TelescopeResults",
+--   callback = function(ctx)
+--     vim.api.nvim_buf_call(ctx.buf, function()
+--       vim.fn.matchadd("TelescopeParent", "\t\t.*$")
+--       vim.api.nvim_set_hl(0, "TelescopeParent", { link = "Comment" })
+--     end)
+--   end,
+-- })
 
 
 return {
@@ -29,7 +30,8 @@ return {
     "nvim-telescope/telescope.nvim",
     opts = {
       defaults = {
-        path_display = filenameFirst,
+        path_display = { 'shorten' },
+        file_ignore_patterns = {"node_modules", "esm", "cjs", "dist"},
         mappings = {
           i = {
             ["<C-n>"] = actions.cycle_history_next,
