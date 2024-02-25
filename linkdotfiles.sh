@@ -7,7 +7,7 @@ mkdir -p $GIT_CONFIG_DIR
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
 # nvim
-ln -snf "$(pwd)"/configs/nvim ~/.config/nvim
+ln -snf "$(pwd)"/configs/nvim ~/.config
 
 # iterm2
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist

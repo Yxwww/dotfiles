@@ -298,6 +298,7 @@ eval "$(starship init zsh)"
 
 source ~/.zshrc_profile
 
+
 # pnpm
 export PNPM_HOME="/Users/yuxiwang/Library/pnpm"
 case ":$PATH:" in
