@@ -16,6 +16,7 @@ function dev() {
 alias run_dev=dev
 
 alias gpv="gh pr view --web"
+alias grv="gh repo view --web"
 # common aliases
 # alias l='ls -lFhG'
 alias l='exa --classify --all --long --header'
