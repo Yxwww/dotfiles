@@ -26,3 +26,6 @@ firebase-debug.log
 
 .turbo
 .vercel
+.yalc
+yalc.lock
+lerna-debug.log
