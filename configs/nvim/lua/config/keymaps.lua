@@ -25,4 +25,5 @@ vim.keymap.set("n", "<leader>gl", "<cmd>Git log<cr>", { desc = "Fugitive Log" })
 vim.keymap.set("n", "<leader>gd", "<cmd>Gdiff<cr>", { desc = "Diff current buffer" })
 
 vim.keymap.set("n", "C-g", "<cmd>Rg<cr>", { desc = "Rig Grep everything" })
+vim.keymap.set("n", ",fe", "<cmd>EslintFixAll<cr>", { desc = "Eslint fix everything" })
 

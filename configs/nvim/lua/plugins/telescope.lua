@@ -134,7 +134,7 @@ return {
 		--   },
     opts = {
       defaults = {
-        path_display = { 'shorten' },
+        path_display = { 'truncate' },
         file_ignore_patterns = {"node_modules", "esm", "cjs", "dist"},
         mappings = {
           i = {
