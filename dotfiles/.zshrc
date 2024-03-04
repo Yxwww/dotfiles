@@ -67,13 +67,13 @@ fco() {
   git checkout "$withoutOrigin"
 }
 zle -N fco
-bindkey "^b" fco
+bindkey "^p" fco
 
 viewPR() {
-  gh pr list | fzf --preview "gh pr view {+1}" | awk '{print $1}' | xargs gh pr view --web
+  gh pr list | fzf --preview "gh pr view {+1}" | awk '' | xargs gh pr view --web
 }
 zle -N viewPR
-bindkey "^p" viewPR
+bindkey "^o" viewPR
 
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
@@ -295,7 +295,7 @@ fpath+=~/.config/zsh/completions/_gh
 compinit
 
 eval "$(starship init zsh)"
-eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 source ~/.zshrc_profile
 

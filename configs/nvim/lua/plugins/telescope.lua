@@ -33,6 +33,7 @@ return {
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+      'andrew-george/telescope-themes',
       {
         "nvim-telescope/telescope-fzf-native.nvim",
         build = "make",
@@ -74,7 +75,9 @@ return {
               },
             },
           }
-          require("telescope").load_extension("file_browser")
+          local telescope = require('telescope')
+          telescope.load_extension("file_browser")
+          telescope.load_extension('themes')
         end
       }
     },
