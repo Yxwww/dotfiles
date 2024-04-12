@@ -1,13 +1,13 @@
 return {
   {
     "folke/noice.nvim",
-    opts = function (_, opts) 
+    opts = function(_, opts)
       table.insert(opts.routes, {
         filter = {
           event = "notify",
           find = "No information available",
         },
-        opts = {skip = true}
+        opts = { skip = true },
       })
 
       table.insert(opts.routes, {
@@ -15,7 +15,7 @@ return {
           event = "notify",
           find = "Plugin Updates",
         },
-        opts = {skip = true}
+        opts = { skip = true },
       })
 
       table.insert(opts.routes, {
@@ -23,14 +23,21 @@ return {
           event = "notify",
           find = "Detached buffer",
         },
-        opts = {skip = true}
+        opts = { skip = true },
       })
 
-
       opts.presets.lsp_doc_border = true
-    end
+    end,
   },
 
+  {
+    "folke/zen-mode.nvim",
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
+  },
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -80,5 +87,5 @@ return {
         show_close_icon = false,
       },
     },
-  }
+  },
 }

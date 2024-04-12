@@ -1,14 +1,18 @@
-local actions = require('telescope.actions')require('telescope').setup{
+local actions = require("telescope.actions")
+require("telescope").setup({
   pickers = {
+    current_buffer_fuzzy_find = {
+      previewer = false,
+    },
     buffers = {
-      sort_lastused = true
+      sort_lastused = true,
     },
     diagnostics = {
       theme = "ivy",
       initial_mode = "normal",
     },
-  }
-}
+  },
+})
 -- local path_display = require("telescope.builtin").find_files{ path_display = { "truncate" } }
 
 -- local function filenameFirst(_, path)
@@ -28,7 +32,6 @@ local actions = require('telescope.actions')require('telescope').setup{
 --   end,
 -- })
 
-
 return {
   {
     "nvim-telescope/telescope.nvim",
@@ -42,7 +45,7 @@ return {
       },
       -- {
       --   "nvim-telescope/telescope-file-browser.nvim",
-      --   config = function (_, opts) 
+      --   config = function (_, opts)
       --     local fb_actions = require("telescope").extensions.file_browser.actions
       --     opts.extensions =  {
       --       file_browser = {
@@ -104,39 +107,39 @@ return {
     --   }
     -- },
 
-		--   dependencies = {
-		-- 	{
-		-- 		"nvim-telescope/telescope-fzf-native.nvim",
-		-- 		build = "make",
-		-- 	},
-		-- 	"nvim-telescope/telescope-file-browser.nvim",
-		-- },
-		--   keys = {
-		-- 		";f",
-		-- 		function()
-		-- 			local telescope = require("telescope")
-		--
-		-- 			local function telescope_buffer_dir()
-		-- 				return vim.fn.expand("%:p:h")
-		-- 			end
-		--
-		-- 			telescope.extensions.file_browser.file_browser({
-		-- 				path = "%:p:h",
-		-- 				cwd = telescope_buffer_dir(),
-		-- 				respect_gitignore = false,
-		-- 				hidden = true,
-		-- 				grouped = true,
-		-- 				previewer = false,
-		-- 				initial_mode = "normal",
-		-- 				layout_config = { height = 40 },
-		-- 			})
-		-- 		end,
-		-- 		desc = "Open File Browser with the path of the current buffer",
-		--   },
+    --   dependencies = {
+    -- 	{
+    -- 		"nvim-telescope/telescope-fzf-native.nvim",
+    -- 		build = "make",
+    -- 	},
+    -- 	"nvim-telescope/telescope-file-browser.nvim",
+    -- },
+    --   keys = {
+    -- 		";f",
+    -- 		function()
+    -- 			local telescope = require("telescope")
+    --
+    -- 			local function telescope_buffer_dir()
+    -- 				return vim.fn.expand("%:p:h")
+    -- 			end
+    --
+    -- 			telescope.extensions.file_browser.file_browser({
+    -- 				path = "%:p:h",
+    -- 				cwd = telescope_buffer_dir(),
+    -- 				respect_gitignore = false,
+    -- 				hidden = true,
+    -- 				grouped = true,
+    -- 				previewer = false,
+    -- 				initial_mode = "normal",
+    -- 				layout_config = { height = 40 },
+    -- 			})
+    -- 		end,
+    -- 		desc = "Open File Browser with the path of the current buffer",
+    --   },
     opts = {
       defaults = {
-        path_display = { 'truncate' },
-        file_ignore_patterns = {"esm", "cjs", "dist"},
+        path_display = { "truncate" },
+        file_ignore_patterns = { "esm", "cjs", "dist" },
         mappings = {
           i = {
             ["<C-n>"] = actions.cycle_history_next,
@@ -155,17 +158,15 @@ return {
             ["<PageUp>"] = actions.results_scrolling_up,
             ["<PageDown>"] = actions.results_scrolling_down,
 
-            ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
-            ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+            -- ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+            -- ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
 
             ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
-          }
-        }
+          },
+        },
       },
-      
     },
   },
-
 
   -- add telescope-fzf-native
   -- {
@@ -178,5 +179,4 @@ return {
   --     end,
   --   },
   -- },
-
 }
