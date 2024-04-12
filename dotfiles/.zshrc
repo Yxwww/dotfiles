@@ -232,6 +232,7 @@ zstyle ':completion:*' completer _complete
 zstyle ':completion:*' matcher-list '' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' '+l:|=* r:|=*'
 autoload -Uz compinit
 compinit
+source ~/.zshrc_fnm
 
 bindkey '^[[Z' reverse-menu-complete # make Shift-tab go to previous completion
 
