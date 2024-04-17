@@ -1,10 +1,11 @@
 return {
-  { "tpope/vim-fugitive" },
-  { "tpope/vim-rhubarb" },
-  { "tpope/vim-repeat" },
+  { "tpope/vim-fugitive", event = "VeryLazy" },
+  { "tpope/vim-rhubarb", event = "VeryLazy" },
+  { "tpope/vim-repeat", event = "VeryLazy" },
 
   {
     "NeogitOrg/neogit",
+    event = "VeryLazy",
     dependencies = {
       "nvim-lua/plenary.nvim", -- required
       "sindrets/diffview.nvim", -- optional - Diff integration
