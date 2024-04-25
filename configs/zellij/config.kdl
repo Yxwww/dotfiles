@@ -5,6 +5,13 @@ keybinds clear-defaults=true {
         // bind "Ctrl q" { Quit; }
         bind "Alt p" { GoToPreviousTab; SwitchToMode "Normal"; }
         bind "Alt n" { GoToNextTab; SwitchToMode "Normal"; }
+
+        // kitty term sends these character when pressing alt + key. Map them to focus
+        bind "˙" { MoveFocus "Left"; }
+        bind "¬" { MoveFocus "right"; }
+        bind "∆" { MoveFocus "down"; }
+        bind "˚" { MoveFocus "up"; }
+
         bind "Alt h" { MoveFocus "Left"; }
         bind "Alt l" { MoveFocus "Right"; }
         bind "Alt j" { MoveFocus "Down"; }

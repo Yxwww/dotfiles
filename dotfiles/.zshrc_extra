@@ -19,9 +19,9 @@ alias gpv="gh pr view --web"
 alias grv="gh repo view --web"
 # common aliases
 # alias l='ls -lFhG'
-alias l='exa --classify --all --long --header'
+alias l='exa'
+alias ls='exa --classify --all --long --header'
 alias cat='bat'
-alias ls='exa'
 # git aliases
 alias ga='git add'
 alias gaa='git add --all'

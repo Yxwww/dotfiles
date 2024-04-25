@@ -4,7 +4,7 @@
 --
 
 -- Turn off autoformat for now.
--- vim.g.autoformat = false
+vim.g.autoformat = false
 
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },
