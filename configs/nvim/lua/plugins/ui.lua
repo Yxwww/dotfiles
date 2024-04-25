@@ -36,7 +36,7 @@ return {
       -- your configuration comes here
       -- or leave it empty to use the default settings
       -- refer to the configuration section below
-    }
+    },
   },
   {
     "b0o/incline.nvim",
@@ -87,5 +87,21 @@ return {
         show_close_icon = false,
       },
     },
+  },
+  {
+    "nvimdev/dashboard-nvim",
+    event = "VimEnter",
+    opts = function(_, opts)
+      local logo = [[
+██╗   ██╗██╗  ██╗██╗    ██╗
+╚██╗ ██╔╝╚██╗██╔╝██║    ██║
+ ╚████╔╝  ╚███╔╝ ██║ █╗ ██║
+  ╚██╔╝   ██╔██╗ ██║███╗██║
+   ██║   ██╔╝ ██╗╚███╔███╔╝
+   ╚═╝   ╚═╝  ╚═╝ ╚══╝╚══
+      ]]
+      logo = string.rep("\n", 8) .. logo .. "\n\n"
+      opts.config.header = vim.split(logo, "\n")
+    end,
   },
 }
