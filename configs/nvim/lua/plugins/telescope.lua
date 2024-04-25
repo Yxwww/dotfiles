@@ -1,6 +1,11 @@
 local actions = require("telescope.actions")
 require("telescope").setup({
   pickers = {
+    live_grep = {
+      additional_args = function(opts)
+        return { "--hidden" }
+      end,
+    },
     current_buffer_fuzzy_find = {
       previewer = false,
     },
