@@ -33,8 +33,9 @@ vim.keymap.set("n", "<leader>gd", function()
   require("mini.diff").toggle_overlay(0)
 end, { desc = "mini.diff" })
 
-vim.keymap.set("n", "C-g", "<cmd>Rg<cr>", { desc = "Rig Grep everything" })
-vim.keymap.set("n", ",fe", "<cmd>EslintFixAll<cr>", { desc = "Eslint fix everything" })
+vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
+vim.keymap.set("n", "<C-g>", "<cmd>Rg<cr>", { desc = "Rig Grep everything" })
+-- vim.keymap.set("n", ",fe", "<cmd>EslintFixAll<cr>", { desc = "Eslint fix everything" })
 
 -- trouble
 vim.keymap.set("n", "<leader>xx", function()
