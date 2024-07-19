@@ -2,9 +2,14 @@
 ln -sf "$(pwd)"/dotfiles/{*,.[^.],.??*} ~/
 
 # git ignore
-GIT_CONFIG_DIR=~/.config/git
+CONFIG_DIR=~/.config
+GIT_CONFIG_DIR=$CONFIG_DIR/git
 mkdir -p $GIT_CONFIG_DIR
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
+
+# zed
+ln -snf "$(pwd)"/configs/zed/keymap.json $CONFIG_DIR/zed
+ln -snf "$(pwd)"/configs/zed/settings.json $CONFIG_DIR/zed
 
 # nvim
 ln -snf "$(pwd)"/configs/nvim ~/.config

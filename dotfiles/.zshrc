@@ -186,6 +186,7 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 
+alias zellijsimple="zellij --layout ~/git/dotfiles/configs/zellij/layouts/base.kdl"
 alias zellijvs="zellij --layout ~/git/dotfiles/configs/zellij/layouts/vscodeterm.kdl"
 alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3.kdl"
 
