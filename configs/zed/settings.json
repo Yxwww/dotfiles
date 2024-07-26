@@ -7,13 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "theme": "Catppuccin Latte",
   "git": {
     "inline_blame": {
       "enabled": false
     }
   },
-  "ui_font_size": 20,
-  "buffer_font_size": 18,
+  "ui_font_size": 14,
+  "buffer_font_size": 16,
   "vim_mode": true,
   // disable cursor blink
   "cursor_blink": false,
