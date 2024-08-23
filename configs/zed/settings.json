@@ -24,7 +24,7 @@
   "buffer_font_size": 18,
   "vim_mode": true,
   // disable cursor blink
-  "cursor_blink": false,
+  "cursor_blink": true,
   // use relative line numbers
   "relative_line_numbers": true,
   // hide the scroll bar
@@ -34,5 +34,9 @@
   // allow cursor to reach edges of screen
   "vertical_scroll_margin": 0,
   "format_on_save": "on",
-  "buffer_font_family": "MonoLisa"
+  "buffer_font_family": "MonoLisa",
+  "features": {
+    "copilot": false
+    // "inline_completion_provider": "copilot"
+  }
 }
