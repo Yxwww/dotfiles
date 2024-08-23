@@ -7,14 +7,21 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "assistant": {
+    "default_model": {
+      "provider": "zed.dev",
+      "model": "claude-3-5-sonnet-20240620"
+    },
+    "version": "2"
+  },
   "theme": "Andromeda",
   "git": {
     "inline_blame": {
       "enabled": false
     }
   },
-  "ui_font_size": 14,
-  "buffer_font_size": 16,
+  "ui_font_size": 18,
+  "buffer_font_size": 18,
   "vim_mode": true,
   // disable cursor blink
   "cursor_blink": false,
