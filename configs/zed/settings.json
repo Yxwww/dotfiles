@@ -9,19 +9,23 @@
 {
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-20240620"
+      "provider": "copilot_chat",
+      "model": "gpt-4o"
     },
     "version": "2"
   },
-  "theme": "Andromeda",
+  "theme": {
+      "mode": "system",
+      "light": "Catppuccin Latte",
+      "dark": "Catppuccin Mocha"
+    },
   "git": {
     "inline_blame": {
       "enabled": false
     }
   },
-  "ui_font_size": 18,
-  "buffer_font_size": 18,
+  "ui_font_size": 16,
+  "buffer_font_size": 16,
   "vim_mode": true,
   // disable cursor blink
   "cursor_blink": true,
