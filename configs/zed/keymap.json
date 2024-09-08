@@ -8,6 +8,22 @@
     }
   },
   {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-s": "workspace::Save"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "space n e": "pane::RevealInProjectPanel",
+      "space e": "pane::RevealInProjectPanel",
+      "space c r": "editor::Rename",
+      "]d": "editor::GoToDiagnostic",
+      "[d": "editor::GoToPrevDiagnostic"
+    }
+  },
+  {
     "context": "Dock",
     "bindings": {
       "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],

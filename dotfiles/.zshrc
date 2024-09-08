@@ -67,13 +67,15 @@ fco() {
   git checkout "$withoutOrigin"
 }
 zle -N fco
-bindkey "^p" fco
+bindkey "^x^o" fco
 
 viewPR() {
-  gh pr list | fzf --preview "gh pr view {+1}" | awk '' | xargs gh pr view --web
+  gh pr list | fzf --preview "gh pr view {+1} | bat --color=always --style=plain --language=markdown" | awk '{print $1}' | xargs -I {} sh -c 'gh pr checkout {} && gh pr view {} --web'
 }
 zle -N viewPR
-# bindkey "^;" viewPR
+bindkey "^x^p" viewPR
+
+
 
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
@@ -212,6 +214,20 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   --color info:108,prompt:109,spinner:108,pointer:168,marker:168
   '
 fi
+
+# fzf search through file contents using rg
+fzf_search_contents() {
+  local file
+  file=$(rg --color=always --line-number --no-heading --smart-case "${*:-}" |
+    fzf --ansi \
+        --color "hl:-1:underline,hl+:-1:underline:reverse" \
+        --delimiter : \
+        --preview 'bat --color=always {1} --highlight-line {2}' \
+        --preview-window 'up,60%,border-bottom,+{2}+3/3,~3' \
+        --bind 'enter:become(vim {1} +{2})')
+}
+zle -N fzf_search_contents
+bindkey '^x^g' fzf_search_contents
 
 # Deps
 source ~/.bashrc
