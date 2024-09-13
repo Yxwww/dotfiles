@@ -15,10 +15,10 @@
     "version": "2"
   },
   "theme": {
-      "mode": "system",
-      "light": "Gruvbox Dark",
-      "dark": "Catppuccin Mocha"
-    },
+    "mode": "system",
+    "light": "Catppuccin Mocha",
+    "dark": "Rosé Pine"
+  },
   "git": {
     "inline_blame": {
       "enabled": false
@@ -37,7 +37,7 @@
   },
   // allow cursor to reach edges of screen
   "vertical_scroll_margin": 0,
-  "format_on_save": "on",
+  "format_on_save": "off",
   "buffer_font_family": "MonoLisa",
   "features": {
     "copilot": false
