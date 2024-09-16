@@ -1,5 +1,5 @@
 local nvimcmp = {
-  name = "nvim-cmp", -- name
+  name = "hrsh7th/nvim-cmp", -- name
   opts = {
     defer = false, -- set to true if `disable` should be called on `BufReadPost` and not `BufReadPre`
   },
@@ -22,14 +22,13 @@ return {
   {
     "LunarVim/bigfile.nvim",
     opts = {
+      filesize = 1,
       features = { -- features to disable
         "indent_blankline",
-        "illuminate",
-        "lsp",
-        "treesitter",
-        "syntax",
-        "matchparen",
-        "vimopts",
+        -- "illuminate",
+        -- "syntax",
+        -- "matchparen",
+        -- "vimopts",
         "filetype",
         nvimcmp,
         indentscope,

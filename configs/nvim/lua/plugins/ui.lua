@@ -38,6 +38,19 @@ return {
         opts = { skip = true },
       })
 
+      -- this is a work around where bigfiles disabled bunch of plugin confuses tsserver
+      table.insert(opts.routes, {
+        filter = {
+          event = "notify",
+          find = "Request textDocument/documentHighlight failed with mess",
+          cond = function(msg, _)
+            local bufnr = vim.api.nvim_get_current_buf()
+            return vim.api.nvim_buf_line_count(bufnr) > 10000
+          end,
+        },
+        opts = { skip = true },
+      })
+
       opts.presets.lsp_doc_border = true
     end,
   },
@@ -107,8 +120,8 @@ return {
       local logo = [[
 ██╗   ██╗██╗  ██╗
 ╚██╗ ██╔╝╚██╗██╔╝
- ╚████╔╝  ╚███╔╝ 
-  ╚██╔╝   ██╔██╗ 
+ ╚████╔╝  ╚███╔╝
+  ╚██╔╝   ██╔██╗
    ██║   ██╔╝ ██╗
    ╚═╝   ╚═╝  ╚═╝
       ]]

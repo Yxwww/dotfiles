@@ -13,11 +13,23 @@
       "ctrl-s": "workspace::Save"
     }
   },
+
+  {
+    "context": "ProjectPanel && not_editing",
+    "bindings": {
+      "a": "project_panel::NewFile",
+      "d": "project_panel::Delete",
+      "ctrl-c": "project_panel::Copy",
+      "/": "project_panel::NewSearchInDirectory"
+    }
+  },
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
       "space n e": "pane::RevealInProjectPanel",
+      "space s D": "diagnostics::Deploy",
       "space e": "pane::RevealInProjectPanel",
+      "space tab tab": "workspace::NewFile",
       "space c r": "editor::Rename",
       "]d": "editor::GoToDiagnostic",
       "[d": "editor::GoToPrevDiagnostic"
