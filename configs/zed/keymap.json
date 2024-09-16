@@ -1,8 +1,26 @@
 [
   {
+    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
+    "bindings": {
+      // put key-bindings here if you want them to work in normal & visual mode
+      "g r": "editor::FindAllReferences",
+      "ctrl-r": "editor::Redo"
+    }
+  },
+  {
     "context": "Editor",
     "bindings": {
       "ctrl-s": "workspace::Save"
+    }
+  },
+  {
+    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
+    "bindings": {
+      "space n e": "pane::RevealInProjectPanel",
+      "space e": "pane::RevealInProjectPanel",
+      "space c r": "editor::Rename",
+      "]d": "editor::GoToDiagnostic",
+      "[d": "editor::GoToPrevDiagnostic"
     }
   },
   {
@@ -12,6 +30,7 @@
       "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
       "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
       "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+      // ... or other keybindings
     }
   },
   {
@@ -38,18 +57,8 @@
       // put key-bindings here if you want them to work in insert mode
       // e.g.
       // "j j": "vim::NormalBefore" // remap jj in insert mode to escape.
-      "space v s": "pane::SplitRight",
-      "space tab tab": "workspace::NewFileSplitVertical",
-      "space g o": "editor::OpenPermalinkToLine",
       "space s s": "outline::Toggle",
-      "space s S": "project_symbols::Toggle",
-      "space n e": "pane::RevealInProjectPanel",
-      "space e": "pane::RevealInProjectPanel",
-      "space c r": "editor::Rename",
-      "space s D": "diagnostics::Deploy",
-      "]d": "editor::GoToDiagnostic",
-      "[d": "editor::GoToPrevDiagnostic",
-      "g r": "editor::FindAllReferences"
+      "space s S": "project_symbols::Toggle"
     }
   },
   {
@@ -64,25 +73,6 @@
     "bindings": {
       "cmd-+": "zed::IncreaseUiFontSize",
       "cmd-_": "zed::DecreaseUiFontSize"
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
-    "bindings": {}
-  },
-  {
-    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
-    "bindings": {
-      // put key-bindings here if you want them to work in normal & visual mode
-    }
-  },
-  {
-    "context": "ProjectPanel",
-    "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
     }
   }
 ]

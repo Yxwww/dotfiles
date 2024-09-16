@@ -6,7 +6,7 @@ function setup_zsh_prompt() {
   brew install zsh
   brew install starship
   brew install zellij
-  cargo install exa
+  brew install exa
   brew install fzf
   brew insatll ripgrep
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
