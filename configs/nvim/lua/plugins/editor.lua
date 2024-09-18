@@ -4,6 +4,12 @@ return {
     ---@class PluginLspOpts
     ---@param opts PluginLspOpts
     opts = {
+      servers = {
+        -- tsserver got renamed to ts_ls. disabled it in favour of vtsls
+        ts_ls = {
+          enabled = false,
+        },
+      },
       inlay_hints = {
         enabled = false,
       },
