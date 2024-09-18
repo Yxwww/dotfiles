@@ -70,7 +70,32 @@ zle -N fco
 bindkey "^x^o" fco
 
 viewPR() {
-  gh pr list | fzf --preview "gh pr view {+1} | bat --color=always --style=plain --language=markdown" | awk '{print $1}' | xargs -I {} sh -c 'gh pr checkout {} && gh pr view {} --web'
+  local pr_number pr_title
+  pr_info=$(gh pr list | fzf --preview "gh pr view {+1} | bat --color=always --style=plain --language=markdown")
+  pr_number=$(echo "$pr_info" | awk '{print $1}')
+  pr_title=$(echo "$pr_info" | cut -d' ' -f2-)
+  if [ -n "$pr_number" ]; then
+    echo "Switching to PR #$pr_number:\nTitle: \"$pr_title\""
+    (
+      echo -n "Opening PR in browser... "
+      spinner() {
+        local pid=$1
+        local delay=0.1
+        local spinstr='|/-\'
+        while [ "$(ps a | awk '{print $1}' | grep $pid)" ]; do
+          local temp=${spinstr#?}
+          printf " [%c]  " "$spinstr"
+          local spinstr=$temp${spinstr%"$temp"}
+          sleep $delay
+          printf "\b\b\b\b\b\b"
+        done
+        printf "    \b\b\b\b"
+      }
+      gh pr checkout "$pr_number" && (gh pr view "$pr_number" --web &) &
+      spinner $!
+      echo "Done!"
+    )
+  fi
 }
 zle -N viewPR
 bindkey "^x^p" viewPR
