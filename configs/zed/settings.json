@@ -15,10 +15,10 @@
     "version": "2"
   },
   "theme": {
-      "mode": "system",
-      "light": "Andromeda",
-      "dark": "Catppuccin Mocha"
-    },
+    "mode": "system",
+    "light": "Atelier Heath Light",
+    "dark": "Catppuccin Mocha"
+  },
   "git": {
     "inline_blame": {
       "enabled": false

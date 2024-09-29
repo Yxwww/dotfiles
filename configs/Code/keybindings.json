@@ -5,12 +5,10 @@
   //     "command": "workbench.action.focusActiveEditorGroup",
   //     "when": "terminalFocus"
   //   },
-
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusNextGroup"
   },
-
   {
     "key": "ctrl+h",
     "command": "workbench.action.focusPreviousGroup"
@@ -25,7 +23,6 @@
     "command": "breadcrumbs.focusNext",
     "when": "breadcrumbsActive && breadcrumbsVisible"
   },
-
   {
     "key": "ctrl+l",
     "command": "workbench.action.focusFirstEditorGroup",
@@ -79,7 +76,6 @@
   // {
   //     "key": "ctrl+n",
   //     "command": "editor.action.marker.next",
-
   // },
   // {
   //     "key": "ctrl+p",
@@ -114,5 +110,72 @@
     "key": "ctrl+k",
     "command": "workbench.action.terminal.focusPrevious",
     "when": "terminalFocus"
-  }
+  },
+  {
+    "key": "space s s",
+    "command": "workbench.action.gotoSymbol",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space s shift+s",
+    "command": "workbench.action.showAllSymbols",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space c r",
+    "command": "editor.action.rename",
+    "when": "editorHasRenameProvider && editorTextFocus && !editorReadonly && vim.mode == 'Normal'"
+  },
+  // send key to terminal
+  {
+    "key": "alt+left",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\u001b[1;3D"
+    },
+    "when": "terminalFocus"
+  },
+  {
+    "key": "alt+right",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\u001b[1;3C"
+    },
+    "when": "terminalFocus"
+  },
+  {
+    "key": "space f f",
+    "command": "workbench.action.quickOpen",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space e",
+    "command": "workbench.files.action.focusFilesExplorer",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "a",
+    "command": "explorer.newFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "d",
+    "command": "deleteFile",
+    "when": "filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "space s d",
+    "command": "workbench.actions.view.problems",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space s shift+D",
+    "command": "workbench.action.showAllDiagnostics",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "space tab tab",
+    "command": "workbench.action.files.newUntitledFile",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
 ]

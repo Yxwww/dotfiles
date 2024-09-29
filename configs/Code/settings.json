@@ -245,7 +245,6 @@
     "FIG_NEW_SESSION": "1"
   },
   "editor.guides.indentation": false,
-  "editor.minimap.enabled": false,
   "vscode-neovim.neovimExecutablePaths.darwin": "/opt/homebrew/bin/nvim",
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"

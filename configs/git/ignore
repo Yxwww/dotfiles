@@ -29,3 +29,5 @@ firebase-debug.log
 .yalc
 yalc.lock
 lerna-debug.log
+
+yuxi-ignore
