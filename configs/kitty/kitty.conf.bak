@@ -2496,6 +2496,6 @@ map cmd+s no_op
 
 
 # BEGIN_KITTY_THEME
-# Ayu Mirage
-include current-theme.conf
+# Belafonte Day
+# include current-theme.conf
 # END_KITTY_THEME

@@ -8,3 +8,4 @@ decrypt() {
   tar -v --extract --gzip --file -
 }
 . "$HOME/.cargo/env"
+. "/Users/yuxiwang/.deno/env"

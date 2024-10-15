@@ -1,5 +1,11 @@
 return {
   {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = { style = "moon" },
+  },
+  {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
@@ -34,7 +40,8 @@ return {
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "cyberdream",
+      colorscheme = "tokyonight",
+      style = "moon",
     },
   },
 }

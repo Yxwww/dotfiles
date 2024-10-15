@@ -273,7 +273,7 @@
     "[typescript]": {
         "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "editor.codeActionsOnSave": {
-            "source.fixAll.eslint": true
+            "source.fixAll.eslint": "explicit"
         }
     },
     "[html]": {
@@ -297,9 +297,15 @@
     "workbench.preferredDarkColorTheme": "Nord",
     "editor.inlineSuggest.enabled": true,
     "window.autoDetectColorScheme": true,
-    "workbench.preferredLightColorTheme": "Tokyo Night Light",
+    "workbench.preferredLightColorTheme": "Ayu Mirage Bordered",
     "git.autofetch": true,
     "vim.highlightedyank.enable": true,
+    // hack to get fold not open when jk
+    "vim.foldfix": true,
+    // speed up vscode vim but has side effect. see docs
+    "extensions.experimental.affinity": {
+        "vscodevim.vim": 1
+    },
     "vim.surround": true,
     "terminal.integrated.tabs.enabled": false,
     "git.confirmSync": false,

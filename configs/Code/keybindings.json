@@ -178,4 +178,47 @@
     "command": "workbench.action.files.newUntitledFile",
     "when": "editorTextFocus && vim.mode == 'Normal'"
   },
+  {
+    "key": "ctrl+q",
+    "command": "workbench.action.terminal.sendSequence",
+    "args": {
+      "text": "\u0011"
+    },
+    "when": "terminalFocus"
+  },
+  {
+    "key": "space v s",
+    "command": "workbench.action.splitEditorRight",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "cmd+r",
+    "command": "workbench.action.toggleAuxiliaryBar",
+    "when": "editorTextFocus && vim.mode == 'Normal'"
+  },
+  {
+    "key": "ctrl+p",
+    "command": "workbench.action.quickOpenNavigatePrevious",
+    "when": "inQuickOpen"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "workbench.action.quickOpenNavigateNext",
+    "when": "inQuickOpen || inSearchViewletFocus"
+  },
+  {
+    "key": "ctrl+n",
+    "command": "list.focusDown",
+    "when": "searchViewletFocus"
+  },
+  {
+    "key": "/",
+    "command": "list.toggleKeyboardNavigation",
+    "when": "explorerViewletVisible && filesExplorerFocus && !inputFocus"
+  },
+  {
+    "key": "/",
+    "command": "list.find",
+    "when": "explorerViewletVisible && filesExplorerFocus && listSupportsKeyboardNavigation && !inputFocus"
+  },
 ]
