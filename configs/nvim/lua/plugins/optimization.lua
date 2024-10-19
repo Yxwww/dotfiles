@@ -1,12 +1,12 @@
-local nvimcmp = {
-  name = "hrsh7th/nvim-cmp", -- name
-  opts = {
-    defer = false, -- set to true if `disable` should be called on `BufReadPost` and not `BufReadPre`
-  },
-  disable = function(buf) -- called to disable the feature
-    require("cmp").setup.buffer({ enabled = false })
-  end,
-}
+-- local nvimcmp = {
+--   name = "hrsh7th/nvim-cmp", -- name
+--   opts = {
+--     defer = false, -- set to true if `disable` should be called on `BufReadPost` and not `BufReadPre`
+--   },
+--   disable = function(buf) -- called to disable the feature
+--     require("cmp").setup.buffer({ enabled = false })
+--   end,
+-- }
 
 local indentscope = {
   name = "mini.indentscope", -- name
@@ -25,10 +25,10 @@ return {
       filesize = 1,
       features = { -- features to disable
         "indent_blankline",
-        -- "illuminate",
-        -- "syntax",
-        -- "matchparen",
-        -- "vimopts",
+        "illuminate",
+        "syntax",
+        "matchparen",
+        "vimopts",
         "filetype",
         nvimcmp,
         indentscope,

@@ -3,7 +3,7 @@ return {
     "stevearc/oil.nvim",
     ---@module 'oil'
     ---@type oil.SetupOpts
-    keys={
+    keys = {
       { "-", "<CMD>Oil<CR>", desc = "Open parent directory" },
     },
     opts = {},
