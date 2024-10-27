@@ -6,6 +6,10 @@
   //     "when": "terminalFocus"
   //   },
   {
+    "key": "ctrl+s",
+    "command": "workbench.action.files.save"
+  },
+  {
     "key": "ctrl+l",
     "command": "workbench.action.focusNextGroup"
   },

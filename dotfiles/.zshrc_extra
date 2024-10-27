@@ -20,7 +20,7 @@ alias grv="gh repo view --web"
 # common aliases
 # alias l='ls -lFhG'
 alias l='exa'
-alias ls='exa --classify --all --long --header'
+alias ls='exa --classify --all --long --no-user --header --icons'
 alias cat='bat'
 # git aliases
 alias ga='git add'

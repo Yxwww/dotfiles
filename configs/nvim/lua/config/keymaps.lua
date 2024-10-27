@@ -14,7 +14,7 @@ vim.keymap.set("i", "<A-k>", "<nop>", {})
 vim.keymap.set("v", "<A-j>", "<nop>", {})
 vim.keymap.set("v", "<A-k>", "<nop>", {})
 
-vim.keymap.set("n", "<leader>vs", ":vs<cr>", {desc="Vertical Split"})
+vim.keymap.set("n", "<leader>vs", ":vs<cr>", { desc = "Vertical Split" })
 
 vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 -- " nmap <leader>go :!gh repo view --web<cr>
@@ -58,3 +58,6 @@ end)
 vim.keymap.set("n", "gR", function()
   require("trouble").toggle("lsp_references")
 end)
+
+vim.keymap.del("n", "H")
+vim.keymap.del("n", "L")

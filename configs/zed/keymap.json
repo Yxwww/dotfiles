@@ -27,6 +27,7 @@
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
       "space n e": "pane::RevealInProjectPanel",
+      "space a e": "assistant::InlineAssist",
       "space s D": "diagnostics::Deploy",
       "space e": "pane::RevealInProjectPanel",
       "space tab tab": "workspace::NewFile",
