@@ -42,14 +42,14 @@ return {
     -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
 
     opts = {
-      keymap = {
-        show = "<C-f>",
-        accept = "<CR>",
-        select_prev = { "<Up>", "<C-p>" },
-        select_next = { "<Down>", "<C-n>" },
-        scroll_documentation_up = "<C-k>",
-        scroll_documentation_down = "<C-j>",
-      },
+      -- keymap = {
+      -- show = "<C-f>",
+      -- accept = "<CR>",
+      -- select_prev = { "<Up>", "<C-p>" },
+      -- select_next = { "<Down>", "<C-n>" },
+      -- scroll_documentation_up = "<C-k>",
+      -- scroll_documentation_down = "<C-j>",
+      -- },
       highlight = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
         -- useful for when your theme doesn't support blink.cmp

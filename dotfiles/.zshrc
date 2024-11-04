@@ -351,4 +351,4 @@ case ":$PATH:" in
 esac
 # pnpm end
 source ~/.zshrc_extra
-. "/Users/yuxiwang/.deno/env"
+# . "/Users/yuxiwang/.deno/env"
