@@ -31,3 +31,4 @@ yalc.lock
 lerna-debug.log
 
 yuxi-ignore
+.npmrc
