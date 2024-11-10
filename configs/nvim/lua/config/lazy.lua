@@ -17,9 +17,10 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.editor.mini-diff" },
     -- { import = "lazyvim.plugins.extras.linting.eslint" },
     { import = "lazyvim.plugins.extras.formatting.prettier" },
-    -- { import = "lazyvim.plugins.extras.coding.copilot"},
+    -- { import = "lazyvim.plugins.extras.coding.copilot.lua" },
+    -- { import = "lazyvim.plugins.extras.coding.copilot-cmp" },
     -- { import = "lazyvim.plugins.extras.lang.json" },
-    -- { import = "lazyvim.plugins.extras.ui.mini-animate" },
+    { import = "lazyvim.plugins.extras.ui.mini-animate" },
     -- import/override with your plugins
     { import = "plugins" },
   },

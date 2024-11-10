@@ -92,7 +92,6 @@ return {
     opts = {
       options = {
         -- globalstatus = false,
-        theme = "catppuccin",
       },
     },
   },
@@ -111,6 +110,18 @@ return {
         show_buffer_close_icons = false,
         show_close_icon = false,
       },
+    },
+  },
+  {
+    {
+      "echasnovski/mini.animate",
+      version = false,
+      event = "VeryLazy",
+      opts = function(_, opts)
+        -- opts.scroll = {
+        --   enable = false,
+        -- }
+      end,
     },
   },
   {

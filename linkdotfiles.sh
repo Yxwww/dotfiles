@@ -25,7 +25,7 @@ ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 # ln -sf "$(pwd)"/configs/node/yarn.lock ~/.config/yarn/global/
 
 # node
-ln -sf "$(pwd)"/configs/node/package.json ~/
+# ln -sf "$(pwd)"/configs/node/package.json ~/
 # ln -sf "$(pwd)"/configs/node/yarn.lock ~/
 
 # alacritty

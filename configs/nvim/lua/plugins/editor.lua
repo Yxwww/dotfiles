@@ -19,7 +19,7 @@ return {
         severity_sort = true,
       },
     },
-    dependencies = { "saghen/blink.cmp" },
+    -- dependencies = { "saghen/blink.cmp" },
     -- config = function(_, opts)
     --   local lspconfig = require("lspconfig")
     --   for server, config in pairs(opts.servers) do
@@ -29,19 +29,37 @@ return {
     -- end,
   },
   { "hrsh7th/nvim-cmp", enabled = false },
+  { "folke/flash.nvim", enabled = false },
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   config = function()
+  --     require("copilot").setup({
+  --       suggestion = { enabled = false },
+  --       panel = { enabled = false },
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "zbirenbaum/copilot-cmp",
+  --   dependencies = { "zbirenbaum/copilot.lua" },
+  --   config = function()
+  --     require("copilot_cmp").setup()
+  --   end,
+  -- },
   {
     "saghen/blink.cmp",
-    lazy = false, -- lazy loading handled internally
-    -- optional: provides snippets for the snippet source
-    dependencies = "rafamadriz/friendly-snippets",
-
-    -- use a release tag to download pre-built binaries
-    version = "v0.*",
-    -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
-    -- build = 'cargo build --release',
-    -- On musl libc based systems you need to add this flag
-    -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
-
+    event = "VeryLazy",
+    -- lazy = false, -- lazy loading handled internally
+    -- -- optional: provides snippets for the snippet source
+    -- dependencies = "rafamadriz/friendly-snippets",
+    --
+    -- -- use a release tag to download pre-built binaries
+    -- version = "v0.*",
+    -- -- OR build from source, requires nightly: https://rust-lang.github.io/rustup/concepts/channels.html#working-with-nightly-rust
+    -- -- build = 'cargo build --release',
+    -- -- On musl libc based systems you need to add this flag
+    -- -- build = 'RUSTFLAGS="-C target-feature=-crt-static" cargo build --release',
+    --
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
@@ -55,35 +73,9 @@ return {
       },
       -- set to 'mono' for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
       -- adjusts spacing to ensure icons are aligned
-      nerd_font_variant = "normal",
-
-      -- experimental auto-brackets support
-      -- accept = { auto_brackets = { enabled = true } }
-
-      -- experimental signature help support
-      -- trigger = { signature_help = { enabled = true } }
+      nerd_font_variant = "mono",
     },
   },
-  -- {
-  --   "iguanacucumber/magazine.nvim",
-  --   name = "nvim-cmp",
-  -- },
-  -- {
-  --   "hrsh7th/nvim-cmp",
-  --   opts = {
-  --     performance = {
-  --       debounce = 60,
-  --       throttle = 30,
-  --       fetching_timeout = 500,
-  --     },
-  --     completion = {
-  --       keyword_length = 2,
-  --     },
-  --   },
-  --   on_attach = function()
-  --     vim.print("attached!")
-  --   end,
-  -- },
   {
     "yetone/avante.nvim",
     event = "VeryLazy",
