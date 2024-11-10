@@ -63,7 +63,7 @@ return {
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config
     opts = {
-      keymap = { preset = "enter" },
+      keymap = { preset = "default" },
 
       highlight = {
         -- sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -83,6 +83,16 @@ return {
       -- add any opts here
       behavior = {
         -- auto_suggestions = true,
+      },
+    },
+  },
+  {
+    "mfussenegger/nvim-lint",
+    opts = {
+      linters = {
+        markdownlint = {
+          args = { "--config", "~/.markdownlint.jsonc" },
+        },
       },
     },
   },

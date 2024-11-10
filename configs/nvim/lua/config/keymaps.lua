@@ -59,5 +59,7 @@ vim.keymap.set("n", "gR", function()
   require("trouble").toggle("lsp_references")
 end)
 
+vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown Preview" })
+
 vim.keymap.del("n", "H")
 vim.keymap.del("n", "L")

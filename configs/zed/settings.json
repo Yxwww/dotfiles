@@ -38,8 +38,5 @@
   // allow cursor to reach edges of screen
   "vertical_scroll_margin": 0,
   "format_on_save": "on",
-  "buffer_font_family": "MonoLisa",
-  "features": {
-    "copilot": true
-  }
+  "buffer_font_family": "MonoLisa"
 }

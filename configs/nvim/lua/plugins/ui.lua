@@ -118,9 +118,11 @@ return {
       version = false,
       event = "VeryLazy",
       opts = function(_, opts)
-        -- opts.scroll = {
-        --   enable = false,
-        -- }
+        local animate = require("mini.animate")
+        opts.scroll = {
+          enable = true,
+          timing = animate.gen_timing.linear({ duration = 100, unit = "total" }),
+        }
       end,
     },
   },
