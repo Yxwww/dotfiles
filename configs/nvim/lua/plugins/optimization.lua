@@ -19,20 +19,21 @@ local indentscope = {
 }
 
 return {
-  {
-    "LunarVim/bigfile.nvim",
-    opts = {
-      filesize = 1,
-      features = { -- features to disable
-        "indent_blankline",
-        "illuminate",
-        "syntax",
-        "matchparen",
-        "vimopts",
-        "filetype",
-        nvimcmp,
-        indentscope,
-      },
-    },
-  },
+  -- included in snack.nvim
+  -- {
+  --   "LunarVim/bigfile.nvim",
+  --   opts = {
+  --     filesize = 1,
+  --     features = { -- features to disable
+  --       "indent_blankline",
+  --       "illuminate",
+  --       "syntax",
+  --       "matchparen",
+  --       "vimopts",
+  --       "filetype",
+  --       nvimcmp,
+  --       indentscope,
+  --     },
+  --   },
+  -- },
 }
