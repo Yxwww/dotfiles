@@ -6,6 +6,14 @@
 -- Turn off autoformat for now.
 vim.g.autoformat = true
 
+vim.o.foldenable = true
+
+-- Set the fold method to syntax (or any other method you prefer)
+vim.o.foldmethod = "syntax"
+
+-- Optionally, set the fold level to start with all folds closed
+vim.o.foldlevelstart = 99
+
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },
 -- 	{ name = 'nvim_lsp_signature_help' },
