@@ -45,9 +45,11 @@ keybinds clear-defaults=true {
 
     shared_except "scroll" "locked" {
         bind "Alt s" { SwitchToMode "Scroll"; }
+        bind "ß" { SwitchToMode "Scroll"; }
     }
     search {
         bind "Alt s" { SwitchToMode "Normal"; }
+        bind "ß" { SwitchToMode "Normal"; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
         bind "j" "Down" { ScrollDown; }
         bind "k" "Up" { ScrollUp; }
@@ -63,6 +65,7 @@ keybinds clear-defaults=true {
     }
     scroll {
         bind "Alt s" { SwitchToMode "Normal"; }
+        bind "ß" { SwitchToMode "Normal"; }
         bind "e" { EditScrollback; SwitchToMode "Normal"; }
         bind "s" { SwitchToMode "EnterSearch"; SearchInput 0; }
         bind "Ctrl c" { ScrollToBottom; SwitchToMode "Normal"; }
