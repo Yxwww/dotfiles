@@ -54,15 +54,6 @@ return {
       opts.presets.lsp_doc_border = true
     end,
   },
-
-  {
-    "folke/zen-mode.nvim",
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    },
-  },
   {
     "b0o/incline.nvim",
     event = "BufReadPre",
@@ -131,13 +122,21 @@ return {
     event = "VimEnter",
     opts = function(_, opts)
       local logo = [[
-██╗   ██╗██╗  ██╗
-╚██╗ ██╔╝╚██╗██╔╝
- ╚████╔╝  ╚███╔╝
-  ╚██╔╝   ██╔██╗
-   ██║   ██╔╝ ██╗
-   ╚═╝   ╚═╝  ╚═╝
-      ]]
+       ██╗      █████╗ ███████╗██╗   ██╗          Z
+       ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝      Z    
+       ██║     ███████║  ███╔╝  ╚████╔╝    z       
+       ██║     ██╔══██║ ███╔╝    ╚██╔╝   z         
+       ███████╗██║  ██║███████╗   ██║              
+       ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝              
+  ]]
+      --       local logo = [[
+      -- ██╗   ██╗██╗  ██╗
+      -- ╚██╗ ██╔╝╚██╗██╔╝
+      --  ╚████╔╝  ╚███╔╝
+      --   ╚██╔╝   ██╔██╗
+      --    ██║   ██╔╝ ██╗
+      --    ╚═╝   ╚═╝  ╚═╝
+      --       ]]
       logo = string.rep("\n", 8) .. logo .. "\n\n"
       opts.config.header = vim.split(logo, "\n")
     end,
