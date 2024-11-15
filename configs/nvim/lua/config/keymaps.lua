@@ -62,4 +62,5 @@ end)
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown Preview" })
 
 vim.keymap.del("n", "H")
+vim.keymap.del("n", "<C-b>")
 vim.keymap.del("n", "L")
