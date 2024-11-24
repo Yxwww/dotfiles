@@ -18,7 +18,15 @@ return {
   { "folke/flash.nvim", enabled = true },
   {
     "yetone/avante.nvim",
+    init = function()
+      require("avante_lib").load()
+    end,
     event = "VeryLazy",
+    -- we want to use head for now, since the releases are not frequent
+    version = false,
+    opts = {
+      hints = { enabled = false },
+    },
   },
   {
     "mfussenegger/nvim-lint",
