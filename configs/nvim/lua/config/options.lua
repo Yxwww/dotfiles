@@ -5,14 +5,28 @@
 
 -- Turn off autoformat for now.
 vim.g.autoformat = true
+vim.o.foldmethod = "expr"
+vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevel = 2
+print("hello??")
 
-vim.o.foldenable = true
-
--- Set the fold method to syntax (or any other method you prefer)
-vim.o.foldmethod = "syntax"
-
--- Optionally, set the fold level to start with all folds closed
-vim.o.foldlevelstart = 99
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
+local save_fold = augroup("Persistent Folds", { clear = true })
+autocmd("BufWinLeave", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.mkview()
+  end,
+  group = save_fold,
+})
+autocmd("BufWinEnter", {
+  pattern = "*.*",
+  callback = function()
+    vim.cmd.loadview({ mods = { emsg_silent = true } })
+  end,
+  group = save_fold,
+})
 
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },
