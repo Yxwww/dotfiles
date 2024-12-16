@@ -19,7 +19,7 @@ local indentscope = {
 }
 
 return {
-  -- included in snack.nvim
+  -- NOTE: included in snack.nvim
   -- {
   --   "LunarVim/bigfile.nvim",
   --   opts = {
