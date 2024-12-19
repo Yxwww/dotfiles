@@ -25,6 +25,7 @@ vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 -- vim.keymap.set("n", "<leader>gs", "<cmd>Git<cr>", { desc = "Fugitive Git" })
 -- vim.keymap.set("n", "<leader>gs", function()
 --   require("neogit").open({ kind = "split" })
+
 -- end, { desc = "neogit status" })
 vim.keymap.set("n", "<leader>gc", "<cmd>Git commit<cr>", { desc = "Commit" })
 -- vim.keymap.set("n", "<leader>gc", function()
