@@ -106,3 +106,12 @@ alias ifconfigdefault='ipconfig getifaddr en0'
 alias yanr='yarn'  # yeah ...
 
 alias lg='lazygit'  # yeah ...
+
+
+# image viewing
+alias icat="kitty +kitten icat"
+# TODO: something is wrong with this command
+# function imgcat() {
+#   local scale=${2:-1.0}  # Default scale is 1.0
+#   kitty +kitten icat --scale "$scale" "$1"
+# }
