@@ -1,19 +1,28 @@
-# Write a function to run the right dev script based on whether it's npm, yarn, or pnpm
-function dev() {
+# Function to determine the package manager and run the appropriate command
+function run_command() {
+  local cmd=$1
   if [ -f "package.json" ]; then
     if [ -f "yarn.lock" ]; then
-      yarn dev
+      yarn $cmd
     elif [ -f "pnpm-lock.yaml" ]; then
-      pnpm dev
+      pnpm $cmd
     else
-      npm run dev
+      npm run $cmd
     fi
   else
     echo "No package.json found"
   fi
 }
-# alias dev to call the dev function
-alias run_dev=dev
+
+function n_dev() {
+  run_command "dev"
+}
+function n_install() {
+  run_command "install"
+}
+function n_start() {
+  run_command "start"
+}
 
 alias gpv="gh pr view --web"
 alias grv="gh repo view --web"
