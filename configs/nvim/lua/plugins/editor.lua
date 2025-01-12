@@ -7,11 +7,6 @@ return {
       inlay_hints = {
         enabled = false,
       },
-      -- diagnostics = {
-      --   update_in_insert = false,
-      --   virtual_text = { spacing = 4, prefix = "●" },
-      --   severity_sort = true,
-      -- },
     },
   },
   { "hrsh7th/nvim-cmp", enabled = false },
