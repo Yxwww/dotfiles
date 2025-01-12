@@ -18,7 +18,6 @@ vim.keymap.set("n", "<leader>vs", ":vs<cr>", { desc = "Vertical Split" })
 vim.keymap.set("n", "<leader>ae", ":AvanteEdit<cr>", { desc = "Avante Edit" })
 vim.keymap.set("n", "<leader>av", ":AvanteAsk<cr>", { desc = "Avante Ask" })
 
-vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 -- " nmap <leader>go :!gh repo view --web<cr>
 -- vim.keymap.set("n", "<leader>gp!", ":Git push<cr>")
 -- vim.keymap.set("n", "<leader>ga", "<>Gwrite")
@@ -67,3 +66,4 @@ vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown
 vim.keymap.del("n", "H")
 vim.keymap.del("n", "<C-b>")
 vim.keymap.del("n", "L")
+vim.keymap.set("n", "<leader>gs", ":Git<cr>")
