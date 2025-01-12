@@ -1,10 +1,15 @@
 # link dotfiles to ~/
 ln -sf "$(pwd)"/dotfiles/{*,.[^.],.??*} ~/
 
+CONFIG_HOME=~
+GHOSTTY_CONFIG=$CONFIG_HOME/ghostty/config
 # git ignore
 CONFIG_DIR=~/.config
 GIT_CONFIG_DIR=$CONFIG_DIR/git
 mkdir -p $GIT_CONFIG_DIR
+
+ln -sf "$(pwd)"/configs/ghostty $CONFIG_DIR/ghostty
+
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
 # zed
