@@ -30,12 +30,6 @@ ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 # ln -sf "$(pwd)"/configs/node/package.json ~/
 # ln -sf "$(pwd)"/configs/node/yarn.lock ~/
 
-# alacritty
-ln -sf "$(pwd)"/configs/alacritty ~/.config
-
-# zellij
-ln -sf "$(pwd)"/configs/zellij ~/.config
-
 # starship
 ln -sf "$(pwd)"/configs/starship.toml ~/.config
 
