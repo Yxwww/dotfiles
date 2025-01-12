@@ -10,23 +10,23 @@ vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevel = 2
 print("hello??")
 
-local autocmd = vim.api.nvim_create_autocmd
-local augroup = vim.api.nvim_create_augroup
-local save_fold = augroup("Persistent Folds", { clear = true })
-autocmd("BufWinLeave", {
-  pattern = "*.*",
-  callback = function()
-    vim.cmd.mkview()
-  end,
-  group = save_fold,
-})
-autocmd("BufWinEnter", {
-  pattern = "*.*",
-  callback = function()
-    vim.cmd.loadview({ mods = { emsg_silent = true } })
-  end,
-  group = save_fold,
-})
+-- local autocmd = vim.api.nvim_create_autocmd
+-- local augroup = vim.api.nvim_create_augroup
+-- local save_fold = augroup("Persistent Folds", { clear = true })
+-- autocmd("BufWinLeave", {
+--   pattern = "*.*",
+--   callback = function()
+--     vim.cmd.mkview()
+--   end,
+--   group = save_fold,
+-- })
+-- autocmd("BufWinEnter", {
+--   pattern = "*.*",
+--   callback = function()
+--     vim.cmd.loadview({ mods = { emsg_silent = true } })
+--   end,
+--   group = save_fold,
+-- })
 
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },
