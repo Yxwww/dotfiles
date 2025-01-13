@@ -8,7 +8,7 @@ CONFIG_DIR=~/.config
 GIT_CONFIG_DIR=$CONFIG_DIR/git
 mkdir -p $GIT_CONFIG_DIR
 
-ln -sf "$(pwd)"/configs/ghostty $CONFIG_DIR/ghostty
+ln -snf "$(pwd)"/configs/ghostty $CONFIG_DIR
 
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
