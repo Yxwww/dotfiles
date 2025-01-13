@@ -140,7 +140,6 @@ return {
     lazy = false,
     ---@class snacks.Config
     opts = {
-      animate = { enabled = false },
       dashboard = {
         preset = {
           header = {

@@ -4,6 +4,7 @@
 --
 
 -- Turn off autoformat for now.
+vim.g.snacks_animate = false
 vim.g.autoformat = true
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
