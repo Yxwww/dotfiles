@@ -37,4 +37,12 @@ ln -sf "$(pwd)"/configs/starship.toml ~/.config
 ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code/User/
 ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code/User/
 
-ln -sf "$(pwd)"/configs/Cursor/settings.json ~/Library/Application\ Support/Cursor/User/
+
+if [ -d ~/Library/Application\ Support/Cursor ]; then
+  ln -sf "$(pwd)"/configs/Cursor/settings.json ~/Library/Application\ Support/Cursor/User/
+else
+  echo "Directory ~/Library/Application Support/Cursor/User/ does not exist."
+fi
+```
+
+
