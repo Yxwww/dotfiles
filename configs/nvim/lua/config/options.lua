@@ -5,12 +5,19 @@
 
 -- Turn off autoformat for now.
 vim.g.snacks_animate = false
-vim.g.autoformat = true
+vim.g.lazyvim_picker = "snacks"
+vim.g.autoformat = false
+-- vim.o.foldmethod = "indent"
 vim.o.foldmethod = "expr"
 vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevel = 2
-print("hello??")
+vim.o.foldlevel = 1
+-- vim.o.foldminlines = 2
 
+vim.g.vimwiki_list = { {
+  path = "~/my-wiki/",
+  syntax = "default",
+  ext = ".wiki",
+} }
 -- local autocmd = vim.api.nvim_create_autocmd
 -- local augroup = vim.api.nvim_create_augroup
 -- local save_fold = augroup("Persistent Folds", { clear = true })

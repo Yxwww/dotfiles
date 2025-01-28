@@ -1,11 +1,24 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    ---@class PluginLspOpts
-    ---@param opts PluginLspOpts
+    ---LSP Server Settings
+    ---@type lspconfig.options
     opts = {
       inlay_hints = {
         enabled = false,
+      },
+    },
+  },
+  {
+    "blink.cmp",
+    event = "VeryLazy",
+    opts = {
+      completion = {
+        accept = {
+          auto_brackets = {
+            enabled = false,
+          },
+        },
       },
     },
   },

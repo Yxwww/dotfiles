@@ -39,7 +39,7 @@ end, { desc = "mini.diff" })
 
 vim.keymap.set("n", "<C-q>", "<cmd>q<cr>", { desc = "Quit" })
 vim.keymap.set("n", "<C-g>", "<cmd>Rg<cr>", { desc = "Rig Grep everything" })
--- vim.keymap.set("n", ",fe", "<cmd>EslintFixAll<cr>", { desc = "Eslint fix everything" })
+vim.keymap.set("n", "<leader>k", "<cmd>EslintFixAll<cr>", { desc = "Eslint fix everything" })
 
 -- trouble
 vim.keymap.set("n", "<leader>xx", function()
@@ -64,6 +64,14 @@ end)
 vim.keymap.set("n", "<leader>mp", "<cmd>MarkdownPreview<cr>", { desc = "Markdown Preview" })
 
 vim.keymap.del("n", "H")
-vim.keymap.del("n", "<C-b>")
 vim.keymap.del("n", "L")
+
+vim.keymap.del("n", "<C-b>")
+-- vim.keymap.del("n", "<C-i>")
+
 vim.keymap.set("n", "<leader>gs", ":Git<cr>")
+
+-- " Map <Tab> to toggle fold under cursor in Normal mode
+-- nnoremap <Tab> za
+vim.keymap.set("n", "<Tab>", "za", { desc = "toggle fold" })
+vim.keymap.set("n", "<S-Tab>", "zA", { desc = "toggle all folds under cursor" })
