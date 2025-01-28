@@ -140,6 +140,16 @@ return {
     lazy = false,
     ---@class snacks.Config
     opts = {
+      picker = {
+        win ={
+          input={
+            keys={
+                ["<c-k>"] = { "history_back", mode = { "i", "n" } },
+                ["<c-j>"] = { "history_forward", mode = { "i", "n" } },
+            }
+          }
+        }
+      },
       dashboard = {
         preset = {
           header = {
