@@ -8,10 +8,10 @@
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
-      "a": "project_panel::NewFile",
+      "space e": "project_panel::ToggleFocus",
       "d": "project_panel::Delete",
-      "y": "project_panel::Copy",
-      "/": "project_panel::NewSearchInDirectory"
+      // "s": "project_panel::OpenWithSystem",
+      "o": "project_panel::RevealInFileManager"
     }
   },
   {
@@ -27,6 +27,7 @@
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
+      "space f f": "file_finder::Toggle",
       "space n e": "pane::RevealInProjectPanel",
       "space v s": ["workspace::SendKeystrokes", "escape : v s enter"],
       "space a e": "assistant::InlineAssist",
