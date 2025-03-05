@@ -1,61 +1,51 @@
 [
   {
-    "context": "Editor && (vim_mode == normal || vim_mode == visual) && !VimWaiting && !menu",
-    "bindings": {
-      // put key-bindings here if you want them to work in normal & visual mode
-      "g r": "editor::FindAllReferences",
-      "ctrl-r": "editor::Redo"
-    }
-  },
-  {
     "context": "Editor",
     "bindings": {
-      "ctrl-s": "workspace::Save"
+      "ctrl-s": ["workspace::SendKeystrokes", "escape : w enter"]
     }
   },
-
   {
     "context": "ProjectPanel && not_editing",
     "bindings": {
+      "space e": "project_panel::ToggleFocus",
       "a": "project_panel::NewFile",
+      "r": "project_panel::Rename",
       "d": "project_panel::Delete",
-      "ctrl-c": "project_panel::Copy",
-      "/": "project_panel::NewSearchInDirectory"
+      // "s": "project_panel::OpenWithSystem",
+      "o": "project_panel::RevealInFileManager"
     }
   },
   {
+    "context": "Dock",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown"
+    }
+  },
+  // NORMAL MODE KEYBINDS
+  {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
+      "space f f": "file_finder::Toggle",
       "space n e": "pane::RevealInProjectPanel",
+      "space v s": ["workspace::SendKeystrokes", "escape : v s enter"],
       "space a e": "assistant::InlineAssist",
       "space s D": "diagnostics::Deploy",
       "space e": "pane::RevealInProjectPanel",
       "space tab tab": "workspace::NewFile",
       "space c r": "editor::Rename",
       "]d": "editor::GoToDiagnostic",
-      "[d": "editor::GoToPrevDiagnostic"
-    }
-  },
-  {
-    "context": "Dock",
-    "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
-      // ... or other keybindings
-    }
-  },
-  {
-    "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
-    "bindings": {
+      "[d": "editor::GoToPreviousDiagnostic",
       // put key-bindings here if you want them to work only in normal mode
       "down": ["workspace::SendKeystrokes", "4 j"],
       "up": ["workspace::SendKeystrokes", "4 k"],
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"],
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
       "space s d": "diagnostics::Deploy"
     }
   },
