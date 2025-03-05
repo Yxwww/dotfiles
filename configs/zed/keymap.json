@@ -29,7 +29,9 @@
   {
     "context": "Editor && vim_mode == normal && !VimWaiting && !menu",
     "bindings": {
+      "space s g": "search::FocusSearch",
       "space f f": "file_finder::Toggle",
+      "space space": "file_finder::Toggle",
       "space n e": "pane::RevealInProjectPanel",
       "space v s": ["workspace::SendKeystrokes", "escape : v s enter"],
       "space a e": "assistant::InlineAssist",
