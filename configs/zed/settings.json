@@ -7,11 +7,14 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
   "show_completions_on_input": true,
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "anthropic",
+      "model": "claude-3-7-sonnet-latest"
     },
     "version": "2"
   },

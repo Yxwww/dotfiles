@@ -10,3 +10,5 @@ decrypt() {
 . "$HOME/.cargo/env"
 # . "/Users/yuxiwang/.deno/env"
 
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
