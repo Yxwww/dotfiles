@@ -9,6 +9,8 @@
     "context": "ProjectPanel && not_editing",
     "bindings": {
       "space e": "project_panel::ToggleFocus",
+      "a": "project_panel::NewFile",
+      "r": "project_panel::Rename",
       "d": "project_panel::Delete",
       // "s": "project_panel::OpenWithSystem",
       "o": "project_panel::RevealInFileManager"
