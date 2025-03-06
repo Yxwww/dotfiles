@@ -34,4 +34,7 @@ return {
       },
     },
   },
+  {
+    "tikhomirov/vim-glsl"
+  }
 }
