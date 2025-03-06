@@ -13,8 +13,8 @@
   "show_completions_on_input": true,
   "assistant": {
     "default_model": {
-      "provider": "zed.dev",
-      "model": "claude-3-5-sonnet-latest"
+      "provider": "anthropic",
+      "model": "claude-3-7-sonnet-latest"
     },
     "version": "2"
   },
@@ -42,5 +42,6 @@
   // allow cursor to reach edges of screen
   "vertical_scroll_margin": 0,
   "format_on_save": "on",
-  "buffer_font_family": "MonoLisa"
+  "buffer_font_family": "MonoLisa",
+  "ui_font_family": "Helvetica"
 }
