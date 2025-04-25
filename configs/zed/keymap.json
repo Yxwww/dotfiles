@@ -48,6 +48,7 @@
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
       "ctrl-j": "workspace::ActivatePaneDown",
+      "g r": "editor::FindAllReferences",
       "space s d": "diagnostics::Deploy"
     }
   },
