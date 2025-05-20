@@ -225,4 +225,8 @@
     "command": "list.find",
     "when": "explorerViewletVisible && filesExplorerFocus && listSupportsKeyboardNavigation && !inputFocus"
   },
+  {
+    "key": "cmd+i",
+    "command": "composerMode.agent"
+  },
 ]

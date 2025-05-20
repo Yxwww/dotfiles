@@ -271,7 +271,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": "explicit"
         }
@@ -280,7 +280,7 @@
         "editor.tabSize": 2
     },
     "[typescriptreact]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features"
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
     },
     "tailwindCSS.colorDecorators": true,
     "tailwindCSS.emmetCompletions": true,
@@ -326,7 +326,7 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontSize": 13,
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
@@ -334,7 +334,12 @@
         "scminput": false
     },
     "gitlens.mode.active": "zen",
-    "editor.fontSize": 14,
     "git.openRepositoryInParentFolders": "never",
-    "window.zoomLevel": 2
+    "window.zoomLevel": 2,
+    "svelte.enable-ts-plugin": true,
+    "editor.fontSize": 13,
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    }
 }

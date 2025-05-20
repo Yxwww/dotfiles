@@ -31,4 +31,8 @@ yalc.lock
 lerna-debug.log
 
 yuxi-ignore
+**/.claude/settings.local.json
 .npmrc
+.cursor
+
+claude.md
