@@ -1,7 +1,7 @@
 return {
   {
     "CopilotC-Nvim/CopilotChat.nvim",
-    enabled = false
+    enabled = false,
     -- See Commands section for default commands if you want to lazy load on them
   },
   {
@@ -28,6 +28,17 @@ return {
             diff_close = "<leader>ac", -- Close diff view tab and return to normal editing
             diff_revert_all = "<leader>ara", -- Revert all file changes since the last goose prompt
             diff_revert_this = "<leader>art", -- Revert current file changes since the last goose prompt
+          },
+          window = {
+            submit = "<cr>", -- Submit prompt
+            close = "<C-q>", -- Close UI windows
+            stop = "<C-c>", -- Stop goose while it is running
+            next_message = "]]", -- Navigate to next message in the conversation
+            prev_message = "[[", -- Navigate to previous message in the conversation
+            mention_file = "@", -- Pick a file and add to context. See File Mentions section
+            toggle_pane = "<tab>", -- Toggle between input and output panes
+            prev_prompt_history = "<up>", -- Navigate to previous prompt in history
+            next_prompt_history = "<down>", -- Navigate to next prompt in history
           },
         },
       })
