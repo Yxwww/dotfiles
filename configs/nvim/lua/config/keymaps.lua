@@ -15,9 +15,6 @@ vim.keymap.set("v", "<A-j>", "<nop>", {})
 vim.keymap.set("v", "<A-k>", "<nop>", {})
 
 vim.keymap.set("n", "<leader>vs", ":vs<cr>", { desc = "Vertical Split" })
-vim.keymap.set("n", "<leader>ae", ":AvanteEdit<cr>", { desc = "Avante Edit" })
-vim.keymap.set("n", "<leader>av", ":AvanteAsk<cr>", { desc = "Avante Ask" })
-
 -- " nmap <leader>go :!gh repo view --web<cr>
 -- vim.keymap.set("n", "<leader>gp!", ":Git push<cr>")
 -- vim.keymap.set("n", "<leader>ga", "<>Gwrite")
@@ -75,5 +72,5 @@ vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 -- nnoremap <Tab> za
 -- vim.keymap.del("n", "<Tab>")
 -- Mapping Tab is nono in terminal and vim https://github.com/neovim/neovim/issues/8317
--- vim.keymap.set("n", "<Tab>", "za", { desc = "toggle fold" })
+vim.keymap.set("n", "<Tab>", "za", { desc = "toggle fold" })
 vim.keymap.set("n", "<S-Tab>", "zA", { desc = "toggle all folds under cursor" })

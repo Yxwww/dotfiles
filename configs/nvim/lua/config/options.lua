@@ -7,11 +7,10 @@
 vim.g.snacks_animate = false
 vim.g.lazyvim_picker = "snacks"
 vim.g.autoformat = false
--- vim.o.foldmethod = "indent"
-vim.o.foldmethod = "expr"
-vim.o.foldexpr = "nvim_treesitter#foldexpr()"
-vim.o.foldlevel = 1
--- vim.o.foldminlines = 2
+vim.o.foldmethod = "indent"
+-- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
+vim.o.foldlevel = 100
+-- -- vim.o.foldminlines = 2
 
 vim.g.vimwiki_list = { {
   path = "~/my-wiki/",
