@@ -37,4 +37,7 @@ return {
   {
     "tikhomirov/vim-glsl",
   },
+  {
+    'iamcco/markdown-preview.nvim'
+  }
 }

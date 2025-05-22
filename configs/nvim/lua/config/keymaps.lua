@@ -72,5 +72,9 @@ vim.keymap.set("n", "<leader>gs", ":Git<cr>")
 -- nnoremap <Tab> za
 -- vim.keymap.del("n", "<Tab>")
 -- Mapping Tab is nono in terminal and vim https://github.com/neovim/neovim/issues/8317
-vim.keymap.set("n", "<Tab>", "za", { desc = "toggle fold" })
-vim.keymap.set("n", "<S-Tab>", "zA", { desc = "toggle all folds under cursor" })
+-- Use a different key for fold toggling to avoid affecting C-i jumplist navigation
+vim.keymap.set("n", "<leader>z", "za", { desc = "toggle fold" })
+vim.keymap.set("n", "<leader>Z", "zA", { desc = "toggle all folds under cursor" })
+-- Remove Tab mapping to restore C-i jumplist functionality
+-- vim.keymap.set("n", "<Tab>", "za", { desc = "toggle fold" })
+-- vim.keymap.set("n", "<S-Tab>", "zA", { desc = "toggle all folds under cursor" })

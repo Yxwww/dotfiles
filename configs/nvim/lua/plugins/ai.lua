@@ -30,7 +30,7 @@ return {
             diff_revert_this = "<leader>art", -- Revert current file changes since the last goose prompt
           },
           window = {
-            submit = "<cr>", -- Submit prompt
+            submit = "<C-s>", -- Submit prompt
             close = "<C-q>", -- Close UI windows
             stop = "<C-c>", -- Stop goose while it is running
             next_message = "]]", -- Navigate to next message in the conversation
