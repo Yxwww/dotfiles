@@ -271,7 +271,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "vscode.typescript-language-features",
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": "explicit"
         }
@@ -297,7 +297,7 @@
     "workbench.preferredDarkColorTheme": "Nord",
     "editor.inlineSuggest.enabled": true,
     "window.autoDetectColorScheme": true,
-    "workbench.preferredLightColorTheme": "Ayu Mirage Bordered",
+    "workbench.preferredLightColorTheme": "Cursor Dark Midnight",
     "git.autofetch": true,
     "vim.highlightedyank.enable": true,
     // hack to get fold not open when jk
@@ -326,7 +326,7 @@
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features"
     },
-    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontSize": 14,
     "github.copilot.enable": {
         "*": true,
         "plaintext": false,
@@ -337,9 +337,15 @@
     "git.openRepositoryInParentFolders": "never",
     "window.zoomLevel": 2,
     "svelte.enable-ts-plugin": true,
-    "editor.fontSize": 13,
     "eslint.format.enable": true,
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": "explicit"
-    }
+    },
+    "editor.fontSize": 14,
+    "debug.console.fontSize": 14,
+    "chat.editor.fontSize": 14,
+    "scm.inputFontSize": 14,
+    "cSpell.userWords": [
+        "Mappedin"
+    ]
 }
