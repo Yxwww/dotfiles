@@ -1,3 +1,4 @@
 font-family = "Monolisa"
 theme = "Ayu"
 keybind = shift+enter=text:\n
+macos-option-as-alt = true
