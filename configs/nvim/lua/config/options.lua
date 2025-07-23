@@ -6,7 +6,7 @@
 -- Turn off autoformat for now.
 vim.g.snacks_animate = false
 vim.g.lazyvim_picker = "snacks"
-vim.g.autoformat = false
+vim.g.autoformat = true
 vim.o.foldmethod = "indent"
 -- vim.o.foldexpr = "nvim_treesitter#foldexpr()"
 vim.o.foldlevel = 100

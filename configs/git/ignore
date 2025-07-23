@@ -9,7 +9,6 @@ zsh_profile.*
 pnpm-debug.log
 target
 .next
-.node-version
 .git
 .lintstagedrc
 firebase-debug.log
@@ -35,5 +34,7 @@ yuxi-ignore
 .npmrc
 .cursor
 
-claude.md
 .goosehints
+.expo
+tsconfig.tsbuildinfo
+.cursorrules
