@@ -7,6 +7,11 @@ return {
       inlay_hints = {
         enabled = false,
       },
+      servers = {
+        emmet_ls = {
+          enabled = false,
+        },
+      },
     },
   },
   {
@@ -38,6 +43,6 @@ return {
     "tikhomirov/vim-glsl",
   },
   {
-    'iamcco/markdown-preview.nvim'
-  }
+    "iamcco/markdown-preview.nvim",
+  },
 }
