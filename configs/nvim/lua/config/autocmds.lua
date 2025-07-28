@@ -1,6 +1,15 @@
 -- Autocmds are automatically loaded on the VeryLazy event
 -- Default autocmds that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/autocmds.lua
 -- Add any additional autocmds here
+
+-- Notify when LSP is disabled
+if vim.env.NVIM_NO_LSP == "1" then
+  vim.api.nvim_create_autocmd("VimEnter", {
+    callback = function()
+      vim.notify("LSP is disabled (NVIM_NO_LSP=1)", vim.log.levels.WARN)
+    end,
+  })
+end
 --
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },

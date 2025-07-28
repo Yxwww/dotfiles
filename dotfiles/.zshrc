@@ -207,7 +207,18 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # Vim config
 if type nvim > /dev/null 2>&1; then
-  alias vim="nvim"
+  # Unalias vim if it exists
+  unalias vim 2>/dev/null || true
+  
+  # Function to handle vim with custom flags
+  vim() {
+    if [[ "$1" == "--no-lsp" ]]; then
+      shift  # Remove --no-lsp from arguments
+      NVIM_NO_LSP=1 nvim "$@"
+    else
+      nvim "$@"
+    fi
+  }
 elif type mvim > /dev/null 2>&1; then
   alias vim="mvim -v"
 fi
@@ -338,7 +349,6 @@ fpath+=~/.config/zsh/completions/_gh
 compinit
 
 eval "$(starship init zsh)"
-eval "$(zoxide init --cmd cd zsh)"
 
 source ~/.zshrc_profile
 
@@ -352,3 +362,10 @@ esac
 # pnpm end
 source ~/.zshrc_extra
 # . "/Users/yuxiwang/.deno/env"
+alias claude="/Users/yuxiwang/.claude/local/claude"
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
+export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
+
+# # Initialize zoxide for zsh
+eval "$(zoxide init --cmd cd zsh)"

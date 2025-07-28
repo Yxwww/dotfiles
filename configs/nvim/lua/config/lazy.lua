@@ -6,19 +6,30 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
+-- Check if LSP should be disabled
+local disable_lsp = vim.env.NVIM_NO_LSP == "1"
+
+-- Build spec dynamically based on LSP setting
+local spec = {
+  -- add LazyVim and import its plugins
+  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+  -- import/override with your plugins
+  { import = "plugins" },
+}
+
+-- Only add language and formatting extras if LSP is not disabled
+if not disable_lsp then
+  table.insert(spec, { import = "lazyvim.plugins.extras.lang.typescript" })
+  table.insert(spec, { import = "lazyvim.plugins.extras.lang.rust" })
+  table.insert(spec, { import = "lazyvim.plugins.extras.formatting.prettier" })
+end
+
+-- Always include editor extras (non-LSP related)
+table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-files" })
+table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-diff" })
+
 require("lazy").setup({
-  spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- import any extras modules here
-    { import = "lazyvim.plugins.extras.lang.typescript" },
-    { import = "lazyvim.plugins.extras.lang.rust" },
-    { import = "lazyvim.plugins.extras.editor.mini-files" },
-    { import = "lazyvim.plugins.extras.editor.mini-diff" },
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
-    -- import/override with your plugins
-    { import = "plugins" },
-  },
+  spec = spec,
   ui = {
     border = "rounded",
     size = {
