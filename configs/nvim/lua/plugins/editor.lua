@@ -7,7 +7,22 @@ return {
       inlay_hints = {
         enabled = false,
       },
+      servers = {
+        vtsls = {
+          enabled = false,
+        },
+        eslint = {
+          enabled = false,
+        },
+        emmet_ls = {
+          enabled = false,
+        },
+      },
     },
+  },
+  {
+    "mini.pairs",
+    enabled = false,
   },
   {
     "blink.cmp",
@@ -38,6 +53,6 @@ return {
     "tikhomirov/vim-glsl",
   },
   {
-    'iamcco/markdown-preview.nvim'
-  }
+    "iamcco/markdown-preview.nvim",
+  },
 }
