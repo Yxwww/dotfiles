@@ -367,5 +367,8 @@ export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 
-# # Initialize zoxide for zsh
-eval "$(zoxide init --cmd cd zsh)"
+# Initialize zoxide onlny when it exists (this ensures zoxcide works in zsh but in Claude Terminal it doesn't work, you don't want Claude Code using Zoxcide any way)
+if command -v zoxide &> /dev/null && [ "$CLAUDECODE" != "1" ]; then
+  eval "$(zoxide init --cmd cd zsh)"
+fi
+

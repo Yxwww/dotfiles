@@ -271,7 +271,7 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
     "[typescript]": {
-        "editor.defaultFormatter": "dbaeumer.vscode-eslint",
+        "editor.defaultFormatter": "vscode.typescript-language-features",
         "editor.codeActionsOnSave": {
             "source.fixAll.eslint": "explicit"
         }
@@ -294,7 +294,7 @@
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter.notebook.ipynb"
     },
-    "workbench.preferredDarkColorTheme": "Nord",
+    "workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
     "editor.inlineSuggest.enabled": true,
     "window.autoDetectColorScheme": true,
     "workbench.preferredLightColorTheme": "Cursor Dark Midnight",
