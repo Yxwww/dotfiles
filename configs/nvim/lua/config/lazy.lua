@@ -13,10 +13,9 @@ local disable_lsp = vim.env.NVIM_NO_LSP == "1"
 local spec = {
   -- add LazyVim and import its plugins
   { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-  -- import/override with your plugins
-  { import = "plugins" },
 }
 
+-- Add LazyVim extras before custom plugins
 -- Only add language and formatting extras if LSP is not disabled
 if not disable_lsp then
   table.insert(spec, { import = "lazyvim.plugins.extras.lang.typescript" })
@@ -27,6 +26,9 @@ end
 -- Always include editor extras (non-LSP related)
 table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-files" })
 table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-diff" })
+
+-- Import custom plugins last
+table.insert(spec, { import = "plugins" })
 
 require("lazy").setup({
   spec = spec,
