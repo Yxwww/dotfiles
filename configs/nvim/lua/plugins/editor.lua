@@ -9,7 +9,7 @@ return {
       },
       servers = {
         vtsls = {
-          enabled = false,
+          enabled = true,
         },
         eslint = {
           enabled = false,
