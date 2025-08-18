@@ -22,6 +22,7 @@
 - Prefer performant test code
 - Do not use if statement test. Instead, actually assert the considtion
 - Do not use forEach in test. Instead use map to assert things are called corretly
+- DO NOT make tests conditional to pass test
 
 ## General Workflows
 

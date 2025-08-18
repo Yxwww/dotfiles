@@ -47,6 +47,9 @@ return {
           args = { "--config", "~/.markdownlint.jsonc" },
         },
       },
+      linters_by_ft = {
+        markdown = {},
+      },
     },
   },
   {
