@@ -12,13 +12,17 @@
   - always cancel async processes when aprorpirate: on failure or repeat for example
 - Avoid inline require or inline import unless necessary. Use normal es import if setup
 
+### UI Programming
+
+- Unless specified, style the UI
+
 ## Testing
 
 - TDD whenever is possible
-- Prefer to run the test which actually the change touches
+- Prefer to run the test which actually the change touches. Use --testNamePattern flag to filter out test if possible
 - When writing test
   - be consise
-  - Test multiple cases of the same logic in one test if you can.
+  - Combine multiple cases of the same logic in one test if you can.
 - Prefer performant test code
 - Do not use if statement test. Instead, actually assert the considtion
 - Do not use forEach in test. Instead use map to assert things are called corretly
@@ -26,4 +30,4 @@
 
 ## General Workflows
 
-- IMPORTANT: do not include yourself as a collaborator when using git or gh
+- IMPORTANT: DO NOT mention CLAUDE in commit message. Stick to actual changes
