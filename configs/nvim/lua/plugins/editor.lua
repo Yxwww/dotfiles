@@ -1,5 +1,17 @@
 return {
   {
+    "MeanderingProgrammer/render-markdown.nvim",
+    opts = {
+      code = {
+        enabled = false,
+        sign = true,
+        width = "block",
+        right_pad = 1,
+      },
+    },
+  },
+
+  {
     "neovim/nvim-lspconfig",
     ---LSP Server Settings
     ---@type lspconfig.options
