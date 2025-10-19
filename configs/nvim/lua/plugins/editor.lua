@@ -26,6 +26,9 @@ return {
         eslint = {
           enabled = false,
         },
+        rust_analyzer = {
+          enabled = false,
+        },
         emmet_ls = {
           enabled = false,
         },
