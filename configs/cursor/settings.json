@@ -297,7 +297,7 @@
     "workbench.preferredDarkColorTheme": "Cursor Dark Midnight",
     "editor.inlineSuggest.enabled": true,
     "window.autoDetectColorScheme": true,
-    "workbench.preferredLightColorTheme": "Cursor Dark Midnight",
+    "workbench.preferredLightColorTheme": "Cursor Dark High Contrast",
     "git.autofetch": true,
     "vim.highlightedyank.enable": true,
     // hack to get fold not open when jk
