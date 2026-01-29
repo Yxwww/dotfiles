@@ -146,13 +146,6 @@ return {
   },
 
   {
-    "fzf-lua",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>gs", false },
-    },
-  },
-  {
     "folke/snacks.nvim",
     priority = 1000,
     lazy = false,
