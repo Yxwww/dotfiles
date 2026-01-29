@@ -37,8 +37,8 @@ ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences
 ln -sf "$(pwd)"/configs/starship.toml ~/.config
 
 # code
-ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code/User/
-ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code/User/
+# ln -sf "$(pwd)"/configs/Code/keybindings.json ~/Library/Application\ Support/Code/User/
+# ln -sf "$(pwd)"/configs/Code/settings.json ~/Library/Application\ Support/Code/User/
 
 if [ -d ~/Library/Application\ Support/Cursor ]; then
   ln -sf "$(pwd)"/configs/Cursor/settings.json ~/Library/Application\ Support/Cursor/User/
