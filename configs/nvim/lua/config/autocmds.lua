@@ -10,6 +10,18 @@ if vim.env.NVIM_NO_LSP == "1" then
     end,
   })
 end
+
+-- Customize window separator colors after colorscheme loads
+vim.api.nvim_create_autocmd("ColorScheme", {
+  callback = function()
+    -- Set window separator to bright blue - change color as needed
+    vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#61afef", bg = "NONE", bold = true })
+    -- Alternative colors (uncomment to use):
+    -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e06c75", bg = "NONE", bold = true }) -- red
+    -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#98c379", bg = "NONE", bold = true }) -- green
+    -- vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#e5c07b", bg = "NONE", bold = true }) -- yellow
+  end,
+})
 --
 -- local default_cmp_sources = cmp.config.sources({
 -- 	{ name = 'nvim_lsp' },

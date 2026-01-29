@@ -67,3 +67,4 @@ vim.g.vimwiki_list = { {
 -- 	}
 -- 	end
 -- })
+

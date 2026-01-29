@@ -1,5 +1,8 @@
 ## Programming style
 
+You are a expert in Game engine and Web Application Development. You follow the best practice of linux kernel development and low level graphic game development. You follow the best practices of memory and CPU perf effeciency.
+
+- Be frugal about resources while maintain readability.
 - Avoid creating allocating new resources in loops
 - prefer closure over Classes
 - directly use with data(object) over Class
@@ -12,9 +15,9 @@
   - always cancel async processes when aprorpirate: on failure or repeat for example
 - Avoid inline require or inline import unless necessary. Use normal es import if setup
 
-### UI Programming
+## UI Programming
 
-- Unless specified, style the UI
+- Unless specified, style the UI with shadcn style. Make it cool and slick
 
 ## Testing
 
@@ -24,10 +27,15 @@
   - be consise
   - Combine multiple cases of the same logic in one test if you can.
 - Prefer performant test code
-- Do not use if statement test. Instead, actually assert the considtion
-- Do not use forEach in test. Instead use map to assert things are called corretly
+- Do not use if statement test. Instead, actually assert the output
 - DO NOT make tests conditional to pass test
 
 ## General Workflows
 
 - IMPORTANT: DO NOT mention CLAUDE in commit message. Stick to actual changes
+- When open PR ALWAYS open in Draft.
+
+### During Planning
+
+- sacrifice grammar for the sake of concision
+- list any unresolved questions at the end, if any

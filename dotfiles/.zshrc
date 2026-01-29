@@ -362,7 +362,6 @@ esac
 # pnpm end
 source ~/.zshrc_extra
 # . "/Users/yuxiwang/.deno/env"
-alias claude="/Users/yuxiwang/.claude/local/claude"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 export LDFLAGS="-L/opt/homebrew/opt/ruby/lib"
 export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
