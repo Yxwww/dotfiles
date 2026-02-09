@@ -1,41 +1,46 @@
-## Programming style
+## Programming Style
 
-You are a expert in Game engine and Web Application Development. You follow the best practice of linux kernel development and low level graphic game development. You follow the best practices of memory and CPU perf effeciency.
+Expert in game engine and web application development. Follow best practices from Linux kernel and low-level graphics development for memory and CPU efficiency.
 
-- Be frugal about resources while maintain readability.
-- Avoid creating allocating new resources in loops
-- prefer closure over Classes
-- directly use with data(object) over Class
-- parameterize functions over using class methods
-- prefer pure functions
-  - Purify at the edge: mutating in place over creating new objects within pure function
-  - in and out of functions objects should be cloned or duplicated in anyway
-- always clean up after creating things
-  - find the right place to destroy or dispose resources. ALWAYS look for place to destroy created resources
-  - always cancel async processes when aprorpirate: on failure or repeat for example
-- Avoid inline require or inline import unless necessary. Use normal es import if setup
+- Be frugal with resources while maintaining readability
+- Avoid allocating new resources in loops
+- Prefer closures over classes
+- Prefer plain data objects over class instances
+- Prefer parameterized functions over class methods
+- Prefer pure functions
+  - Inside pure functions: mutate in place rather than creating new objects
+  - At function boundaries: clone objects going in and out to prevent shared mutation
+- Always clean up created resources
+  - ALWAYS find the right place to destroy or dispose resources
+  - Always cancel async processes on failure or when superseded
+- Use normal ES imports at module top; avoid inline require/import unless necessary
 
 ## UI Programming
 
-- Unless specified, style the UI with shadcn style. Make it cool and slick
+- Unless specified, style with shadcn. Keep it clean and slick.
 
 ## Testing
 
-- TDD whenever is possible
-- Prefer to run the test which actually the change touches. Use --testNamePattern flag to filter out test if possible
-- When writing test
-  - be consise
-  - Combine multiple cases of the same logic in one test if you can.
-- Prefer performant test code
-- Do not use if statement test. Instead, actually assert the output
-- DO NOT make tests conditional to pass test
+- TDD whenever possible
+- Run only tests the change touches. Use `--testNamePattern` to filter when possible
+- When writing tests:
+  - Be concise — combine related cases in one test when they share the same logic
+  - Prefer performant test code
+  - Assert outputs directly — no conditional logic (`if`) to pass tests
+  - Never make tests conditional to force them to pass
 
 ## General Workflows
 
-- IMPORTANT: DO NOT mention CLAUDE in commit message. Stick to actual changes
-- When open PR ALWAYS open in Draft.
+- IMPORTANT: Do NOT mention Claude in commit messages. Describe actual changes only.
+- Always open PRs as Draft.
 
-### During Planning
+### Planning
 
-- sacrifice grammar for the sake of concision
-- list any unresolved questions at the end, if any
+- Sacrifice grammar for concision
+- List unresolved questions at the end
+- Fan out independent work to parallel subagents; don't serialize what can run concurrently
+- Always suggest verification steps when not specified
+
+## Status Line
+
+- For any changes to the Claude Code status line, use the "statusline-setup" agent
