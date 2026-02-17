@@ -26,6 +26,29 @@ Primary stack: TypeScript, React. Optimize for memory and CPU efficiency, inform
   - Prefer performant test code
   - Assert outputs directly — never use conditional logic to force tests to pass
 
+## Debugging
+
+- IMPORTANT: When asked to debug or investigate an issue, **always spawn a team** with these roles:
+  - **Investigator** — reproduces the bug, forms hypotheses, proposes fixes
+  - **Devil's Advocate** — challenges every hypothesis, verifies claims with evidence, checks for regressions and side effects
+- The Devil's Advocate must:
+  - Push back on the Investigator's hypothesis — demand proof, not assumptions
+  - Verify the bug is real and correctly scoped (not a symptom of something else)
+  - Confirm proposed fixes don't break other behavior
+  - Only sign off when the evidence is solid
+
+### Reproduction-first rule
+
+- **Always reproduce the problem first** before reading code or suggesting fixes
+- Do NOT read code and jump to conclusions — prove the bug exists with observable output
+- Reproduction methods (pick what fits):
+  - Add `console.log` / breakpoints and run the code
+  - Write a minimal script in Node to trigger the issue
+  - For frontend/browser bugs: run the app in the browser, interact with it, and show the failure visually (use browser tools)
+- Present the reproduction clearly — show actual vs expected output so the problem is undeniable
+- Only after the issue is confirmed and visible should you analyze root cause or propose fixes
+- If reproduction is blocked, explain why and ask for help unblocking — do not skip to guessing
+
 ## General Workflows
 
 - IMPORTANT: Do NOT mention Claude in commit messages. Describe actual changes only.
