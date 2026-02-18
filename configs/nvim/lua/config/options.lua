@@ -4,7 +4,7 @@
 --
 
 -- Turn off autoformat for now.
-vim.g.snacks_animate = false
+-- vim.g.snacks_animate = false
 vim.g.lazyvim_picker = "snacks"
 vim.g.autoformat = true
 vim.o.foldmethod = "indent"
@@ -67,4 +67,3 @@ vim.g.vimwiki_list = { {
 -- 	}
 -- 	end
 -- })
-

@@ -1,4 +1,4 @@
 font-family = "Monolisa"
-theme = "Ayu"
+theme = "Adventure"
 keybind = shift+enter=text:\n
 macos-option-as-alt = true

@@ -10,6 +10,15 @@
 ./linkdotfiles.sh
 ```
 
+## Zsh Plugins
+
+### zsh-autosuggestions
+
+```bash
+mkdir -p ~/.zsh
+git clone https://github.com/zsh-users/zsh-autosuggestions ~/.zsh/zsh-autosuggestions
+```
+
 ## setup
 
 ### Tmux italic
