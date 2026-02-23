@@ -19,18 +19,28 @@ Primary stack: TypeScript, React. Optimize for memory and CPU efficiency, inform
 
 ## Testing
 
-- TDD whenever possible
+- TDD whenever possible.
 - Run only tests the change touches. Use `--testNamePattern` to filter when possible
+- Don't write test for what type system already guarantees
 - When writing tests:
   - Be concise — combine related cases in one test when they share the same logic
   - Prefer performant test code
   - Assert outputs directly — never use conditional logic to force tests to pass
 
+## Teams
+
+- IMPORTANT: **Every team** must include a **Devil's Advocate** role:
+  - Challenges all hypotheses and decisions from other agents
+  - Demands evidence before signing off — no assumptions pass unchecked
+  - Verifies by running tests locally when possible
+  - When reproduction is hard in Node (e.g. visual/interaction bugs), uses the browser to verify
+  - Only approves when proof is solid
+
 ## Debugging
 
 - IMPORTANT: When asked to debug, **always spawn a team**:
   - **Investigator** — reproduces the bug, forms hypotheses, proposes fixes
-  - **Devil's Advocate** — challenges every hypothesis with evidence, checks for regressions, only signs off when proof is solid
+  - **Devil's Advocate** — (see Teams section above)
 - **Reproduce first** — prove the bug with observable output before reading code or proposing fixes. If reproduction is blocked, ask for help — don't guess.
 
 ## General Workflows
