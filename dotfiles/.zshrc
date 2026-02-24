@@ -333,7 +333,7 @@ if [ "$ENABLE_ZSH_PROFILING" = true ] ; then
 fi
 
 
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export PATH="$HOME/.deno/bin:$PATH"
 
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
