@@ -360,6 +360,9 @@ case ":$PATH:" in
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
+
+# pnpm global bin
+export PATH="/Users/yuxi/.pnpm-global/bin:$PATH"
 source ~/.zshrc_extra
 # . "/Users/yuxiwang/.deno/env"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
