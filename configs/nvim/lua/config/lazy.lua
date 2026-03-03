@@ -1,43 +1,25 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-  -- bootstrap lazy.nvim
-  -- stylua: ignore
-  vim.fn.system({ "git", "clone", "--filter=blob:none", "https://github.com/folke/lazy.nvim.git", "--branch=stable", lazypath })
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
-vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
-
--- Check if LSP should be disabled
-local disable_lsp = vim.env.NVIM_NO_LSP == "1"
-
--- Build spec dynamically based on LSP setting
-local spec = {
-  -- add LazyVim and import its plugins
-  { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-}
-
--- Add LazyVim extras before custom plugins
--- Only add language and formatting extras if LSP is not disabled
-if not disable_lsp then
-  table.insert(spec, { import = "lazyvim.plugins.extras.lang.typescript" })
-  table.insert(spec, { import = "lazyvim.plugins.extras.lang.rust" })
-  table.insert(spec, { import = "lazyvim.plugins.extras.formatting.prettier" })
-end
-
--- Always include editor extras (non-LSP related)
-table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-files" })
-table.insert(spec, { import = "lazyvim.plugins.extras.editor.mini-diff" })
-
--- Import custom plugins last
-table.insert(spec, { import = "plugins" })
+vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = spec,
-  ui = {
-    border = "rounded",
-    size = {
-      width = 0.8,
-      height = 0.8,
-    },
+  spec = {
+    -- add LazyVim and import its plugins
+    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
+    -- import/override with your plugins
+    { import = "plugins" },
   },
   defaults = {
     -- By default, only LazyVim plugins will be lazy-loaded. Your custom plugins will load during startup.
@@ -49,7 +31,10 @@ require("lazy").setup({
     -- version = "*", -- try installing the latest stable version for plugins that support semver
   },
   install = { colorscheme = { "tokyonight", "habamax" } },
-  checker = { enabled = true }, -- automatically check for plugin updates
+  checker = {
+    enabled = true, -- check for plugin updates periodically
+    notify = false, -- notify on update
+  }, -- automatically check for plugin updates
   performance = {
     rtp = {
       -- disable some rtp plugins
