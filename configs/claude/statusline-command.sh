@@ -74,16 +74,6 @@ if git -c core.useBuiltinFSMonitor=false rev-parse --git-dir > /dev/null 2>&1; t
     fi
 fi
 
-# Package version (if package.json exists)
-package_info=""
-if [ -f "$current_dir/package.json" ]; then
-    package_version=$(jq -r '.version' "$current_dir/package.json" 2>/dev/null)
-    if [ -n "$package_version" ] && [ "$package_version" != "null" ]; then
-        # Bold orange (208) for package version
-        package_info=$(printf " \033[1;38;5;208m[v%s]\033[0m" "$package_version")
-    fi
-fi
-
 # Model name (compact short codes)
 model_info=""
 if [ -n "$model_name" ]; then
@@ -135,14 +125,13 @@ else
 fi
 
 # Build the status line with colors matching Starship theme
-# Format: directory git_branch git_status package model ctx
+# Format: directory git_branch git_status model ctx
 #         python (if present)
 #         character
-printf "\033[34m%s\033[0m%s%s%s%s%s%s%s" \
+printf "\033[34m%s\033[0m%s%s%s%s%s%s" \
     "$directory" \
     "$git_info" \
     "$git_status_info" \
-    "$package_info" \
     "$model_info" \
     "$context_info" \
     "$python_info" \
