@@ -9,10 +9,6 @@ vim_mode=$(echo "$input" | jq -r '.vim.mode // empty')
 model_name=$(echo "$input" | jq -r '.model.display_name // empty')
 context_used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
-# Get basic info
-username=$(whoami)
-hostname=$(hostname -s)
-
 # Use full path for directory display
 directory="$current_dir"
 # Shorten home directory to ~
@@ -70,10 +66,11 @@ if [ -f "$current_dir/package.json" ]; then
     fi
 fi
 
-# Model name
+# Model name (compact: strip "claude-" prefix)
 model_info=""
 if [ -n "$model_name" ]; then
-    model_info=$(printf " \033[2m[%s]\033[0m" "$model_name")
+    model_short="${model_name#claude-}"
+    model_info=$(printf " \033[2m[%s]\033[0m" "$model_short")
 fi
 
 # Context window usage
@@ -110,12 +107,10 @@ else
 fi
 
 # Build the status line with colors matching Starship theme
-# Format: username@hostname directory git_branch git_status node package model ctx
+# Format: directory git_branch git_status node package model ctx
 #         python (if present)
 #         character
-printf "\033[2m%s@%s\033[0m \033[34m%s\033[0m%s%s%s%s%s%s%s%s" \
-    "$username" \
-    "$hostname" \
+printf "\033[34m%s\033[0m%s%s%s%s%s%s%s%s" \
     "$directory" \
     "$git_info" \
     "$git_status_info" \
