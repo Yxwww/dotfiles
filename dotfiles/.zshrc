@@ -235,9 +235,11 @@ alias vi="vim"
 export PATH=/usr/local/bin:$PATH
 #
 # fzf via Homebrew
-if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
-  source /usr/local/opt/fzf/shell/key-bindings.zsh
-  source /usr/local/opt/fzf/shell/completion.zsh
+if [ -e /opt/homebrew/opt/fzf/shell/completion.zsh ]; then
+  source /opt/homebrew/opt/fzf/shell/key-bindings.zsh
+  source /opt/homebrew/opt/fzf/shell/completion.zsh
+elif ! type fzf &> /dev/null; then
+  echo "⚠ fzf not found — key bindings (ctrl-t, ctrl-r, alt-c) disabled. Install: brew install fzf"
 fi
 
 # fzf + ag configuration
@@ -323,7 +325,7 @@ alias open='reattach-to-user-namespace open'
 export MYVIMRC=~/.vimrc
 export EDITOR='nvim'
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh  # replaced by /opt/homebrew path above
 
 # profiling uncomnment next 2 lines
 #
@@ -374,3 +376,10 @@ if command -v zoxide &> /dev/null && [ "$CLAUDECODE" != "1" ]; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
 
+
+# bun completions
+[ -s "/Users/yuxi/.bun/_bun" ] && source "/Users/yuxi/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
