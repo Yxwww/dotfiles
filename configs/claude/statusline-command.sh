@@ -9,10 +9,29 @@ vim_mode=$(echo "$input" | jq -r '.vim.mode // empty')
 model_name=$(echo "$input" | jq -r '.model.display_name // empty')
 context_used=$(echo "$input" | jq -r '.context_window.used_percentage // empty')
 
-# Use full path for directory display
-directory="$current_dir"
-# Shorten home directory to ~
-directory="${directory/#$HOME/\~}"
+# Compact pwd: shorten each parent segment to 1 char, keep last segment full
+_compact_pwd() {
+    local path="${1/#$HOME/~}"
+    # Split on /
+    local IFS='/'
+    read -ra parts <<< "$path"
+    local result=""
+    local count=${#parts[@]}
+    for (( i=0; i<count-1; i++ )); do
+        local seg="${parts[$i]}"
+        if [ -z "$seg" ]; then
+            # leading slash
+            result+="/"
+        elif [ "$seg" = "~" ]; then
+            result+="~/"
+        else
+            result+="${seg:0:1}/"
+        fi
+    done
+    result+="${parts[$((count-1))]}"
+    echo "$result"
+}
+directory=$(_compact_pwd "$current_dir")
 
 # Git information (with error handling, skip optional locks)
 git_info=""
@@ -36,23 +55,22 @@ if git -c core.useBuiltinFSMonitor=false rev-parse --git-dir > /dev/null 2>&1; t
     fi
 
     if [ -n "$branch" ]; then
+        # Strip common branch prefixes
+        branch_short="$branch"
+        for prefix in feature/ fix/ bugfix/ hotfix/ chore/ refactor/ feat/; do
+            branch_short="${branch_short#$prefix}"
+        done
+        # Truncate to 20 chars with ellipsis
+        if [ "${#branch_short}" -gt 20 ]; then
+            branch_short="${branch_short:0:20}…"
+        fi
         # Branch name in bright-black (dim)
-        git_info=$(printf " \033[2m[%s]\033[0m" "$branch")
+        git_info=$(printf " \033[2m[%s]\033[0m" "$branch_short")
 
         # Git status in cyan (if there are changes)
         if [ -n "$git_symbols" ]; then
             git_status_info=$(printf " \033[36m[%s]\033[0m" "$git_symbols")
         fi
-    fi
-fi
-
-# Node.js version (if available)
-node_info=""
-if command -v node > /dev/null 2>&1; then
-    node_version=$(node --version 2>/dev/null | sed 's/v//' | cut -d. -f1)
-    if [ -n "$node_version" ]; then
-        # Bright-black (dim) for node version
-        node_info=$(printf " \033[2mvia [n(%s)]\033[0m" "$node_version")
     fi
 fi
 
@@ -66,10 +84,20 @@ if [ -f "$current_dir/package.json" ]; then
     fi
 fi
 
-# Model name (compact: strip "claude-" prefix)
+# Model name (compact short codes)
 model_info=""
 if [ -n "$model_name" ]; then
-    model_short="${model_name#claude-}"
+    case "$model_name" in
+        *opus-4-6*|*opus*)   model_short="o4.6" ;;
+        *sonnet-4-6*)        model_short="s4.6" ;;
+        *haiku-4-5*|*haiku*) model_short="h4.5" ;;
+        *sonnet-3-5*|*sonnet-3.5*) model_short="s3.5" ;;
+        *) # fallback: first letter of tier + version number
+           stripped="${model_name#claude-}"
+           first="${stripped:0:1}"
+           version=$(echo "$stripped" | grep -oE '[0-9]+[-\.][0-9]+' | head -1 | tr '-' '.')
+           model_short="${first}${version:-$stripped}" ;;
+    esac
     model_info=$(printf " \033[2m[%s]\033[0m" "$model_short")
 fi
 
@@ -86,7 +114,7 @@ if [ -n "$context_used" ]; then
     else
         color="\033[32m"
     fi
-    context_info=$(printf " ${color}[ctx:%s%%]\033[0m" "$pct")
+    context_info=$(printf " ${color}[%s%%]\033[0m" "$pct")
 fi
 
 # Python virtual environment
@@ -107,14 +135,13 @@ else
 fi
 
 # Build the status line with colors matching Starship theme
-# Format: directory git_branch git_status node package model ctx
+# Format: directory git_branch git_status package model ctx
 #         python (if present)
 #         character
-printf "\033[34m%s\033[0m%s%s%s%s%s%s%s%s" \
+printf "\033[34m%s\033[0m%s%s%s%s%s%s%s" \
     "$directory" \
     "$git_info" \
     "$git_status_info" \
-    "$node_info" \
     "$package_info" \
     "$model_info" \
     "$context_info" \
