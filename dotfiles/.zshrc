@@ -231,7 +231,6 @@ alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3
 alias vi="vim"
 alias claude="claude --no-chrome"
 
-alias pf="bun run ~/git/dotfiles/apps/ports/src/index.ts"
 
 killport() {
   if [ -z "$1" ]; then
@@ -399,4 +398,4 @@ fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$BUN_INSTALL/bin:$HOME/.local/bin:$PATH"

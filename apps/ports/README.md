@@ -5,10 +5,12 @@ TUI and CLI for listing listening TCP ports on macOS with enriched process info 
 ## Install
 
 ```bash
-cd apps/ports && bun install
+cd apps/ports && bun install && bun run install-cli
 ```
 
-The `pf` alias and Claude skill are set up by `linkdotfiles.sh`.
+Compiles a self-contained binary and symlinks it to `~/.local/bin/pf`. No `bun` or `node_modules` needed at runtime.
+
+Requires `~/.local/bin` on your PATH (added by this repo's `.zshrc`).
 
 ## Usage
 
@@ -27,8 +29,16 @@ pf --snapshot       Colored snapshot
 j/↓  down   k/↑  up   d/enter  kill   r  refresh   q  quit
 ```
 
+## Rebuild
+
+After editing source files:
+
+```bash
+bun run build       # recompile binary (symlink still points to it)
+```
+
 ## Stack
 
-- **Runtime**: Bun
+- **Runtime**: Bun (compiled to standalone binary via `bun build --compile`)
 - **TUI**: OpenTUI (`@opentui/core`) — Zig native core with TypeScript bindings
 - **Platform**: macOS (uses `lsof` and `ps`)

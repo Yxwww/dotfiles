@@ -25,6 +25,9 @@ ln -snf "$(pwd)"/configs/claude/statusline-command.sh ~/.claude/statusline-comma
 mkdir -p ~/.claude/skills
 ln -snf "$(pwd)"/apps/ports ~/.claude/skills/pf
 
+# pf: build compiled binary
+(cd "$(pwd)"/apps/ports && bun install && bun run build)
+
 # iterm2
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist
 

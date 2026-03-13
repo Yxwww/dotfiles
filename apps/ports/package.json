@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "bun run src/index.ts",
-    "snapshot": "bun run src/index.ts --snapshot"
+    "build": "bun build src/index.ts --compile --outfile pf",
+    "install-cli": "bun run build && mkdir -p ~/.local/bin && ln -sf \"$(pwd)/pf\" ~/.local/bin/pf"
   },
   "dependencies": {
     "@opentui/core": "^0.1.87"
