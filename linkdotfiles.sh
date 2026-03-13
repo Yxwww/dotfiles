@@ -22,6 +22,8 @@ ln -snf "$(pwd)"/configs/nvim ~/.config
 # Claude
 ln -snf "$(pwd)"/configs/claude/personal.md ~/.claude/CLAUDE.md
 ln -snf "$(pwd)"/configs/claude/statusline-command.sh ~/.claude/statusline-command.sh
+mkdir -p ~/.claude/skills
+ln -snf "$(pwd)"/apps/ports ~/.claude/skills/pf
 
 # iterm2
 ln -snf "$(pwd)"/configs/iterm/com.googlecode.iterm2.plist ~/Library/Preferences/com.googlecode.iterm2.plist

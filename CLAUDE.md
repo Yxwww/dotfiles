@@ -45,6 +45,8 @@ To set up italics and true color support in tmux:
 
 ## Repository Structure
 
+- `apps/` - Standalone tools and utilities
+  - `ports/` - `pf` CLI/TUI for port management (Bun + OpenTUI). See `apps/ports/CLAUDE.md`.
 - `configs/` - Contains configuration files for various applications
   - `Code/` - VS Code configurations
   - `cursor/` - Cursor editor configurations
