@@ -229,6 +229,22 @@ alias zellijvs="zellij --layout ~/git/dotfiles/configs/zellij/layouts/vscodeterm
 alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3.kdl"
 
 alias vi="vim"
+alias claude="claude --no-chrome"
+
+
+killport() {
+  if [ -z "$1" ]; then
+    echo "Usage: killport <port>"
+    return 1
+  fi
+  local pids=$(lsof -ti :"$1")
+  if [ -z "$pids" ]; then
+    echo "No process found on port $1"
+    return 0
+  fi
+  echo "$pids" | xargs kill -9
+  echo "Killed processes on port $1: $pids"
+}
 
 # zsh ag config
 # Ensure user-installed binaries take precedence
@@ -375,6 +391,7 @@ export CPPFLAGS="-I/opt/homebrew/opt/ruby/include"
 if command -v zoxide &> /dev/null && [ "$CLAUDECODE" != "1" ]; then
   eval "$(zoxide init --cmd cd zsh)"
 fi
+
 
 
 
