@@ -377,9 +377,4 @@ if command -v zoxide &> /dev/null && [ "$CLAUDECODE" != "1" ]; then
 fi
 
 
-# bun completions
-[ -s "/Users/yuxi/.bun/_bun" ] && source "/Users/yuxi/.bun/_bun"
 
-# bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
