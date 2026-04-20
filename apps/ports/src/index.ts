@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { scanPorts, killProcess } from "./ports";
+import { scanPorts, killProcess, shortenDir, sortCwdFirst, isFromCwd } from "./ports";
 
 const args = process.argv.slice(2);
 const cmd = args[0] ?? "";
@@ -8,20 +8,29 @@ const cmd = args[0] ?? "";
 switch (cmd) {
   case "list":
   case "ls": {
-    const entries = await scanPorts();
-    const lines = entries.map((e) =>
-      [
-        String(e.port).padEnd(8),
-        String(e.pid).padEnd(8),
-        (e.script || e.command).padEnd(16),
-        (e.project || "—").slice(0, 20).padEnd(22),
-        e.address,
-      ].join("")
-    );
+    const raw = await scanPorts();
+    const cwd = process.cwd();
+    const entries = sortCwdFirst(raw, cwd);
+    console.log(`Current dir: ${shortenDir(cwd)}`);
     console.log(
-      ["PORT".padEnd(8), "PID".padEnd(8), "SCRIPT".padEnd(16), "PROJECT".padEnd(22), "ADDRESS"].join("")
+      ["  ", "PORT".padEnd(8), "PID".padEnd(8), "SCRIPT".padEnd(16), "PROJECT".padEnd(22), "ADDRESS"].join("")
     );
-    for (const l of lines) console.log(l);
+    for (const e of entries) {
+      const here = isFromCwd(e, cwd);
+      const marker = here ? "● " : "  ";
+      const tail = here ? "  ← current dir" : "";
+      console.log(
+        marker +
+          [
+            String(e.port).padEnd(8),
+            String(e.pid).padEnd(8),
+            (e.script || e.command).padEnd(16),
+            (e.project || "—").slice(0, 20).padEnd(22),
+            e.address,
+          ].join("") +
+          tail
+      );
+    }
     break;
   }
 
@@ -87,7 +96,7 @@ switch (cmd) {
     }
     for (const e of hits) {
       console.log(`${e.port}\t${e.pid}\t${e.script || e.command}\t${e.project || "—"}`);
-      if (e.fullCommand) console.log(`  → ${e.fullCommand}`);
+      if (e.fullCommand) console.log(`  → ${shortenDir(e.fullCommand)}`);
     }
     break;
   }

@@ -5,7 +5,9 @@ description: "Port finder and process manager CLI. Use this skill whenever the u
 
 # pf — port finder & process manager
 
-`pf` is a local CLI tool (aliased in .zshrc) that lists all listening TCP ports on this machine, enriched with the actual dev tool name (vite, next, webpack, etc.) and project directory — not just the generic `node` process name.
+`pf` is a local CLI tool (aliased in .zshrc) that lists all listening TCP ports on this machine, enriched with the actual dev tool name (vite, next, webpack, etc.), project directory, and the process's **current working directory** — not just the generic `node` process name.
+
+Ports whose process cwd is at or below the shell's current directory are **sorted to the top**, prefixed with `● `, and tagged `← current dir`. The output header includes a `Current dir: <path>` line so the reference path is explicit.
 
 ## When to reach for pf
 
@@ -52,6 +54,7 @@ Each port entry contains:
 | `script`      | `vite`                           | Extracted dev tool name from full command    |
 | `project`     | `security-dashboard-app`         | Extracted from path before node_modules     |
 | `fullCommand` | `node /Users/.../bin/vite --port 5173` | Full argv from ps                    |
+| `cwd`         | `/Users/yuxi/git/my-app`         | Process working directory (from `lsof -d cwd`) — used for "current dir" sort |
 | `address`     | `127.0.0.1` or `*` or `[::1]`   | Bind address                                |
 | `protocol`    | `IPv4` / `IPv6`                  |                                             |
 | `user`        | `yuxi`                           | OS user owning the process                  |
@@ -96,9 +99,36 @@ pf kill 8080
 pf json --compact | jq '.[] | select(.port == 3000)'
 ```
 
-## Important notes
+**"What port is this project serving?"** (answer: whichever ports are marked `← current dir`)
+```bash
+pf list
+# Current dir: ~/git/my-app
+#   PORT    PID     SCRIPT          PROJECT               ADDRESS
+# ● 5173    88252   vite            my-app                [::1]  ← current dir
+#   3000    12345   next            other-app             *
+```
+
+Or programmatically, filter by cwd prefix:
+```bash
+pf json --compact | jq --arg cwd "$PWD" '[.[] | select(.cwd | startswith($cwd))]'
+```
+
+## Parsing the output (LLM / script tips)
+
+Every cwd-match row in `pf list` and `pf --snapshot` is both **prefixed** with `● ` and **suffixed** with `← current dir`. Either signal is stable; grep on the suffix for line-oriented parsing:
+
+```bash
+pf list | grep '← current dir'          # only cwd-owned ports
+pf list | grep -v '← current dir' | tail -n +3   # skip cwd-owned, skip headers
+```
+
+The first line of `pf list` / `pf --snapshot` is always `Current dir: <path>` — read it to know the reference cwd without inferring.
+
+For structured work, `pf json` is the source of truth: every entry has a `cwd` field, and you can match against `$PWD` yourself (the JSON output is **not** sorted by cwd — it's stable port order, so scripts that cared about ordering before still work).
 
 - `pf kill` uses SIGTERM (signal 15), not SIGKILL — processes get a chance to clean up. If a process doesn't die, the user may need `kill -9 <pid>` manually.
 - Some system ports require `sudo` to see or kill. If `pf list` shows fewer ports than expected, suggest `sudo pf list`.
 - The `script` field is extracted heuristically from the full command — it catches most Node.js dev servers (vite, next, nuxt, webpack, esbuild, etc.) but may be empty for non-standard setups.
+- The `cwd` field comes from `lsof -d cwd` against the listening process. If lsof can't read it (permissions, zombie process), the field is empty and the row won't match "current dir" — not a bug, just a gap.
+- "Current dir" matching is a path-prefix check (`process.cwd()` or below). Being in the repo root marks every dev server under it; being in a deep subdir narrows the match.
 - Don't launch `pf` (the TUI) in non-interactive contexts. Use `pf list`, `pf json`, or `pf find` instead.

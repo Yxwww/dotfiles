@@ -15,7 +15,7 @@ import {
   yellow,
   cyan,
 } from "@opentui/core";
-import { scanPorts, classifyProcess, killProcess, type PortEntry } from "./ports";
+import { scanPorts, classifyProcess, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, type PortEntry } from "./ports";
 
 type Mode = "browse" | "confirm-kill";
 
@@ -33,22 +33,27 @@ let statusText: TextRenderable;
 let confirmBox: BoxRenderable;
 let confirmText: TextRenderable;
 
-function formatOption(entry: PortEntry): SelectOption {
+function formatOption(entry: PortEntry, cwd: string): SelectOption {
   const cls = classifyProcess(entry);
   const tag = cls === "root" ? "[root]" : cls === "system" ? "[sys]" : "[usr]";
   const label = entry.script || entry.command.slice(0, 14);
   const proj = entry.project ? `(${entry.project})` : "";
+  const here = isFromCwd(entry, cwd);
+  const marker = here ? "● " : "  ";
+  const baseDesc = entry.fullCommand
+    ? `→ ${shortenDir(entry.fullCommand).slice(0, 80)}`
+    : `${entry.command}  ${entry.address}:${entry.port}`;
   return {
     name: [
+      marker,
       String(entry.port).padEnd(8),
       String(entry.pid).padEnd(8),
       label.slice(0, 14).padEnd(16),
       proj.slice(0, 22).padEnd(24),
       tag,
+      here ? "  ← current dir" : "",
     ].join(""),
-    description: entry.fullCommand
-      ? `→ ${entry.fullCommand.slice(0, 80)}`
-      : `${entry.command}  ${entry.address}:${entry.port}`,
+    description: baseDesc,
     value: entry,
   };
 }
@@ -58,12 +63,16 @@ async function refresh() {
   state.refreshing = true;
   statusText.content = t`${dim("scanning...")}`;
 
-  const entries = await scanPorts();
+  const raw = await scanPorts();
+  const cwd = process.cwd();
+  const entries = sortCwdFirst(raw, cwd);
   state.entries = entries;
 
-  select.options = entries.map(formatOption);
-  titleText.content = t`${bold(` Ports (${entries.length} listening) `)}`;
-  statusText.content = t`${dim(" q quit  d kill  r refresh  j/↓ down  k/↑ up ")}`;
+  const cwdCount = entries.filter((e) => isFromCwd(e, cwd)).length;
+  select.options = entries.map((e) => formatOption(e, cwd));
+  const titleTail = cwdCount > 0 ? ` · ${cwdCount} from cwd ` : " ";
+  titleText.content = t`${bold(` Ports (${entries.length} listening)${titleTail}`)}`;
+  statusText.content = t`${dim(" q quit  d kill  o open  r refresh  j/↓ k/↑")}`;
   state.refreshing = false;
 }
 
@@ -127,6 +136,7 @@ export async function startTui() {
 
   // Column header
   const headerRow = [
+    "  ",
     "PORT".padEnd(8),
     "PID".padEnd(8),
     "SCRIPT".padEnd(16),
@@ -168,7 +178,7 @@ export async function startTui() {
 
   // Status bar
   statusText = new TextRenderable(renderer, {
-    content: t`${dim(" q quit  d kill  r refresh  j/↓ down  k/↑ up ")}`,
+    content: t`${dim(" q quit  d kill  o open  r refresh  j/↓ k/↑")}`,
     height: 1,
     paddingLeft: 1,
   });
@@ -223,6 +233,18 @@ export async function startTui() {
     if (key.name === "d") {
       const opt = select.getSelectedOption();
       if (opt?.value) showConfirm(opt.value as PortEntry);
+      return;
+    }
+    if (key.name === "o") {
+      const opt = select.getSelectedOption();
+      if (opt?.value) {
+        const entry = opt.value as PortEntry;
+        openInBrowser(entry.port).then((res) => {
+          statusText.content = res.success
+            ? t`${green(`Opened http://localhost:${entry.port}`)}`
+            : t`${red(res.error ?? "Failed to open browser")}`;
+        });
+      }
       return;
     }
     if (key.name === "r") {

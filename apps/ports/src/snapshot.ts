@@ -1,4 +1,4 @@
-import { scanPorts, classifyProcess } from "./ports";
+import { scanPorts, classifyProcess, shortenDir, sortCwdFirst, isFromCwd } from "./ports";
 
 const C = {
   reset: "\x1b[0m",
@@ -18,14 +18,20 @@ function colorForClass(cls: string): string {
 }
 
 export async function snapshot() {
-  const entries = await scanPorts();
+  const raw = await scanPorts();
 
-  if (entries.length === 0) {
+  if (raw.length === 0) {
     console.log(`${C.dim}No listening ports found (some may require sudo)${C.reset}`);
     process.exit(0);
   }
 
+  const cwd = process.cwd();
+  const entries = sortCwdFirst(raw, cwd);
+
+  console.log(`\n${C.dim}Current dir:${C.reset} ${shortenDir(cwd)}`);
+
   const header = [
+    "  ",
     "PORT".padEnd(8),
     "PID".padEnd(8),
     "SCRIPT".padEnd(14),
@@ -35,12 +41,16 @@ export async function snapshot() {
   ].join("");
 
   console.log(`\n${C.bold}${C.blue}${header}${C.reset}`);
-  console.log(`${C.dim}${"─".repeat(82)}${C.reset}`);
+  console.log(`${C.dim}${"─".repeat(84)}${C.reset}`);
 
+  let cwdCount = 0;
   for (let i = 0; i < entries.length; i++) {
     const e = entries[i];
     const cls = classifyProcess(e);
     const c = colorForClass(cls);
+    const here = isFromCwd(e, cwd);
+    if (here) cwdCount++;
+    const marker = here ? `${C.cyan}${C.bold}● ${C.reset}` : "  ";
     const script = (e.script || "—").slice(0, 12);
     const project = (e.project || "—").slice(0, 18);
     const row = [
@@ -51,13 +61,17 @@ export async function snapshot() {
       e.command.slice(0, 14).padEnd(16),
       e.address.padEnd(16),
     ].join("");
-    console.log(`${c}${row}${C.reset}`);
+    const tail = here ? ` ${C.cyan}← current dir${C.reset}` : "";
+    console.log(`${marker}${c}${row}${C.reset}${tail}`);
 
     // Show full command on next line for dev processes
     if (e.fullCommand && cls === "user") {
-      console.log(`${C.dim}  → ${e.fullCommand.slice(0, 100)}${C.reset}`);
+      console.log(`${C.dim}    → ${shortenDir(e.fullCommand).slice(0, 100)}${C.reset}`);
     }
   }
 
-  console.log(`\n${C.dim}${entries.length} listening port(s)${C.reset}\n`);
+  const summary = cwdCount > 0
+    ? `${entries.length} listening port(s) — ${cwdCount} from ${shortenDir(cwd)}`
+    : `${entries.length} listening port(s)`;
+  console.log(`\n${C.dim}${summary}${C.reset}\n`);
 }

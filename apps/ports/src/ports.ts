@@ -11,6 +11,7 @@ export type PortEntry = {
   fullCommand: string;
   script: string;    // extracted dev tool name: "vite", "next", "webpack", etc.
   project: string;   // extracted project directory name
+  cwd: string;       // process working directory (from lsof -d cwd)
 };
 
 export type ProcessClass = "system" | "user" | "root";
@@ -85,6 +86,7 @@ export async function scanPorts(): Promise<PortEntry[]> {
         fullCommand: "",
         script: "",
         project: "",
+        cwd: "",
       });
     }
 
@@ -92,6 +94,7 @@ export async function scanPorts(): Promise<PortEntry[]> {
 
     // Enrich with full command lines from ps
     await enrichEntries(entries);
+    await enrichCwd(entries);
 
     return entries;
   } catch {
@@ -138,6 +141,26 @@ function parseProject(fullCmd: string): string {
   return "";
 }
 
+export function shortenDir(cmd: string, home: string = Bun.env.HOME ?? ""): string {
+  if (!home || !cmd) return cmd;
+  const len = home.length;
+  let result = cmd;
+  let offset = 0;
+  while (true) {
+    const idx = result.indexOf(home, offset);
+    if (idx === -1) break;
+    const after = idx + len;
+    // Boundary check: next char must be '/' or end-of-string
+    if (after < result.length && result[after] !== "/") {
+      offset = after;
+      continue;
+    }
+    result = result.slice(0, idx) + "~" + result.slice(after);
+    offset = idx + 1;
+  }
+  return result;
+}
+
 async function enrichEntries(entries: PortEntry[]): Promise<void> {
   if (entries.length === 0) return;
 
@@ -165,6 +188,62 @@ async function enrichEntries(entries: PortEntry[]): Promise<void> {
     }
   } catch {
     // ps failed — leave fields empty
+  }
+}
+
+async function enrichCwd(entries: PortEntry[]): Promise<void> {
+  if (entries.length === 0) return;
+
+  const pids = [...new Set(entries.map((e) => e.pid))];
+
+  try {
+    // -Fpn emits field-based output: lines alternate "p<pid>" and "n<path>"
+    const result = await $`lsof -a -d cwd -p ${pids.join(",")} -Fpn`.text();
+    const cwdMap = new Map<number, string>();
+    let curPid = 0;
+
+    for (const line of result.split("\n")) {
+      if (!line) continue;
+      const tag = line[0];
+      const rest = line.slice(1);
+      if (tag === "p") {
+        const n = parseInt(rest, 10);
+        if (!isNaN(n)) curPid = n;
+      } else if (tag === "n" && curPid) {
+        cwdMap.set(curPid, rest);
+      }
+    }
+
+    for (let i = 0; i < entries.length; i++) {
+      entries[i].cwd = cwdMap.get(entries[i].pid) ?? "";
+    }
+  } catch {
+    // lsof failed — leave cwd empty
+  }
+}
+
+export function isFromCwd(entry: PortEntry, cwd: string): boolean {
+  if (!cwd || !entry.cwd) return false;
+  return entry.cwd === cwd || entry.cwd.startsWith(cwd + "/");
+}
+
+export function sortCwdFirst<T extends PortEntry>(entries: T[], cwd: string): T[] {
+  const sorted = entries.slice();
+  sorted.sort((a, b) => {
+    const aIn = isFromCwd(a, cwd) ? 0 : 1;
+    const bIn = isFromCwd(b, cwd) ? 0 : 1;
+    if (aIn !== bIn) return aIn - bIn;
+    return a.port - b.port;
+  });
+  return sorted;
+}
+
+export async function openInBrowser(port: number): Promise<{ success: boolean; error?: string }> {
+  try {
+    await $`open http://localhost:${port}`.quiet();
+    return { success: true };
+  } catch (e: any) {
+    return { success: false, error: String(e.message ?? e).slice(0, 120) };
   }
 }
 
