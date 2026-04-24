@@ -15,7 +15,7 @@ import {
   yellow,
   cyan,
 } from "@opentui/core";
-import { scanPorts, classifyProcess, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, type PortEntry } from "./ports";
+import { scanPorts, classifyProcess, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, spawnDevServer, pollForNewListener, type PortEntry } from "./ports";
 
 type Mode = "browse" | "confirm-kill";
 
@@ -72,7 +72,7 @@ async function refresh() {
   select.options = entries.map((e) => formatOption(e, cwd));
   const titleTail = cwdCount > 0 ? ` · ${cwdCount} from cwd ` : " ";
   titleText.content = t`${bold(` Ports (${entries.length} listening)${titleTail}`)}`;
-  statusText.content = t`${dim(" q quit  d kill  o open  r refresh  j/↓ k/↑")}`;
+  statusText.content = t`${dim(" q quit  d kill  s start  o open  r refresh  j/↓ k/↑")}`;
   state.refreshing = false;
 }
 
@@ -102,6 +102,38 @@ async function executeKill() {
   } else {
     statusText.content = t`${red(result.error ?? "Kill failed")}`;
   }
+}
+
+async function startDevServer() {
+  const cwd = process.cwd();
+
+  const existing = state.entries.find((e) => isFromCwd(e, cwd));
+  if (existing) {
+    statusText.content = t`${yellow(`Port already listening for this project (PID ${existing.pid}, port ${existing.port}) — starting anyway`)}`;
+  } else {
+    statusText.content = t`${dim(`Starting pnpm ... in ${shortenDir(cwd)}`)}`;
+  }
+
+  const res = await spawnDevServer(cwd);
+  if (!res.success) {
+    statusText.content = t`${red(res.error)}`;
+    return;
+  }
+
+  statusText.content = t`${green(`Spawned PID ${res.pid} (pnpm ${res.script}), logs: ${res.logPath}`)}`;
+
+  pollForNewListener(res.pid, { scan: scanPorts, intervalMs: 500, timeoutMs: 10000 }).then(
+    async (hit) => {
+      if (!hit) {
+        statusText.content = t`${yellow(`Server started but no port appeared in 10s — check ${res.logPath}`)}`;
+        return;
+      }
+      await refresh();
+      const idx = state.entries.findIndex((e) => e.pid === res.pid && e.port === hit.port);
+      if (idx >= 0) select.setSelectedIndex(idx);
+      statusText.content = t`${green(`Dev server up on port ${hit.port} (PID ${res.pid})`)}`;
+    },
+  );
 }
 
 export async function startTui() {
@@ -178,7 +210,7 @@ export async function startTui() {
 
   // Status bar
   statusText = new TextRenderable(renderer, {
-    content: t`${dim(" q quit  d kill  o open  r refresh  j/↓ k/↑")}`,
+    content: t`${dim(" q quit  d kill  s start  o open  r refresh  j/↓ k/↑")}`,
     height: 1,
     paddingLeft: 1,
   });
@@ -249,6 +281,10 @@ export async function startTui() {
     }
     if (key.name === "r") {
       refresh();
+      return;
+    }
+    if (key.name === "s") {
+      startDevServer();
       return;
     }
   });

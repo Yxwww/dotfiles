@@ -247,6 +247,62 @@ export async function openInBrowser(port: number): Promise<{ success: boolean; e
   }
 }
 
+export function pickDevScript(
+  pkg: { scripts?: Record<string, string> } | null,
+): "dev" | "start" | null {
+  if (!pkg?.scripts) return null;
+  if (pkg.scripts.dev) return "dev";
+  if (pkg.scripts.start) return "start";
+  return null;
+}
+
+export async function readPackageScript(cwd: string): Promise<"dev" | "start" | null> {
+  try {
+    const text = await Bun.file(`${cwd}/package.json`).text();
+    return pickDevScript(JSON.parse(text));
+  } catch {
+    return null;
+  }
+}
+
+export async function pollForNewListener(
+  pid: number,
+  opts: { scan: () => Promise<PortEntry[]>; intervalMs: number; timeoutMs: number },
+): Promise<PortEntry | null> {
+  const deadline = Date.now() + opts.timeoutMs;
+  while (Date.now() < deadline) {
+    const entries = await opts.scan();
+    const hit = entries.find((e) => e.pid === pid);
+    if (hit) return hit;
+    await new Promise((r) => setTimeout(r, opts.intervalMs));
+  }
+  return null;
+}
+
+export type SpawnResult =
+  | { success: true; pid: number; logPath: string; script: "dev" | "start" }
+  | { success: false; error: string };
+
+export async function spawnDevServer(cwd: string): Promise<SpawnResult> {
+  const script = await readPackageScript(cwd);
+  if (!script) return { success: false, error: "No dev or start script in package.json" };
+
+  const logPath = `/tmp/pf-${Date.now()}.log`;
+  const logFile = Bun.file(logPath);
+  const logWriter = logFile.writer();
+
+  const proc = Bun.spawn(["pnpm", script], {
+    cwd,
+    stdout: logWriter,
+    stderr: logWriter,
+    stdin: "ignore",
+    detached: true,
+  });
+  proc.unref?.();
+
+  return { success: true, pid: proc.pid, logPath, script };
+}
+
 export async function killProcess(
   pid: number,
   signal: number = 15

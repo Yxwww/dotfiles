@@ -39,7 +39,7 @@ pf kill <target>         # Kill by port number, PID, script name, project name, 
 ### Interactive
 
 ```bash
-pf                       # Full-screen TUI — navigate with j/k, kill with d or enter, refresh with r, quit with q
+pf                       # Full-screen TUI — j/k nav, d kill, s start (pnpm dev/start in cwd), o open, r refresh, q quit
 ```
 
 ## Output fields
