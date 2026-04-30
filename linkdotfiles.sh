@@ -19,6 +19,10 @@ ln -snf "$(pwd)"/configs/zed/settings.json $CONFIG_DIR/zed
 # nvim
 ln -snf "$(pwd)"/configs/nvim ~/.config
 
+# tmux helper scripts
+mkdir -p ~/.tmux
+ln -snf "$(pwd)"/scripts ~/.tmux/scripts
+
 # Claude
 ln -snf "$(pwd)"/configs/claude/personal.md ~/.claude/CLAUDE.md
 ln -snf "$(pwd)"/configs/claude/statusline-command.sh ~/.claude/statusline-command.sh
