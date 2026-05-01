@@ -122,16 +122,16 @@ async function startDevServer() {
 
   statusText.content = t`${green(`Spawned PID ${res.pid} (pnpm ${res.script}), logs: ${res.logPath}`)}`;
 
-  pollForNewListener(res.pid, { scan: scanPorts, intervalMs: 500, timeoutMs: 10000 }).then(
+  pollForNewListener(res.pid, { scan: scanPorts, intervalMs: 500, timeoutMs: 30000 }).then(
     async (hit) => {
       if (!hit) {
-        statusText.content = t`${yellow(`Server started but no port appeared in 10s — check ${res.logPath}`)}`;
+        statusText.content = t`${yellow(`Server started but no port appeared in 30s — check ${res.logPath}`)}`;
         return;
       }
       await refresh();
-      const idx = state.entries.findIndex((e) => e.pid === res.pid && e.port === hit.port);
+      const idx = state.entries.findIndex((e) => e.pid === hit.pid && e.port === hit.port);
       if (idx >= 0) select.setSelectedIndex(idx);
-      statusText.content = t`${green(`Dev server up on port ${hit.port} (PID ${res.pid})`)}`;
+      statusText.content = t`${green(`Dev server up on port ${hit.port} (PID ${hit.pid})`)}`;
     },
   );
 }

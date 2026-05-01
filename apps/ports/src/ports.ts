@@ -1,4 +1,5 @@
 import { $ } from "bun";
+import { openSync, closeSync } from "node:fs";
 
 export type PortEntry = {
   pid: number;
@@ -265,14 +266,46 @@ export async function readPackageScript(cwd: string): Promise<"dev" | "start" | 
   }
 }
 
+export async function getProcessTree(rootPid: number): Promise<Set<number>> {
+  try {
+    const { stdout } = await $`ps -A -o pid=,ppid=`.quiet();
+    const text = stdout.toString();
+    const childrenOf = new Map<number, number[]>();
+    for (const line of text.split("\n")) {
+      const parts = line.trim().split(/\s+/);
+      if (parts.length < 2) continue;
+      const pid = Number(parts[0]);
+      const ppid = Number(parts[1]);
+      if (!Number.isFinite(pid) || !Number.isFinite(ppid)) continue;
+      const list = childrenOf.get(ppid);
+      if (list) list.push(pid);
+      else childrenOf.set(ppid, [pid]);
+    }
+    const result = new Set<number>([rootPid]);
+    const queue = [rootPid];
+    while (queue.length) {
+      const p = queue.shift()!;
+      for (const c of childrenOf.get(p) ?? []) {
+        if (!result.has(c)) {
+          result.add(c);
+          queue.push(c);
+        }
+      }
+    }
+    return result;
+  } catch {
+    return new Set([rootPid]);
+  }
+}
+
 export async function pollForNewListener(
   pid: number,
   opts: { scan: () => Promise<PortEntry[]>; intervalMs: number; timeoutMs: number },
 ): Promise<PortEntry | null> {
   const deadline = Date.now() + opts.timeoutMs;
   while (Date.now() < deadline) {
-    const entries = await opts.scan();
-    const hit = entries.find((e) => e.pid === pid);
+    const [entries, tree] = await Promise.all([opts.scan(), getProcessTree(pid)]);
+    const hit = entries.find((e) => tree.has(e.pid));
     if (hit) return hit;
     await new Promise((r) => setTimeout(r, opts.intervalMs));
   }
@@ -288,19 +321,23 @@ export async function spawnDevServer(cwd: string): Promise<SpawnResult> {
   if (!script) return { success: false, error: "No dev or start script in package.json" };
 
   const logPath = `/tmp/pf-${Date.now()}.log`;
-  const logFile = Bun.file(logPath);
-  const logWriter = logFile.writer();
-
-  const proc = Bun.spawn(["pnpm", script], {
-    cwd,
-    stdout: logWriter,
-    stderr: logWriter,
-    stdin: "ignore",
-    detached: true,
-  });
-  proc.unref?.();
-
-  return { success: true, pid: proc.pid, logPath, script };
+  let fd: number | null = null;
+  try {
+    fd = openSync(logPath, "a");
+    const proc = Bun.spawn(["pnpm", script], {
+      cwd,
+      stdout: fd,
+      stderr: fd,
+      stdin: "ignore",
+      detached: true,
+    });
+    proc.unref?.();
+    return { success: true, pid: proc.pid, logPath, script };
+  } catch (e: any) {
+    return { success: false, error: e.message ?? String(e) };
+  } finally {
+    if (fd != null) closeSync(fd);
+  }
 }
 
 export async function killProcess(

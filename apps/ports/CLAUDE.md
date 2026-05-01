@@ -42,4 +42,4 @@ src/
 - To recognize new dev tools, add to `KNOWN_SCRIPTS` in `ports.ts`.
 - To change TUI layout/colors, edit `tui.ts`. Colors use hex strings consumed by OpenTUI's `ColorInput`.
 - The SKILL.md in this directory is symlinked to `~/.claude/skills/pf/` — update it when CLI surface changes.
-- The TUI `s` key starts `pnpm dev` (or `start`) in `process.cwd()` via detached `Bun.spawn` with stdio redirected to `/tmp/pf-<ts>.log`; post-spawn, `pollForNewListener` watches for a new listener owned by the spawned pid and moves selection to it.
+- The TUI `s` key starts `pnpm dev` (or `start`) in `process.cwd()` via detached `Bun.spawn` with stdio redirected to `/tmp/pf-<ts>.log`; post-spawn, `pollForNewListener` watches for a new listener owned by the spawned pid **or any descendant** (via `getProcessTree`). Descendant walk is required for pnpm-workspace setups where `pnpm start` chains through `pnpm --filter` to vite — the listener is owned by a great-grandchild, not the spawned wrapper. Timeout is 30 s to accommodate workspaces that do non-trivial pre-vite work.
