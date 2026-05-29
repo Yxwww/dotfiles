@@ -16,6 +16,7 @@ import {
   cyan,
 } from "@opentui/core";
 import { scanPorts, classifyProcess, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, spawnDevServer, pollForNewListener, type PortEntry } from "./ports";
+import { planLayout } from "./layout";
 
 type Mode = "browse" | "confirm-kill";
 
@@ -239,6 +240,19 @@ export async function startTui() {
     height: 1,
   });
   confirmBox.add(confirmText);
+
+  // Responsive chrome: shed sections (least useful first) as the terminal
+  // shrinks so the port rows always survive instead of being squeezed out.
+  function applyLayout() {
+    const plan = planLayout(renderer.terminalHeight);
+    titleText.visible = plan.showTitle;
+    header.visible = plan.showHeader;
+    sep.visible = plan.showSeparator;
+    statusText.visible = plan.showStatus;
+    outer.border = plan.showBorder;
+  }
+  applyLayout();
+  renderer.on("resize", applyLayout);
 
   // Focus the select list for keyboard nav
   select.focus();
