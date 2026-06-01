@@ -35,8 +35,8 @@ Optimize for memory and CPU efficiency, informed by Linux kernel and game engine
 
 ## General Workflows
 
-- IMPORTANT: Do NOT mention Claude in commit messages. Describe actual changes only.
 - Always open PRs as Draft.
+- During planning, when a step involves verifying with `agent-browser`, add it as a task in the task list — do not skip or omit verification steps.
 
 
 ## Browser Automation
