@@ -12,6 +12,7 @@ bun run src/index.ts list         # pipe-friendly plain table
 bun run src/index.ts json         # structured output
 bun run src/index.ts find <q>     # search ports/processes
 bun run src/index.ts kill <t>     # kill by port, pid, name, or project
+bun run src/index.ts open <t>     # open http://localhost:<port> in the browser
 bun run src/index.ts --snapshot   # colored table
 ```
 

@@ -34,6 +34,8 @@ pf --snapshot            # Colored table for human reading
 ```bash
 pf kill <target>         # Kill by port number, PID, script name, project name, or command substring
                          # Uses SIGTERM (graceful). Accepts fuzzy match.
+pf open <target>         # Open http://localhost:<port> in the default browser
+                         # Same fuzzy matching as kill. Mirrors the TUI's `o` key.
 ```
 
 ### Interactive

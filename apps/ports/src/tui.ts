@@ -254,6 +254,13 @@ export async function startTui() {
   applyLayout();
   renderer.on("resize", applyLayout);
 
+  // Auto-refresh when the terminal window regains focus — the listening ports
+  // likely changed while we were away. Skip mid-confirm so a re-scan doesn't
+  // reshuffle the list out from under the pending kill.
+  renderer.on("focus", () => {
+    if (state.mode === "browse") refresh();
+  });
+
   // Focus the select list for keyboard nav
   select.focus();
 

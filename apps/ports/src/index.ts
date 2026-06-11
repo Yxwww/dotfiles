@@ -1,6 +1,6 @@
 #!/usr/bin/env bun
 
-import { scanPorts, killProcess, shortenDir, sortCwdFirst, isFromCwd } from "./ports";
+import { scanPorts, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd } from "./ports";
 
 const args = process.argv.slice(2);
 const cmd = args[0] ?? "";
@@ -74,6 +74,38 @@ switch (cmd) {
     break;
   }
 
+  case "open": {
+    const target = args[1];
+    if (!target) {
+      console.error("Usage: pf open <port|pid|name>");
+      process.exit(1);
+    }
+    const entries = await scanPorts();
+    const num = parseInt(target, 10);
+    const matches = entries.filter(
+      (e) =>
+        e.port === num ||
+        e.pid === num ||
+        e.command.toLowerCase().includes(target.toLowerCase()) ||
+        e.script.toLowerCase().includes(target.toLowerCase()) ||
+        e.project.toLowerCase().includes(target.toLowerCase())
+    );
+    if (matches.length === 0) {
+      console.error(`No process found matching "${target}"`);
+      process.exit(1);
+    }
+    const ports = [...new Set(matches.map((e) => e.port))];
+    for (const port of ports) {
+      const result = await openInBrowser(port);
+      if (result.success) {
+        console.log(`opened http://localhost:${port}`);
+      } else {
+        console.error(`failed to open port ${port}: ${result.error}`);
+      }
+    }
+    break;
+  }
+
   case "find": {
     const query = args[1];
     if (!query) {
@@ -119,6 +151,7 @@ Usage:
   pf json             JSON output (--compact for single line)
   pf find <query>     Search by port, name, project, or command
   pf kill <target>    Kill by port number, PID, name, or project
+  pf open <target>    Open http://localhost:<port> in the browser
   pf --snapshot       Colored snapshot
 
 Interactive keys:
