@@ -102,14 +102,20 @@ bindkey "^x^p" viewPR
 
 # fuzzy-find a git worktree and insert its path onto the command line (like ^T).
 # Type `cd `, hit ^x^w, pick a worktree => `cd <path>` appears, edit or press enter.
-# git worktree list => "<path>  <hash> [<branch>]"; --with-nth shows path+branch,
-# --nth=1 restricts matching to the path so typing filters on the directory.
+# Reformat "git worktree list" to tab-separated "branch <TAB> ~path <TAB> fullpath":
+# fzf displays+matches on the branch (nth=1), abbreviates the path, extracts fullpath.
 _cdw_select() {
-  git worktree list |
-    fzf --nth=1 --with-nth=1,3 --no-multi \
-        --preview 'git -C {1} log --oneline --color=always -20' \
+  git worktree list | awk -v home="$HOME" '{
+    path=$1; br=""
+    for (i=3; i<=NF; i++) br=br (i>3?" ":"") $i     # branch spans $3..NF, e.g. (detached HEAD)
+    gsub(/^\[|\]$/, "", br)                          # strip surrounding [ ]
+    disp=path; sub("^" home, "~", disp)              # home-relative for display
+    printf "%s\t%s\t%s\n", br, disp, path
+  }' |
+    fzf --delimiter='\t' --with-nth=1,2 --nth=1 --no-multi \
+        --preview 'git -C {3} log --oneline --color=always -20' \
         --preview-window=right,50% |
-    awk '{print $1}'
+    cut -f3
 }
 insert-worktree-path() {
   local dir
