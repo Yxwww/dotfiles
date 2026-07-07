@@ -100,6 +100,29 @@ viewPR() {
 zle -N viewPR
 bindkey "^x^p" viewPR
 
+# fuzzy-find a git worktree and insert its path onto the command line (like ^T).
+# Type `cd `, hit ^x^w, pick a worktree => `cd <path>` appears, edit or press enter.
+# git worktree list => "<path>  <hash> [<branch>]"; --with-nth shows path+branch,
+# --nth=1 restricts matching to the path so typing filters on the directory.
+_cdw_select() {
+  git worktree list |
+    fzf --nth=1 --with-nth=1,3 --no-multi \
+        --preview 'git -C {1} log --oneline --color=always -20' \
+        --preview-window=right,50% |
+    awk '{print $1}'
+}
+insert-worktree-path() {
+  local dir
+  dir=$(_cdw_select)
+  if [[ -n "$dir" ]]; then
+    # insert at cursor, quoted for spaces, with a trailing space to keep typing
+    LBUFFER+="${(q)dir} "
+  fi
+  zle reset-prompt
+}
+zle -N insert-worktree-path
+bindkey "^x^w" insert-worktree-path
+
 
 
 # Updates editor information when the keymap changes.
@@ -230,6 +253,8 @@ alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3
 
 alias vi="vim"
 alias claude="claude --no-chrome"
+# Kill Playwright / agent-browser Chrome-for-Testing processes (see scripts/kill-test-chrome.sh)
+alias killtestchrome="$HOME/git/dotfiles/scripts/kill-test-chrome.sh"
 
 
 killport() {
