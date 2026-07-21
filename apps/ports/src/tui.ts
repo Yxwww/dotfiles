@@ -319,5 +319,10 @@ export async function startTui() {
   // Initial data load
   await refresh();
 
-  renderer.start();
+  // On-demand rendering: DO NOT call renderer.start(). start() pins the render
+  // loop to _isRunning=true, repainting the (unchanged) screen at targetFps
+  // (~30/s) forever — ~4% idle CPU. Leaving the renderer idle makes it paint
+  // only when a renderable mutates and fires requestRender() (nav, refresh,
+  // resize, focus, keypress). Safe here: no animated/live renderables exist.
+  renderer.requestRender();
 }
