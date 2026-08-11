@@ -41,7 +41,10 @@ jobdir() { echo "$FANOUT_ROOT/$1"; }
 valid_jobid() { [[ "${1:-}" =~ ^job-[0-9]{8}-[0-9]{6}-[a-z0-9]{4}$ ]]; }
 
 new_jobid() {
-  printf 'job-%s-%s' "$(date +%Y%m%d-%H%M%S)" "$(head -c4 /dev/urandom | base64 | tr -dc 'a-z0-9' | head -c4)"
+  # 4 hex chars from 2 random bytes — always exactly [0-9a-f]{4}, so the
+  # id always matches valid_jobid below. (base64 was rejected: it emits
+  # mixed case + +/=, and tr -dc 'a-z0-9' stripped too much, leaving <4 chars.)
+  printf 'job-%s-%s' "$(date +%Y%m%d-%H%M%S)" "$(od -An -tx1 -N2 /dev/urandom | tr -d ' ')"
 }
 
 # Wrap a caller brief with the completion protocol. $1=jobid $2=role $3=brief path
