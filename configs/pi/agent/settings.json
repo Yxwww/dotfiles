@@ -1,0 +1,20 @@
+{
+  "lastChangelogVersion": "0.84.1",
+  "theme": "dark",
+  "editorPaddingX": 1,
+  "outputPad": 1,
+  "packages": [
+    "npm:pi-provider-litellm",
+    "npm:pi-mcp-adapter",
+    "npm:pi-vimmode",
+    "npm:@pi-stef/atlassian"
+  ],
+  "litellm": {
+    "skills": {
+      "enabled": false
+    },
+    "mcp": {
+      "enabled": false
+    }
+  }
+}

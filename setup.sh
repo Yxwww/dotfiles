@@ -66,6 +66,20 @@ zshrcDeps() {
   brew install reattach-to-user-namespace
 }
 
+# pi coding agent — installs pi, links config from this repo, and restores the
+# skill-creator sparse checkout. The mattpocock skills listed in
+# configs/pi/agents/skill-lock.json are re-installed by pi's skill manager on
+# first launch (it reads ~/.agents/.skill-lock.json, symlinked by linkdotfiles.sh).
+setup_pi() {
+  npm install -g @earendil-works/pi-coding-agent
+  link_dotfiles
+  if [ ! -d ~/.agents/skills/skill-creator-repo ]; then
+    git clone --filter=blob:none --sparse https://github.com/anthropics/skills.git ~/.agents/skills/skill-creator-repo
+    (cd ~/.agents/skills/skill-creator-repo && git sparse-checkout set skills/skill-creator)
+    ln -snf ~/.agents/skills/skill-creator-repo/skills/skill-creator ~/.agents/skills/skill-creator
+  fi
+}
+
 function setup_gh_autocompletion() {
   gh completion -s zsh > ~/.config/zsh/completions/_gh
 }

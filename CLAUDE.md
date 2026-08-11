@@ -53,6 +53,7 @@ To set up italics and true color support in tmux:
   - `ghostty/` - Ghostty terminal configurations
   - `git/` - Git configurations
   - `nvim/` - Neovim configurations
+  - `pi/` - pi coding agent (`~/.pi/agent` + `~/.agents` skill manifest); linked by `linkdotfiles.sh`, installed by `setup_pi` in `setup.sh`
   - `zed/` - Zed editor configurations
 - `dotfiles/` - Shell configuration files (`.zshrc`, etc.)
 - `scripts/` - Utility scripts
