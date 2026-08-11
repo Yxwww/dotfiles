@@ -12,9 +12,11 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `models.json` | `~/.pi/agent/models.json` | custom LiteLLM provider (apiKey is `$LITELLM_API_KEY` env ref — no secret) |
 | `extensions/rise-against-header.ts` | `~/.pi/agent/extensions/…` | custom startup header |
 | `extensions/search.json` | `~/.pi/agent/extensions/search.json` | `web_search`/`web_read` backends (pi-search-hub); keyless only — no secrets |
+| `extensions/git-workflow-gates.ts` | `~/.pi/agent/extensions/…` | pre-commit gate + post-push PR-description nudge (ports the active Claude hooks) |
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
+| `agents/skills/<name>/` | `~/.agents/skills/<name>/` | hand-backed custom skills (pre-commit, pre-push, pr-catchup); symlinked by `linkdotfiles.sh` |
 
 `AGENTS.md` is symlinked to `configs/claude/personal.md` (shared with Claude
 Code's `CLAUDE.md`).
@@ -84,6 +86,23 @@ scoped to `skills/skill-creator/`:
 ```
 
 `setup_pi` creates this if missing.
+
+### 3. Custom git-workflow skills
+
+Three hand-backed skills (`pre-commit`, `pre-push`, `pr-catchup`) live at
+`configs/pi/agents/skills/<name>/SKILL.md` and are symlinked into
+`~/.agents/skills/<name>/` by `linkdotfiles.sh` — a third source alongside the
+`skills` CLI (#1) and the skill-creator sparse checkout (#2).
+
+- **`pre-commit`** — runs before `git commit`, capturing the *why* of the change.
+  Uses the sentinel `/tmp/pi-pre-commit-active` to suppress the extension's
+  `PreToolUse` gate; that path **must match** the `git-workflow-gates.ts`
+  extension.
+- **`pre-push`** — despite the name, a *post*-push workflow: updates the PR
+  description after a successful `git push`. Auto-triggered by the extension's
+  `tool_result` nudge, not a skill trigger.
+- **`pr-catchup`** — invoke-only `/skill:pr-catchup` status brief for resuming
+  a PR.
 
 ### Bridging into other agents
 
