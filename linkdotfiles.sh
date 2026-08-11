@@ -35,6 +35,7 @@ ln -sf "$(pwd)"/configs/claude/personal.md ~/.pi/agent/AGENTS.md
 ln -sf "$(pwd)"/configs/pi/agent/settings.json ~/.pi/agent/settings.json
 ln -sf "$(pwd)"/configs/pi/agent/models.json ~/.pi/agent/models.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
 # skill manifest shared across agents; skill dirs themselves are installed by

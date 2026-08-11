@@ -1,0 +1,11 @@
+{
+  "defaultBackend": "auto",
+  "reader": "jina",
+  "showStatus": true,
+  "compact": false,
+  "backends": {
+    "firecrawl": { "enabled": true },
+    "marginalia": { "enabled": true },
+    "duckduckgo": { "enabled": false }
+  }
+}

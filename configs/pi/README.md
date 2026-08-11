@@ -11,6 +11,7 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `settings.json` | `~/.pi/agent/settings.json` | theme, `packages`, pi config |
 | `models.json` | `~/.pi/agent/models.json` | custom LiteLLM provider (apiKey is `$LITELLM_API_KEY` env ref — no secret) |
 | `extensions/rise-against-header.ts` | `~/.pi/agent/extensions/…` | custom startup header |
+| `extensions/search.json` | `~/.pi/agent/extensions/search.json` | `web_search`/`web_read` backends (pi-search-hub); keyless only — no secrets |
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
@@ -21,6 +22,23 @@ Code's `CLAUDE.md`).
 **Not committed** (gitignored in `.gitignore`): `bin/`, `sessions/`,
 `auth.json`, `models-store.json`, `node_modules/` — runtime, secret, or
 regenerable.
+
+## Web search (`extensions/search.json`)
+
+Backs up `~/.pi/agent/extensions/search.json` for the `pi-search-hub`
+extension, which provides the `web_search` and `web_read` tools. Only
+**keyless** backends are enabled here, so the file carries no secrets:
+
+- `firecrawl` — keyless, 1k credits/mo (primary).
+- `marginalia` — shared public key, rate-limited backup.
+- `duckduckgo` — disabled; `ddgs` under system Python 3.9 hits an OpenSSL
+  `0x304` error. Re-enable after upgrading to Python 3.11+.
+
+`web_read` uses Jina Reader (`r.jina.ai`), free, no key. To add a keyed
+backend, edit the file and set `apiKey` to an ALL_CAPS env var name, a
+`!shell command` (e.g. `!pass show api/tavily`), or a literal — **never
+commit literal keys**. Recommended free-signup upgrades: Tavily (1k/mo,
+best quality), Brave (2k/mo), Exa (1k/mo, fastest), Serper (2.5k one-time).
 
 ## Skills
 
