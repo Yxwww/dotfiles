@@ -5,9 +5,9 @@
   "outputPad": 1,
   "packages": [
     "npm:pi-provider-litellm",
-    "npm:pi-mcp-adapter",
     "npm:pi-vimmode",
-    "npm:@pi-stef/atlassian"
+    "npm:@pi-stef/atlassian",
+    "npm:pi-search-hub"
   ],
   "litellm": {
     "skills": {
