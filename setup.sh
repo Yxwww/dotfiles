@@ -66,17 +66,42 @@ zshrcDeps() {
   brew install reattach-to-user-namespace
 }
 
-# pi coding agent — installs pi, links config from this repo, and restores the
-# skill-creator sparse checkout. The mattpocock skills listed in
-# configs/pi/agents/skill-lock.json are re-installed by pi's skill manager on
-# first launch (it reads ~/.agents/.skill-lock.json, symlinked by linkdotfiles.sh).
+# pi coding agent — installs pi, links config from this repo, restores the
+# skill-creator sparse checkout, and re-adds the global skills recorded in
+# configs/pi/agents/skill-lock.json (-> ~/.agents/.skill-lock.json).
+#
+# Skills are managed by the `skills` CLI (vercel-labs/skills, the "open agent
+# skills" ecosystem; npx skills add -g ...). v1.5.7 has no "restore global from
+# .skill-lock.json" command (experimental_install only reads a project-level
+# skills-lock.json), so we re-add each skill by name. Already-present skills
+# are skipped.
 setup_pi() {
   npm install -g @earendil-works/pi-coding-agent
   link_dotfiles
+
+  # skill-creator: blob-less sparse checkout of anthropics/skills.
   if [ ! -d ~/.agents/skills/skill-creator-repo ]; then
     git clone --filter=blob:none --sparse https://github.com/anthropics/skills.git ~/.agents/skills/skill-creator-repo
     (cd ~/.agents/skills/skill-creator-repo && git sparse-checkout set skills/skill-creator)
     ln -snf ~/.agents/skills/skill-creator-repo/skills/skill-creator ~/.agents/skills/skill-creator
+  fi
+
+  # Re-add global skills listed in ~/.agents/.skill-lock.json (idempotent:
+  # skip any whose folder already exists).
+  if [ -f ~/.agents/.skill-lock.json ]; then
+    node -e '
+      const fs = require("fs"), os = require("os"), p = require("path");
+      const lock = JSON.parse(fs.readFileSync(p.join(os.homedir(), ".agents", ".skill-lock.json"), "utf8"));
+      const skillsDir = p.join(os.homedir(), ".agents", "skills");
+      for (const name of Object.keys(lock.skills || {})) {
+        if (fs.existsSync(p.join(skillsDir, name))) continue;
+        const src = lock.skills[name].source;
+        if (!src) continue;
+        console.error("[skills] add -g", src, "(" + name + ")");
+        const { spawnSync } = require("child_process");
+        spawnSync("npx", ["-y", "skills@1.5.7", "add", src, "-g", "-y"], { stdio: "inherit" });
+      }
+    '
   fi
 }
 
@@ -102,6 +127,6 @@ for arg in "$@"; do
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
         all) install_all ;;
-        *) echo "Unknown function: $arg" ;;u
+        *) echo "Unknown function: $arg" ;;
     esac
 done
