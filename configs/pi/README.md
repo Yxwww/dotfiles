@@ -16,7 +16,7 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
-| `agents/skills/<name>/` | `~/.agents/skills/<name>/` | hand-backed custom skills (pre-commit, pre-push, pr-catchup); symlinked by `linkdotfiles.sh` |
+| `agents/skills/<name>/` | `~/.agents/skills/<name>/` | hand-backed custom skills (pre-commit, pre-push, pr-catchup, tmux-fanout); symlinked by `linkdotfiles.sh` |
 
 `AGENTS.md` is symlinked to `configs/claude/personal.md` (shared with Claude
 Code's `CLAUDE.md`).
@@ -87,22 +87,27 @@ scoped to `skills/skill-creator/`:
 
 `setup_pi` creates this if missing.
 
-### 3. Custom git-workflow skills
+### 3. Custom git-workflow + orchestration skills
 
-Three hand-backed skills (`pre-commit`, `pre-push`, `pr-catchup`) live at
-`configs/pi/agents/skills/<name>/SKILL.md` and are symlinked into
+Four hand-backed skills (`pre-commit`, `pre-push`, `pr-catchup`, `tmux-fanout`)
+live at `configs/pi/agents/skills/<name>/SKILL.md` and are symlinked into
 `~/.agents/skills/<name>/` by `linkdotfiles.sh` — a third source alongside the
 `skills` CLI (#1) and the skill-creator sparse checkout (#2).
 
 - **`pre-commit`** — runs before `git commit`, capturing the *why* of the change.
   Uses the sentinel `/tmp/pi-pre-commit-active` to suppress the extension's
-  `PreToolUse` gate; that path **must match** the `git-workflow-gates.ts`
+  `tool_call` gate; that path **must match** the `git-workflow-gates.ts`
   extension.
 - **`pre-push`** — despite the name, a *post*-push workflow: updates the PR
   description after a successful `git push`. Auto-triggered by the extension's
   `tool_result` nudge, not a skill trigger.
 - **`pr-catchup`** — invoke-only `/skill:pr-catchup` status brief for resuming
   a PR.
+- **`tmux-fanout`** — fan out `pi -p` subagents in parallel tmux panes with a
+  Devil's Advocate reviewer phase. Bundles `scripts/fanout.sh` (orchestrator
+  with a `.done`/`.result` completion protocol) and `assets/brief-template.md`.
+  See its SKILL.md for the limits (parallel-independent work only, no
+  pane-to-pane messaging).
 
 ### Bridging into other agents
 
@@ -119,14 +124,3 @@ as `~/.claude/skills/pf`).
 ```
 
 Then launch `pi`. Its skill manager will pick up `~/.agents/skills/`.
-
-## Web search
-
-pi's `web_search` tool picks a backend from `.pi/search.json` (auto = best
-configured). Backends: `duckduckgo` (free, needs `pip3 install ddgs`),
-`serper`/`tavily`/`exa`/`brave`/`perplexity` (keyed), `searxng` (self-hosted),
-`marginalia` (free shared key). Set `combine=true` to fan out across
-backends; `combineMode: "targeted"` caps fan-out.
-
-Not currently configured here. See the recommendation in the PR that added
-this backup before committing a `search.json`.

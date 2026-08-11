@@ -3,7 +3,7 @@ name: pre-push
 description: >
   Run after pushing to git. Updates the open PR description to accurately reflect what was pushed.
   Trigger when the user says "push", "ready to push", "update the PR", or after git push completes.
-  Also auto-triggers via PostToolUse hook after a successful git push.
+  Also auto-triggers via the git-workflow-gates extension's tool_result nudge after a successful git push.
 ---
 
 # Post-Push: Update PR Description

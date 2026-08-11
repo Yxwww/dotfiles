@@ -5,7 +5,7 @@ description: >
   (the motivation, not the mechanics). Infers the why from conversation context and diff when
   possible; asks the user when it's unclear. Then runs the commit.
   Trigger when the user says "commit", "ready to commit", or when about to run git commit.
-  Also auto-triggers via PreToolUse hook on git commit commands.
+  Also auto-triggers via the git-workflow-gates extension's tool_call gate on git commit commands.
 ---
 
 # Pre-Commit Workflow
@@ -45,7 +45,7 @@ Try to infer the why from these sources, in priority order:
 
 **If you can confidently infer the why from conversation context** — state your understanding in one line and proceed. Example: "Committing: refocused pre-commit hook to capture change motivation instead of architecture docs."
 
-**If the why is unclear or ambiguous** — use **AskUserQuestion** to ask. Be specific, not generic. Reference what you see in the diff to ground the question:
+**If the why is unclear or ambiguous** — ask the user in one specific line, grounded in the diff. Reference what you see in the diff to ground the question:
 
 - Good: "I see you changed the retry logic from 3→5 attempts and added a backoff. What prompted this — were there failures in production, or is this preventative?"
 - Bad: "What's the motivation behind this change?"
