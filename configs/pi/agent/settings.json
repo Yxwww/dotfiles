@@ -4,10 +4,13 @@
   "editorPaddingX": 1,
   "outputPad": 1,
   "packages": [
-    "npm:pi-provider-litellm",
-    "npm:pi-vimmode",
-    "npm:@pi-stef/atlassian",
-    "npm:pi-search-hub"
+    "npm:pi-provider-litellm@2.0.5",
+    "npm:pi-vimmode@0.9.0",
+    "npm:@pi-stef/atlassian@0.4.3",
+    "npm:pi-search-hub@2.8.0",
+    "npm:pi-subagents@0.47.1",
+    "git:github.com/obra/superpowers@44c9b2d6e889982ac18c27d05a19fefe335194e1",
+    "npm:pi-observability@1.3.2"
   ],
   "litellm": {
     "skills": {

@@ -1,5 +1,6 @@
 ---
 name: tmux-fanout
+disable-model-invocation: true
 description: >-
   Fan out a coding task across multiple `pi -p` subagents running in parallel
   tmux panes, with an orchestrator that waits for completion and a Devil's

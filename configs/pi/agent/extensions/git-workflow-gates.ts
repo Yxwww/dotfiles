@@ -164,16 +164,18 @@ export default function (pi: ExtensionAPI) {
 			`Branch "${branch}" was pushed to PR #${pr.number} (${pr.url}).\n` +
 			`Diff: ${diffStat} | Commits: ${commitCount} | PR body length: ${body.length} chars\n\n` +
 			`EVALUATE whether the PR description needs updating before taking action:\n` +
-			`- SKIP if the current body already accurately describes the changes.\n` +
-			`- UPDATE if the body is empty, has unfilled template placeholders, or the changes diverged from the description.\n` +
+			`- SKIP only if the body already follows the template structure AND accurately describes the changes.\n` +
+			`- UPDATE if the body is empty, has unfilled placeholders, diverged from the changes, or is free-form and does not follow the template (restructure it into the template — see Rules).\n` +
 			`- If UNSURE, ask the user whether they want the PR description updated.\n\n` +
-			`If you decide to update, run: gh pr edit ${pr.number} --body "<filled body>"\n\n` +
+			`If you decide to update, write the body to a temp file and use --body-file (robust for multi-line bodies, backticks, and code fences):\n` +
+			`  gh pr edit ${pr.number} --body-file /tmp/pr-${pr.number}-body.md\n\n` +
 			`Rules:\n` +
-			`- Fill every REQUIRED section accurately.\n` +
-			`- Review commits and diff for context.\n` +
-			`- Preserve sections the user already filled.\n` +
-			`- Remove placeholder HTML comments from filled sections.\n` +
-			`- Keep unfilled OPTIONAL sections with their original placeholders.\n\n` +
+			`- Follow the template structure exactly: keep every section heading, in template order.\n` +
+			`- If the existing body is free-form / non-template, restructure it — fold existing prose into the matching template sections, drop prose with no home, add missing REQUIRED sections. Do not preserve a non-template layout.\n` +
+			`- Be concise: bullets over prose. Lead with the change, not the background.\n` +
+			`- Checkbox impact sections (Breaking, CSP, Analytics, Wrappers, Security, Privacy, DevOps): check [x] Yes only when the answer is genuinely yes; otherwise leave [ ] Yes unchecked with a one-line reason.\n` +
+			`- Review commits and diff for context. Preserve content the user hand-wrote — relocate it into the right section rather than rewriting it.\n` +
+			`- Remove placeholder HTML comments from filled sections; leave them in unfilled OPTIONAL sections.\n\n` +
 			`Template:\n${template}\n\nCurrent body:\n${body}`;
 
 		const content = [...event.content, { type: "text" as const, text: note }];

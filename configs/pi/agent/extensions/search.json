@@ -1,10 +1,10 @@
 {
-  "defaultBackend": "auto",
+  "defaultBackend": "brave",
   "reader": "jina",
   "showStatus": true,
   "compact": false,
   "backends": {
-    "firecrawl": { "enabled": true },
+    "brave": { "enabled": true, "apiKey": "BRAVE_API_KEY" },
     "marginalia": { "enabled": true },
     "duckduckgo": { "enabled": false }
   }
