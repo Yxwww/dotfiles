@@ -1,0 +1,11 @@
+{
+  "defaultBackend": "brave",
+  "reader": "jina",
+  "showStatus": true,
+  "compact": false,
+  "backends": {
+    "brave": { "enabled": true, "apiKey": "BRAVE_API_KEY" },
+    "marginalia": { "enabled": true },
+    "duckduckgo": { "enabled": false }
+  }
+}

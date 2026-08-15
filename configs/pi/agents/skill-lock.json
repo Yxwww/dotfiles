@@ -1,0 +1,70 @@
+{
+  "version": 3,
+  "skills": {
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "grill-me/SKILL.md",
+      "skillFolderHash": "5a116da73f4e186f2ad9ce29aae23f5fdaa41017",
+      "installedAt": "2026-03-17T14:33:06.496Z",
+      "updatedAt": "2026-03-17T14:33:06.496Z"
+    },
+    "write-a-prd": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "write-a-prd/SKILL.md",
+      "skillFolderHash": "566c485ddc02f2338f1d5be6c0188db74e278678",
+      "installedAt": "2026-03-17T14:33:51.568Z",
+      "updatedAt": "2026-03-17T14:33:51.568Z"
+    },
+    "prd-to-issues": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "prd-to-issues/SKILL.md",
+      "skillFolderHash": "16cfef941383949d7f9d2dca5b939e19e9eabf9f",
+      "installedAt": "2026-03-17T14:34:30.495Z",
+      "updatedAt": "2026-03-17T14:34:30.495Z"
+    },
+    "tdd": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "tdd/SKILL.md",
+      "skillFolderHash": "28d7822c112f22cf499099881856fdec07bc83a8",
+      "installedAt": "2026-04-13T18:56:36.287Z",
+      "updatedAt": "2026-04-13T18:56:36.287Z"
+    },
+    "grill-with-docs": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "skills/engineering/grill-with-docs/SKILL.md",
+      "skillFolderHash": "2c6aa7079cc705a6e0c319fcf23a0fa39968de29",
+      "pluginName": "mattpocock-skills",
+      "installedAt": "2026-05-22T18:05:46.497Z",
+      "updatedAt": "2026-05-22T18:05:46.497Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "dexto",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp",
+    "claude-code"
+  ]
+}

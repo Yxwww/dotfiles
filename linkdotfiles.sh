@@ -29,6 +29,27 @@ ln -snf "$(pwd)"/configs/claude/statusline-command.sh ~/.claude/statusline-comma
 mkdir -p ~/.claude/skills
 ln -snf "$(pwd)"/apps/ports ~/.claude/skills/pf
 
+# pi (https://github.com/earendil-works/pi-coding-agent)
+mkdir -p ~/.pi/agent/extensions ~/.pi/agent/npm ~/.agents
+ln -sf "$(pwd)"/configs/claude/personal.md ~/.pi/agent/AGENTS.md
+ln -sf "$(pwd)"/configs/pi/agent/settings.json ~/.pi/agent/settings.json
+ln -sf "$(pwd)"/configs/pi/agent/models.json ~/.pi/agent/models.json
+ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
+ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/extensions/git-workflow-gates.ts
+ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
+ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
+# skill manifest shared across agents; skill dirs themselves are installed by
+# the skill manager / sparse-checked-out (see setup_pi in setup.sh)
+ln -sf "$(pwd)"/configs/pi/agents/skill-lock.json ~/.agents/.skill-lock.json
+mkdir -p ~/.agents/skills
+# hand-backed custom skills shared across agents (pre-commit, pre-push,
+# pr-catchup, tmux-fanout, ...). Glob the dir so new skills are picked up
+# without editing this loop.
+for s in "$(pwd)"/configs/pi/agents/skills/*/; do
+  ln -snf "$s" ~/.agents/skills/"$(basename "$s")"
+done
+
 # pf: build compiled binary
 (cd "$(pwd)"/apps/ports && bun install && bun run build)
 

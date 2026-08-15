@@ -82,14 +82,3 @@ Core workflow:
 
 - WebGL fails in headless mode (SwiftShader can't create context). Always use `--headed` for WebGL pages.
 
-## Communication and Writing Style
-
-Communicate with maximum information density. Apply to all writing and responses:
-
-- Every word must earn its place. Cut anything the reader can infer from context.
-- No redundancy — never say the same thing twice in different words.
-- Collapse multi-word phrases to single words ("in order to" → "to", "make a decision" → "decide").
-- Drop filler and hedges (basically, actually, there is/are, it should be noted that).
-- Keep load-bearing words: specific nouns, verbs, numbers, names. Never cut these for brevity.
-- Use the shortest form that still reconstructs the full meaning. Fidelity over compression — never create ambiguity.
-- No preamble or postamble. Lead with the answer.

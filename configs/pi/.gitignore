@@ -1,0 +1,6 @@
+# runtime / secret files never to commit (live under ~/.pi/agent)
+agent/bin/
+agent/sessions/
+agent/auth.json
+agent/models-store.json
+agent/npm/node_modules/
