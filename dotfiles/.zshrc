@@ -426,3 +426,6 @@ fi
 
 
 
+
+# Pi
+export PATH="/Users/yuxiwang/.fnm/node-versions/v24.19.0/installation/bin:$PATH"

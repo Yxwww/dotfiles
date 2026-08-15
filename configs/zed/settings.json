@@ -7,41 +7,57 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
-  "features": {
-    "edit_prediction_provider": "zed"
+  "edit_predictions": {
+    "provider": "zed",
+  },
+  "project_panel": {
+    "dock": "left",
+  },
+  "outline_panel": {
+    "dock": "left",
+  },
+  "collaboration_panel": {
+    "dock": "left",
+  },
+  /* Duplicated key auto-commented: "agent": {
+    "dock": "right",
+    "favorite_models": [],
+    "model_parameters": []
+  }, */
+  "git_panel": {
+    "dock": "left",
   },
   "show_completions_on_input": true,
-  "assistant": {
+  "agent": {
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-3-7-sonnet-latest"
+      "model": "claude-3-7-sonnet-latest",
     },
-    "version": "2"
   },
   "theme": {
     "mode": "system",
     "light": "Ayu Dark",
-    "dark": "Catppuccin Mocha"
+    "dark": "Catppuccin Mocha",
   },
   "git": {
     "inline_blame": {
-      "enabled": false
-    }
+      "enabled": false,
+    },
   },
   "ui_font_size": 20.0,
   "buffer_font_size": 19.0,
-  "vim_mode": true,
+  "vim_mode": false,
   // disable cursor blink
   "cursor_blink": true,
   // use relative line numbers
-  "relative_line_numbers": true,
+  "relative_line_numbers": "enabled",
   // hide the scroll bar
   "scrollbar": {
-    "show": "never"
+    "show": "never",
   },
   // allow cursor to reach edges of screen
   "vertical_scroll_margin": 0,
   "format_on_save": "on",
   "buffer_font_family": "MonoLisa",
-  "ui_font_family": "Helvetica"
+  "ui_font_family": "Helvetica",
 }

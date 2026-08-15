@@ -126,6 +126,7 @@ for arg in "$@"; do
     case $arg in
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
+        setup_pi) setup_pi ;;
         all) install_all ;;
         *) echo "Unknown function: $arg" ;;
     esac
