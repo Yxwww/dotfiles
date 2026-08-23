@@ -34,6 +34,7 @@ mkdir -p ~/.pi/agent/extensions ~/.pi/agent/npm ~/.agents
 ln -sf "$(pwd)"/configs/claude/personal.md ~/.pi/agent/AGENTS.md
 ln -sf "$(pwd)"/configs/pi/agent/settings.json ~/.pi/agent/settings.json
 ln -sf "$(pwd)"/configs/pi/agent/models.json ~/.pi/agent/models.json
+ln -sf "$(pwd)"/configs/pi/agent/extensions/prompt-stash.ts ~/.pi/agent/extensions/prompt-stash.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/extensions/git-workflow-gates.ts
