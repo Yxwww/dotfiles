@@ -26,6 +26,7 @@ function n_start() {
 
 alias gpv="gh pr view --web"
 alias grv="gh repo view --web"
+alias tuicrrv="tuicr -r master..HEAD"
 # common aliases
 # alias l='ls -lFhG'
 alias l='eza'
