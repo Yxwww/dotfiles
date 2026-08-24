@@ -38,6 +38,7 @@ ln -sf "$(pwd)"/configs/pi/agent/extensions/prompt-stash.ts ~/.pi/agent/extensio
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/extensions/git-workflow-gates.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/skill-session-name.ts ~/.pi/agent/extensions/skill-session-name.ts
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
 # skill manifest shared across agents; skill dirs themselves are installed by
