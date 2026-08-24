@@ -22,14 +22,22 @@ seconds.
 
 ## What "make sense of what's happening" means here
 
-Cast the full net, in this order, then synthesize. Each step degrades
-gracefully — if a source is missing, note it in one clause and move on. Never
-block the whole brief waiting on one flaky source.
+Cast the full net, then synthesize. The numbered order is **coverage and
+synthesis priority**, not strict execution order — batch independent fetches
+in one tool block, and keep the two serial bits (the code-reading walk in
+step 2, and the final brief) serial. Each step degrades gracefully — if a
+source is missing, note it in one clause and move on. Never block the whole
+brief waiting on one flaky source.
 
 1. **Resolve the PR.** Default to the current branch: `gh pr view --json
    number,title,body,state,isDraft,url,headRefName,baseRefName,mergeable,mergeStateStatus,additions,deletions,changedFiles`.
    If there's no PR for the branch, say so and ask for a number/URL — don't
    guess or fabricate one.
+
+Once the PR resolves, fan out the independent fetches in one tool block: `gh pr
+diff` (step 2's fetch), `jira_get_issue` (step 3), and `gh pr checks` (step 6).
+Step 4's memory scan is already in context — zero cost. The serial parts are
+step 2's code-reading walk and the final brief.
 
 2. **Read the change.** `gh pr diff` for the actual diff. Skim for the *shape*
    of the change (which files/areas, what kind of edit) — you're building a
@@ -64,8 +72,9 @@ block the whole brief waiting on one flaky source.
    one, otherwise skip) for matching terms. Treat memory as *what was true when written* — verify a
    named file/flag still exists before leaning on it.
 
-5. **Check the local working tree.** When resuming a branch, local state is
-   often the first thing that matters — you may have left work uncommitted.
+5. **Check the local working tree.** This only needs the branch name, so
+   it's independent of step 1 — batch it in the same tool block. When resuming
+   a branch, local state is often the first thing that matters — you may have left work uncommitted.
    `git status --short --branch` (uncommitted changes + ahead/behind base),
    `git log --oneline @{u}..` (unpushed commits, if an upstream is set), and —
    scoped to this branch — `git stash list | grep "on $(git branch --show-current):"`.
