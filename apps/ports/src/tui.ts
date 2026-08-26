@@ -237,7 +237,16 @@ export async function startTui() {
     header.visible = plan.showHeader;
     sep.visible = plan.showSeparator;
     statusText.visible = plan.showStatus;
-    outer.border = plan.showBorder;
+    // Full frame when there's room; when squeezed so hard the frame is shed,
+    // keep a single accent-colored left edge so the pane stays identifiable as
+    // pf even with every title/header/status section dropped.
+    if (plan.showBorder) {
+      outer.border = true;
+      outer.borderColor = "#585b70";
+    } else {
+      outer.border = ["left"];
+      outer.borderColor = "#89b4fa";
+    }
     state.compact = plan.compact;
     select.showDescription = !plan.compact;
     rebuildOptions();
