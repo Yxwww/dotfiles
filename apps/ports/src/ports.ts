@@ -13,6 +13,7 @@ export type PortEntry = {
   script: string;    // extracted dev tool name: "vite", "next", "webpack", etc.
   project: string;   // extracted project directory name
   cwd: string;       // process working directory (from lsof -d cwd)
+  gitRoot: string;   // enclosing git repo root (from git rev-parse), '' if none
 };
 
 export type ProcessClass = "system" | "user" | "root";
@@ -88,6 +89,7 @@ export async function scanPorts(): Promise<PortEntry[]> {
         script: "",
         project: "",
         cwd: "",
+        gitRoot: "",
       });
     }
 
@@ -96,6 +98,7 @@ export async function scanPorts(): Promise<PortEntry[]> {
     // Enrich with full command lines from ps
     await enrichEntries(entries);
     await enrichCwd(entries);
+    await enrichGitRoot(entries);
 
     return entries;
   } catch {
@@ -220,6 +223,39 @@ async function enrichCwd(entries: PortEntry[]): Promise<void> {
     }
   } catch {
     // lsof failed — leave cwd empty
+  }
+}
+
+// cwd -> git root ('' = not in a repo). Memoized so repeated scans (TUI
+// refresh, pollForNewListener) don't re-run `git` for the same directories.
+const gitRootCache = new Map<string, string>();
+
+async function findGitRoot(cwd: string): Promise<string> {
+  const cached = gitRootCache.get(cwd);
+  if (cached !== undefined) return cached;
+
+  let root = "";
+  try {
+    const { stdout } = await $`git -C ${cwd} rev-parse --show-toplevel`.quiet();
+    root = stdout.toString().trim();
+  } catch {
+    // not a git repo (or git unavailable) — leave empty
+  }
+  gitRootCache.set(cwd, root);
+  return root;
+}
+
+async function enrichGitRoot(entries: PortEntry[]): Promise<void> {
+  if (entries.length === 0) return;
+  const cwds = [...new Set(entries.map((e) => e.cwd).filter((c) => c !== ""))];
+  if (cwds.length === 0) return;
+
+  const roots = await Promise.all(cwds.map(findGitRoot));
+  const rootByCwd = new Map<string, string>();
+  for (let i = 0; i < cwds.length; i++) rootByCwd.set(cwds[i], roots[i]);
+
+  for (const e of entries) {
+    if (e.cwd) e.gitRoot = rootByCwd.get(e.cwd) ?? "";
   }
 }
 

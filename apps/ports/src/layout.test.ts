@@ -1,5 +1,5 @@
 import { describe, test, expect } from "bun:test";
-import { planLayout } from "./layout";
+import { planLayout, COMPACT_HEIGHT } from "./layout";
 
 describe("planLayout", () => {
   test("tall viewport shows all chrome and gives the rest to the list", () => {
@@ -37,6 +37,11 @@ describe("planLayout", () => {
 
   test("never reports negative rows for a zero-height viewport", () => {
     expect(planLayout(0).listRows).toBe(0);
+  });
+
+  test("enters compact mode at or below the compact height threshold", () => {
+    expect(planLayout(COMPACT_HEIGHT).compact).toBe(true);
+    expect(planLayout(COMPACT_HEIGHT + 1).compact).toBe(false);
   });
 
   test("drops chrome in priority order: separator, header, border, status, title", () => {

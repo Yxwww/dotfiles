@@ -15,8 +15,10 @@ import {
   yellow,
   cyan,
 } from "@opentui/core";
-import { scanPorts, classifyProcess, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, spawnDevServer, pollForNewListener, type PortEntry } from "./ports";
+import { scanPorts, killProcess, openInBrowser, shortenDir, sortCwdFirst, isFromCwd, spawnDevServer, pollForNewListener, type PortEntry } from "./ports";
+import { formatPortRow } from "./format";
 import { planLayout } from "./layout";
+import { jumpTarget } from "./jump";
 
 type Mode = "browse" | "confirm-kill";
 
@@ -25,6 +27,7 @@ const state = {
   mode: "browse" as Mode,
   pendingKill: null as PortEntry | null,
   refreshing: false,
+  compact: false,
 };
 
 let renderer: CliRenderer;
@@ -34,29 +37,9 @@ let statusText: TextRenderable;
 let confirmBox: BoxRenderable;
 let confirmText: TextRenderable;
 
-function formatOption(entry: PortEntry, cwd: string): SelectOption {
-  const cls = classifyProcess(entry);
-  const tag = cls === "root" ? "[root]" : cls === "system" ? "[sys]" : "[usr]";
-  const label = entry.script || entry.command.slice(0, 14);
-  const proj = entry.project ? `(${entry.project})` : "";
-  const here = isFromCwd(entry, cwd);
-  const marker = here ? "● " : "  ";
-  const baseDesc = entry.fullCommand
-    ? `→ ${shortenDir(entry.fullCommand).slice(0, 80)}`
-    : `${entry.command}  ${entry.address}:${entry.port}`;
-  return {
-    name: [
-      marker,
-      String(entry.port).padEnd(8),
-      String(entry.pid).padEnd(8),
-      label.slice(0, 14).padEnd(16),
-      proj.slice(0, 22).padEnd(24),
-      tag,
-      here ? "  ← current dir" : "",
-    ].join(""),
-    description: baseDesc,
-    value: entry,
-  };
+function formatOption(entry: PortEntry, cwd: string, compact: boolean): SelectOption {
+  const row = formatPortRow(entry, cwd, { compact });
+  return { name: row.name, description: row.description, value: entry };
 }
 
 async function refresh() {
@@ -70,11 +53,16 @@ async function refresh() {
   state.entries = entries;
 
   const cwdCount = entries.filter((e) => isFromCwd(e, cwd)).length;
-  select.options = entries.map((e) => formatOption(e, cwd));
+  rebuildOptions();
   const titleTail = cwdCount > 0 ? ` · ${cwdCount} from cwd ` : " ";
   titleText.content = t`${bold(` Ports (${entries.length} listening)${titleTail}`)}`;
   statusText.content = t`${dim(" q quit  d kill  s start  o open  r refresh  j/↓ k/↑")}`;
   state.refreshing = false;
+}
+
+function rebuildOptions() {
+  const cwd = process.cwd();
+  select.options = state.entries.map((e) => formatOption(e, cwd, state.compact));
 }
 
 function showConfirm(entry: PortEntry) {
@@ -250,6 +238,9 @@ export async function startTui() {
     sep.visible = plan.showSeparator;
     statusText.visible = plan.showStatus;
     outer.border = plan.showBorder;
+    state.compact = plan.compact;
+    select.showDescription = !plan.compact;
+    rebuildOptions();
   }
   applyLayout();
   renderer.on("resize", applyLayout);
@@ -306,6 +297,11 @@ export async function startTui() {
     }
     if (key.name === "s") {
       startDevServer();
+      return;
+    }
+    if (key.name === "g" || key.name === "G") {
+      const idx = jumpTarget(key.name, select.options.length);
+      if (idx !== null) select.setSelectedIndex(idx);
       return;
     }
   });

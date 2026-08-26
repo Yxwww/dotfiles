@@ -16,10 +16,15 @@ export type LayoutPlan = {
   showBorder: boolean;
   /** Rows left for the port list after the shown chrome takes its share. */
   listRows: number;
+  /** Collapse each port to a single line (drop the description) when true. */
+  compact: boolean;
 };
 
 /** How many rows the list keeps before chrome starts getting dropped. */
 const MIN_LIST_ROWS = 3;
+
+/** Below this viewport height the TUI renders one line per port. */
+export const COMPACT_HEIGHT = 10;
 
 /** Droppable chrome, ordered least useful first → dropped first. */
 const SECTIONS = [
@@ -48,5 +53,6 @@ export function planLayout(height: number, minListRows = MIN_LIST_ROWS): LayoutP
     showStatus: !dropped.has("status"),
     showBorder: !dropped.has("border"),
     listRows: Math.max(0, height - chromeCost()),
+    compact: height <= COMPACT_HEIGHT,
   };
 }
