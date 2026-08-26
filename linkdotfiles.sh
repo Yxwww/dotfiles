@@ -1,6 +1,15 @@
 # link dotfiles to ~/
 ln -sf "$(pwd)"/dotfiles/{*,.[^.],.??*} ~/
 
+# Shared shell aliases (single source of truth for zsh + pi/bash). Link explicitly
+# and verify bash can actually load them before doing the rest of the install.
+ln -sfn "$(pwd)"/dotfiles/.aliases ~/.aliases
+if [ ! -f ~/.aliases ] || ! bash -c 'shopt -s expand_aliases; source ~/.aliases; alias -p | grep -q .' >/dev/null 2>&1; then
+  echo "linkdotfiles: ERROR — ~/.aliases is missing or failed to load in bash. Aborting." >&2
+  exit 1
+fi
+echo "linkdotfiles: ~/.aliases installed and verified (loads in non-interactive bash)."
+
 CONFIG_HOME=~
 GHOSTTY_CONFIG=$CONFIG_HOME/ghostty/config
 # git ignore

@@ -3,6 +3,7 @@
   "theme": "dark",
   "editorPaddingX": 1,
   "outputPad": 1,
+  "shellCommandPrefix": "shopt -s expand_aliases\n[ -f ~/.aliases ] && source ~/.aliases\n",
   "packages": [
     "npm:pi-provider-litellm@2.0.5",
     "npm:pi-vimmode@0.9.0",
