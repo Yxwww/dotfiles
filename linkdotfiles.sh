@@ -48,6 +48,10 @@ ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/e
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/extensions/git-workflow-gates.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/skill-session-name.ts ~/.pi/agent/extensions/skill-session-name.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/ask-user-question.ts ~/.pi/agent/extensions/ask-user-question.ts
+# directory extension: its node_modules is gitignored, install into the source dir
+ln -sfn "$(pwd)"/configs/pi/agent/extensions/bash-guard ~/.pi/agent/extensions/bash-guard
+(cd "$(pwd)"/configs/pi/agent/extensions/bash-guard && npm install --no-audit --no-fund)
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
 # skill manifest shared across agents; skill dirs themselves are installed by

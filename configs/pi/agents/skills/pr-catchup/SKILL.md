@@ -8,8 +8,7 @@ description: >-
   (uncommitted/unpushed/behind-base/stashes), and CI/review/merge state, then
   returns a tight status brief. Invoke-only: run this ONLY when the user
   explicitly invokes it as /pr-catchup. Do NOT auto-trigger on phrasing cues
-  like "catch me up on this PR" or "read the PR and code changes" — wait for the
-  explicit /pr-catchup invocation.
+  like "catch me up on this PR" or "read the PR and code changes"
 ---
 
 # PR Catch-up
@@ -30,7 +29,7 @@ source is missing, note it in one clause and move on. Never block the whole
 brief waiting on one flaky source.
 
 1. **Resolve the PR.** Default to the current branch: `gh pr view --json
-   number,title,body,state,isDraft,url,headRefName,baseRefName,mergeable,mergeStateStatus,additions,deletions,changedFiles`.
+number,title,body,state,isDraft,url,headRefName,baseRefName,mergeable,mergeStateStatus,additions,deletions,changedFiles`.
    If there's no PR for the branch, say so and ask for a number/URL — don't
    guess or fabricate one.
 
@@ -39,7 +38,7 @@ diff` (step 2's fetch), `jira_get_issue` (step 3), and `gh pr checks` (step 6).
 Step 4's memory scan is already in context — zero cost. The serial parts are
 step 2's code-reading walk and the final brief.
 
-2. **Read the change.** `gh pr diff` for the actual diff. Skim for the *shape*
+2. **Read the change.** `gh pr diff` for the actual diff. Skim for the _shape_
    of the change (which files/areas, what kind of edit) — you're building a
    mental model, not reviewing. Read the PR body: it often already states the
    intent and includes example code.
@@ -50,7 +49,7 @@ step 2's code-reading walk and the final brief.
    see the surrounding function/module, and follow outward when the change's
    purpose is still unclear: who calls the modified function, what type or
    invariant it touches, the sibling code it mirrors. The bar is being able to
-   explain *why* the change is shaped this way, not just restate the hunks. This
+   explain _why_ the change is shaped this way, not just restate the hunks. This
    is conditional depth — a small, obvious diff (a dependency swap, a one-line
    guard) needs none of it; a subtle logic or architecture change needs you to
    read the neighborhood. Spend the reading budget where the change is load-bearing.
@@ -69,7 +68,7 @@ step 2's code-reading walk and the final brief.
    gotchas, where a fix landed). Only if nothing relevant surfaced and the PR
    clearly maps to ongoing work, grep the memory index
    (pi has no built-in memory dir; grep your agent's memory index if it keeps
-   one, otherwise skip) for matching terms. Treat memory as *what was true when written* — verify a
+   one, otherwise skip) for matching terms. Treat memory as _what was true when written_ — verify a
    named file/flag still exists before leaning on it.
 
 5. **Check the local working tree.** This only needs the branch name, so
