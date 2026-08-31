@@ -295,8 +295,11 @@ if type fzf &> /dev/null && type rg &> /dev/null; then
   export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
   export FZF_DEFAULT_OPTS='
-  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
+  --color=dark
+  --color fg:#c6c8d1,bg:#161821,hl:#e2a478
+  --color fg+:#c6c8d1:bold,bg+:#1e2132,hl+:#e2a478:bold
+  --color info:#6b7089,prompt:#84a0c6,spinner:#89b8c2,pointer:#a093c7,marker:#a093c7
+  --color border:#6b7089,header:#84a0c6
   '
 fi
 
