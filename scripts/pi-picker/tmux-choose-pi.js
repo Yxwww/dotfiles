@@ -128,17 +128,6 @@ function clip(s, n) {
   return s.length <= n ? s : s.slice(0, n) + "…";
 }
 
-function stripAnsi(s) {
-  return s.replace(/\x1b\[[0-9;]*m/g, "");
-}
-
-function padRight(s, w) {
-  return s + " ".repeat(Math.max(0, w - stripAnsi(s).length));
-}
-function padLeft(s, w) {
-  return " ".repeat(Math.max(0, w - stripAnsi(s).length)) + s;
-}
-
 function shortModel(id) {
   if (!id) return null;
   const i = id.lastIndexOf("/");
@@ -267,7 +256,6 @@ function emptyAnalysis() {
     lastRole: null,
     lastEventTs: 0,
     lastUserTs: 0,
-    cumCost: 0,
     sawObsTurn: false,
     lastObs: null,
     lastResultError: false,
@@ -300,7 +288,6 @@ function analyzeTranscript(content) {
       a.lastObs = data;
       a.sawObsTurn = true;
       if (data.model) a.model = data.model;
-      if (typeof data.cost === "number") a.cumCost += data.cost;
     } else if (d.type === "message") {
       const m = d.message || {};
       const role = m.role;
@@ -447,32 +434,18 @@ function buildRow(pane) {
     } catch (e) {}
   }
   const a = content ? analyzeTranscript(content) : emptyAnalysis();
-  const now = Date.now();
-  const status = computeStatus(a, now);
-  const ageSec = a.lastEventTs ? Math.max(0, (now - a.lastEventTs) / 1000) : Infinity;
+  const status = computeStatus(a, Date.now());
 
   const g = pane.path ? gitInfo(pane.path) : { branch: "", dirty: 0 };
   const branch = g.branch;
   const dirty = g.dirty;
 
-  // column 1: title · branch±dirty
+  // Rows carry status + identity only. Model, tool, elapsed and cost are static
+  // or noisy at a glance and live in the preview card instead.
   let label = cleanTitle(pane.title);
   if (branch) label += " · " + branch + (dirty > 0 ? "±" + dirty : "");
 
-  const model = shortModel(a.model) || "—";
-  const tool = status === "working" && a.runningTool ? a.runningTool.name : "—";
-  const elapsed =
-    status === "working" ? mmss(turnElapsed(a, now)) : humanizeAge(ageSec);
-  const cost = a.sawObsTurn ? "$" + a.cumCost.toFixed(4) : "—";
-
-  const dot = statusDot(status);
-  const col1 = padRight(label, 32);
-  const col2 = padRight(model, 16);
-  const col3 = padRight(tool, 18);
-  const col4 = padLeft(elapsed, 8);
-  const col5 = padLeft(cost, 11);
-
-  const row = `${dot} ${col1}  ${col2}  ${col3}  ${col4}  ${col5}`;
+  const row = `${statusDot(status)} ${label}`;
   // Field 4 (path) is TERMINAL: it may contain literal TABs, so nothing
   // downstream may index past field 3. The wrapper reads field 1 (jump target)
   // and fzf reads {2} (pane id) -- both stay correct with tabs in the path.
@@ -602,14 +575,49 @@ function previewCommand(paneId) {
 
 // ---------------------------------------------------------------------------
 
-const cmd = process.argv[2];
-if (cmd === "list") {
-  listCommand().catch((e) => {
-    process.stderr.write(
-      "tmux-choose-pi: " + (e && e.message ? e.message : e) + "\n"
-    );
-    process.exit(1);
-  });
-} else if (cmd === "preview") {
-  previewCommand(process.argv[3]);
+// Guard the dispatch: a bare `require()` from a test must not run a subcommand.
+// `node --test` leaves argv[2] undefined in the child so that path is safe by
+// accident, but any runner passing one extra arg would write pane rows straight
+// into the TAP stream.
+if (require.main === module) {
+  const cmd = process.argv[2];
+  if (cmd === "list") {
+    listCommand().catch((e) => {
+      process.stderr.write(
+        "tmux-choose-pi: " + (e && e.message ? e.message : e) + "\n"
+      );
+      process.exit(1);
+    });
+  } else if (cmd === "preview") {
+    previewCommand(process.argv[3]);
+  }
 }
+
+// Exported for tests. SESSIONS is read at load time from os.homedir(), which
+// honours $HOME on POSIX, so tests point it at a fixture tree before requiring.
+module.exports = {
+  STALE_AFTER_SEC,
+  PANE_FMT,
+  parseTs,
+  clip,
+  shortModel,
+  humanizeAge,
+  mmss,
+  cleanTitle,
+  parseGitStatus,
+  briefArg,
+  emptyAnalysis,
+  analyzeTranscript,
+  computeStatus,
+  statusDot,
+  statusColor,
+  turnElapsed,
+  transcriptFor,
+  gitInfo,
+  gitInfoAsync,
+  paneInfo,
+  listPanes,
+  buildRow,
+  renderCard,
+  _gitCache,
+};
