@@ -13,6 +13,7 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `extensions/rise-against-header.ts` | `~/.pi/agent/extensions/…` | custom startup header |
 | `extensions/search.json` | `~/.pi/agent/extensions/search.json` | `web_search`/`web_read` backends (pi-search-hub); keyless only — no secrets |
 | `extensions/git-workflow-gates.ts` | `~/.pi/agent/extensions/…` | pre-commit gate + post-push PR-description nudge (ports the active Claude hooks) |
+| `extensions/skill-session-name.ts` | `~/.pi/agent/extensions/…` | on `/skill:<name>` in an unnamed session, set the session display name so `/resume` shows the skill name |
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |

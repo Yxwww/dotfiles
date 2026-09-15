@@ -9,3 +9,4 @@ notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 30s
 
 background-opacity = 1
+custom-shader = shaders/cursor_sweep.glsl

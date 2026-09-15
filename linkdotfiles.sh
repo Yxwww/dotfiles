@@ -1,6 +1,15 @@
 # link dotfiles to ~/
 ln -sf "$(pwd)"/dotfiles/{*,.[^.],.??*} ~/
 
+# Shared shell aliases (single source of truth for zsh + pi/bash). Link explicitly
+# and verify bash can actually load them before doing the rest of the install.
+ln -sfn "$(pwd)"/dotfiles/.aliases ~/.aliases
+if [ ! -f ~/.aliases ] || ! bash -c 'shopt -s expand_aliases; source ~/.aliases; alias -p | grep -q .' >/dev/null 2>&1; then
+  echo "linkdotfiles: ERROR — ~/.aliases is missing or failed to load in bash. Aborting." >&2
+  exit 1
+fi
+echo "linkdotfiles: ~/.aliases installed and verified (loads in non-interactive bash)."
+
 CONFIG_HOME=~
 GHOSTTY_CONFIG=$CONFIG_HOME/ghostty/config
 # git ignore
@@ -38,6 +47,11 @@ ln -sf "$(pwd)"/configs/pi/agent/extensions/prompt-stash.ts ~/.pi/agent/extensio
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/extensions/git-workflow-gates.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/skill-session-name.ts ~/.pi/agent/extensions/skill-session-name.ts
+ln -sf "$(pwd)"/configs/pi/agent/extensions/ask-user-question.ts ~/.pi/agent/extensions/ask-user-question.ts
+# directory extension: its node_modules is gitignored, install into the source dir
+ln -sfn "$(pwd)"/configs/pi/agent/extensions/bash-guard ~/.pi/agent/extensions/bash-guard
+(cd "$(pwd)"/configs/pi/agent/extensions/bash-guard && npm install --no-audit --no-fund)
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
 # skill manifest shared across agents; skill dirs themselves are installed by

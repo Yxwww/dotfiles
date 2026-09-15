@@ -1,12 +1,17 @@
 return {
-  -- add gruvbox
-  { "oskarnurm/koda.nvim" },
+  -- -- add gruvbox
+  -- { "oskarnurm/koda.nvim" },
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+    opts = { style = "night" },
+  },
 
   -- Configure LazyVim to load gruvbox
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "koda",
+      colorscheme = "tokyonight",
     },
   },
 }

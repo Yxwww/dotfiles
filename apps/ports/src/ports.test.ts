@@ -71,7 +71,7 @@ describe("pickDevScript", () => {
 describe("pollForNewListener", () => {
   const mk = (pid: number, port: number): PortEntry => ({
     pid, port, command: "node", user: "yuxi", protocol: "IPv4",
-    address: "*", fd: "3", fullCommand: "", script: "", project: "", cwd: "",
+    address: "*", fd: "3", fullCommand: "", script: "", project: "", cwd: "", gitRoot: "",
   });
 
   test("resolves with the new entry once it appears", async () => {
