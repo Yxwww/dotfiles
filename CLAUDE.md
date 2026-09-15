@@ -49,6 +49,9 @@ To set up italics and true color support in tmux:
   - `ports/` - `pf` CLI/TUI for port management (Bun + OpenTUI). See `apps/ports/CLAUDE.md`.
 - `configs/` - Contains configuration files for various applications
   - `Code/` - VS Code configurations
+  - `claude/` - Claude Code global config: `personal.md` (linked to `~/.claude/CLAUDE.md` and
+    `~/.pi/agent/AGENTS.md`), statusline script, and `agent-browser.md` for machine-local
+    browser-automation notes kept out of the always-loaded `personal.md`.
   - `cursor/` - Cursor editor configurations
   - `ghostty/` - Ghostty terminal configurations
   - `git/` - Git configurations

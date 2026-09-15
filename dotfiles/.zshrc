@@ -388,8 +388,6 @@ export PATH="$HOME/.deno/bin:$PATH"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
-export PNPM_HOME="/Users/yuxiwang/Library/pnpmnk"
-export PATH="$PNPM_HOME:$PATH"
 
 
 eval "$(fnm env)"
@@ -410,8 +408,6 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# pnpm global bin
-export PATH="/Users/yuxi/.pnpm-global/bin:$PATH"
 source ~/.zshrc_extra
 # . "/Users/yuxiwang/.deno/env"
 export PATH="/opt/homebrew/opt/ruby/bin:$PATH"

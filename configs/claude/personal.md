@@ -71,14 +71,9 @@ GPU:
 
 ## Browser Automation
 
-Use `agent-browser` for web automation. Run `agent-browser --help` for all commands.
-
-Core workflow:
-
-1. `agent-browser open <url>` - Navigate to page
-2. `agent-browser snapshot -i` - Get interactive elements with refs (@e1, @e2)
-3. `agent-browser click @e1` / `fill @e2 "text"` - Interact using refs
-4. Re-snapshot after page changes
-
-- WebGL fails in headless mode (SwiftShader can't create context). Always use `--headed` for WebGL pages.
-
+- Use `agent-browser` for web automation, and load its guide from the CLI
+  (`agent-browser skills get core`) — the binary serves content matching the installed version.
+- Headless renders WebGL and WebGPU on this Mac via hardware ANGLE Metal. A black WebGPU
+  canvas is fixed by `--webgpu`; SwiftShader is the Linux/CI path.
+- Install, stub-refresh steps, and the measurements behind these:
+  `~/git/dotfiles/configs/claude/agent-browser.md`
