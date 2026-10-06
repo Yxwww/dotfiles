@@ -8,10 +8,10 @@ highlighted pane on the right. Enter jumps, Esc cancels.
 
 ```
  π agents
- jump › ▸ ● dotfiles · master              │ pr-catchup - dotfiles
-         ◐ sdk-repos · SDKS-3886 ±3        │ /Users/yuxi/git/mappedin/sdk-repos
-         ○ graduation · yx/graduation      │
-                                           │ model: beta   status: working
+ jump › ▸ ◐ dotfiles · master · <1m       │ pr-catchup - dotfiles
+         ◐ sdk-repos · SDKS-3886 ±3 · 4m   │ /Users/yuxi/git/mappedin/sdk-repos
+         ● graduation · yx/graduation · 2h │
+         ○ legacy-tooling · main · 3d      │ model: beta   status: working
                                            │ activity: 3:01
                                            │ running: bash cd /Users/…
  jump · esc cancel
@@ -48,9 +48,40 @@ picker finds its own panes without any configuration.
 | `✖` red | error | the most recent tool result had `isError` set |
 | `○` grey | stale | nothing for 30 min (`STALE_AFTER_SEC`) |
 
-Followed by `title · branch±N`, where `±N` is the count of dirty entries from
-`git status --porcelain=v2` (untracked files included). The preview card adds model, elapsed turn
-time, running tool, token/cost/tps, recent asks, last reply, and subagent labels.
+Followed by `title · branch±N · age`, where `±N` is the count of dirty entries from
+`git status --porcelain=v2` (untracked files included), and `age` is how long since the pane was
+last active (`<1m`, `4m`, `2h`, `3d`, or `—` when it has no activity at all). The branch segment is
+omitted when there is no branch. The preview card adds model, elapsed turn time, running tool,
+token/cost/tps, recent asks, last reply, and subagent labels.
+
+## What order the panes are in
+
+Most recently active first, not tmux's pane order. Typing into a pane or opening one both move it
+to the top, so the list answers "which of these should I look at now".
+
+"Active" is a single timeline: **whichever is newer of the last human message and the last event of
+any kind.** Two simpler rules were rejected:
+
+| rule | why not |
+|---|---|
+| last **human** message only | a pane you just opened has no typed message, so it would sink below panes you spoke to hours ago — backwards, since a fresh pane is usually the one you want |
+| last **event** of any kind only | ranks a pane as fresh whenever pi emits anything, including background work you never engaged with |
+
+Taking the newer of the two needs no fallback case and keeps the sort and the `age` column reading
+the same number, so they can never disagree. A pane with no activity at all sorts last; ties keep
+tmux's order.
+
+Two consequences worth knowing:
+
+- **`age` means "since any activity", not "since you last typed".** A pane where the agent has been
+  working for 20 minutes while you waited reads `<1m`, not `20m`.
+- **Injected context is not human activity.** pi delivers skill bodies and file attachments as
+  large `role: user` text blocks, so they are excluded from both the ask list and the human-recency
+  signal — otherwise a pane nobody has touched would show a 30 KB skill body as its latest ask. They
+  still count as activity, so such a pane stays ordered by real events.
+
+fzf re-ranks as you type; its default tiebreak keeps this order for equal scores, so the ordering
+is the starting point and a filter once you narrow. `--no-sort` is deliberately not used.
 
 ## Running it by hand
 
@@ -62,8 +93,16 @@ node scripts/pi-picker/tmux-choose-pi.js preview %257    # status card for one p
 node scripts/pi-picker/tmux-choose-pi.js list | head -1  # pipe-close must not error
 ```
 
-`list` prints `target \t pane_id \t display_row \t cwd`. `tmux-choose-pi.sh` reads field 1 to jump,
-fzf shows field 3 (`--with-nth 3`) and passes field 2 (`{2}`) to `preview`.
+`list` prints `target \t pane_id \t display_row \t cwd`, sorted newest-activity-first. fzf shows
+field 3 (`--with-nth 3`) and passes field 2 (`{2}`) to `preview`.
+
+The jump uses **field 2, the `%pane_id`** — not field 1. Field 1 is
+`session:window_index.pane_index`, a *positional* address: tmux renumbers indices whenever a window
+or pane closes, so between `list` running and you pressing Enter the same string can name a
+**different pane**, and tmux resolves it happily with exit 0. Jumping by the stable pane id removes
+that race. The session is re-derived from the pane id at jump time, so a session rename can't
+misroute it either. If the pane is gone by the time you press Enter, the picker says so instead of
+jumping somewhere wrong.
 
 ## Performance
 
@@ -85,7 +124,7 @@ subprocess call.
 ## Tests
 
 ```sh
-node --test scripts/pi-picker/*.test.js     # 53 tests, no deps
+node --test scripts/pi-picker/*.test.js     # 66 tests, no deps
 ```
 
 | file | covers |
@@ -93,6 +132,7 @@ node --test scripts/pi-picker/*.test.js     # 53 tests, no deps
 | `tmux-choose-pi.format.test.js` | pure formatters + `computeStatus` precedence |
 | `tmux-choose-pi.transcript.test.js` | transcript event parsing, `parseGitStatus` |
 | `tmux-choose-pi.io.test.js` | transcript lookup, real temp git repos, the TAB field contract, CLI smoke |
+| `tmux-choose-pi.jump.test.js` | the wrapper's jump path: pane-id targeting, session re-derivation, vanished-pane error |
 
 The suite is hermetic: it stubs `tmux` on `PATH` and points `HOME` at a fixture tree, so it never
 touches your real tmux server or session files. That is a hard requirement, not a nicety — see
@@ -118,5 +158,15 @@ mapping, and `lsof` shows pi does not hold the transcript open. Closing it needs
   falls back to dumping the pane's screen.
 - **Branch label missing in a bare repo** — `git status` exits 128 there; the code falls back to
   `symbolic-ref`. If it still disappears, that fallback regressed (covered by a test).
+- **A row points at a shell prompt, not a running agent** — pi exited but left its pane open, and
+  the pane kept pi's `π` title, so the picker still lists it. tmux reports the pane as perfectly
+  alive (`pane_dead=0`), it just has no pi in it; the screen usually still shows
+  `To resume this session: pi --session …`. Check with
+  `tmux display-message -p -t %ID '#{pane_current_command}'` — `zsh` means pi is gone, `node` means
+  it is running. This is not a stale-entry bug: `list` re-queries tmux on every run and caches
+  nothing. Distinguishing the two needs a liveness signal tmux doesn't provide for this case
+  (see the shared-cwd limitation below for the same root cause).
+- **A row jumps to the wrong pane** — should not happen since the jump was switched to field 2
+  (`%pane_id`). If it recurs, something is jumping by field 1 again; see `jump_to_pane` and its test.
 - **Popup opens slowly no matter what** — fzf's own first-draw floor measured ~0.5s in a pty
   harness, independent of this script.

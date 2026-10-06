@@ -11,6 +11,39 @@
 //   custom obs-turn (data: inputTokens/outputTokens/cost/tps/model/durationMs)
 //   model_change  (modelId)
 // Every event carries a `timestamp` (ISO string or epoch millis).
+//
+// ---------------------------------------------------------------------------
+// Ordering: why `list` sorts, and on what
+// ---------------------------------------------------------------------------
+// Rows come out most-recently-active-first instead of in tmux's pane order.
+//
+// The key is ONE timeline, `max(lastHumanTs, lastEventTs)` (see recencyOf).
+// Two alternatives were considered and rejected:
+//
+//   - Sort on the last *human* message only. A pane you just opened, with
+//     nothing typed yet, then has no key at all and sinks below panes you spoke
+//     to hours ago -- backwards, since a fresh pane is usually the one you want.
+//     It also needs a special case for the missing key, and that branch is dead:
+//     every pane either has a human message or is excluded from the comparison.
+//
+//   - Sort on the last event of any kind only. That ranks a pane as fresh
+//     whenever pi emits anything, including background work on a pane you have
+//     not engaged with.
+//
+// Taking the max gets both: typing in a pane and opening one both mean
+// "recently active", with no fallback branch and no way for the sort to
+// disagree with the age column, since both read the same number.
+//
+// `lastHumanTs` deliberately ignores injected context. pi delivers skill bodies
+// and file attachments as role:user text blocks, and they are large: over this
+// machine's session corpus 7.9% of user messages are injections and 358 of them
+// are body-only. Without the filter a pane nobody has touched shows a 30KB
+// skill body as its most recent ask. Those messages still move `lastEventTs`,
+// so an injection makes a pane active without faking human engagement.
+// See humanText().
+//
+// Panes with no signal at all (recency 0) sort below every pane that has one,
+// and ties keep tmux's order (Array.prototype.sort is stable in V8).
 
 "use strict";
 
@@ -137,9 +170,45 @@ function shortModel(id) {
 function humanizeAge(sec) {
   if (sec == null || !isFinite(sec)) return "—";
   if (sec < 2) return "now";
+  sec = Math.floor(sec); // callers pass fractional seconds; "45.231s" is noise
   if (sec < 60) return sec + "s";
   if (sec < 3600) return Math.floor(sec / 60) + "m";
   return Math.floor(sec / 3600) + "h";
+}
+
+// Row form: coarser than humanizeAge -- "now"/seconds are meaningless once the
+// list is sorted by recency, so sub-minute collapses into one "<1m".
+function recencyAge(ts, nowMs) {
+  if (!ts || !isFinite(ts)) return "—";
+  const sec = Math.max(0, (nowMs - ts) / 1000);
+  if (sec < 60) return "<1m";
+  if (sec < 3600) return Math.floor(sec / 60) + "m";
+  if (sec < 86400) return Math.floor(sec / 3600) + "h";
+  return Math.floor(sec / 86400) + "d";
+}
+
+// How recently a pane was *active*, on one timeline: whichever is newer of the
+// last human message and the last event of any kind. One signal, so the sort
+// and the row's age column can never disagree, and a pane you just opened
+// ranks alongside one you just typed into.
+function recencyOf(a) {
+  return Math.max(a.lastHumanTs || 0, a.lastEventTs || 0);
+}
+
+// Order panes for the picker: most recently active first. Panes with no signal
+// at all (0) sink below every pane that has one. Returns a copy -- callers keep
+// their array, and its order, for tests.
+function sortRows(rows) {
+  const out = rows.slice();
+  // Array.prototype.sort is stable in V8, so equal keys keep input order.
+  out.sort((a, b) => {
+    const ra = recencyOf(a);
+    const rb = recencyOf(b);
+    if (!ra) return rb ? 1 : 0;
+    if (!rb) return -1;
+    return rb - ra;
+  });
+  return out;
 }
 
 function mmss(ms) {
@@ -256,12 +325,44 @@ function emptyAnalysis() {
     lastRole: null,
     lastEventTs: 0,
     lastUserTs: 0,
+    lastHumanTs: 0,
     sawObsTurn: false,
     lastObs: null,
     lastResultError: false,
     lastResultText: "",
     runningTool: null,
   };
+}
+
+// pi injects skill bodies and file attachments as role:user text, so a user
+// message is not proof a human typed anything. A message that is *only* the
+// injection carries no prompt; one with text after the closing tag does.
+function isInjectedBody(text) {
+  const t = text.trim();
+  if (/^<file\b/.test(t)) return t.replace(/^<file\b[^>]*>[\s\S]*?<\/file>\s*/, "").trim() === "";
+  if (/^<skill\b/.test(t)) {
+    const end = t.lastIndexOf("</skill>");
+    return end < 0 || t.slice(end + 8).trim() === "";
+  }
+  return false;
+}
+
+// Strip an injection wrapper down to the prompt the human typed after it, or
+// null when the message is nothing but the injected body (or an unclosed tag).
+function humanText(text) {
+  const t = text.trim();
+  let body = t;
+  if (/^<file\b/.test(t)) {
+    // No close tag means the body is truncated mid-stream; treat the whole
+    // message as the injection rather than surfacing markup as an ask.
+    if (!t.includes("</file>")) return null;
+    body = t.replace(/^<file\b[^>]*>[\s\S]*?<\/file>\s*/, "");
+  } else if (/^<skill\b/.test(t)) {
+    const end = t.lastIndexOf("</skill>");
+    body = end < 0 ? "" : t.slice(end + 8);
+  }
+  body = body.trim();
+  return body === "" ? null : body;
 }
 
 // Parse a transcript into a shared status object (used by both list & preview).
@@ -277,6 +378,9 @@ function analyzeTranscript(content) {
     } catch (e) {
       continue;
     }
+    // JSON.parse succeeds on `null`/`42`/`"x"`; the timestamp read below would
+    // dereference them.
+    if (!d || typeof d !== "object") continue;
 
     const ts = parseTs(d.timestamp);
     if (ts) a.lastEventTs = ts;
@@ -298,7 +402,11 @@ function analyzeTranscript(content) {
         if (ts) a.lastUserTs = ts;
         for (const c of content) {
           if (c && c.type === "text" && c.text && c.text.trim()) {
-            a.users.push(c.text.replace(/^\s*<file\b[^>]*>\s*/, "").trim());
+            const ask = humanText(c.text);
+            if (ask) {
+              if (ts) a.lastHumanTs = ts;
+              a.users.push(ask);
+            }
           }
         }
       } else if (role === "assistant") {
@@ -425,7 +533,16 @@ function listPanes() {
   return out;
 }
 
+// Analyse one pane and return its row plus the keys sortRows needs. `list` calls
+// this per pane; keeping the row string out of the sort key means the row stays
+// a display contract fzf can be handed unchanged.
 function buildRow(pane) {
+  const a = analyzePane(pane);
+  return buildRowFrom(pane, a, Date.now());
+}
+
+// Transcript read + parse, the one expensive step, done once per pane.
+function analyzePane(pane) {
   const sf = transcriptFor(pane.path);
   let content = "";
   if (sf) {
@@ -433,23 +550,40 @@ function buildRow(pane) {
       content = fs.readFileSync(sf, "utf8");
     } catch (e) {}
   }
-  const a = content ? analyzeTranscript(content) : emptyAnalysis();
-  const status = computeStatus(a, Date.now());
+  return content ? analyzeTranscript(content) : emptyAnalysis();
+}
 
+function listRows(panes) {
+  const out = [];
+  const now = Date.now();
+  for (const pane of panes) {
+    const a = analyzePane(pane);
+    out.push({
+      row: buildRowFrom(pane, a, now),
+      lastHumanTs: a.lastHumanTs,
+      lastEventTs: a.lastEventTs,
+    });
+  }
+  return out;
+}
+
+// Rows carry status + identity + age only. Model, tool, elapsed and cost are
+// static or noisy at a glance and live in the preview card instead.
+//
+// Field 4 (path) is TERMINAL: it may contain literal TABs, so nothing
+// downstream may index past field 3. The wrapper reads field 1 (jump target)
+// and fzf reads {2} (pane id) -- both stay correct with tabs in the path.
+function buildRowFrom(pane, a, now) {
   const g = pane.path ? gitInfo(pane.path) : { branch: "", dirty: 0 };
-  const branch = g.branch;
-  const dirty = g.dirty;
-
-  // Rows carry status + identity only. Model, tool, elapsed and cost are static
-  // or noisy at a glance and live in the preview card instead.
   let label = cleanTitle(pane.title);
-  if (branch) label += " · " + branch + (dirty > 0 ? "±" + dirty : "");
-
-  const row = `${statusDot(status)} ${label}`;
-  // Field 4 (path) is TERMINAL: it may contain literal TABs, so nothing
-  // downstream may index past field 3. The wrapper reads field 1 (jump target)
-  // and fzf reads {2} (pane id) -- both stay correct with tabs in the path.
-  return [pane.target, pane.paneId, row, pane.path].join("\t");
+  if (g.branch) label += " · " + g.branch + (g.dirty > 0 ? "±" + g.dirty : "");
+  label += " · " + recencyAge(recencyOf(a), now);
+  return [
+    pane.target,
+    pane.paneId,
+    statusDot(computeStatus(a, now)) + " " + label,
+    pane.path,
+  ].join("\t");
 }
 
 function listCommand() {
@@ -461,7 +595,9 @@ function listCommand() {
     if (pane.path) paths.add(pane.path);
   }
   return Promise.all(Array.from(paths, gitInfoAsync)).then(() => {
-    for (const pane of panes) process.stdout.write(buildRow(pane) + "\n");
+    for (const r of sortRows(listRows(panes))) {
+      process.stdout.write(r.row + "\n");
+    }
   });
 }
 
@@ -612,12 +748,17 @@ module.exports = {
   statusDot,
   statusColor,
   turnElapsed,
+  recencyAge,
+  recencyOf,
+  sortRows,
   transcriptFor,
   gitInfo,
   gitInfoAsync,
   paneInfo,
   listPanes,
+  analyzePane,
   buildRow,
+  listRows,
   renderCard,
   _gitCache,
 };

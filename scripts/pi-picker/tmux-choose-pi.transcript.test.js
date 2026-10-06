@@ -156,7 +156,7 @@ test("obs-turn keeps the newest snapshot; other custom events are not turns", ()
 
 // --- analyzeTranscript: message text ----------------------------------------
 
-test("blank user text is dropped and a leading <file> tag is stripped", () => {
+test("blank user text is dropped; injections keep only the prompt typed after them", () => {
   const a = analyzeTranscript(
     nl(
       ev(userMsg(1, "   \n\t ")),
@@ -165,26 +165,24 @@ test("blank user text is dropped and a leading <file> tag is stripped", () => {
       ev(userMsg(4, "first real ask")),
       // one message may carry several text blocks; each becomes its own ask
       ev(msg(5, { role: "user", content: [tx("one"), tx("two")] })),
+      // the <file> body is stripped, the prompt after it is kept
       ev(userMsg(6, '<file name="/tmp/a.md">pasted dump</file> what does it say?'))
     )
   );
-  // only the opening `<file ...>` tag is stripped; a body pasted on later lines
-  // (plus its </file>) stays in the ask -- clip() is what bounds the card.
-  assert.deepEqual(a.users, [
-    "first real ask",
-    "one",
-    "two",
-    'pasted dump</file> what does it say?',
-  ]);
+  assert.deepEqual(a.users, ["first real ask", "one", "two", "what does it say?"]);
 
   // realistic multi-line attachment
   const dump = analyzeTranscript(
     ev(userMsg(1, '<file name="/tmp/notes.md">\nBODY\n</file>\nwhy is this slow?'))
   );
-  assert.deepEqual(dump.users, ["BODY\n</file>\nwhy is this slow?"]);
+  assert.deepEqual(dump.users, ["why is this slow?"]);
 
-  // an attachment-only message leaves an empty ask behind (cosmetic bug)
-  assert.deepEqual(analyzeTranscript(ev(userMsg(1, '<file name="a.md">'))).users, [""]);
+  // an attachment-only message is machinery, not an ask
+  assert.deepEqual(analyzeTranscript(ev(userMsg(1, '<file name="a.md">\ndump\n</file>'))).users, []);
+  assert.deepEqual(analyzeTranscript(ev(userMsg(1, '<file name="a.md">'))).users, []);
+
+  // an unclosed <skill> tag must not swallow the whole body as an ask
+  assert.deepEqual(analyzeTranscript(ev(userMsg(1, '<skill name="x">\nbody'))).users, []);
 });
 
 test("assistant text accumulates across blocks; thinking and blank text are dropped", () => {
@@ -256,10 +254,12 @@ test("junk and truncated lines are skipped; lastEventTs is the last parseable on
   assert.equal(empty.lastRole, null);
 });
 
-// Known gap, reported not fixed: `null` is valid JSON but not an object, and
-// the timestamp read sits outside the parse guard.
-test("BUG: a bare `null` line throws instead of being skipped", () => {
-  assert.throws(() => analyzeTranscript("null"), TypeError);
+// A bare `null` line parses fine but is not an event; the timestamp read after
+// it threw. Reported as an open bug in AGENTS.md until this loop was touched.
+test("a bare `null` line is skipped, not thrown on", () => {
+  const a = analyzeTranscript(nl("null", "42", "\"x\"", ev(userMsg(7, "still parsed"))));
+  assert.deepEqual(a.users, ["still parsed"]);
+  assert.equal(a.lastHumanTs, Date.parse(T(7)));
 });
 
 test("lastRole tracks the newest message; lastUserTs only moves with a timestamped user message", () => {
@@ -340,4 +340,50 @@ test("parseGitStatus keeps odd branch names intact", () => {
   assert.deepEqual(parseGitStatus("# branch.head feat#42 hash"), { branch: "feat#42 hash", dirty: 0 });
   assert.deepEqual(parseGitStatus("# branch.head #wip"), { branch: "#wip", dirty: 0 });
   assert.deepEqual(parseGitStatus("# branch.head 日本語/ünïcødé"), { branch: "日本語/ünïcødé", dirty: 0 });
+});
+
+// --- analyzeTranscript: the recency key -------------------------------------
+//
+// `list` sorts panes by how recently a human last talked to them. Skill bodies
+// and file attachments arrive as role:user text blocks, so the raw last-user
+// timestamp is not that signal -- it is "last thing injected into context".
+
+test("lastHumanTs tracks the newest human user message, ignoring skill/file bodies", () => {
+  const a = analyzeTranscript(
+    nl(
+      ev(userMsg(10, "first real ask")),
+      // a skill body is a user message, but nobody typed it
+      ev(userMsg(20, '<skill name="pr-catchup" location="/x">\nbody\n</skill>')),
+      ev(assistMsg(30, tx("reply"))),
+      ev(userMsg(40, 'why is this slow?'))
+    )
+  );
+  assert.equal(a.lastHumanTs, 1767225640000); // T(40)
+
+  // a skill body carrying a real prompt after </skill> still counts as human
+  const withTail = analyzeTranscript(
+    ev(userMsg(20, '<skill name="x" location="/x">\nbody\n</skill>\nget the L0 state'))
+  );
+  assert.equal(withTail.lastHumanTs, 1767225620000); // T(20)
+
+  // nothing human at all -> 0, so the pane has no recency claim
+  const none = analyzeTranscript(nl(ev(assistMsg(5, tx("hi"))), ev(userMsg(6, "   "))));
+  assert.equal(none.lastHumanTs, 0);
+  assert.equal(emptyAnalysis().lastHumanTs, 0);
+});
+
+test("injected skill/file bodies are kept out of the asks list", () => {
+  const a = analyzeTranscript(
+    nl(
+      ev(userMsg(1, "real question")),
+      ev(userMsg(2, '<skill name="sdk-browser" location="/x">\n# SDK Browser\nlots of body\n</skill>')),
+      // body-only attachment: the whole message is the dump
+      ev(userMsg(3, '<file name="/tmp/big.json">\n{\n  "a": 1\n}\n</file>')),
+      // attachment WITH a prompt after it is a real ask, and keeps the prompt
+      ev(userMsg(4, '<file name="/tmp/a.md">\nBODY\n</file>\nwhy is this slow?')),
+      // skill WITH a prompt after it
+      ev(userMsg(5, '<skill name="x" location="/x">\nbody\n</skill>\nget the L0 state'))
+    )
+  );
+  assert.deepEqual(a.users, ["real question", "why is this slow?", "get the L0 state"]);
 });

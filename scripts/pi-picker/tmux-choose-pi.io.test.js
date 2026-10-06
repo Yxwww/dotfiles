@@ -434,19 +434,22 @@ test("buildRow: TAB-separated fields survive a TAB inside the path", () => {
   }
 });
 
-test("buildRow: branch and dirty count land in the row field, not the path", () => {
+test("buildRow: branch, dirty count and age land in the row field, not the path", () => {
   const clean = m.buildRow({ target: "1.0", paneId: "%1", title: "π x", path: REPO_CLEAN });
   const dirty = m.buildRow({ target: "1.0", paneId: "%1", title: "π x", path: REPO_DIRTY });
-  assert.ok(clean.split("\t")[2].endsWith(" · main"), clean);
-  assert.ok(dirty.split("\t")[2].endsWith(" · main±2"), dirty);
+  // field 2 is `<dot> title · branch±N · age`; branch and dirty stay left of the
+  // age column and never leak into the terminal path field.
+  assert.match(clean.split("\t")[2], / · main · (<1m|[0-9]+[smhd]|—)$/, clean);
+  assert.match(dirty.split("\t")[2], / · main±2 · (<1m|[0-9]+[smhd]|—)$/, dirty);
   assert.equal(dirty.split("\t").slice(3).join("\t"), REPO_DIRTY);
 });
 
 test("buildRow: no branch -> no separator, path untouched", () => {
-  const line = m.buildRow({ target: "9.9", paneId: "%9", title: "pi: bare title", path: NOT_A_REPO });
-  const f = line.split("\t");
-  assert.ok(!f[2].includes("\u00b7"), f[2]);
+  const f = m.buildRow({ target: "9.9", paneId: "%9", title: "pi: bare title", path: NOT_A_REPO }).split("\t");
   assert.ok(f[2].includes("bare title"), f[2]);
+  // no branch means no `title · branch` segment: the only separator is the age one
+  assert.equal(f[2].match(/·/g).length, 1, f[2]);
+  assert.match(f[2], / · (<1m|[0-9]+[smhd]|—)$/, f[2]);
   assert.equal(f.slice(3).join("\t"), NOT_A_REPO);
 });
 
@@ -539,4 +542,125 @@ test("CLI: unknown subcommand exits 0 quietly", () => {
   assert.equal(r.status, 0);
   assert.equal(r.stdout, "");
   assert.equal(r.stderr, "");
+});
+
+// --------------------------------------------------------------------------
+// CLI list: ordering by recency
+// --------------------------------------------------------------------------
+//
+// Three pi panes, three transcripts, deliberately listed by tmux in the
+// OPPOSITE order to their recency. If `list` did not sort, tmux's order would
+// survive and this test would fail -- that is the whole assertion.
+
+// Each pane needs its OWN cwd: transcriptFor resolves a transcript by cwd slug,
+// so panes sharing a directory would collapse onto one transcript and the
+// fixtures would silently test nothing.
+const SORT_DIRS = {};
+for (const name of ["old", "mid", "new"]) {
+  SORT_DIRS[name] = path.join(ROOT, "sort-" + name);
+  fs.mkdirSync(SORT_DIRS[name], { recursive: true });
+}
+const slugOf = (p) => "--" + p.replace(/^\/+|\/+$/g, "").replace(/\//g, "-") + "--";
+
+// Ages are rendered against Date.now(), so anchor fixtures to now rather than a
+// fixed epoch -- otherwise "9h" becomes "278d" and the assertion tests the calendar.
+const T0 = Date.now();
+const HOUR = 3600 * 1000;
+
+// Last human message and last event both `ago` before T0.
+function recencyTranscript(dir, agoMs) {
+  sessionDir(slugOf(dir), {
+    "2026-01-01T00-00-00_s.jsonl": {
+      content: [
+        { type: "session", cwd: dir, id: "s", version: 3 },
+        {
+          type: "message",
+          timestamp: new Date(T0 - agoMs).toISOString(),
+          message: { role: "assistant", content: [{ type: "text", text: "reply" }] },
+        },
+        {
+          type: "message",
+          timestamp: new Date(T0 - agoMs).toISOString(),
+          message: { role: "user", content: [{ type: "text", text: "ask" }] },
+        },
+      ]
+        .map((e) => JSON.stringify(e))
+        .join("\n"),
+    },
+  });
+}
+
+recencyTranscript(SORT_DIRS.old, 9 * HOUR);
+recencyTranscript(SORT_DIRS.mid, 3 * HOUR);
+recencyTranscript(SORT_DIRS.new, 1 * HOUR);
+
+// tmux order is oldest-first: the reverse of what the picker should print.
+const CAN_SORT = writeCan("sort.tsv", [
+  "1.0\t%old\t\u03c0 old pane\t" + SORT_DIRS.old,
+  "1.1\t%mid\t\u03c0 mid pane\t" + SORT_DIRS.mid,
+  "1.2\t%new\t\u03c0 new pane\t" + SORT_DIRS.new,
+]);
+
+test("CLI list: panes come out newest-activity-first, not in tmux order", () => {
+  const r = runCli(["list"], { HOME: FIX_HOME, TMUX_STUB_LIST: CAN_SORT });
+  assert.equal(r.status, 0, r.stderr);
+  const lines = r.stdout.split("\n").filter((l) => l.length);
+  assert.deepEqual(
+    lines.map((l) => l.split("\t")[1]),
+    ["%new", "%mid", "%old"]
+  );
+  // and the age column reflects the same signal the sort used
+  assert.match(lines[0].split("\t")[2], /· 1h$/);
+  assert.match(lines[1].split("\t")[2], /· 3h$/);
+  assert.match(lines[2].split("\t")[2], /· 9h$/);
+});
+
+test("CLI list: a skill body counts as activity but never as a human recency claim", () => {
+  // The newest pane's only user message is an injected skill body. Under the
+  // one-timeline rule that still makes the pane *active* (max of both signals),
+  // so it legitimately leads -- what must NOT happen is the injection being read
+  // as a human ask, which would (a) fake recency for a pane nobody has touched
+  // and (b) surface a 30KB skill body as the pane's most recent ask.
+  sessionDir(slugOf(SORT_DIRS.new), {
+    "2026-01-01T00-00-00_s.jsonl": {
+      content: [
+        { type: "session", cwd: SORT_DIRS.new, id: "s", version: 3 },
+        {
+          type: "message",
+          timestamp: new Date(T0 - HOUR).toISOString(),
+          message: {
+            role: "user",
+            content: [{ type: "text", text: '<skill name="x" location="/x">\nbody\n</skill>' }],
+          },
+        },
+      ]
+        .map((e) => JSON.stringify(e))
+        .join("\n"),
+    },
+  });
+
+  // The parse-level contract: no ask recorded, no human timestamp.
+  const helper = path.join(ROOT, "skill-body-helper.js");
+  fs.writeFileSync(
+    helper,
+    "const m = require(process.argv[2]);\n" +
+      "const content = require('fs').readFileSync(process.argv[3], 'utf8');\n" +
+      "process.stdout.write(JSON.stringify(m.analyzeTranscript(content)));\n",
+    "utf8"
+  );
+  const sf = path.join(SESS, slugOf(SORT_DIRS.new), "2026-01-01T00-00-00_s.jsonl");
+  const a = JSON.parse(
+    spawnSync(NODE, [helper, SCRIPT, sf], { encoding: "utf8", env: cliEnv({ HOME: FIX_HOME }) }).stdout
+  );
+  assert.deepEqual(a.users, [], "skill body must not become an ask");
+  assert.equal(a.lastHumanTs, 0, "skill body must not claim human recency");
+  assert.ok(a.lastEventTs > 0, "but it is still an event, so the pane stays active");
+
+  // And it leads the list on activity alone, in the same order as the timeline.
+  const r = runCli(["list"], { HOME: FIX_HOME, TMUX_STUB_LIST: CAN_SORT });
+  assert.equal(r.status, 0, r.stderr);
+  assert.deepEqual(
+    r.stdout.split("\n").filter((l) => l.length).map((l) => l.split("\t")[1]),
+    ["%new", "%mid", "%old"]
+  );
 });

@@ -22,6 +22,9 @@ const {
   statusDot,
   statusColor,
   turnElapsed,
+  recencyAge,
+  recencyOf,
+  sortRows,
 } = require("./tmux-choose-pi.js");
 
 // Colour constants are module-private; assert the literal SGR codes instead of
@@ -269,4 +272,77 @@ test("turnElapsed prefers the live user-turn delta over the recorded duration", 
   // a future user timestamp yields a negative delta; mmss clamps it for display
   assert.equal(turnElapsed(analysis({ lastUserTs: NOW + 5000 }), NOW), -5000);
   assert.equal(mmss(turnElapsed(analysis({ lastUserTs: NOW + 5000 }), NOW)), "0:00");
+});
+
+// --- ordering + recency column ----------------------------------------------
+
+test("humanizeAge floors seconds instead of leaking fractions", () => {
+  // callers pass (now - ts)/1000, so idle panes used to render "45.231s"
+  assert.equal(humanizeAge(45.231), "45s");
+  assert.equal(humanizeAge(0.9), "now");
+  assert.equal(humanizeAge(59.999), "59s");
+  assert.equal(humanizeAge(60), "1m");
+  assert.equal(humanizeAge(3599.5), "59m");
+  assert.equal(humanizeAge(3600), "1h");
+});
+
+test("recencyAge is a compact relative age for the row", () => {
+  // sub-minute collapses: "3s" is noise once the list is sorted by recency
+  assert.equal(recencyAge(NOW - sec(3), NOW), "<1m");
+  assert.equal(recencyAge(NOW, NOW), "<1m");
+  assert.equal(recencyAge(NOW - sec(59), NOW), "<1m");
+  assert.equal(recencyAge(NOW - sec(60), NOW), "1m");
+  assert.equal(recencyAge(NOW - sec(240), NOW), "4m");
+  assert.equal(recencyAge(NOW - sec(7200), NOW), "2h");
+  assert.equal(recencyAge(NOW - sec(86400 * 3), NOW), "3d");
+  // no human message yet: no recency claim, no misleading "<1m"
+  assert.equal(recencyAge(0, NOW), "—");
+  assert.equal(recencyAge(NaN, NOW), "—");
+});
+
+// One timeline: whichever signal is newer wins, so a pane you just opened
+// ranks alongside one you just typed into. "Active" is what the column shows
+// and what the sort uses -- they cannot disagree.
+test("recency is the newer of the last human message and the last event", () => {
+  assert.equal(recencyOf({ lastHumanTs: NOW - sec(10), lastEventTs: NOW - sec(900) }), NOW - sec(10));
+  assert.equal(recencyOf({ lastHumanTs: NOW - sec(900), lastEventTs: NOW - sec(10) }), NOW - sec(10));
+  // nothing typed yet in a fresh pane: activity alone carries it
+  assert.equal(recencyOf({ lastHumanTs: 0, lastEventTs: NOW - sec(10) }), NOW - sec(10));
+  assert.equal(recencyOf({ lastHumanTs: 0, lastEventTs: 0 }), 0);
+  assert.equal(recencyOf(emptyAnalysis()), 0);
+});
+
+test("sortRows puts the most recently active pane first, on one timeline", () => {
+  const rows = [
+    { key: "old", lastHumanTs: NOW - sec(600), lastEventTs: NOW - sec(600) },
+    { key: "typed", lastHumanTs: NOW - sec(5), lastEventTs: NOW - sec(300) },
+    { key: "busy", lastHumanTs: 0, lastEventTs: NOW - sec(10) },
+    { key: "mid", lastHumanTs: NOW - sec(60), lastEventTs: NOW - sec(60) },
+  ];
+  // busy (10s) and typed (5s) interleave with each other -- the fallback is
+  // reachable, not dead code behind an "has a human message" gate.
+  // sorted the naive way first, so the assertion below is not restating itself
+  const naive = rows.slice().sort((a, b) => recencyOf(b) - recencyOf(a)).map((r) => r.key);
+  assert.deepEqual(naive, ["typed", "busy", "mid", "old"]);
+  assert.deepEqual(sortRows(rows).map((r) => r.key), ["typed", "busy", "mid", "old"]);
+});
+
+test("sortRows: a pane with no signal at all sinks below an idle one", () => {
+  const rows = [
+    { key: "dead", lastHumanTs: 0, lastEventTs: 0 },
+    { key: "idle", lastHumanTs: NOW - sec(86400), lastEventTs: NOW - sec(86400) },
+    { key: "fresh", lastHumanTs: 0, lastEventTs: NOW - sec(1) },
+  ];
+  assert.deepEqual(sortRows(rows).map((r) => r.key), ["fresh", "idle", "dead"]);
+});
+
+test("sortRows is stable for ties and does not mutate its input", () => {
+  const rows = [
+    { key: "a", lastHumanTs: NOW, lastEventTs: NOW },
+    { key: "b", lastHumanTs: NOW, lastEventTs: NOW },
+    { key: "c", lastHumanTs: NOW, lastEventTs: NOW },
+  ];
+  const snapshot = rows.map((r) => r.key);
+  assert.deepEqual(sortRows(rows).map((r) => r.key), ["a", "b", "c"]);
+  assert.deepEqual(rows.map((r) => r.key), snapshot); // caller's array untouched
 });
