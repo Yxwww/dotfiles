@@ -61,4 +61,13 @@ command = "vim-herdr-navigation.right"
 description = "navigate right (vim/herdr)"
 
 [keys]
+# tmux-style: `|` is the vertical-split mnemonic alongside herdr's default `v`.
 split_vertical = ["prefix+v", "prefix+|"]
+
+# Cycle the agent list in the sidebar (blocked/working/done ordering).
+previous_agent = "prefix+("
+next_agent = "prefix+)"
+
+# Jump straight to agent 1..9. Direct chord (no prefix) to match tmux's
+# ctrl+1..9 habit; herdr's own default for this is prefix+alt+1..9.
+focus_agent = "ctrl+1..9"
