@@ -41,10 +41,11 @@ sets, so it degrades to plain `wincmd` and dies at a split edge.
 
 ### Not verified
 
-- `prefix+(` / `prefix+)` pass config validation but their runtime behaviour is
-  **unverified** — no CLI surface exposes UI-layer keybindings (`herdr api snapshot`
-  returns only agents/panes; the schema has no key fields). Validation proves the key
-  *string parses*, not that a keystroke reaches the action.
+- `prefix+v` / `prefix+|`, `prefix+(` / `prefix+)`, and `prefix+left/down/up/right`
+  pass config validation but their runtime behaviour is **unverified** — no CLI surface
+  exposes UI-layer keybindings (`herdr api snapshot` returns only agents/panes; the schema
+  has no key fields). Validation proves the key *string parses*, not that a keystroke
+  reaches the action.
 - `ctrl+1..9` is a **direct** chord, the category herdr's docs flag as
   terminal/keyboard-protocol dependent. Delivery is unverified; behaviour with 0 or >9
   agents is untested.
@@ -52,6 +53,25 @@ sets, so it degrades to plain `wincmd` and dies at a split edge.
   host palette, but theme rendering is **client-side** while `server reload-config`
   is a server call. A clean reload proves the value *parses*, not that the client
   applies it.
+
+### `reload-config` does not validate keybindings
+
+Do not read `{"status":"applied","diagnostics":[]}` as "these keys work". Given a
+`[keys]` value that is not a real key, the two commands disagree:
+
+```
+$ herdr config check
+config: issues found
+invalid keybinding: keys.resize_pane_up = "prefix+boguskey"; disabling binding
+
+$ herdr server reload-config
+{"status":"applied","diagnostics":[]}      # reports success anyway
+```
+
+Reproducible across repeated reloads. `config check` is the only one that validates, and
+it **exits 0 even on `issues found`**, so its status cannot be used as a pass/fail signal
+either — read its output. herdr silently disables a bad binding rather than failing, which
+is the same class of trap as the exit-0 behaviours elsewhere in this file.
 
 ## Notes
 

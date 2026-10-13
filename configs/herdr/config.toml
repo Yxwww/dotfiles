@@ -40,6 +40,14 @@ scrollback_limit_bytes = 40000000
 # tmux-style: `|` is the vertical-split mnemonic alongside herdr's default `v`.
 split_vertical = ["prefix+v", "prefix+|"]
 
+# Resize the focused pane with prefix+arrows. herdr leaves resize_pane_* unset by
+# default, and prefix+arrows are free (pane *focus* is prefix+h/j/k/l, not arrows),
+# so this displaces nothing.
+resize_pane_left = "prefix+left"
+resize_pane_down = "prefix+down"
+resize_pane_up = "prefix+up"
+resize_pane_right = "prefix+right"
+
 # Cycle the agent list in the sidebar (blocked/working/done ordering).
 previous_agent = "prefix+("
 next_agent = "prefix+)"
