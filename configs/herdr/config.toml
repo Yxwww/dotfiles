@@ -2,6 +2,10 @@
 # https://herdr.dev/docs/configuration/
 onboarding = false
 
+[theme]
+# Follow ghostty's palette instead of overriding it with catppuccin (default).
+name = "terminal"
+
 [terminal]
 # panes are opened from an existing pane/workspace, so inheriting the cwd is right.
 new_cwd = "follow"
