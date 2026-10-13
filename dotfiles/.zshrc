@@ -253,7 +253,8 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 
-# herdr replaced zellij here (zellij was never installed on this machine).
+# herdr replaced zellij here (zellij is not installed on this machine, and
+# ~/git/dotfiles/configs/zellij/ does not exist).
 # Handy entry points for the multiplexer that is actually in use.
 alias h="herdr"
 alias hreload="herdr server reload-config"
@@ -323,6 +324,7 @@ bindkey '^x^g' fzf_search_contents
 # Deps
 source ~/.bashrc
 source ~/.bash_profile
+source ~/.zshrc_profile
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
@@ -430,4 +432,5 @@ fi
 
 
 # Pi
-export PATH="/Users/yuxiwang/.fnm/node-versions/v24.19.0/installation/bin:$PATH"
+# Removed: stale yuxiwang path (home no longer exists)
+# export PATH="/Users/yuxiwang/.fnm/node-versions/v24.19.0/installation/bin:$PATH"

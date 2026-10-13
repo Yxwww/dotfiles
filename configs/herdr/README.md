@@ -46,6 +46,29 @@ Both editor hooks guard on `$HERDR_PANE_ID`, so they are inert outside herdr and
 fall back to `TmuxNavigate*` when `$TMUX` is set. `vim-tmux-navigator` is retained purely
 as that tmux fallback with `tmux_navigator_no_mappings = 1`.
 
+**Fragility to know about:** the two editors guard in different places.
+
+| Side | Where the guard lives |
+| --- | --- |
+| vim | self-guarding — `vim-herdr-nav.vim` bails via `empty($HERDR_PANE_ID)` |
+| neovim | **caller-side** — `editor/nvim.lua` maps keys unconditionally at load; `ui.lua`'s `if vim.env.HERDR_PANE_ID` is what prevents it loading in tmux |
+
+If the `ui.lua` guard were ever dropped, the nvim module would map the keys in *every*
+environment and fight `vim-tmux-navigator`. Single ownership holds today, but on the nvim
+side it depends on that caller check.
+
+### Not verified
+
+- `prefix+(` / `prefix+)` pass config validation but their runtime behaviour is
+  **unverified** — no CLI surface exposes UI-layer keybindings (`herdr api snapshot`
+  returns only agents/panes; the schema has no key fields). Validation proves the key
+  *string parses*, not that a keystroke reaches the action.
+- `ctrl+1..9` is a **direct** chord, the category herdr's docs flag as
+  terminal/keyboard-protocol dependent. Delivery is unverified; behaviour with 0 or >9
+  agents is untested.
+- The plugin clone is pinned to the revision tested here. Bump `nav_ref` in
+  `setup_herdr` deliberately.
+
 Other TUIs owning `ctrl+h/j/k/l` (lazygit, k9s) can be passed through:
 
 ```

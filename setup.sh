@@ -14,25 +14,52 @@ function setup_zsh_prompt() {
 # herdr (https://herdr.dev) — the multiplexer that replaced zellij here.
 # Installs the binary, the agent integrations this machine uses, and the
 # vim<->herdr ctrl+hjkl navigation plugin.
+#
+# Every step is failure-checked: `herdr plugin link` exits 1 on a bad path, and
+# a failed clone leaves the ctrl+hjkl feature silently missing, so a swallowed
+# error here reports success on a machine where navigation does not work.
 setup_herdr() {
+  local failed=0
+
   if ! command -v herdr >/dev/null 2>&1; then
-    curl -fsSL https://herdr.dev/install.sh | sh
+    curl -fsSL https://herdr.dev/install.sh | sh || { echo "setup_herdr: herdr install failed" >&2; return 1; }
   fi
 
   # agent integrations: session resume + state reporting (regenerated in place)
-  herdr integration install pi
-  herdr integration install claude
-  herdr integration install opencode
-  herdr integration install cursor
+  for agent in pi claude opencode cursor; do
+    herdr integration install "$agent" || { echo "setup_herdr: integration install $agent failed" >&2; failed=1; }
+  done
 
-  # ctrl+h/j/k/l across vim/neovim splits and herdr panes
-  if [ ! -d ~/git/vim-herdr-navigation ]; then
-    git clone --depth 1 https://github.com/paulbkim-dev/vim-herdr-navigation.git ~/git/vim-herdr-navigation
+  # ctrl+h/j/k/l across vim/neovim splits and herdr panes.
+  # Pinned to a known-good revision: this repo is on the critical path for pane
+  # navigation, and tracking upstream master means a force-push or compromise
+  # propagates on the next re-run. Bump deliberately.
+  local nav_repo=~/git/vim-herdr-navigation
+  local nav_ref=742db891e7d1f9a550b16c01dc8a6763f2b1493a
+  if [ ! -d "$nav_repo/.git" ]; then
+    git clone https://github.com/paulbkim-dev/vim-herdr-navigation.git "$nav_repo" \
+      || { echo "setup_herdr: clone of vim-herdr-navigation failed" >&2; return 1; }
   fi
-  herdr plugin link ~/git/vim-herdr-navigation
+  git -C "$nav_repo" fetch --quiet origin || echo "setup_herdr: WARNING — could not fetch; using local checkout" >&2
+  git -C "$nav_repo" checkout --quiet "$nav_ref" \
+    || { echo "setup_herdr: checkout of pinned ref $nav_ref failed" >&2; failed=1; }
+  herdr plugin link "$nav_repo" || { echo "setup_herdr: plugin link failed; ctrl+hjkl will not work" >&2; failed=1; }
 
-  link_dotfiles
-  herdr server reload-config
+  link_dotfiles || { echo "setup_herdr: link_dotfiles failed" >&2; failed=1; }
+
+  # reload-config is a socket call. On a fresh machine no server exists yet:
+  # that exits 1 with server_not_running, which is benign (herdr picks the
+  # config up when it next starts). Any other failure is real.
+  local rc_out
+  rc_out=$(herdr server reload-config 2>&1) || {
+    case "$rc_out" in
+      *server_not_running*) : ;;
+      *) echo "setup_herdr: reload-config failed: $rc_out" >&2; failed=1 ;;
+    esac
+  }
+
+  [ "$failed" -eq 0 ] || { echo "setup_herdr: completed WITH ERRORS (see above)" >&2; return 1; }
+  echo "setup_herdr: ok"
 }
 
 setup_js() {
