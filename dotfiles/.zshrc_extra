@@ -30,7 +30,8 @@ function n_start() {
 # zsh-only command overrides (deliberately NOT shared with bash)
 # alias l='ls -lFhG'
 alias l='eza'
-alias ls='eza --classify --all --long --no-user --header --icons'
+# --icons takes an optional value and would swallow the next arg (e.g. a path); pin it with '='
+alias ls='eza --classify --all --long --no-user --header --icons=auto'
 alias cat='bat'
 
 # image viewing (kitty)
