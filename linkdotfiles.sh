@@ -49,7 +49,6 @@ mkdir -p ~/.pi/agent/extensions ~/.pi/agent/npm ~/.agents
 ln -sf "$(pwd)"/configs/claude/personal.md ~/.pi/agent/AGENTS.md
 ln -sf "$(pwd)"/configs/pi/agent/settings.json ~/.pi/agent/settings.json
 ln -sf "$(pwd)"/configs/pi/agent/models.json ~/.pi/agent/models.json
-ln -sf "$(pwd)"/configs/pi/agent/keybindings.json ~/.pi/agent/keybindings.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/prompt-stash.ts ~/.pi/agent/extensions/prompt-stash.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
@@ -58,18 +57,11 @@ ln -sf "$(pwd)"/configs/pi/agent/extensions/git-workflow-gates.ts ~/.pi/agent/ex
 # here — it is gitignored (see configs/pi/agent/.gitignore) and updated by herdr.
 ln -sf "$(pwd)"/configs/pi/agent/extensions/skill-session-name.ts ~/.pi/agent/extensions/skill-session-name.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/ask-user-question.ts ~/.pi/agent/extensions/ask-user-question.ts
-ln -sf "$(pwd)"/configs/pi/agent/extensions/message-peek.ts ~/.pi/agent/extensions/message-peek.ts
 # directory extension: its node_modules is gitignored, install into the source dir
 ln -sfn "$(pwd)"/configs/pi/agent/extensions/bash-guard ~/.pi/agent/extensions/bash-guard
 (cd "$(pwd)"/configs/pi/agent/extensions/bash-guard && npm install --no-audit --no-fund)
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
-ln -sf "$(pwd)"/configs/pi/agent/npm/patch-host-deps.mjs ~/.pi/agent/npm/patch-host-deps.mjs
-# pi's extension install uses `npm install --legacy-peer-deps`, which re-extracts the
-# upstream manifests that declare host-provided modules (typebox) as dependencies.
-# The postinstall hook re-patches those, but only when scripts are enabled; force it
-# here so a plain checkout converges without running an install through pi first.
-(cd ~/.pi/agent/npm && npm install --no-audit --no-fund && node patch-host-deps.mjs)
 # skill manifest shared across agents; skill dirs themselves are installed by
 # the skill manager / sparse-checked-out (see setup_pi in setup.sh)
 ln -sf "$(pwd)"/configs/pi/agents/skill-lock.json ~/.agents/.skill-lock.json

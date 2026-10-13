@@ -14,7 +14,8 @@ background server owning real PTYs; clients attach/detach. `ctrl+b` is the prefi
 Installed by `setup_herdr` in `setup.sh`; re-run to refresh after a herdr upgrade.
 
 ```
-herdr integration install pi claude opencode cursor
+# one target at a time — multi-arg is rejected with a usage error
+for a in pi claude opencode cursor; do herdr integration install "$a"; done
 herdr integration status
 ```
 

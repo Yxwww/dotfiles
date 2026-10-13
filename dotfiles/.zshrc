@@ -324,7 +324,6 @@ bindkey '^x^g' fzf_search_contents
 # Deps
 source ~/.bashrc
 source ~/.bash_profile
-source ~/.zshrc_profile
 
 # Set Spaceship ZSH as a prompt
 autoload -U promptinit; promptinit
