@@ -18,10 +18,6 @@ Plug 'nvim-lualine/lualine.nvim'
 Plug 'scrooloose/nerdtree'
 
 " MARK: TMUX
-" vim-tmux-navigator owns <C-hjkl> in tmux. Inside a herdr pane it is muted
-" (tmux_navigator_no_mappings, set just below) so the herdr-aware dispatcher in
-" configs/herdr/vim-herdr-nav.vim is the single owner of those keys.
-let g:tmux_navigator_no_mappings = !empty($HERDR_PANE_ID)
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tpope/vim-fugitive'
 Plug 'rbong/vim-flog'
@@ -77,12 +73,6 @@ Plug 'numToStr/Comment.nvim'
 Plug 'jose-elias-alvarez/null-ls.nvim'
 
 call plug#end()
-
-" ctrl+h/j/k/l navigation: herdr when in a herdr pane, else vim-tmux-navigator's
-" own mappings when in tmux, else plain wincmd. Exactly one owner per environment.
-if filereadable(expand('~/git/dotfiles/configs/herdr/vim-herdr-nav.vim'))
-  source ~/git/dotfiles/configs/herdr/vim-herdr-nav.vim
-endif
 
 set rtp+=~/.fzf
 

@@ -12,12 +12,11 @@ function setup_zsh_prompt() {
 }
 
 # herdr (https://herdr.dev) — the multiplexer that replaced zellij here.
-# Installs the binary, the agent integrations this machine uses, and the
-# vim<->herdr ctrl+hjkl navigation plugin.
+# Installs the binary, the agent integrations this machine uses, and links the
+# config tracked in configs/herdr/.
 #
-# Every step is failure-checked: `herdr plugin link` exits 1 on a bad path, and
-# a failed clone leaves the ctrl+hjkl feature silently missing, so a swallowed
-# error here reports success on a machine where navigation does not work.
+# Every step is failure-checked: a swallowed error here would report success on a
+# machine where herdr is half-configured.
 setup_herdr() {
   local failed=0
 
@@ -30,28 +29,10 @@ setup_herdr() {
     herdr integration install "$agent" || { echo "setup_herdr: integration install $agent failed" >&2; failed=1; }
   done
 
-  # ctrl+h/j/k/l across vim/neovim splits and herdr panes.
-  # Pinned to a known-good revision: this repo is on the critical path for pane
-  # navigation, and tracking upstream master means a force-push or compromise
-  # propagates on the next re-run. Bump deliberately.
-  local nav_repo=~/git/vim-herdr-navigation
-  local nav_ref=742db891e7d1f9a550b16c01dc8a6763f2b1493a
-  if [ ! -d "$nav_repo/.git" ]; then
-    git clone https://github.com/paulbkim-dev/vim-herdr-navigation.git "$nav_repo" \
-      || { echo "setup_herdr: clone of vim-herdr-navigation failed" >&2; return 1; }
-  fi
-  git -C "$nav_repo" fetch --quiet origin || echo "setup_herdr: WARNING — fetch failed; relying on the local checkout" >&2
-  # Fetch failure alone must not be fatal (offline re-runs should still work),
-  # but the invariant that actually protects the pin is that nav_ref EXISTS
-  # locally. Assert it explicitly: without this, safety would depend only on the
-  # checkout below failing, which a future edit could relax.
-  if ! git -C "$nav_repo" cat-file -e "${nav_ref}^{commit}" 2>/dev/null; then
-    echo "setup_herdr: pinned commit $nav_ref not present in $nav_repo (wrong ref, or upstream rewrote history); cannot verify the tested revision" >&2
-    failed=1
-  fi
-  git -C "$nav_repo" checkout --quiet "$nav_ref" \
-    || { echo "setup_herdr: checkout of pinned ref $nav_ref failed" >&2; failed=1; }
-  herdr plugin link "$nav_repo" || { echo "setup_herdr: plugin link failed; ctrl+hjkl will not work" >&2; failed=1; }
+  # ctrl+h/j/k/l pane navigation was provided by the vim-herdr-navigation
+  # plugin (editor hook in ui.lua/.vimrc, herdr half in config.toml). Removed
+  # deliberately: the integration is not wanted here. The config keeps only
+  # herdr-native settings, so there is no plugin to clone, pin, or link.
 
   link_dotfiles || { echo "setup_herdr: link_dotfiles failed" >&2; failed=1; }
 

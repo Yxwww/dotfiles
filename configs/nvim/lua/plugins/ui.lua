@@ -128,33 +128,21 @@ return {
     },
   },
 
-  -- ctrl+h/j/k/l navigation: exactly one owner per environment.
-  --   herdr pane -> the herdr-aware module (configs/herdr/README.md)
-  --   tmux       -> vim-tmux-navigator's own mappings
-  --   neither    -> plain wincmd
   {
     "christoomey/vim-tmux-navigator",
-    lazy = false,
-    init = function()
-      -- Mute the plugin only inside herdr, so its keys stay live in tmux.
-      vim.g.tmux_navigator_no_mappings = vim.env.HERDR_PANE_ID ~= nil and vim.env.HERDR_PANE_ID ~= ""
-    end,
-    config = function()
-      if vim.env.HERDR_PANE_ID and vim.env.HERDR_PANE_ID ~= "" then
-        -- Guard on existence: the module lives in a separate clone, so on a
-        -- machine that has not run setup_herdr a bare dofile would abort with
-        -- E5108 at startup. Match the vim side, which uses filereadable().
-        local nav = vim.fn.expand("~/git/vim-herdr-navigation/editor/nvim.lua")
-        if vim.fn.filereadable(nav) == 1 then
-          dofile(nav)
-        else
-          vim.notify(
-            "herdr nav: " .. nav .. " missing (run setup_herdr); ctrl+hjkl will not cross panes",
-            vim.log.levels.WARN
-          )
-        end
-      end
-    end,
+    event = "VeryLazy",
+    keys = {
+
+      { "<C-\\>", "<cmd>TmuxNavigatePrevious<cr>", desc = "Go to the previous pane" },
+
+      { "<C-h>", "<cmd>TmuxNavigateLeft<cr>", desc = "Got to the left pane" },
+
+      { "<C-j>", "<cmd>TmuxNavigateDown<cr>", desc = "Got to the down pane" },
+
+      { "<C-k>", "<cmd>TmuxNavigateUp<cr>", desc = "Got to the up pane" },
+
+      { "<C-l>", "<cmd>TmuxNavigateRight<cr>", desc = "Got to the right pane" },
+    },
   },
 
   {

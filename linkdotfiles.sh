@@ -21,7 +21,7 @@ ln -snf "$(pwd)"/configs/ghostty $CONFIG_DIR
 
 # herdr (https://herdr.dev) — config only; runtime state (sockets, logs,
 # session.json, plugins/, session-snapshots/) stays in ~/.config/herdr and is
-# machine-local. The vim-herdr-navigation plugin is linked in setup_herdr.
+# machine-local.
 mkdir -p $CONFIG_DIR/herdr
 ln -sf "$(pwd)"/configs/herdr/config.toml $CONFIG_DIR/herdr/config.toml
 
