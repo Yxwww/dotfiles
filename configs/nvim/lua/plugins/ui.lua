@@ -141,7 +141,18 @@ return {
     end,
     config = function()
       if vim.env.HERDR_PANE_ID and vim.env.HERDR_PANE_ID ~= "" then
-        dofile(vim.fn.expand("~/git/vim-herdr-navigation/editor/nvim.lua"))
+        -- Guard on existence: the module lives in a separate clone, so on a
+        -- machine that has not run setup_herdr a bare dofile would abort with
+        -- E5108 at startup. Match the vim side, which uses filereadable().
+        local nav = vim.fn.expand("~/git/vim-herdr-navigation/editor/nvim.lua")
+        if vim.fn.filereadable(nav) == 1 then
+          dofile(nav)
+        else
+          vim.notify(
+            "herdr nav: " .. nav .. " missing (run setup_herdr); ctrl+hjkl will not cross panes",
+            vim.log.levels.WARN
+          )
+        end
       end
     end,
   },
