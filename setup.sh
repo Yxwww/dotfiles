@@ -58,6 +58,10 @@ setup_herdr() {
   # reload-config is a socket call. On a fresh machine no server exists yet:
   # that exits 1 with server_not_running, which is benign (herdr picks the
   # config up when it next starts). Any other failure is real.
+  # Matching the error *string* is deliberate: the JSON goes to stderr and jq is
+  # only an optional dependency here. This is fail-closed — if herdr renames the
+  # code, the unknown error falls to the *) arm and gets reported loudly rather
+  # than silently swallowed.
   local rc_out
   rc_out=$(herdr server reload-config 2>&1) || {
     case "$rc_out" in
