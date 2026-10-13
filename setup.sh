@@ -5,15 +5,54 @@
 function setup_zsh_prompt() {
   brew install zsh
   brew install starship
-  brew install zellij
   brew install eza
   brew install fzf
   brew insatll ripgrep
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
-setup_zellij() {
-  ln -sf ~/.config/zellij/config.kdl ./configs/zellij/config.kdl 
+# herdr (https://herdr.dev) — the multiplexer that replaced zellij here.
+# Installs the binary, the agent integrations this machine uses, and links the
+# config tracked in configs/herdr/.
+#
+# Every step is failure-checked: a swallowed error here would report success on a
+# machine where herdr is half-configured.
+setup_herdr() {
+  local failed=0
+
+  if ! command -v herdr >/dev/null 2>&1; then
+    curl -fsSL https://herdr.dev/install.sh | sh || { echo "setup_herdr: herdr install failed" >&2; return 1; }
+  fi
+
+  # agent integrations: session resume + state reporting (regenerated in place)
+  for agent in pi claude opencode cursor; do
+    herdr integration install "$agent" || { echo "setup_herdr: integration install $agent failed" >&2; failed=1; }
+  done
+
+  # ctrl+h/j/k/l pane navigation was provided by the vim-herdr-navigation
+  # plugin (editor hook in ui.lua/.vimrc, herdr half in config.toml). Removed
+  # deliberately: the integration is not wanted here. The config keeps only
+  # herdr-native settings, so there is no plugin to clone, pin, or link.
+
+  link_dotfiles || { echo "setup_herdr: link_dotfiles failed" >&2; failed=1; }
+
+  # reload-config is a socket call. On a fresh machine no server exists yet:
+  # that exits 1 with server_not_running, which is benign (herdr picks the
+  # config up when it next starts). Any other failure is real.
+  # Matching the error *string* is deliberate: the JSON goes to stderr and jq is
+  # only an optional dependency here. This is fail-closed — if herdr renames the
+  # code, the unknown error falls to the *) arm and gets reported loudly rather
+  # than silently swallowed.
+  local rc_out
+  rc_out=$(herdr server reload-config 2>&1) || {
+    case "$rc_out" in
+      *server_not_running*) : ;;
+      *) echo "setup_herdr: reload-config failed: $rc_out" >&2; failed=1 ;;
+    esac
+  }
+
+  [ "$failed" -eq 0 ] || { echo "setup_herdr: completed WITH ERRORS (see above)" >&2; return 1; }
+  echo "setup_herdr: ok"
 }
 
 setup_js() {
@@ -127,6 +166,7 @@ for arg in "$@"; do
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
         setup_pi) setup_pi ;;
+        setup_herdr) setup_herdr ;;
         all) install_all ;;
         *) echo "Unknown function: $arg" ;;
     esac

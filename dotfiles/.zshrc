@@ -253,9 +253,13 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 
-alias zellijsimple="zellij --layout ~/git/dotfiles/configs/zellij/layouts/base.kdl"
-alias zellijvs="zellij --layout ~/git/dotfiles/configs/zellij/layouts/vscodeterm.kdl"
-alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3.kdl"
+# herdr replaced zellij here (zellij is not installed on this machine, and
+# ~/git/dotfiles/configs/zellij/ does not exist).
+# Handy entry points for the multiplexer that is actually in use.
+alias h="herdr"
+alias hreload="herdr server reload-config"
+alias hstop="herdr server stop"
+alias hs="herdr status"
 
 alias vi="vim"
 alias claude="claude --no-chrome"
@@ -427,4 +431,5 @@ fi
 
 
 # Pi
-export PATH="/Users/yuxiwang/.fnm/node-versions/v24.19.0/installation/bin:$PATH"
+# Removed: stale yuxiwang path (home no longer exists)
+# export PATH="/Users/yuxiwang/.fnm/node-versions/v24.19.0/installation/bin:$PATH"

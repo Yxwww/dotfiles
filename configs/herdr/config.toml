@@ -1,0 +1,57 @@
+# herdr — terminal workspace manager for AI coding agents
+# https://herdr.dev/docs/configuration/
+onboarding = false
+
+[theme]
+# Follow ghostty's palette instead of overriding it with catppuccin (default).
+name = "terminal"
+
+[terminal]
+# panes are opened from an existing pane/workspace, so inheriting the cwd is right.
+new_cwd = "follow"
+
+[ui]
+# Sub-pixel-free text stream; gaps separate panes without eating a divider cell.
+pane_gaps = true
+# Trust the outer terminal (ghostty) for selection so Cmd+C works as expected.
+copy_on_select = false
+
+[ui.toast]
+# Desktop notifications: long agent turns should reach us when herdr is backgrounded.
+delivery = "system"
+
+[experimental]
+# Save pane screen history across full server restarts; costs disk, saves scrollback.
+pane_history = true
+# IME is active on this machine — without this, prefix chords are swallowed by the IME.
+switch_ascii_input_source_in_prefix = true
+# Keep the IME candidate window anchored when TUIs (pi/claude/codex) paint their own cursor.
+reveal_hidden_cursor_for_cjk_ime = true
+
+[session]
+# Resume pi/claude/opencode conversations natively after a server restart.
+resume_agents_on_restore = true
+
+[advanced]
+# 10 MB default truncates long agent transcripts; 4x it, still cheap per pane.
+scrollback_limit_bytes = 40000000
+
+[keys]
+# tmux-style: `|` is the vertical-split mnemonic alongside herdr's default `v`.
+split_vertical = ["prefix+v", "prefix+|"]
+
+# Resize the focused pane with prefix+arrows. herdr leaves resize_pane_* unset by
+# default, and prefix+arrows are free (pane *focus* is prefix+h/j/k/l, not arrows),
+# so this displaces nothing.
+resize_pane_left = "prefix+left"
+resize_pane_down = "prefix+down"
+resize_pane_up = "prefix+up"
+resize_pane_right = "prefix+right"
+
+# Cycle the agent list in the sidebar (blocked/working/done ordering).
+previous_agent = "prefix+("
+next_agent = "prefix+)"
+
+# Jump straight to agent 1..9. Direct chord (no prefix) to match tmux's
+# ctrl+1..9 habit; herdr's own default for this is prefix+alt+1..9.
+focus_agent = "ctrl+1..9"
