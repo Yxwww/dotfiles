@@ -67,7 +67,12 @@ side it depends on that caller check.
   terminal/keyboard-protocol dependent. Delivery is unverified; behaviour with 0 or >9
   agents is untested.
 - The plugin clone is pinned to the revision tested here. Bump `nav_ref` in
-  `setup_herdr` deliberately.
+  `setup_herdr` deliberately. Note the pin freezes the *code*, not the
+  environment it runs in: `navigate.sh` shells out to `herdr` on every keypress.
+- **Theme is unverified at runtime.** `name = "terminal"` makes herdr follow the
+  host palette, but theme rendering is **client-side** while `server reload-config`
+  is a server call. A clean reload proves the value *parses*, not that the client
+  applies it.
 
 Other TUIs owning `ctrl+h/j/k/l` (lazygit, k9s) can be passed through:
 

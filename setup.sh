@@ -40,7 +40,15 @@ setup_herdr() {
     git clone https://github.com/paulbkim-dev/vim-herdr-navigation.git "$nav_repo" \
       || { echo "setup_herdr: clone of vim-herdr-navigation failed" >&2; return 1; }
   fi
-  git -C "$nav_repo" fetch --quiet origin || echo "setup_herdr: WARNING — could not fetch; using local checkout" >&2
+  git -C "$nav_repo" fetch --quiet origin || echo "setup_herdr: WARNING — fetch failed; relying on the local checkout" >&2
+  # Fetch failure alone must not be fatal (offline re-runs should still work),
+  # but the invariant that actually protects the pin is that nav_ref EXISTS
+  # locally. Assert it explicitly: without this, safety would depend only on the
+  # checkout below failing, which a future edit could relax.
+  if ! git -C "$nav_repo" cat-file -e "${nav_ref}^{commit}" 2>/dev/null; then
+    echo "setup_herdr: pinned commit $nav_ref not present in $nav_repo (wrong ref, or upstream rewrote history); cannot verify the tested revision" >&2
+    failed=1
+  fi
   git -C "$nav_repo" checkout --quiet "$nav_ref" \
     || { echo "setup_herdr: checkout of pinned ref $nav_ref failed" >&2; failed=1; }
   herdr plugin link "$nav_repo" || { echo "setup_herdr: plugin link failed; ctrl+hjkl will not work" >&2; failed=1; }
