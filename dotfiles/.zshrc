@@ -253,9 +253,12 @@ elif type mvim > /dev/null 2>&1; then
 fi
 
 
-alias zellijsimple="zellij --layout ~/git/dotfiles/configs/zellij/layouts/base.kdl"
-alias zellijvs="zellij --layout ~/git/dotfiles/configs/zellij/layouts/vscodeterm.kdl"
-alias zellijstd="zellij --layout ~/git/dotfiles/configs/zellij/layouts/standard3.kdl"
+# herdr replaced zellij here (zellij was never installed on this machine).
+# Handy entry points for the multiplexer that is actually in use.
+alias h="herdr"
+alias hreload="herdr server reload-config"
+alias hstop="herdr server stop"
+alias hs="herdr status"
 
 alias vi="vim"
 alias claude="claude --no-chrome"

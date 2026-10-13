@@ -5,15 +5,34 @@
 function setup_zsh_prompt() {
   brew install zsh
   brew install starship
-  brew install zellij
   brew install eza
   brew install fzf
   brew insatll ripgrep
   git clone https://github.com/chriskempson/base16-shell.git ~/.config/base16-shell
 }
 
-setup_zellij() {
-  ln -sf ~/.config/zellij/config.kdl ./configs/zellij/config.kdl 
+# herdr (https://herdr.dev) — the multiplexer that replaced zellij here.
+# Installs the binary, the agent integrations this machine uses, and the
+# vim<->herdr ctrl+hjkl navigation plugin.
+setup_herdr() {
+  if ! command -v herdr >/dev/null 2>&1; then
+    curl -fsSL https://herdr.dev/install.sh | sh
+  fi
+
+  # agent integrations: session resume + state reporting (regenerated in place)
+  herdr integration install pi
+  herdr integration install claude
+  herdr integration install opencode
+  herdr integration install cursor
+
+  # ctrl+h/j/k/l across vim/neovim splits and herdr panes
+  if [ ! -d ~/git/vim-herdr-navigation ]; then
+    git clone --depth 1 https://github.com/paulbkim-dev/vim-herdr-navigation.git ~/git/vim-herdr-navigation
+  fi
+  herdr plugin link ~/git/vim-herdr-navigation
+
+  link_dotfiles
+  herdr server reload-config
 }
 
 setup_js() {
@@ -127,6 +146,7 @@ for arg in "$@"; do
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
         setup_pi) setup_pi ;;
+        setup_herdr) setup_herdr ;;
         all) install_all ;;
         *) echo "Unknown function: $arg" ;;
     esac

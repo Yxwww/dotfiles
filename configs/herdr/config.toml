@@ -1,0 +1,64 @@
+# herdr — terminal workspace manager for AI coding agents
+# https://herdr.dev/docs/configuration/
+onboarding = false
+
+[terminal]
+# panes are opened from an existing pane/workspace, so inheriting the cwd is right.
+new_cwd = "follow"
+
+[ui]
+# Sub-pixel-free text stream; gaps separate panes without eating a divider cell.
+pane_gaps = true
+# Trust the outer terminal (ghostty) for selection so Cmd+C works as expected.
+copy_on_select = false
+
+[ui.toast]
+# Desktop notifications: long agent turns should reach us when herdr is backgrounded.
+delivery = "system"
+
+[experimental]
+# Save pane screen history across full server restarts; costs disk, saves scrollback.
+pane_history = true
+# IME is active on this machine — without this, prefix chords are swallowed by the IME.
+switch_ascii_input_source_in_prefix = true
+# Keep the IME candidate window anchored when TUIs (pi/claude/codex) paint their own cursor.
+reveal_hidden_cursor_for_cjk_ime = true
+
+[session]
+# Resume pi/claude/opencode conversations natively after a server restart.
+resume_agents_on_restore = true
+
+[advanced]
+# 10 MB default truncates long agent transcripts; 4x it, still cheap per pane.
+scrollback_limit_bytes = 40000000
+
+# --- vim-tmux-navigator parity ---------------------------------------------
+# ctrl+h/j/k/l must cross the vim<->herdr boundary. The editor half lives in
+# configs/nvim/lua/plugins/ui.lua and ~/.vimrc; the herdr half is these bindings
+# plus the vim-herdr-navigation plugin (see configs/herdr/README.md).
+[[keys.command]]
+key = "ctrl+h"
+type = "plugin_action"
+command = "vim-herdr-navigation.left"
+description = "navigate left (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+j"
+type = "plugin_action"
+command = "vim-herdr-navigation.down"
+description = "navigate down (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+k"
+type = "plugin_action"
+command = "vim-herdr-navigation.up"
+description = "navigate up (vim/herdr)"
+
+[[keys.command]]
+key = "ctrl+l"
+type = "plugin_action"
+command = "vim-herdr-navigation.right"
+description = "navigate right (vim/herdr)"
+
+[keys]
+split_vertical = ["prefix+v", "prefix+|"]
