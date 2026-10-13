@@ -57,6 +57,23 @@ If the `ui.lua` guard were ever dropped, the nvim module would map the keys in *
 environment and fight `vim-tmux-navigator`. Single ownership holds today, but on the nvim
 side it depends on that caller check.
 
+**Deliberate deviation from upstream's documented pattern.** The plugin's README loads
+`editor/nvim.lua` and sets `tmux_navigator_no_mappings = 1` **unconditionally**. We gate
+both on `$HERDR_PANE_ID` instead, because the module lives in a separate clone: with the
+documented pattern, a tmux user who has not run `setup_herdr` gets vim-tmux-navigator
+muted *and* nothing loaded, i.e. no navigation at all. Measured, not assumed:
+
+| Environment | here | upstream docs |
+| --- | --- | --- |
+| in a herdr pane | herdr module | herdr module |
+| tmux, module present | builtin → tmux | module → tmux |
+| tmux, module **absent** | works | **dead** |
+| plain | `wincmd` | `wincmd` |
+
+The two differ only in the tmux row, and only where the module is missing. Upstream's
+fallback (`nvim.lua` calls `TmuxNavigate*` when `$TMUX` is set) is why it can afford to
+load unconditionally; we cannot, because we may have nothing to load.
+
 ### Not verified
 
 - `prefix+(` / `prefix+)` pass config validation but their runtime behaviour is
@@ -74,11 +91,27 @@ side it depends on that caller check.
   is a server call. A clean reload proves the value *parses*, not that the client
   applies it.
 
-Other TUIs owning `ctrl+h/j/k/l` (lazygit, k9s) can be passed through:
+Other TUIs owning `ctrl+h/j/k/l` can be passed through. This is not hypothetical:
+**`lazygit` is installed here**, and `navigate.sh` only forwards to Vim-named
+processes, so with lazygit focused `ctrl+h/j/k/l` moves herdr's focus instead of
+reaching lazygit. Opt in by exporting it where herdr is launched (not in `.zshrc`
+— panes inherit herdr's env, not a later shell's):
 
 ```
 export HERDR_NAV_PASSTHROUGH_RE='^(vi-sql|lazygit|k9s)$'
 ```
+
+Verify with the same matcher `navigate.sh` uses, rather than assuming:
+
+```
+echo '{"result":{"process_info":{"foreground_processes":[{"name":"lazygit"}]}}}' \
+  | jq -e --arg vim '^g?(view|l?n?vim?x?)(diff)?$' --arg pass '^(lazygit)$' \
+      '.result.process_info.foreground_processes[]?.name | ascii_downcase
+       | select(test($vim) or ($pass != "" and (try test($pass) catch false)))'
+# match -> forwarded; no match -> herdr steals the key
+```
+
+Unlike Vim, these apps do not cross *out* at an edge; use `prefix+h/j/k/l` to leave.
 
 Tradeoff (same as tmux): binding `ctrl+l`/`ctrl+k` globally shadows readline's
 clear-screen and kill-line inside non-vim panes. Use `prefix+l` to clear, or move
