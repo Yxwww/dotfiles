@@ -1,1 +1,7 @@
 **/.claude/settings.local.json
+pi-config
+llm-harness
+
+# Mappedin-private: LiteLLM gateway endpoint + internal model names.
+# Local-only at ~/.pi/agent/models.json; see configs/pi/README.md.
+configs/pi/agent/models.json

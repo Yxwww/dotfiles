@@ -48,7 +48,10 @@ ln -snf "$(pwd)"/apps/ports ~/.claude/skills/pf
 mkdir -p ~/.pi/agent/extensions ~/.pi/agent/npm ~/.agents
 ln -sf "$(pwd)"/configs/claude/personal.md ~/.pi/agent/AGENTS.md
 ln -sf "$(pwd)"/configs/pi/agent/settings.json ~/.pi/agent/settings.json
-ln -sf "$(pwd)"/configs/pi/agent/models.json ~/.pi/agent/models.json
+# models.json is NOT linked: it holds Mappedin-private gateway config and is
+# gitignored. Keep it local-only at ~/.pi/agent/models.json.
+mkdir -p ~/.pi/agent/observability
+ln -sf "$(pwd)"/configs/pi/agent/observability/settings.json ~/.pi/agent/observability/settings.json
 ln -sf "$(pwd)"/configs/pi/agent/extensions/prompt-stash.ts ~/.pi/agent/extensions/prompt-stash.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/rise-against-header.ts ~/.pi/agent/extensions/rise-against-header.ts
 ln -sf "$(pwd)"/configs/pi/agent/extensions/search.json ~/.pi/agent/extensions/search.json
