@@ -1,17 +1,17 @@
 {
-  "lastChangelogVersion": "0.84.1",
+  "lastChangelogVersion": "1.5.0",
   "theme": "dark",
   "editorPaddingX": 1,
   "outputPad": 1,
-  "shellCommandPrefix": "shopt -s expand_aliases\n[ -f ~/.aliases ] && source ~/.aliases\n",
+  "shellCommandPrefix": "shopt -s expand_aliases\n[ -f ~/.aliases ] && source ~/.aliases\n[ -f ~/.zshrc_profile ] && source ~/.zshrc_profile\n",
   "packages": [
-    "npm:pi-provider-litellm@2.0.5",
     "npm:pi-vimmode@0.9.0",
     "npm:@pi-stef/atlassian@0.4.3",
     "npm:pi-search-hub@2.8.0",
-    "npm:pi-subagents@0.47.1",
-    "git:github.com/obra/superpowers@44c9b2d6e889982ac18c27d05a19fefe335194e1",
-    "npm:pi-observability@1.3.2"
+    "npm:pi-subagents",
+    "npm:@piotr-oles/pi-reflag",
+    "npm:pi-polish",
+    "npm:pi-background"
   ],
   "litellm": {
     "skills": {
@@ -20,5 +20,12 @@
     "mcp": {
       "enabled": false
     }
+  },
+  "defaultProvider": "litellm",
+  "defaultModel": "mappedin/standard",
+  "tuiMode": "fullscreen",
+  "hideThinkingBlock": false,
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-subagents\",\"scope\":\"user\"}": "0.84.0"
   }
 }

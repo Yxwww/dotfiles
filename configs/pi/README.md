@@ -14,7 +14,7 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `extensions/search.json` | `~/.pi/agent/extensions/search.json` | `web_search`/`web_read` backends (pi-search-hub); keyless only — no secrets |
 | `extensions/git-workflow-gates.ts` | `~/.pi/agent/extensions/…` | pre-commit gate + post-push PR-description nudge (ports the active Claude hooks) |
 | `extensions/skill-session-name.ts` | `~/.pi/agent/extensions/…` | on `/skill:<name>` in an unnamed session, set the session display name so `/resume` shows the skill name |
-| `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
+| `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps (see **pi-subagents HEAD override** below; installed by `linkdotfiles.sh`) |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
 | `agents/skills/<name>/` | `~/.agents/skills/<name>/` | hand-backed custom skills (pre-commit, pre-push, pr-catchup, tmux-fanout); symlinked by `linkdotfiles.sh` |
@@ -25,6 +25,47 @@ Code's `CLAUDE.md`).
 **Not committed** (gitignored in `.gitignore`): `bin/`, `sessions/`,
 `auth.json`, `models-store.json`, `node_modules/` — runtime, secret, or
 regenerable.
+
+## pi-subagents HEAD override
+
+`pi-subagents` is pinned to `^0.74.0` in `npm/package.json`, but that
+published release breaks **background** subagents on Pi 1.0.0: its detached
+runner hard-codes the `@earendil-works/pi-agent-core/node` alias, which
+`pi-agent-core@1.0.0` no longer ships (the `./node` export was dropped). The
+launch fails with:
+
+```
+Background children require the host npm package (@earendil-works/pi-coding-agent)
+with its dependencies; ... does not provide @earendil-works/pi-agent-core/node.
+```
+
+Foreground (`async: false`) children are unaffected — only background runs
+spawn the detached runner that resolves this alias.
+
+### Fix applied
+
+The fix is upstream commit `10694a6` ("Let background subagents start on Pi
+1.0.0..."), which marks the `pi-agent-core/node` alias `optional` so a host
+that doesn't export it is skipped instead of reported missing. It's not yet in
+an npm release, so `~/.pi/agent/npm/node_modules/pi-subagents/` is a **local
+build of HEAD** (`7268225`, built via `npm run build:pkg`), not the published
+`0.74.0`. Its `package.json` `version` was bumped to `0.74.1` so
+`pi update --extensions` won't clobber it with `0.74.0` (pi's update check is
+`gt(latest, installed)`).
+
+This override is **gitignored and non-reproducible**: a `setup_pi` or `npm
+install` in `~/.pi/agent/npm/` reverts to the published `0.74.0`. To rebuild:
+
+```sh
+git clone https://github.com/nicobailon/pi-subagents.git /tmp/pi-subagents
+cd /tmp/pi-subagents && npm install && npm run build:pkg
+# rsync dist-pkg/ over ~/.pi/agent/npm/node_modules/pi-subagents/,
+# preserving its nested node_modules/, then bump package.json version to 0.74.1
+```
+
+Drop this override once `pi-subagents@0.75.0` ships (it will carry the same
+fix) — `pi update --extensions` will replace it correctly. The original
+published `0.74.0` is backed up at `/tmp/pi-subagents-0.74.0-backup`.
 
 ## Web search (`extensions/search.json`)
 

@@ -62,6 +62,9 @@ ln -sfn "$(pwd)"/configs/pi/agent/extensions/bash-guard ~/.pi/agent/extensions/b
 (cd "$(pwd)"/configs/pi/agent/extensions/bash-guard && npm install --no-audit --no-fund)
 ln -sf "$(pwd)"/configs/pi/agent/npm/package.json ~/.pi/agent/npm/package.json
 ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-lock.json
+# npm-packages listed in settings.json `packages` are resolved from here, and
+# postinstall (patch-host-deps.mjs) rewrites host-provided deps to peers.
+(cd ~/.pi/agent/npm && npm install --no-audit --no-fund)
 # skill manifest shared across agents; skill dirs themselves are installed by
 # the skill manager / sparse-checked-out (see setup_pi in setup.sh)
 ln -sf "$(pwd)"/configs/pi/agents/skill-lock.json ~/.agents/.skill-lock.json
