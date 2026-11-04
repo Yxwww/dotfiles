@@ -9,7 +9,7 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | File (under `configs/pi/agent/`) | Lives at | Purpose |
 |---|---|---|
 | `settings.json` | `~/.pi/agent/settings.json` | theme, `packages`, pi config |
-| `models.json` | `~/.pi/agent/models.json` | custom LiteLLM provider (apiKey is `$LITELLM_API_KEY` env ref — no secret) |
+| `observability/settings.json` | `~/.pi/agent/observability/settings.json` | pi-observability footer layout |
 | `extensions/rise-against-header.ts` | `~/.pi/agent/extensions/…` | custom startup header |
 | `extensions/search.json` | `~/.pi/agent/extensions/search.json` | `web_search`/`web_read` backends (pi-search-hub); keyless only — no secrets |
 | `extensions/git-workflow-gates.ts` | `~/.pi/agent/extensions/…` | pre-commit gate + post-push PR-description nudge (ports the active Claude hooks) |
@@ -23,8 +23,14 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 Code's `CLAUDE.md`).
 
 **Not committed** (gitignored in `.gitignore`): `bin/`, `sessions/`,
-`auth.json`, `models-store.json`, `node_modules/` — runtime, secret, or
-regenerable.
+`auth.json`, `models-store.json`, `models.json`, `node_modules/` — runtime,
+secret, or regenerable.
+
+`models.json` is deliberately **not** versioned: it points at the Mappedin
+LiteLLM gateway and names internal models, so it stays local-only at
+`~/.pi/agent/models.json`. Regenerate it from the gateway's own listing
+(`models-store.json`, written by the `pi-provider-litellm` extension) rather
+than reconstructing it by hand.
 
 ## Web search (`extensions/search.json`)
 
