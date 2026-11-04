@@ -41,11 +41,15 @@ sets, so it degrades to plain `wincmd` and dies at a split edge.
 
 ### Not verified
 
-- `prefix+v` / `prefix+|`, `prefix+(` / `prefix+)`, and `prefix+left/down/up/right`
-  pass config validation but their runtime behaviour is **unverified** — no CLI surface
-  exposes UI-layer keybindings (`herdr api snapshot` returns only agents/panes; the schema
-  has no key fields). Validation proves the key *string parses*, not that a keystroke
-  reaches the action.
+- `prefix+v` / `prefix+|`, `prefix+(` / `prefix+)`, `prefix+[` / `prefix+]`, and
+  `prefix+left/down/up/right` pass config validation but their runtime behaviour is
+  **unverified** — no CLI surface exposes UI-layer keybindings (`herdr api snapshot`
+  returns only agents/panes; the schema has no key fields). Validation proves the key
+  *string parses*, not that a keystroke reaches the action.
+- `previous_workspace` / `next_workspace` (`prefix+(` / `prefix+)`) are **unset in
+  herdr's shipped defaults**; this config is the only thing binding them. Cycling still
+  needs a runtime check with two or more workspaces open, and its behaviour at a single
+  workspace (wrap vs. no-op) is untested.
 - `ctrl+1..9` is a **direct** chord, the category herdr's docs flag as
   terminal/keyboard-protocol dependent. Delivery is unverified; behaviour with 0 or >9
   agents is untested.
@@ -53,6 +57,10 @@ sets, so it degrades to plain `wincmd` and dies at a split edge.
   host palette, but theme rendering is **client-side** while `server reload-config`
   is a server call. A clean reload proves the value *parses*, not that the client
   applies it.
+
+The axis convention is `[]` = agents, `()` = workspaces, matching the square brackets to
+herdr's agent panel. It is cosmetic only — the swap relocated the unverified-binding risk
+rather than reducing it.
 
 ### `reload-config` does not validate keybindings
 
