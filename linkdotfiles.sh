@@ -27,6 +27,13 @@ ln -sf "$(pwd)"/configs/herdr/config.toml $CONFIG_DIR/herdr/config.toml
 
 ln -sf "$(pwd)"/configs/git/ignore $GIT_CONFIG_DIR/
 
+# rex (https://rex.dev) — config only; runtime state (server.sock, host-id,
+# servers/, terminal/) stays in ~/.rex and is machine-local.
+mkdir -p $CONFIG_DIR/rex
+ln -sf "$(pwd)"/configs/rex/init.lua $CONFIG_DIR/rex/init.lua
+ln -sf "$(pwd)"/configs/rex/view.sh $CONFIG_DIR/rex/view.sh
+ln -sf "$(pwd)"/configs/rex/view-file.sh $CONFIG_DIR/rex/view-file.sh
+
 # zed
 ln -snf "$(pwd)"/configs/zed/keymap.json $CONFIG_DIR/zed
 ln -snf "$(pwd)"/configs/zed/settings.json $CONFIG_DIR/zed
