@@ -74,8 +74,10 @@ local function abs_path(block_id, path)
 end
 
 -- Spawn a viewer pane split to the right, running cmd in the calling pane's cwd.
--- The pane is left to exit on its own (no exit.on_completion and no trailing
--- read), so Esc and ctrl-c both close it without extra handling.
+-- exit.on_completion = false keeps the pane open after the viewer exits, so the
+-- rendered file stays readable until ctrl+b x (or a prefix) closes it. The
+-- default (true) closes the pane as soon as the viewer exits, which is what
+-- made Enter appear to quit the pane.
 local function open_pane(ctx, cmd, label)
   local cwd = block_cwd(ctx.block_id)
   local result, err = rex.session.new_split{
@@ -91,6 +93,7 @@ local function open_pane(ctx, cmd, label)
         command = cmd,
         shell = "none",
         cwd = cwd ~= "" and cwd or nil,
+        exit = { on_completion = false },
       },
     },
   }

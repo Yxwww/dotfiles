@@ -10,6 +10,14 @@
 #   - Enter renders: markdown via glow, images via chafa, everything else via bat.
 #
 # fzf shows a live preview of the selection in the pane below/right.
+#
+# The pane is created with exit.on_completion = false, so it stays open after
+# this script exits. Every outcome must therefore leave something readable,
+# or an abort would strand an empty pane.
+
+abort() {
+  printf '%s\n' "$1"
+}
 
 dir=${1:-.}
 cd "$dir" || {
@@ -84,8 +92,15 @@ sel=$(
         --delimiter='/' \
         --preview="$viewer --preview $root/{}" \
         --preview-window='right,60%,border-left'
-) || exit 0
+) || {
+  # fzf exits 130 on Esc, 1 when nothing matched.
+  abort "cancelled"
+  exit 0
+}
 
-[ -n "$sel" ] || exit 0
+[ -n "$sel" ] || {
+  abort "cancelled"
+  exit 0
+}
 
 exec "$viewer" "$root/$sel"
