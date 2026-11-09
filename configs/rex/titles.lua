@@ -37,13 +37,23 @@ local state_path = state_file(rex.session_id)
 local frozen = {}
 -- window_id -> the label this script last set, so we recognise our own writes.
 local owned = {}
+-- window_id -> that label without a trailing collision number, so a change in
+-- how duplicates are numbered does not look like someone else's name.
+local owned_base = {}
 
 local function load_state()
   local fh = io.open(state_path, "r")
   if fh == nil then return end
   for line in fh:lines() do
     local wid, label = line:match("^(%S+)\t(.*)$")
-    if wid ~= nil and label ~= nil and label ~= "" then owned[wid] = label end
+    if wid ~= nil and label ~= nil and label ~= "" then
+      owned[wid] = label
+      -- Also remember the label without a collision number, so changing how
+      -- duplicates are numbered does not make us treat our own old title as a
+      -- stranger's and freeze the window forever.
+      local base = label:match("^(.-) %d+$")
+      if base ~= nil then owned_base[wid] = base end
+    end
   end
   fh:close()
 end
@@ -150,20 +160,21 @@ local function window_fields(window)
   return best
 end
 
-local function apply_title(window)
+local function apply_title(window, label)
   local wid = window.window_id
   if wid == nil or frozen[wid] then return end
-
-  local f = window_fields(window)
-  if f == nil then return end
-
-  local label = title_from(f.repo, f.branch, f.fg)
   if label == nil or label == "" then return end
 
   local current = window.label
   if current ~= nil and current ~= "" then
     local is_default = current:match(DEFAULT_LABEL) ~= nil
     local is_ours = current == owned[wid]
+    if not is_ours and owned_base[wid] ~= nil then
+      -- Our own previous title for this window, possibly with a different
+      -- number than the one we are about to write.
+      is_ours = current == owned_base[wid]
+        or current:match("^(.*) %d+$") == owned_base[wid]
+    end
     if not is_default and not is_ours then
       -- A human chose this. Leave it alone from now on.
       frozen[wid] = true
@@ -188,13 +199,59 @@ local function apply_title(window)
   end
 end
 
+-- Collision numbering: two tabs deriving the same base get " 1", " 2"; a
+-- unique base stays bare so the number only appears where it does work.
+local function number_labels(bases, order)
+  local total = {}
+  for _, wid in ipairs(order) do
+    local b = bases[wid]
+    if b ~= nil then total[b] = (total[b] or 0) + 1 end
+  end
+  local seen, out = {}, {}
+  for _, wid in ipairs(order) do
+    local b = bases[wid]
+    if b ~= nil then
+      if total[b] > 1 then
+        seen[b] = (seen[b] or 0) + 1
+        out[wid] = b .. " " .. seen[b]
+      else
+        out[wid] = b
+      end
+    end
+  end
+  return out
+end
+
 local function title_session()
   local view, err = rex.session.view{}
   if view == nil or view.windows == nil then
     if err ~= nil then rex.log("warn", "titles: view failed: " .. tostring(err)) end
     return
   end
-  for _, w in ipairs(view.windows) do apply_title(w) end
+
+  -- One pass over the windows: block calls are IPC per pane, so asking twice
+  -- just to count duplicates doubles the cost for nothing.
+  local bases = {}
+  for _, w in ipairs(view.windows) do
+    if not frozen[w.window_id] then
+      local f = window_fields(w)
+      if f ~= nil then
+        local base = title_from(f.repo, f.branch, f.fg)
+        if base ~= nil and base ~= "" then bases[w.window_id] = base end
+      end
+    end
+  end
+
+  -- Two tabs in the same repo on the same branch derive the same title, so a
+  -- window would be indistinguishable from its sibling. Number the collisions
+  -- in window order: "team · node 1", "team · node 2". A unique title stays
+  -- bare, so the number only appears where it is doing work.
+  local order = {}
+  for _, w in ipairs(view.windows) do order[#order + 1] = w.window_id end
+  local labels = number_labels(bases, order)
+  for _, w in ipairs(view.windows) do
+    apply_title(w, labels[w.window_id])
+  end
 end
 
 -- Events arrive in bursts; coalesce so one layout change costs one pass.
@@ -248,5 +305,6 @@ if TITLES_TEST then
     is_default_label = function(label)
       return label ~= nil and label:match(DEFAULT_LABEL) ~= nil
     end,
+    number_labels = number_labels,
   }
 end

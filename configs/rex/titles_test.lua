@@ -65,8 +65,22 @@ check("NOT default: PR-152", titles.is_default_label("PR-152"), false)
 check("NOT default: empty", titles.is_default_label(""), false)
 check("NOT default: nil", titles.is_default_label(nil), false)
 
+-- Collision numbering. Unique titles stay bare so the number means something.
+local order = { "w1", "w2", "w3" }
+local numbered = titles.number_labels({ w1 = "team · node", w2 = "team · node", w3 = "alone" }, order)
+check("collision 1st", numbered.w1, "team · node 1")
+check("collision 2nd", numbered.w2, "team · node 2")
+check("unique stays bare", numbered.w3, "alone")
+
+local one = titles.number_labels({ w1 = "only" }, { "w1" })
+check("single never numbered", one.w1, "only")
+
+local missing = titles.number_labels({ w1 = "x" }, { "w1", "w2" })
+check("absent window yields nil", missing.w2, nil)
+check("present window unaffected", missing.w1, "x")
+
 if failures == 0 then
-  print(("ok - %d checks"):format(#cases + 10))
+  print(("ok - %d checks"):format(#cases + 17))
 else
   print(("%d FAILED"):format(failures))
   os.exit(1)
