@@ -17,8 +17,6 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
-| `agents/skills/<name>/` | `~/.agents/skills/<name>/` | hand-backed custom skills (pre-commit, pre-push, pr-catchup, tmux-fanout); symlinked by `linkdotfiles.sh` |
-
 `AGENTS.md` is symlinked to `configs/claude/personal.md` (shared with Claude
 Code's `CLAUDE.md`).
 
@@ -55,7 +53,15 @@ pi loads skills from `~/.pi/agent/skills/` and `~/.agents/skills/` (global),
 plus project `.pi/skills/` and `.agents/skills/` when trusted. See pi's
 `docs/skills.md` (Agent Skills standard).
 
-This setup has **two independent skill sources** under `~/.agents/skills/`:
+Dev skills live in a **separate repo, [ystack](https://github.com/Yxwww/ystack)** —
+the domain-agnostic stack (`pre-commit`, `pre-push`, `pr-catchup`, `ship`,
+`simplify`, `code-review`, `flaky-ci`, `pf`). It carries its own `STACK.md`
+manifest and its own installer; install it by running `./install.sh` from that
+repo.
+
+**Dotfiles no longer links or restores skills.** `linkdotfiles.sh` and
+`setup_pi` do not touch `~/.agents/skills/` beyond the two sources documented
+below (`skills` CLI and `skill-creator`). Install ystack separately.
 
 ### 1. `skills` CLI (vercel-labs/skills) — mattpocock skills
 
@@ -96,10 +102,13 @@ scoped to `skills/skill-creator/`:
 
 ### 3. Custom git-workflow + orchestration skills
 
-Four hand-backed skills (`pre-commit`, `pre-push`, `pr-catchup`, `tmux-fanout`)
-live at `configs/pi/agents/skills/<name>/SKILL.md` and are symlinked into
-`~/.agents/skills/<name>/` by `linkdotfiles.sh` — a third source alongside the
-`skills` CLI (#1) and the skill-creator sparse checkout (#2).
+These are **not in this repo** — they live in the separate
+[ystack](https://github.com/Yxwww/ystack) repo and are installed by its own
+installer. Dotfiles does not link or restore them.
+
+The two sentinel paths below are the coupling point that still matters: they
+lived in `configs/pi/stacks/ystack/skills/` and are now owned by the ystack
+repo, so if either skill's sentinel changes it must change here too.
 
 - **`pre-commit`** — runs before `git commit`, capturing the *why* of the change.
   Uses the sentinel `/tmp/pi-pre-commit-active` to suppress the extension's
@@ -110,11 +119,16 @@ live at `configs/pi/agents/skills/<name>/SKILL.md` and are symlinked into
   `tool_result` nudge, not a skill trigger.
 - **`pr-catchup`** — invoke-only `/skill:pr-catchup` status brief for resuming
   a PR.
-- **`tmux-fanout`** — fan out `pi -p` subagents in parallel tmux panes with a
-  Devil's Advocate reviewer phase. Bundles `scripts/fanout.sh` (orchestrator
-  with a `.done`/`.result` completion protocol) and `assets/brief-template.md`.
-  See its SKILL.md for the limits (parallel-independent work only, no
-  pane-to-pane messaging).
+- **`ship`** — one-shot `simplify` → review-and-fix rounds → commit → push. Each
+  review round is a **fresh subagent that both reviews and fixes**; the parent only
+  routes and commits, so the skill never self-reviews. Bounded at 3 rounds, commits
+  only when nothing Critical remains. Composes `simplify`, `pre-commit` and
+  `pre-push` rather than duplicating them. Runs under the `/tmp/pi-ship-active`
+  sentinel, which makes `git-workflow-gates.ts` skip the post-push PR-body nudge
+  (Step 7 runs that sync deliberately); that path **must match** the extension.
+
+`tmux-fanout` was removed; parallel subagent fan-out is done with the
+`pi-subagents` `workflowScript` runs API instead.
 
 ### Bridging into other agents
 
@@ -126,8 +140,9 @@ as `~/.claude/skills/pf`).
 ## Restore on a new machine
 
 ```sh
-./setup.sh setup_pi   # installs pi, links config, sparse-checkouts skill-creator,
-                      # re-adds mattpocock skills from the manifest
+./setup.sh setup_pi   # installs pi, links config, sparse-checkouts skill-creator
 ```
 
-Then launch `pi`. Its skill manager will pick up `~/.agents/skills/`.
+Dev skills come from the separate [ystack](https://github.com/Yxwww/ystack) repo
+(`./install.sh` there). Then launch `pi`; its skill manager picks up
+`~/.agents/skills/`.

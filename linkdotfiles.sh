@@ -33,6 +33,8 @@ mkdir -p $CONFIG_DIR/rex
 ln -sf "$(pwd)"/configs/rex/init.lua $CONFIG_DIR/rex/init.lua
 ln -sf "$(pwd)"/configs/rex/view.sh $CONFIG_DIR/rex/view.sh
 ln -sf "$(pwd)"/configs/rex/view-file.sh $CONFIG_DIR/rex/view-file.sh
+ln -sf "$(pwd)"/configs/rex/titles.lua $CONFIG_DIR/rex/titles.lua
+ln -sf "$(pwd)"/configs/rex/rex-titles.sh $CONFIG_DIR/rex/rex-titles.sh
 
 # zed
 ln -snf "$(pwd)"/configs/zed/keymap.json $CONFIG_DIR/zed
@@ -76,12 +78,8 @@ ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-l
 # the skill manager / sparse-checked-out (see setup_pi in setup.sh)
 ln -sf "$(pwd)"/configs/pi/agents/skill-lock.json ~/.agents/.skill-lock.json
 mkdir -p ~/.agents/skills
-# hand-backed custom skills shared across agents (pre-commit, pre-push,
-# pr-catchup, tmux-fanout, ...). Glob the dir so new skills are picked up
-# without editing this loop.
-for s in "$(pwd)"/configs/pi/agents/skills/*/; do
-  ln -snf "$s" ~/.agents/skills/"$(basename "$s")"
-done
+# Dev skills are managed by the external ystack repo (see
+# configs/pi/README.md); nothing to do here.
 
 # pf: build compiled binary
 (cd "$(pwd)"/apps/ports && bun install && bun run build)
