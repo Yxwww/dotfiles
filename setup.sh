@@ -105,15 +105,9 @@ zshrcDeps() {
   brew install reattach-to-user-namespace
 }
 
-# pi coding agent — installs pi, links config from this repo, restores the
-# skill-creator sparse checkout, and re-adds the global skills recorded in
-# configs/pi/agents/skill-lock.json (-> ~/.agents/.skill-lock.json).
-#
-# Skills are managed by the `skills` CLI (vercel-labs/skills, the "open agent
-# skills" ecosystem; npx skills add -g ...). v1.5.7 has no "restore global from
-# .skill-lock.json" command (experimental_install only reads a project-level
-# skills-lock.json), so we re-add each skill by name. Already-present skills
-# are skipped.
+# pi coding agent — installs pi, links config from this repo, and restores the
+# skill-creator sparse checkout. Dev skills are not handled here; they live in
+# the separate ystack repo and are installed by its own install script.
 setup_pi() {
   npm install -g @earendil-works/pi-coding-agent
   link_dotfiles
@@ -124,10 +118,6 @@ setup_pi() {
     (cd ~/.agents/skills/skill-creator-repo && git sparse-checkout set skills/skill-creator)
     ln -snf ~/.agents/skills/skill-creator-repo/skills/skill-creator ~/.agents/skills/skill-creator
   fi
-
-  # Restore skills-CLI-managed skills declared in the lockfile. The ystack
-  # installer owns this (idempotent: skips any folder that already exists).
-  node "$(pwd)"/scripts/ystack/install.mjs skills-cli
 }
 
 function setup_gh_autocompletion() {

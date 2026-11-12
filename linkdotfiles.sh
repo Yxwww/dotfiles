@@ -78,10 +78,8 @@ ln -sf "$(pwd)"/configs/pi/agent/npm/package-lock.json ~/.pi/agent/npm/package-l
 # the skill manager / sparse-checked-out (see setup_pi in setup.sh)
 ln -sf "$(pwd)"/configs/pi/agents/skill-lock.json ~/.agents/.skill-lock.json
 mkdir -p ~/.agents/skills
-# ystack: dev skills authored in configs/pi/stacks/ystack/skills/. The installer
-# owns the link loop (and refuses to clobber dirs other tools own), so new
-# skills are picked up by declaring them in STACK.md, not by editing a glob.
-node "$(pwd)"/scripts/ystack/install.mjs link
+# Dev skills are managed by the external ystack repo (see
+# configs/pi/README.md); nothing to do here.
 
 # pf: build compiled binary
 (cd "$(pwd)"/apps/ports && bun install && bun run build)

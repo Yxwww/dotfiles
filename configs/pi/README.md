@@ -17,9 +17,6 @@ into `~/.pi/agent/` by `linkdotfiles.sh`. Install/restore via
 | `npm/package.json` | `~/.pi/agent/npm/package.json` | pinned extension deps |
 | `npm/package-lock.json` | `~/.pi/agent/npm/package-lock.json` | reproducible install |
 | `agents/skill-lock.json` | `~/.agents/.skill-lock.json` | global skills manifest (see below) |
-| `stacks/ystack/STACK.md` | — | **source of truth** for ystack: every dev skill, its origin, and what is excluded. Parsed by `scripts/ystack/install.mjs` |
-| `stacks/ystack/skills/<name>/` | `~/.agents/skills/<name>/` | `origin: dotfiles` skills (pre-commit, pre-push, pr-catchup, ship, simplify, code-review, flaky-ci, pf); symlinked by the ystack installer |
-| `agents/skills/<name>/` | — | *legacy path, emptied* — skills moved to `stacks/ystack/skills/` |
 `AGENTS.md` is symlinked to `configs/claude/personal.md` (shared with Claude
 Code's `CLAUDE.md`).
 
@@ -56,21 +53,15 @@ pi loads skills from `~/.pi/agent/skills/` and `~/.agents/skills/` (global),
 plus project `.pi/skills/` and `.agents/skills/` when trusted. See pi's
 `docs/skills.md` (Agent Skills standard).
 
-This setup has **four skill origin classes** under `~/.agents/skills/`. The
-authoritative, machine-readable list is
-[`configs/pi/stacks/ystack/STACK.md`](stacks/ystack/STACK.md) — this section is
-the narrative version.
+Dev skills live in a **separate repo, [ystack](https://github.com/Yxwww/ystack)** —
+the domain-agnostic stack (`pre-commit`, `pre-push`, `pr-catchup`, `ship`,
+`simplify`, `code-review`, `flaky-ci`, `pf`). It carries its own `STACK.md`
+manifest and its own installer; install it by running `./install.sh` from that
+repo.
 
-**The rule: a skill has exactly one origin, and ystack never copies what another
-tool owns.** `scripts/ystack/install.mjs` implements it (`link`, `skills-cli`,
-`check`, `doctor`; tests in `install.test.mjs`).
-
-| Origin | Restored by |
-|---|---|
-| `dotfiles` — authored in `stacks/ystack/skills/` | `install.mjs link` (called by `linkdotfiles.sh`) |
-| `skills-cli` — `mattpocock/skills` | `install.mjs skills-cli` (called by `setup_pi`) |
-| `cli-installer` — generated stubs (`agent-browser`, `rex`) | re-run the installing tool |
-| `excluded` — pstack/gstack domain skills | not installed here |
+**Dotfiles no longer links or restores skills.** `linkdotfiles.sh` and
+`setup_pi` do not touch `~/.agents/skills/` beyond the two sources documented
+below (`skills` CLI and `skill-creator`). Install ystack separately.
 
 ### 1. `skills` CLI (vercel-labs/skills) — mattpocock skills
 
@@ -111,17 +102,14 @@ scoped to `skills/skill-creator/`:
 
 ### 3. Custom git-workflow + orchestration skills
 
-These now live in `configs/pi/stacks/ystack/skills/` and are declared in
-`STACK.md`. `linkdotfiles.sh` calls `install.mjs link`, which links each
-`origin: dotfiles` skill into `~/.agents/skills/` and **refuses to overwrite a
-real directory** owned by another tool.
+These are **not in this repo** — they live in the separate
+[ystack](https://github.com/Yxwww/ystack) repo and are installed by its own
+installer. Dotfiles does not link or restore them.
 
-> **`code-review` collides with `mattpocock/skills`.** That package ships its own
-> `code-review`, so any `npx skills add mattpocock/skills` writes a real directory
-> over the ystack symlink. `install.mjs skills-cli` now detects this and refuses
-> the whole source (it would clobber an owned name). To restore mattpocock skills
-> by hand, install them, then re-run `./linkdotfiles.sh` — but `ln -snf` will not
-> replace a non-empty directory, so remove that one directory first.
+The two sentinel paths below are the coupling point that still matters: they
+lived in `configs/pi/stacks/ystack/skills/` and are now owned by the ystack
+repo, so if either skill's sentinel changes it must change here too.
+
 - **`pre-commit`** — runs before `git commit`, capturing the *why* of the change.
   Uses the sentinel `/tmp/pi-pre-commit-active` to suppress the extension's
   `tool_call` gate; that path **must match** the `git-workflow-gates.ts`
@@ -152,8 +140,9 @@ as `~/.claude/skills/pf`).
 ## Restore on a new machine
 
 ```sh
-./setup.sh setup_pi   # installs pi, links config, sparse-checkouts skill-creator,
-                      # re-adds mattpocock skills from the manifest
+./setup.sh setup_pi   # installs pi, links config, sparse-checkouts skill-creator
 ```
 
-Then launch `pi`. Its skill manager will pick up `~/.agents/skills/`.
+Dev skills come from the separate [ystack](https://github.com/Yxwww/ystack) repo
+(`./install.sh` there). Then launch `pi`; its skill manager picks up
+`~/.agents/skills/`.
