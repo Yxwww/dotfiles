@@ -6,11 +6,14 @@
  *   it (sentinel /tmp/pi-pre-commit-active), injecting the pre-commit skill as
  *   the reason so the agent runs the "capture the why" workflow first.
  * - tool_result (bash): after a successful `git push` with an open PR, append a
- *   steering note prompting the agent to evaluate updating the PR description.
+ *   steering note prompting the agent to evaluate updating the PR description
+ *   using the `pr` skill's template (Summary / Evidence / Merge Danger).
+ *   Suppressed while the `ship` skill is running (see SHIP_SENTINEL) — it syncs
+ *   the body itself in Step 7, so the nudge would duplicate that work.
  *
  * Backed up at configs/pi/agent/extensions/ and symlinked into
  * ~/.pi/agent/extensions/ by linkdotfiles.sh. Skills live at
- * ~/.agents/skills/{pre-commit,pre-push,pr-catchup}/.
+ * ~/.agents/skills/{pre-commit,pre-push,pr,pr-catchup,ship}/.
  *
  * Security note: git/gh are invoked via execFileSync with argv arrays (never a
  * shell string), so branch names / ref names can't inject shell metacharacters.
@@ -27,7 +30,13 @@ import { homedir } from "node:os";
 import { join } from "node:path";
 
 const SKILL_PATH = join(homedir(), ".agents", "skills", "pre-commit", "SKILL.md");
+// The `pr` skill owns the PR body template the post-push nudge enforces.
+const PR_SKILL_PATH = join(homedir(), ".agents", "skills", "pr", "SKILL.md");
 const SENTINEL = "/tmp/pi-pre-commit-active";
+// The ship skill reviews, commits and pushes in one pass, then runs the pre-push
+// body sync itself. Its sentinel spans the whole run so the post-push nudge below
+// doesn't re-inject the same instructions mid-flight.
+const SHIP_SENTINEL = "/tmp/pi-ship-active";
 
 // Match `git commit` / `git push` as a command word at the start of a command
 // segment (after ;, &&, ||, |, newline, or string start). Tested against text
@@ -78,19 +87,12 @@ function stagedFiles(cwd: string): string[] {
 	return git(["diff", "--name-only", "--cached"], cwd).split("\n").filter(Boolean);
 }
 
-const TEMPLATE_PATHS = [
-	".github/pull_request_template.md",
-	".github/PULL_REQUEST_TEMPLATE.md",
-	"docs/pull_request_template.md",
-	"pull_request_template.md",
-];
-
-function prTemplate(cwd: string): string {
-	for (const rel of TEMPLATE_PATHS) {
-		const p = join(cwd, rel);
-		if (existsSync(p)) return readFileSync(p, "utf-8");
-	}
-	return "";
+/** The `pr` skill body, minus its YAML frontmatter. "" if the skill is absent. */
+function prSkillTemplate(): string {
+	if (!existsSync(PR_SKILL_PATH)) return "";
+	const raw = readFileSync(PR_SKILL_PATH, "utf-8");
+	const m = /^---\n[\s\S]*?\n---\n/.exec(raw);
+	return m ? raw.slice(m[0].length).trim() : raw.trim();
 }
 
 export default function (pi: ExtensionAPI) {
@@ -121,6 +123,7 @@ export default function (pi: ExtensionAPI) {
 		const command = (event.input as { command?: string }).command ?? "";
 		if (!PUSH_RE.test(stripShellLiterals(command))) return undefined;
 		if (event.isError) return undefined; // only successful pushes
+		if (existsSync(SHIP_SENTINEL)) return undefined; // ship skill syncs the body itself
 		const cwd = ctx.cwd;
 
 		const branch = git(["rev-parse", "--abbrev-ref", "HEAD"], cwd);
@@ -158,25 +161,27 @@ export default function (pi: ExtensionAPI) {
 			git(["diff", "--stat", `origin/${base}...HEAD`], cwd).split("\n").pop() || "";
 		const commitCount = git(["rev-list", "--count", `origin/${base}..HEAD`], cwd) || "0";
 		const body = pr.body ?? "";
-		const template = prTemplate(cwd);
+		const template = prSkillTemplate();
 
 		const note =
 			`Branch "${branch}" was pushed to PR #${pr.number} (${pr.url}).\n` +
 			`Diff: ${diffStat} | Commits: ${commitCount} | PR body length: ${body.length} chars\n\n` +
 			`EVALUATE whether the PR description needs updating before taking action:\n` +
-			`- SKIP only if the body already follows the template structure AND accurately describes the changes.\n` +
-			`- UPDATE if the body is empty, has unfilled placeholders, diverged from the changes, or is free-form and does not follow the template (restructure it into the template — see Rules).\n` +
+			`- SKIP only if the body already follows the \`pr\` skill template (## Summary / ## Evidence / ## Merge Danger) AND accurately describes the changes.\n` +
+			`- UPDATE if the body is empty, has unfilled placeholders, diverged from the changes, or is free-form (restructure it into the \`pr\` skill template — see Rules).\n` +
 			`- If UNSURE, ask the user whether they want the PR description updated.\n\n` +
 			`If you decide to update, write the body to a temp file and use --body-file (robust for multi-line bodies, backticks, and code fences):\n` +
 			`  gh pr edit ${pr.number} --body-file /tmp/pr-${pr.number}-body.md\n\n` +
-			`Rules:\n` +
-			`- Follow the template structure exactly: keep every section heading, in template order.\n` +
-			`- If the existing body is free-form / non-template, restructure it — fold existing prose into the matching template sections, drop prose with no home, add missing REQUIRED sections. Do not preserve a non-template layout.\n` +
-			`- Be concise: bullets over prose. Lead with the change, not the background.\n` +
-			`- Checkbox impact sections (Breaking, CSP, Analytics, Wrappers, Security, Privacy, DevOps): check [x] Yes only when the answer is genuinely yes; otherwise leave [ ] Yes unchecked with a one-line reason.\n` +
-			`- Review commits and diff for context. Preserve content the user hand-wrote — relocate it into the right section rather than rewriting it.\n` +
-			`- Remove placeholder HTML comments from filled sections; leave them in unfilled OPTIONAL sections.\n\n` +
-			`Template:\n${template}\n\nCurrent body:\n${body}`;
+			`Rules (from the \`pr\` skill):\n` +
+			`- Follow the template structure exactly: ## Summary, ## Evidence, ## Merge Danger — every heading, in order.\n` +
+			`- If the existing body is free-form, restructure it — fold existing prose into the matching sections, drop prose with no home.\n` +
+			`- Summary: show the smallest view that makes the point — diagram, diff-sketch, call tree, or Mermaid. Not prose.\n` +
+			`- Evidence: concrete before/after (screenshots, test output). Never invent evidence; if none exists, say so.\n` +
+			`- Merge Danger: one-way vs two-way door, plus blast radius.\n` +
+			`- Be concise; preserve content the user hand-wrote — relocate it rather than rewriting it.\n` +
+			(template
+				? `\nTemplate (\`pr\` skill):\n${template}\n\nCurrent body:\n${body}`
+				: `\nTemplate: run the \`pr\` skill (~/.agents/skills/pr/SKILL.md) — it is not installed.\n\nCurrent body:\n${body}`);
 
 		const content = [...event.content, { type: "text" as const, text: note }];
 		return { content };

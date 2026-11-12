@@ -1,0 +1,40 @@
+{
+  "skill_name": "pre-push",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just pushed. Update the PR.",
+      "expected_output": "Agent finds the open PR, diffs against the PR's own base branch, and updates the description to follow the repo's PR template structure.",
+      "files": [],
+      "expectations": [
+        "Resolves the open PR for the current branch",
+        "Diffs against the PR's baseRefName rather than a hardcoded origin/master",
+        "Reads the repo's PR template and follows its section structure",
+        "Updates the PR body via --body-file (not --body)"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Pushed — the PR body is currently a free-form AI-generated paragraph.",
+      "expected_output": "Agent restructures the free-form body into the template's section order, folding existing prose into matching sections and adding any missing REQUIRED section.",
+      "files": [],
+      "expectations": [
+        "Detects the body does not match the template",
+        "Restructures it to keep every template heading in template order",
+        "Folds existing prose into the matching sections rather than discarding useful content",
+        "Adds any REQUIRED section that was missing"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Pushed to a branch that has no open PR.",
+      "expected_output": "Agent stops after detecting there is no PR, rather than creating one or updating a nonexistent body.",
+      "files": [],
+      "expectations": [
+        "Detects that no PR exists for the branch",
+        "Stops rather than creating a PR unprompted",
+        "Reports the PR URL / next step to the user"
+      ]
+    }
+  ]
+}

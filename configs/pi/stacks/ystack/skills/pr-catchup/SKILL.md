@@ -1,23 +1,26 @@
 ---
 name: pr-catchup
 description: >-
-  Get up to speed on a pull request you're resuming work on — reads the PR, its
+  Brings the agent up to speed on a pull request it is resuming work on — reads
+  the PR, its
   diff and the surrounding code it touches (opening changed files and their
   callers to understand context, not just the hunks), the linked Jira ticket,
   any matching memory notes, local branch hygiene
   (uncommitted/unpushed/behind-base/stashes), and CI/review/merge state, then
-  returns a tight status brief. Invoke-only: run this ONLY when the user
+  returns a tight status brief. Invoke-only: applies ONLY when the user
   explicitly invokes it as /pr-catchup. Do NOT auto-trigger on phrasing cues
   like "catch me up on this PR" or "read the PR and code changes"
 ---
 
 # PR Catch-up
 
-You're reloading context on a PR the user is resuming. The goal is a fast,
-accurate picture of **what the change does** and **where it stands** — not a
-line-by-line diff recital. The user has done this dozens of times manually;
-they want the situational summary they'd build in their head, delivered in
-seconds.
+You're reloading context on a PR the user is resuming. Lead with the answer —
+what the change does and where it stands, not a line-by-line diff recital. The
+user wants the situational summary they'd build in their head, in seconds.
+
+**Prerequisites:** steps 1, 2, and 6 use the `gh` CLI (authenticated); if `gh` is
+unavailable, say so and ask the user to paste the PR number/URL rather than
+guessing. Step 3 needs a Jira tool; if none is available, skip it silently.
 
 ## What "make sense of what's happening" means here
 
@@ -54,9 +57,10 @@ step 2's code-reading walk and the final brief.
    guard) needs none of it; a subtle logic or architecture change needs you to
    read the neighborhood. Spend the reading budget where the change is load-bearing.
 
-3. **Pull the ticket, if any.** Extract a Jira id (`SDKS-\d+` or similar) from
-   the branch name, PR title, or body. If found, fetch it
-   with the built-in `jira_get_issue` tool for the acceptance criteria and any
+3. **Pull the ticket, if any.** Extract a ticket id from the branch name, PR title,
+   or body — match your tracker's key shape (`ABC-123`), however it is spelled.
+   If found and a tracker tool is available
+   (`jira_get_issue` or equivalent), fetch it for the acceptance criteria and any
    status/comments. **Many PRs have no
    ticket** (the user's default is no-ticket); if none is present, skip this
    silently — do not invent an id or file one.
@@ -84,11 +88,10 @@ step 2's code-reading walk and the final brief.
    base (rebase/merge pending), or stashes parked on this branch.
 
 6. **Check where it stands remotely.** `gh pr checks` for CI, and read the review state
-   / mergeability from the JSON in step 1. The user's repo has known gates
-   worth calling out explicitly when relevant: the `master` ruleset needs a
-   human **code-owner** (`@MappedIn/dev`) review — cursor approval alone leaves
-   it BLOCKED; post-approval pushes dismiss approvals; the PR-title linter
-   (commitlint) needs a lowercase subject ≤100 chars and only re-runs on push.
+   / mergeability from the JSON in step 1. When the repo has branch-protection
+   gates, call them out explicitly: a required **code-owner** review (approval
+   from a non-bot reviewer; cursor approval alone may leave it BLOCKED),
+   dismiss-on-push behavior, and any PR-title lint rule.
 
 ## Output: tight status brief
 

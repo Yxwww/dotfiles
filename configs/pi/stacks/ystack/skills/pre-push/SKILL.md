@@ -1,8 +1,8 @@
 ---
 name: pre-push
 description: >
-  Run after pushing to git. Updates the open PR description to accurately reflect what was pushed.
-  Trigger when the user says "push", "ready to push", "update the PR", or after git push completes.
+  Runs after pushing to git. Updates the open PR description to accurately reflect what was pushed.
+  Trigger when the user says "pushed", "ready to push", "update the PR", or after git push completes.
   Also auto-triggers via the git-workflow-gates extension's tool_result nudge after a successful git push.
 ---
 
@@ -18,9 +18,14 @@ If no PR exists, stop here.
 
 ## Step 2: Understand what was pushed
 
+Diff against the PR's own base, not a hardcoded branch — reuse the `baseRefName`
+from Step 1's `gh pr view`:
+
 ```bash
-git log origin/master..HEAD --oneline
-git diff origin/master...HEAD --stat
+gh pr view --json baseRefName -q .baseRefName   # e.g. master, main
+BASE=$(gh pr view --json baseRefName -q .baseRefName)
+git log "origin/$BASE"..HEAD --oneline
+git diff "origin/$BASE"...HEAD --stat
 ```
 
 ## Step 3: Write the PR description to follow the template

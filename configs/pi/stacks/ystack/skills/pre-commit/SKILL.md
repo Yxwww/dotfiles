@@ -1,7 +1,7 @@
 ---
 name: pre-commit
 description: >
-  Run before committing to git. Ensures the commit message captures WHY the change was made
+  Runs before committing to git. Ensures the commit message captures WHY the change was made
   (the motivation, not the mechanics). Infers the why from conversation context and diff when
   possible; asks the user when it's unclear. Then runs the commit.
   Trigger when the user says "commit", "ready to commit", or when about to run git commit.

@@ -1,0 +1,39 @@
+{
+  "skill_name": "pre-commit",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "commit -m \"update deps\"",
+      "expected_output": "Agent recognizes the message lacks a why, infers the why from the diff/conversation if possible, and writes a message that captures the motivation rather than the mechanics.",
+      "files": [],
+      "expectations": [
+        "Does not commit the bare mechanical message as-is",
+        "Infers the motivation from conversation context or the diff when available",
+        "Produces a commit message that explains WHY, not just what changed"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "commit this",
+      "expected_output": "With no conversation context and an ambiguous diff, the agent asks a diff-grounded clarifying question rather than inventing a why.",
+      "files": [],
+      "expectations": [
+        "Asks the user for the motivation when it cannot be inferred",
+        "The question is grounded in the actual diff, not generic",
+        "Does not fabricate a motivation",
+        "Eventually runs the commit after the why is established"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Ready to commit — this fixes the login timeout by refreshing the JWT before expiry.",
+      "expected_output": "The why is already present in context; the agent commits without an unnecessary clarifying question, with a message capturing the JWT-refresh motivation.",
+      "files": [],
+      "expectations": [
+        "Does not ask a redundant clarifying question when the why is already clear",
+        "The commit message captures the JWT-refresh motivation",
+        "Uses the sentinel/commit mechanism correctly (sentinel exists before commit, removed after)"
+      ]
+    }
+  ]
+}
