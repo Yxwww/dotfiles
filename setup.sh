@@ -125,23 +125,9 @@ setup_pi() {
     ln -snf ~/.agents/skills/skill-creator-repo/skills/skill-creator ~/.agents/skills/skill-creator
   fi
 
-  # Re-add global skills listed in ~/.agents/.skill-lock.json (idempotent:
-  # skip any whose folder already exists).
-  if [ -f ~/.agents/.skill-lock.json ]; then
-    node -e '
-      const fs = require("fs"), os = require("os"), p = require("path");
-      const lock = JSON.parse(fs.readFileSync(p.join(os.homedir(), ".agents", ".skill-lock.json"), "utf8"));
-      const skillsDir = p.join(os.homedir(), ".agents", "skills");
-      for (const name of Object.keys(lock.skills || {})) {
-        if (fs.existsSync(p.join(skillsDir, name))) continue;
-        const src = lock.skills[name].source;
-        if (!src) continue;
-        console.error("[skills] add -g", src, "(" + name + ")");
-        const { spawnSync } = require("child_process");
-        spawnSync("npx", ["-y", "skills@1.5.7", "add", src, "-g", "-y"], { stdio: "inherit" });
-      }
-    '
-  fi
+  # Restore skills-CLI-managed skills declared in the lockfile. The ystack
+  # installer owns this (idempotent: skips any folder that already exists).
+  node "$(pwd)"/scripts/ystack/install.mjs skills-cli
 }
 
 function setup_gh_autocompletion() {
