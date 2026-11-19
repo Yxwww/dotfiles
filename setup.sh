@@ -101,6 +101,12 @@ install_eslint_prettier() {
   cd ~ && yarn
 }
 
+# Open markdown in Zed, so Cmd+clicking a file link in the terminal lands in an editor.
+setup_default_apps() {
+  brew install duti
+  duti -s dev.zed.Zed net.daringfireball.markdown all
+}
+
 zshrcDeps() {
   brew install reattach-to-user-namespace
 }
@@ -143,6 +149,7 @@ for arg in "$@"; do
         install_zsh) install_zsh ;;
         setup_pi) setup_pi ;;
         setup_herdr) setup_herdr ;;
+        setup_default_apps) setup_default_apps ;;
         all) install_all ;;
         *) echo "Unknown function: $arg" ;;
     esac
