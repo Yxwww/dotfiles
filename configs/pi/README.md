@@ -55,7 +55,7 @@ plus project `.pi/skills/` and `.agents/skills/` when trusted. See pi's
 
 Dev skills live in a **separate repo, [ystack](https://github.com/Yxwww/ystack)** —
 the domain-agnostic stack (`pre-commit`, `pre-push`, `pr-catchup`, `ship`,
-`simplify`, `code-review`, `flaky-ci`, `pf`). It carries its own `STACK.md`
+`simplify`, `code-review`, `flaky-ci`). It carries its own `STACK.md`
 manifest and its own installer; install it by running `./install.sh` from that
 repo.
 
@@ -71,8 +71,7 @@ The `skills` npm package (v1.5.7, "open agent skills ecosystem",
 `configs/pi/agents/skill-lock.json`) and installs skill folders into
 `~/.agents/skills/`.
 
-Installed (from `mattpocock/skills`): `grill-me`, `grill-with-docs`,
-`prd-to-issues`, `tdd`, `write-a-prd`.
+Installed (from `mattpocock/skills`): see `configs/pi/agents/skill-lock.json`.
 
 Commands:
 ```sh
@@ -134,8 +133,7 @@ repo, so if either skill's sentinel changes it must change here too.
 
 The `skills` CLI symlinks each installed skill into per-agent dirs, e.g.
 `~/.claude/skills/<name> -> ../../.agents/skills/<name>`. Those links are
-managed by the CLI, not by `linkdotfiles.sh` (which only links `apps/ports`
-as `~/.claude/skills/pf`).
+managed by the CLI, not by `linkdotfiles.sh`.
 
 ## Restore on a new machine
 

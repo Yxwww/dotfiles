@@ -51,7 +51,6 @@ ln -snf "$(pwd)"/scripts ~/.tmux/scripts
 ln -snf "$(pwd)"/configs/claude/personal.md ~/.claude/CLAUDE.md
 ln -snf "$(pwd)"/configs/claude/statusline-command.sh ~/.claude/statusline-command.sh
 mkdir -p ~/.claude/skills
-ln -snf "$(pwd)"/apps/ports ~/.claude/skills/pf
 
 # pi (https://github.com/earendil-works/pi-coding-agent)
 mkdir -p ~/.pi/agent/extensions ~/.pi/agent/npm ~/.agents
