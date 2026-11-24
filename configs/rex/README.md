@@ -43,6 +43,13 @@ file stays on screen after the viewer exits. Without it the pane closes the
 moment the render finishes, because `view-file.sh` always exits 0 so a preview
 never kills the fzf session.
 
+## Sidebar
+
+`cmd+b` toggles the sidebar (`client.sidebar.toggle`), replacing the shipped
+`cmd+/`. The config stacks above the client's own bindings, so the `rex.bind`
+alone wins; `rex.unbind` cannot remove a client default, only a binding this
+file made, so it is not used here.
+
 Runtime state — `server.sock`, `host-id`, `servers/`, `terminal/` — lives in
 `~/.rex` and is machine-local. It is not tracked here.
 

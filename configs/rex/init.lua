@@ -130,3 +130,8 @@ rex.action{
 rex.bind("cmd+m", "view_pick")
 rex.bind("cmd+shift+m", "view_pick")
 rex.bind("ctrl+b>m", "view_pick")
+
+-- Show/hide the sidebar with cmd+b instead of the shipped cmd+/. The config
+-- stacks above the client's own bindings, so binding cmd+b is enough; rex.unbind
+-- cannot drop a client default, only a binding this file made.
+rex.bind("cmd+b", "client.sidebar.toggle")
