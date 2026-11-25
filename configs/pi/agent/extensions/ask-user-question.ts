@@ -330,7 +330,7 @@ async function askSingleChoice(
 			},
 			handleInput,
 		};
-	});
+	}, { blocked: { kind: "question", message: question } });
 }
 
 async function askMultiChoice(
@@ -535,7 +535,7 @@ async function askMultiChoice(
 			},
 			handleInput,
 		};
-	});
+	}, { blocked: { kind: "question", message: question } });
 }
 
 // Shared UI mutex. ctx.ui.custom()/editor can only handle one active call at

@@ -1,34 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "grill-me": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grill-me/SKILL.md",
-      "skillFolderHash": "c817f6f36acd483294144694a935a76d3e3eb101",
-      "pluginName": "mattpocock-skills",
-      "installedAt": "2026-03-17T14:33:06.496Z",
-      "updatedAt": "2026-08-15T20:13:49.428Z"
-    },
-    "write-a-prd": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "write-a-prd/SKILL.md",
-      "skillFolderHash": "566c485ddc02f2338f1d5be6c0188db74e278678",
-      "installedAt": "2026-03-17T14:33:51.568Z",
-      "updatedAt": "2026-03-17T14:33:51.568Z"
-    },
-    "prd-to-issues": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "prd-to-issues/SKILL.md",
-      "skillFolderHash": "16cfef941383949d7f9d2dca5b939e19e9eabf9f",
-      "installedAt": "2026-03-17T14:34:30.495Z",
-      "updatedAt": "2026-03-17T14:34:30.495Z"
-    },
     "tdd": {
       "source": "mattpocock/skills",
       "sourceType": "github",

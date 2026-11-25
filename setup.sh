@@ -101,6 +101,12 @@ install_eslint_prettier() {
   cd ~ && yarn
 }
 
+# Open markdown in Zed, so Cmd+clicking a file link in the terminal lands in an editor.
+setup_default_apps() {
+  brew install duti
+  duti -s dev.zed.Zed net.daringfireball.markdown all
+}
+
 zshrcDeps() {
   brew install reattach-to-user-namespace
 }
@@ -118,6 +124,19 @@ setup_pi() {
     (cd ~/.agents/skills/skill-creator-repo && git sparse-checkout set skills/skill-creator)
     ln -snf ~/.agents/skills/skill-creator-repo/skills/skill-creator ~/.agents/skills/skill-creator
   fi
+}
+
+# rex (https://rex.dev) — installs Rex's terminfo entry once per account.
+#
+# Without it terminals advertise only xterm-256color, which lacks Smulx/Sync/
+# XM/Ms. Neovim then takes a slow per-key timeout path and typing feels janky.
+# Idempotent, so re-running is safe; the config files themselves are linked by
+# linkdotfiles.sh, not here.
+setup_rex() {
+  command -v rex >/dev/null 2>&1 || { echo "setup_rex: rex not installed" >&2; return 1; }
+
+  rex terminfo setup || { echo "setup_rex: terminfo setup failed" >&2; return 1; }
+  rex terminfo status
 }
 
 function setup_gh_autocompletion() {
@@ -142,7 +161,9 @@ for arg in "$@"; do
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
         setup_pi) setup_pi ;;
+        setup_rex) setup_rex ;;
         setup_herdr) setup_herdr ;;
+        setup_default_apps) setup_default_apps ;;
         all) install_all ;;
         *) echo "Unknown function: $arg" ;;
     esac
