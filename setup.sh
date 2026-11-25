@@ -126,6 +126,19 @@ setup_pi() {
   fi
 }
 
+# rex (https://rex.dev) — installs Rex's terminfo entry once per account.
+#
+# Without it terminals advertise only xterm-256color, which lacks Smulx/Sync/
+# XM/Ms. Neovim then takes a slow per-key timeout path and typing feels janky.
+# Idempotent, so re-running is safe; the config files themselves are linked by
+# linkdotfiles.sh, not here.
+setup_rex() {
+  command -v rex >/dev/null 2>&1 || { echo "setup_rex: rex not installed" >&2; return 1; }
+
+  rex terminfo setup || { echo "setup_rex: terminfo setup failed" >&2; return 1; }
+  rex terminfo status
+}
+
 function setup_gh_autocompletion() {
   gh completion -s zsh > ~/.config/zsh/completions/_gh
 }
@@ -148,6 +161,7 @@ for arg in "$@"; do
         local_dotfiles) local_dotfiles ;;
         install_zsh) install_zsh ;;
         setup_pi) setup_pi ;;
+        setup_rex) setup_rex ;;
         setup_herdr) setup_herdr ;;
         setup_default_apps) setup_default_apps ;;
         all) install_all ;;

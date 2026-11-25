@@ -43,6 +43,37 @@ file stays on screen after the viewer exits. Without it the pane closes the
 moment the render finishes, because `view-file.sh` always exits 0 so a preview
 never kills the fzf session.
 
+## Terminfo (not linked)
+
+Rex's terminals support capabilities plain `xterm-256color` does not advertise:
+extended underline (`Smulx`), synchronized output (`Sync`), and the
+modifyOtherKeys flags (`XM`, `Ms`). Neovim takes a slow per-key timeout path when
+it cannot see them, which is what makes typing feel janky.
+
+`rex terminfo setup` runs once per account, not per repo. `setup.sh setup_rex`
+runs it, and it is idempotent. It writes two machine-local files that are
+deliberately not symlinked here:
+
+- `~/.terminfo/x/xterm-rex` — the compiled entry, so a terminal can claim it.
+- `~/.config/rex/ssh_config` — an ssh guard for hosts lacking the entry. Rex
+  also adds an `Include` line at the top of `~/.ssh/config` pointing at it.
+
+Like `~/.rex`, both are generated state rather than config: tracking them would
+pin one machine's output and fight regeneration. Same reason `ssh_config` is not
+in the "Linked files" list above.
+
+Terminfo is read by a process at startup, so a program launched before the
+install keeps its old `TERM` and stays slow. Open a new pane; no config reload
+and no server restart is needed, since the server reads the entry fresh per pane.
+
+```sh
+rex terminfo status   # what a new terminal would be given, and why
+rex terminfo setup    # install the entry + ssh guard (once per account)
+rex terminfo host     # same entry on a remote host you use over ssh
+```
+
+Verify from inside the new nvim: `:lua print(vim.env.TERM)` prints `xterm-rex`.
+
 ## Sidebar
 
 `cmd+b` toggles the sidebar (`client.sidebar.toggle`), replacing the shipped
